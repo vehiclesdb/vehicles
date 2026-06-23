@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- `Vehicles.catalog(kind:, region:)` — a `{ make => [model names] }` map, so a
+  dependent make→model picker can be built fully client-side (embed once, no
+  route/controller/fetch). Now the recommended dropdown recipe in the README.
 - `Vehicles.model(make, model)` — structured make+model pair lookup.
 - Canonical color palette: `Vehicles.colors`, `Vehicles.color(query)` (forgiving,
   with synonyms), `Vehicles.color_options`, and the `Vehicles::Color` value object

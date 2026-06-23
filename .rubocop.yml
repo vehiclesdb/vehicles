@@ -30,6 +30,10 @@ Metrics/MethodLength:
   Max: 30
 Metrics/AbcSize:
   Max: 30
+# The top-level Vehicles module is a thin public facade — it legitimately grows
+# one short delegating method per capability.
+Metrics/ModuleLength:
+  Max: 150
 Metrics/CyclomaticComplexity:
   Enabled: false
 Metrics/PerceivedComplexity:

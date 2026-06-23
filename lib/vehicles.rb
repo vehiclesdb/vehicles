@@ -137,6 +137,18 @@ module Vehicles
       found ? found.model_options(kind: kind, body_type: body_type) : []
     end
 
+    # A { make => [model names] } map for the given filters — everything you need
+    # to build a dependent make → model picker entirely on the client: embed it
+    # once (`Vehicles.catalog(kind: :car).to_json`) and switch the model list in a
+    # few lines of JS. No endpoint, no extra request, instant. The whole car
+    # catalog is small (tens of KB), so this is the simplest path for most apps.
+    #   Vehicles.catalog(kind: :car)   # => { "Audi" => ["A3", "A4", ...], ... }
+    def catalog(kind: nil, region: nil)
+      makes(kind: kind, region: region).to_h do |name|
+        [name, models(name, kind: kind, region: region)]
+      end
+    end
+
     # --- provider resolution (hosted enrichment, optional) -------------------
 
     # Ask each available provider for an attribute, hosted first, until one gives

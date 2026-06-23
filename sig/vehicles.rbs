@@ -21,6 +21,7 @@ module Vehicles
   def self.search: (untyped query) -> Array[Model]
   def self.make_options: (?kind: Symbol?, ?region: Symbol?) -> Array[[String, String]]
   def self.model_options: (untyped make, ?kind: Symbol?, ?body_type: Symbol?) -> Array[[String, String]]
+  def self.catalog: (?kind: Symbol?, ?region: Symbol?) -> Hash[String, Array[String]]
 
   def self.colors: () -> Array[Color]
   def self.color: (untyped query) -> Color?

@@ -190,36 +190,51 @@ Vehicles.model_options("audi")
 # => [["A3", "a3"], ["A4", "a4"], ["Q3", "q3"], ...]
 ```
 
-Wire them into a dependent **make → model** picker. Here's the whole recipe with a tiny Stimulus controller (no JavaScript shipped by the gem — it's your app, your markup):
+### Dependent make → model picker
+
+The whole dataset is small, so the simplest, snappiest way to wire a dependent
+picker is **client-side**: embed [`Vehicles.catalog`](#the-full-ruby-api) once and
+switch the model list with no request at all — **no route, no controller, no
+fetch.**
 
 ```erb
-<%= form.select :make, Vehicles.make_options, { prompt: "Make" },
-      data: { action: "change->vehicle-picker#makeChanged" } %>
-
-<%= form.select :model, Vehicles.model_options(@car&.make), { prompt: "Model" },
-      data: { "vehicle-picker-target": "model" } %>
+<div data-controller="vehicle-picker"
+     data-vehicle-picker-catalog-value="<%= Vehicles.catalog.to_json %>">
+  <%= form.select :make,  Vehicles.makes,             { include_blank: "Make" },
+        data: { vehicle_picker_target: "make", action: "change->vehicle-picker#makeChanged" } %>
+  <%= form.select :model, Vehicles.models(@car&.make), { include_blank: "Model" },
+        data: { vehicle_picker_target: "model" } %>
+</div>
 ```
 
 ```js
 // app/javascript/controllers/vehicle_picker_controller.js
 import { Controller } from "@hotwired/stimulus"
+
 export default class extends Controller {
-  static targets = ["model"]
-  async makeChanged(event) {
-    const res = await fetch(`/vehicles/models?make=${encodeURIComponent(event.target.value)}`)
-    const models = await res.json()
-    this.modelTarget.innerHTML = models.map(([label, value]) =>
-      `<option value="${value}">${label}</option>`).join("")
+  static targets = ["make", "model"]
+  static values  = { catalog: Object }   // { "Audi": ["A3", ...], ... }
+
+  makeChanged() {
+    const models = this.catalogValue[this.makeTarget.value] || []
+    const previous = this.modelTarget.value
+    this.modelTarget.replaceChildren(new Option("Model", ""))
+    for (const name of models) {
+      this.modelTarget.add(new Option(name, name, false, name === previous))
+    }
   }
 }
 ```
 
-```ruby
-# app/controllers/vehicles_controller.rb  — three lines, no model, no DB
-def models
-  render json: Vehicles.model_options(params[:make])
-end
-```
+That's the whole picker — the gem ships the data, you keep your markup and ~12
+lines of JS. (Storing slugs instead of names? Swap the selects for
+`make_options` / `model_options` and key the catalog by slug.)
+
+> [!TIP]
+> Prefer a server round-trip (huge/remote dataset, or you'd rather not embed it)?
+> It's a three-line endpoint — `render json: Vehicles.models(params[:make])` — and
+> the controller fetches that on `makeChanged` instead of reading the embedded
+> catalog. Same gem API, your call.
 
 ## Validations
 
@@ -382,6 +397,9 @@ Vehicles.models("Audi", body_type: :suv)
 # Option pairs (for Rails `select`)
 Vehicles.make_options                   # => [[label, value]]
 Vehicles.model_options("Audi")          # => [[label, value]]
+
+# Whole make => [models] map (embed once for a client-side dependent picker)
+Vehicles.catalog(kind: :car)            # => { "Audi" => ["A3", ...], ... }
 
 # Objects
 Vehicles.make("Audi")                   # => Vehicles::Make | nil
