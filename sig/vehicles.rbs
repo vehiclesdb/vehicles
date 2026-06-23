@@ -27,6 +27,9 @@ module Vehicles
   def self.color: (untyped query) -> Color?
   def self.color_options: () -> Array[[String, String]]
 
+  def self.dataset: () -> Dataset
+  def self.data_path: () -> String
+  def self.data_path=: (String) -> void
   def self.normalize: (untyped str) -> String
   def self.slugify: (untyped str) -> String
 
@@ -61,13 +64,22 @@ module Vehicles
   end
 
   class Model
+    KINDS: Array[Symbol]
+    BODY_TYPES: Array[Symbol]
     attr_reader make: String
+    attr_reader make_slug: String
     attr_reader name: String
     attr_reader kind: Symbol
     attr_reader body_type: Symbol
     def full_name: () -> String
+    def to_s: () -> String
     def slug: () -> String
+    def model_slug: () -> String
     def to_h: () -> Hash[Symbol, untyped]
+    # predicate sugar for each kind/body type: car?, suv?, hatchback?, coupe?, ...
+    def car?: () -> bool
+    def suv?: () -> bool
+    def hatchback?: () -> bool
     def years: () -> Range[Integer]?
     def segment: () -> Symbol?
     def image: (?year: Integer?, ?color: untyped) -> String?

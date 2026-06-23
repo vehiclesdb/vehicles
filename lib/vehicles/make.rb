@@ -21,8 +21,11 @@ module Vehicles
 
     # All models for this make, optionally filtered by kind/body_type.
     # Returns Vehicles::Model objects, ordered by popularity (as built).
+    # The unfiltered list is memoized AND frozen — it's shared process-wide, so a
+    # frozen array turns accidental caller mutation into a loud error instead of
+    # silently corrupting the dataset. Filtered calls return a fresh array.
     def models(kind: nil, body_type: nil)
-      list = (@models ||= @raw_models.map { |m| Model.new(m, make: name, make_slug: slug) })
+      list = (@models ||= @raw_models.map { |m| Model.new(m, make: name, make_slug: slug) }.freeze)
       list = list.select { |m| m.kind == kind.to_sym }           if kind
       list = list.select { |m| m.body_type == body_type.to_sym } if body_type
       list
@@ -38,14 +41,15 @@ module Vehicles
       models(**filters).map { |m| [m.name, m.model_slug] }
     end
 
-    # Find one model within this make by name, slug, or normalized text.
-    # "a3" / "A3" / "Q 3" all resolve. Returns nil if not found.
+    # Find one model within this make by exact (normalized) name or slug.
+    # "a3" / "A3" / "Q 3" resolve; partial input does NOT (so `model("a")`
+    # returns nil, not "A3" — important, since the vehicle_model validator relies
+    # on this). Fuzzy/partial matching lives in `Vehicles.search`.
     def model(query)
       q = Vehicles.normalize(query)
       return nil if q.empty?
 
-      models.find { |m| Vehicles.normalize(m.name) == q || m.model_slug == q } ||
-        models.find { |m| Vehicles.normalize(m.name).start_with?(q) }
+      models.find { |m| Vehicles.normalize(m.name) == q || m.model_slug == q }
     end
 
     def to_h

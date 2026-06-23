@@ -22,7 +22,7 @@ module Vehicles
         say "\n🚗 vehicles installed!", :green
         say "\nNo migration needed — the dataset ships inside the gem and just works."
         say "\nTry it now:"
-        say "  Vehicles.makes                 # => [\"Abarth\", \"Alfa Romeo\", ...]", :cyan
+        say "  Vehicles.makes                 # => [\"Alfa Romeo\", \"Audi\", ...]", :cyan
         say "  Vehicles.models(\"VW\")          # => [\"Golf\", \"Polo\", ...]", :cyan
         say "  Vehicles.make_options          # => [[\"Audi\", \"audi\"], ...]  (for select)", :cyan
         say "\nConfig (optional) lives in config/initializers/vehicles.rb."

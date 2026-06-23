@@ -83,5 +83,32 @@ module Vehicles
       refute_predicate car, :valid?
       assert_includes car.errors[:brand], "pick a real car brand"
     end
+
+    def test_model_validator_custom_message
+      klass = Class.new do
+        include ActiveModel::Model
+
+        attr_accessor :mk, :md
+
+        validates :md, vehicle_model: { make: :mk, message: "bad model" }
+        def self.name = "MsgCar"
+      end
+      rec = klass.new(mk: "Audi", md: "Mustang")
+
+      refute_predicate rec, :valid?
+      assert_includes rec.errors[:md], "bad model"
+    end
+
+    def test_validator_never_raises_on_internal_error
+      skip "mocha not available" unless defined?(Mocha)
+
+      # If the gem itself blows up mid-validation, the validator must add an error,
+      # not propagate the exception into the host app's form.
+      Vehicles.stubs(:make).raises(StandardError, "boom")
+      car = Car.new(make: "Volkswagen", model: "Golf")
+
+      refute_predicate car, :valid?
+      assert_includes car.errors[:make], "is not a recognized vehicle make"
+    end
   end
 end

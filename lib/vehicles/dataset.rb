@@ -123,9 +123,10 @@ module Vehicles
       scored.sort_by { |score, len, _m| [score, len] }.map { |_s, _l, m| m }
     end
 
-    # Flat list of every Model (memoized) — backs `search`.
+    # Flat list of every Model (memoized + frozen — shared, so don't let callers
+    # mutate it). Backs `search`.
     def all_models
-      @all_models ||= @makes.flat_map(&:models)
+      @all_models ||= @makes.flat_map(&:models).freeze
     end
 
     # Does this snapshot cover the given region? (Today only :eu.)

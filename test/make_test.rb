@@ -58,6 +58,20 @@ module Vehicles
       assert_nil @audi.model("")
     end
 
+    def test_model_lookup_is_exact_not_prefix
+      # Partial input must NOT resolve — the vehicle_model validator relies on this.
+      assert_nil @audi.model("a")
+      assert_nil @audi.model("q")
+      assert_equal "A3", @audi.model("a3").name
+    end
+
+    def test_models_list_is_frozen_so_callers_cannot_corrupt_it
+      assert_predicate @audi.models, :frozen?
+      assert_raises(FrozenError) { @audi.models << "boom" }
+      # and the global state is intact
+      assert_equal @audi.models, Vehicles.make("Audi").models
+    end
+
     def test_model_options
       opts = @audi.model_options
 

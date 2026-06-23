@@ -134,7 +134,7 @@ Every vehicle is classified on two axes, so you can filter, group, and label wit
 **`body_type`** — the sub-classification *within* a kind:
 
 ```ruby
-# cars         :hatchback :sedan :wagon :suv :crossover :coupe :convertible :roadster :mpv :pickup
+# cars         :hatchback :sedan :wagon :suv :mpv :coupe :convertible :roadster :pickup :van
 # motorcycles  :naked :sport :adventure :trail :enduro :motocross :scooter :cruiser :touring
 ```
 
@@ -423,7 +423,7 @@ Vehicles.color_options                  # => [[name, slug]]  (for select)
 color.slug     color.name     color.hex
 
 # Meta
-Vehicles.data_version                   # => "2026.06.1"   (snapshot the gem ships)
+Vehicles.data_version                   # => "2026.06.0"   (snapshot the gem ships)
 Vehicles.region                         # => :eu
 ```
 
@@ -476,7 +476,7 @@ Want one of these sooner? Open an issue.
 
 ## Testing
 
-Run the test suite with `bundle exec rake test`. The gem is tested against multiple Rails versions with Appraisal: `bundle exec appraisal rails-8.1 rake test`.
+Run the test suite with `bundle exec rake test`. The gem is tested against multiple Rails versions with Appraisal: `bundle exec appraisal rails-8.0 rake test`.
 
 ## Development
 

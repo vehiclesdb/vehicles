@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "json"
-require "net/http"
-require "uri"
 
 module Vehicles
   module Providers
@@ -59,6 +57,11 @@ module Vehicles
       # Issue a GET and parse JSON. Returns nil on ANY failure (network, timeout,
       # non-200, bad JSON) — callers treat nil as "fall back to local data".
       def get(path, params)
+        # Lazy-required: the gem is standalone-first, and this whole module is
+        # inert without an api_key, so we don't pay net/http at load time.
+        require "net/http"
+        require "uri"
+
         config = Vehicles.configuration
         uri = URI.join(config.api_base_url, path)
         uri.query = URI.encode_www_form(params) unless params.empty?

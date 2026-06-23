@@ -22,6 +22,19 @@ module Vehicles
       assert_equal "eu", Vehicles.normalize(:eu)
     end
 
+    def test_normalize_never_raises_on_invalid_encoding
+      # The lookup API promises "garbage in => empty/nil out", never an exception.
+      assert_equal "", Vehicles.normalize("\xFF\xFE".b)
+      assert_kind_of String, Vehicles.slugify("\xC3\x28".b)
+    end
+
+    def test_lookups_survive_invalid_encoding
+      assert_nil Vehicles.make("\xFF\xFE".b)
+      assert_empty Vehicles.models("\xFF".b)
+      assert_nil Vehicles.find("\xFF golf".b)
+      assert_empty Vehicles.search("\xFF".b)
+    end
+
     def test_slugify
       assert_equal "alfa-romeo", Vehicles.slugify("Alfa Romeo")
       assert_equal "skoda", Vehicles.slugify("Škoda")

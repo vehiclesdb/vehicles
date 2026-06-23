@@ -13,10 +13,10 @@ require_relative "vehicles/providers/hosted_provider"
 # data, zero config, no network calls. Standalone first; an SDK for the hosted
 # VehiclesDB API second.
 #
-#   Vehicles.makes                   # => ["Abarth", "Alfa Romeo", "Audi", ...]
+#   Vehicles.makes                   # => ["Alfa Romeo", "Audi", "BMW", ...]
 #   Vehicles.models("VW")            # => ["Golf", "Polo", "Tiguan", ...]
 #   Vehicles.find("vw golf")         # => #<Vehicles::Model "Volkswagen Golf">
-#   Vehicles.make_options            # => [["Abarth", "abarth"], ...]  (for select)
+#   Vehicles.make_options            # => [["Alfa Romeo", "alfa-romeo"], ...]  (for select)
 module Vehicles
   class Error < StandardError; end
 
@@ -34,10 +34,13 @@ module Vehicles
       yield(configuration)
     end
 
-    # Reset config + caches. Primarily for the test suite.
+    # Reset config + caches (config, data path, dataset, providers). Primarily
+    # for the test suite — genuinely returns the gem to a pristine state.
     def reset_configuration!
       @configuration = Configuration.new
       @providers = nil
+      @data_path = nil
+      Dataset.reset!
       Providers::HostedProvider.reset!
     end
 
@@ -72,7 +75,8 @@ module Vehicles
 
     # Model display names for a make. => ["Golf", "Polo", ...]. Unknown make => [].
     def models(make, kind: nil, body_type: nil, region: nil)
-      return [] if (region || configuration.region) && !dataset.region?(region || configuration.region)
+      region ||= configuration.region
+      return [] if region && !dataset.region?(region)
 
       found = make(make)
       found ? found.models(kind: kind, body_type: body_type).map(&:name) : []
@@ -176,18 +180,26 @@ module Vehicles
 
     # Match-normalize a string: fold diacritics, downcase, collapse anything
     # non-alphanumeric to single spaces. "Mercedes-Benz" => "mercedes benz",
-    # "Škoda" => "skoda". Used everywhere lookups need to be forgiving.
-    #
-    # NFKD splits "š" into "s" + a combining caron; we strip the combining marks
-    # (\p{Mn}) BEFORE the separator gsub, or "Škoda" would normalize to "s koda".
+    # "Škoda" => "skoda". Used everywhere lookups need to be forgiving — so it must
+    # NEVER raise (the API contract is "garbage in => empty/nil out, not an error").
     def normalize(str)
-      str.to_s.unicode_normalize(:nfkd).gsub(/\p{Mn}+/, "").downcase.gsub(/[^a-z0-9]+/, " ").strip
+      fold_diacritics(str).downcase.gsub(/[^a-z0-9]+/, " ").strip
     end
 
     # Slugify a display name: "Alfa Romeo" => "alfa-romeo", "Škoda" => "skoda".
     def slugify(str)
-      str.to_s.unicode_normalize(:nfkd).gsub(/\p{Mn}+/, "").downcase
-         .gsub(/[^a-z0-9]+/, "-").gsub(/(\A-|-\z)/, "")
+      fold_diacritics(str).downcase.gsub(/[^a-z0-9]+/, "-").gsub(/(\A-|-\z)/, "")
+    end
+
+    # Shared diacritic folding for normalize/slugify. NFKD splits "š" into "s" + a
+    # combining caron; we strip the combining marks (\p{Mn}) BEFORE the separator
+    # gsub, or "Škoda" would become "s koda". Defends against non-UTF-8/invalid
+    # encodings (e.g. a binary string) so callers never hit Encoding errors.
+    def fold_diacritics(str)
+      s = str.to_s
+      s = s.dup.force_encoding(Encoding::UTF_8) unless s.encoding == Encoding::UTF_8
+      s = s.scrub("") unless s.valid_encoding?
+      s.unicode_normalize(:nfkd).gsub(/\p{Mn}+/, "")
     end
 
     def logger

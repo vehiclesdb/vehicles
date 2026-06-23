@@ -58,5 +58,15 @@ module Vehicles
 
       assert_equal({}, Vehicles.configuration.aliases)
     end
+
+    def test_reset_clears_data_path_and_dataset_cache
+      original = Vehicles.data_path
+      Vehicles.data_path = "/nonexistent/vehicles.json"
+
+      Vehicles.reset_configuration!
+
+      assert_equal original, Vehicles.data_path # back to the bundled default
+      refute_empty Vehicles.makes               # dataset reloaded, no stale/poisoned cache
+    end
   end
 end

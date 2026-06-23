@@ -31,7 +31,9 @@ Gem::Specification.new do |spec|
   spec.files = IO.popen(%w[git ls-files -z], chdir: __dir__, err: IO::NULL) do |ls|
     ls.readlines("\x0", chomp: true).reject do |f|
       (f == gemspec) ||
-        f.start_with?(*%w[.aux/ .claude/ .cursor/ .git .github/ bin/ gemfiles/ test/ Appraisals Gemfile])
+        f.start_with?(*%w[.aux/ .claude/ .cursor/ .git .github/ bin/ gemfiles/ test/
+                          Appraisals Gemfile Rakefile .rubocop.yml .simplecov
+                          .gitignore AGENTS.md CLAUDE.md context7.json])
     end
   end
   spec.require_paths = ["lib"]
