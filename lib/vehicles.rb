@@ -87,6 +87,17 @@ module Vehicles
       dataset.find_model(query)
     end
 
+    # Resolve a stored make + model PAIR into a Model (or nil). The structured
+    # counterpart to `find` (which parses one free-text string) — reach for this
+    # when your records keep make and model in separate columns and you want the
+    # model's metadata (kind, body_type, …) back.
+    #   Vehicles.model("Audi", "A3")   # => #<Vehicles::Model "Audi A3">
+    #   Vehicles.model("vw", "golf")   # forgiving, like every other lookup
+    def model(make_name, model_name)
+      found = make(make_name)
+      found&.model(model_name)
+    end
+
     # Every model matching a query, ranked. => [Vehicles::Model, ...]
     def search(query)
       dataset.search(query)

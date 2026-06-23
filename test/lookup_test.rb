@@ -40,6 +40,27 @@ module Vehicles
       assert_nil Vehicles.find("audi mustang")
     end
 
+    # --- model(make, model) — structured pair lookup -------------------------
+
+    def test_model_resolves_a_stored_make_model_pair
+      car = Vehicles.model("Audi", "A3")
+
+      assert_instance_of Vehicles::Model, car
+      assert_equal "Audi A3", car.full_name
+      assert_equal :hatchback, car.body_type
+    end
+
+    def test_model_pair_is_forgiving
+      assert_equal Vehicles.model("Volkswagen", "Golf"), Vehicles.model("vw", "golf")
+    end
+
+    def test_model_pair_returns_nil_for_unknown
+      assert_nil Vehicles.model("Audi", "Mustang")
+      assert_nil Vehicles.model("Nope", "Golf")
+      assert_nil Vehicles.model("Audi", "")
+      assert_nil Vehicles.model(nil, nil)
+    end
+
     # --- search --------------------------------------------------------------
 
     def test_search_finds_by_model_name

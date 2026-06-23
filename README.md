@@ -218,6 +218,57 @@ Car.new(make: "Tesler",     model: "Model 3").valid?   # => false
 
 They're forgiving the same way the lookups are (aliases, case, slugs), and they never raise on blank/garbage input — they just add an error.
 
+## Recommended integration
+
+A vehicle picker is usually two string columns on a model — `make` and `model` —
+fed by the dropdowns above. Here's the pattern that works cleanly end to end.
+
+**Store the display name.** The simplest, most readable thing to persist is the
+name itself (`"Volkswagen"`, `"Golf"`). Populate the selects with the plain
+**name lists**, where the option value *is* the name:
+
+```erb
+<%= form.select :make,  Vehicles.makes,                  { include_blank: "Make" } %>
+<%= form.select :model, Vehicles.models(@car.make),      { include_blank: "Model" } %>
+```
+
+> [!TIP]
+> Use `Vehicles.makes` / `Vehicles.models` (name = value) when your column stores
+> the **display name**. Use `Vehicles.make_options` / `Vehicles.model_options`
+> (which pair `[name, slug]`) only when you store the **slug** — then read the
+> name back with `Vehicles.make(slug).name`. Pick one and stay consistent.
+
+**Validate what you store** — the dropdowns already constrain input, but the
+validators guard every other write path (imports, console, your own API):
+
+```ruby
+validates :make,  vehicle_make: true,             allow_blank: true
+validates :model, vehicle_model: { make: :make }, allow_blank: true
+```
+
+**Read the metadata back** from a stored pair whenever you need it — kind,
+body type, and (with the hosted API) years/segment/image:
+
+```ruby
+car = Vehicles.model(record.make, record.model)   # => Vehicles::Model | nil
+car&.body_type                                      # => :hatchback
+car&.suv?                                           # => false
+```
+
+**Only accept the kinds you support.** Filter every list/lookup by `kind:` so
+the picker only ever offers vehicles your app handles — and widening later (when
+new kind packs ship, or when you decide to accept them) is a one-word change, not
+a migration:
+
+```ruby
+Vehicles.makes(kind: :car)                 # makes that build cars
+Vehicles.models("Toyota", kind: :car)      # ...their cars only
+```
+
+No migration, no seed task, no API key — the data is bundled and read from
+memory. The whole integration is the markup above plus a 3-line endpoint for the
+dependent model list (see [Rails dropdowns](#rails-dropdowns)).
+
 ## Country & region awareness
 
 Vehicle availability is regional — a Vauxhall in the UK is an Opel on the continent, a Holden only ever shipped in Australia. `vehicles` is built around this from day one:
@@ -292,7 +343,8 @@ Vehicles.model_options("Audi")          # => [[label, value]]
 
 # Objects
 Vehicles.make("Audi")                   # => Vehicles::Make | nil
-Vehicles.find("audi a3")                # => Vehicles::Model | nil
+Vehicles.find("audi a3")                # => Vehicles::Model | nil  (one free-text string)
+Vehicles.model("Audi", "A3")            # => Vehicles::Model | nil  (a stored make+model pair)
 Vehicles.search("a3")                   # => [Vehicles::Model]
 
 # Vehicles::Make
