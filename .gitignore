@@ -1,0 +1,22 @@
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/tmp/
+.ruby-lsp/
+
+/Gemfile.lock
+/gemfiles/*.gemfile.lock
+
+/dist/
+*.gem
+
+.DS_Store
+
+# Local-only agent working files (mirrors the rest of the gem family)
+.cursor/
+.claude/
+.aux/
+TODO

@@ -1,0 +1,48 @@
+plugins:
+  - rubocop-minitest
+  - rubocop-performance
+
+AllCops:
+  TargetRubyVersion: 3.1
+  NewCops: enable
+  Exclude:
+    - "bin/**/*"
+    - "vendor/**/*"
+    - "gemfiles/**/*"
+    - "lib/generators/**/templates/**/*"
+    - "data/**/*"
+
+# House style: double quotes everywhere, frozen string literals, compact classes.
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  EnforcedStyle: always
+Style/Documentation:
+  Enabled: false
+
+# Our curated data tables and lookup methods are intentionally long/dense.
+Layout/LineLength:
+  Max: 120
+Metrics/MethodLength:
+  Max: 30
+Metrics/AbcSize:
+  Max: 30
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+Naming/PredicatePrefix:
+  ForbiddenPrefixes:
+    - "is_"
+
+# Keyword args are part of the provider contract even when a given provider
+# doesn't use them (e.g. LocalProvider#image ignores year:/color:).
+Lint/UnusedMethodArgument:
+  AllowUnusedKeywordArguments: true
+
+# Thorough unit tests legitimately make several related assertions.
+Minitest/MultipleAssertions:
+  Enabled: false

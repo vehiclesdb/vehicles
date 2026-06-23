@@ -1,0 +1,62 @@
+# Type signatures for the public API. (Best-effort; the README and code are the
+# source of truth.)
+
+module Vehicles
+  VERSION: String
+  DATA_PATH: String
+
+  def self.configuration: () -> Configuration
+  def self.configure: () { (Configuration) -> void } -> void
+  def self.reset_configuration!: () -> void
+
+  def self.data_path: () -> String
+  def self.data_version: () -> String?
+  def self.region: () -> Symbol
+
+  def self.makes: (?kind: Symbol?, ?region: Symbol?) -> Array[String]
+  def self.models: (untyped make, ?kind: Symbol?, ?body_type: Symbol?, ?region: Symbol?) -> Array[String]
+  def self.make: (untyped query) -> Make?
+  def self.find: (untyped query) -> Model?
+  def self.search: (untyped query) -> Array[Model]
+  def self.make_options: (?kind: Symbol?, ?region: Symbol?) -> Array[[String, String]]
+  def self.model_options: (untyped make, ?kind: Symbol?, ?body_type: Symbol?) -> Array[[String, String]]
+
+  def self.normalize: (untyped str) -> String
+  def self.slugify: (untyped str) -> String
+
+  class Error < StandardError
+  end
+
+  class Configuration
+    attr_accessor region: Symbol
+    attr_accessor api_key: String?
+    attr_accessor api_base_url: String
+    attr_accessor api_timeout: Integer
+    attr_reader aliases: Hash[String, String]
+  end
+
+  class Make
+    attr_reader name: String
+    attr_reader slug: String
+    attr_reader aliases: Array[String]
+    attr_reader kinds: Array[Symbol]
+    def models: (?kind: Symbol?, ?body_type: Symbol?) -> Array[Model]
+    def model: (untyped query) -> Model?
+    def model_names: (?kind: Symbol?, ?body_type: Symbol?) -> Array[String]
+    def model_options: (?kind: Symbol?, ?body_type: Symbol?) -> Array[[String, String]]
+    def to_h: () -> Hash[Symbol, untyped]
+  end
+
+  class Model
+    attr_reader make: String
+    attr_reader name: String
+    attr_reader kind: Symbol
+    attr_reader body_type: Symbol
+    def full_name: () -> String
+    def slug: () -> String
+    def to_h: () -> Hash[Symbol, untyped]
+    def years: () -> Range[Integer]?
+    def segment: () -> Symbol?
+    def image: (?year: Integer?, ?color: untyped) -> String?
+  end
+end
