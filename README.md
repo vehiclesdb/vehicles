@@ -15,7 +15,7 @@ Check out my other 💎 Ruby gems: [`usage_credits`](https://github.com/rameerez
 
 ```ruby
 Vehicles.makes
-# => ["Abarth", "Alfa Romeo", "Audi", "BMW", "BYD", "Citroën", "Cupra", "Dacia", ...]
+# => ["Alfa Romeo", "Audi", "BMW", "BYD", "Citroën", "Cupra", "Dacia", "Fiat", ...]
 
 Vehicles.models("VW")              # alias-aware — "VW" just works
 # => ["Golf", "Polo", "Tiguan", "Passat", "T-Roc", "ID.3", "ID.4", "T-Cross", ...]
@@ -57,7 +57,7 @@ Two methods cover 90% of what you need:
 
 ```ruby
 Vehicles.makes
-# => ["Abarth", "Alfa Romeo", "Audi", ...]   (alphabetical, ~47 makes)
+# => ["Alfa Romeo", "Audi", "BMW", ...]   (alphabetical, ~47 makes)
 
 Vehicles.models("Toyota")
 # => ["Yaris", "Corolla", "Aygo", "RAV4", "C-HR", "Prius", ...]   (most common first)
@@ -162,7 +162,7 @@ The `*_options` helpers return `[[label, value], ...]` pairs, exactly what Rails
 
 ```ruby
 Vehicles.make_options
-# => [["Abarth", "abarth"], ["Alfa Romeo", "alfa-romeo"], ["Audi", "audi"], ...]
+# => [["Alfa Romeo", "alfa-romeo"], ["Audi", "audi"], ["BMW", "bmw"], ...]
 
 Vehicles.model_options("audi")
 # => [["A3", "a3"], ["A4", "a4"], ["Q3", "q3"], ...]
