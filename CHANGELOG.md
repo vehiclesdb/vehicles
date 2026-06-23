@@ -7,31 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
-- `Make#models` / `Dataset#all_models` now return **frozen** arrays — accidental
-  caller mutation no longer corrupts the shared, memoized dataset process-wide.
-- `normalize`/`slugify` (and every lookup built on them) no longer raise on
-  invalid-encoding/binary input — garbage in yields empty/nil, per the contract.
-- `Make#model` is now exact-match only; partial input like `model("a")` returns
-  `nil` instead of falsely resolving to "A3" (the `vehicle_model` validator relies
-  on this). Fuzzy/partial matching remains in `Vehicles.search`.
-- `reset_configuration!` now also clears `@data_path` and the `Dataset` cache, so
-  it truly returns the gem to a pristine state (test-safe).
-- README/docstring accuracy: real first make is "Alfa Romeo" (not "Abarth"),
-  `data_version` is `2026.06.0`, dropped the non-existent `:crossover` body type,
-  and the Appraisal example is `rails-8.0`.
-
-### Added
-- `Vehicles.catalog(kind:, region:)` — a `{ make => [model names] }` map, so a
-  dependent make→model picker can be built fully client-side (embed once, no
-  route/controller/fetch). Now the recommended dropdown recipe in the README.
-- `Vehicles.model(make, model)` — structured make+model pair lookup.
-- Canonical color palette: `Vehicles.colors`, `Vehicles.color(query)` (forgiving,
-  with synonyms), `Vehicles.color_options`, and the `Vehicles::Color` value object
-  (slug/name/hex) — shared vocabulary for color dropdowns and future image variants.
-- README "Recommended integration" + reference schema (store identity; derive the
-  rest) and a "Colors" section.
-
 ## [0.1.0] - 2026-06-23
 
 Initial release.
@@ -43,7 +18,14 @@ Initial release.
   (`:hatchback`, `:sedan`, `:suv`, `:mpv`, `:coupe`, `:wagon`, `:convertible`,
   `:roadster`, `:van`).
 - Core query API: `Vehicles.makes`, `Vehicles.models`, `Vehicles.make`,
-  `Vehicles.find`, `Vehicles.search`, with `kind:` / `body_type:` / `region:` filters.
+  `Vehicles.find`, `Vehicles.model(make, model)`, `Vehicles.search`, with
+  `kind:` / `body_type:` / `region:` filters.
+- `Vehicles.catalog(kind:, region:)` — a `{ make => [model names] }` map, so a
+  dependent make→model picker can be built fully client-side (embed once, no
+  route/controller/fetch). The recommended dropdown recipe in the README.
+- Canonical color palette: `Vehicles.colors`, `Vehicles.color(query)` (forgiving,
+  with synonyms), `Vehicles.color_options`, and the `Vehicles::Color` value object
+  (slug/name/hex) — shared vocabulary for color dropdowns and future image variants.
 - Rails dropdown helpers: `Vehicles.make_options`, `Vehicles.model_options`.
 - Forgiving lookups: case-, diacritic-, slug-, and alias-insensitive
   (`"VW"`, `"merc"`, `"Vauxhall"`, `"Škoda"` all resolve).
