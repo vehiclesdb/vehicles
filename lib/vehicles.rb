@@ -4,6 +4,7 @@ require_relative "vehicles/version"
 require_relative "vehicles/configuration"
 require_relative "vehicles/make"
 require_relative "vehicles/model"
+require_relative "vehicles/color"
 require_relative "vehicles/dataset"
 require_relative "vehicles/providers/local_provider"
 require_relative "vehicles/providers/hosted_provider"
@@ -103,6 +104,28 @@ module Vehicles
       dataset.search(query)
     end
 
+    # --- colors (canonical reference palette) --------------------------------
+
+    # The canonical color palette, frequency-ordered. => [Vehicles::Color, ...]
+    def colors
+      Colors::ALL
+    end
+
+    # [[name, slug], ...] for a Rails `select`. Names are English — localize the
+    # labels in your app; the slug is the stable value you store.
+    def color_options
+      Colors::ALL.map { |c| [c.name, c.slug] }
+    end
+
+    # Resolve a color by slug or name (forgiving: case, diacritics, synonyms like
+    # "gray"→grey, "navy"→blue). Returns a Vehicles::Color, or nil.
+    def color(query)
+      q = normalize(query)
+      return nil if q.empty?
+
+      Colors::BY_SLUG[q] || Colors::BY_NAME[q] || Colors::BY_SLUG[Colors::SYNONYMS[q]]
+    end
+
     # [[label, value], ...] of makes for a Rails `select`.
     def make_options(kind: nil, region: nil)
       dataset.makes(kind: kind, region: region || configuration.region).map { |m| [m.name, m.slug] }
@@ -170,6 +193,9 @@ module Vehicles
     end
   end
 end
+
+# Loaded after the module so its lookup tables can use Vehicles.normalize.
+require_relative "vehicles/colors"
 
 # Rails integration is opt-in and detected at load time — the gem works fine in
 # plain Ruby without it.

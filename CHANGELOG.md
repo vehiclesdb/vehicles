@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `Vehicles.model(make, model)` — structured make+model pair lookup.
+- Canonical color palette: `Vehicles.colors`, `Vehicles.color(query)` (forgiving,
+  with synonyms), `Vehicles.color_options`, and the `Vehicles::Color` value object
+  (slug/name/hex) — shared vocabulary for color dropdowns and future image variants.
+- README "Recommended integration" + reference schema (store identity; derive the
+  rest) and a "Colors" section.
+
 ## [0.1.0] - 2026-06-23
 
 Initial release.

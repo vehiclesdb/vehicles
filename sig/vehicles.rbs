@@ -22,6 +22,10 @@ module Vehicles
   def self.make_options: (?kind: Symbol?, ?region: Symbol?) -> Array[[String, String]]
   def self.model_options: (untyped make, ?kind: Symbol?, ?body_type: Symbol?) -> Array[[String, String]]
 
+  def self.colors: () -> Array[Color]
+  def self.color: (untyped query) -> Color?
+  def self.color_options: () -> Array[[String, String]]
+
   def self.normalize: (untyped str) -> String
   def self.slugify: (untyped str) -> String
 
@@ -46,6 +50,13 @@ module Vehicles
     def model_names: (?kind: Symbol?, ?body_type: Symbol?) -> Array[String]
     def model_options: (?kind: Symbol?, ?body_type: Symbol?) -> Array[[String, String]]
     def to_h: () -> Hash[Symbol, untyped]
+  end
+
+  class Color
+    attr_reader slug: String
+    attr_reader name: String
+    attr_reader hex: String
+    def to_h: () -> Hash[Symbol, String]
   end
 
   class Model

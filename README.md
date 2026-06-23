@@ -156,6 +156,28 @@ Vehicles.search("golf").select(&:hatchback?)
 > [!NOTE]
 > **Today the bundled data is cars** (`kind: :car`), each tagged with a `body_type` from the source registration data. `kind` and `body_type` are first-class on every record, so when motorcycle, van, and trailer packs land, the API — and your code — doesn't change. Market *segments* (supercar, sports car, city car, …) are an editorial layer that arrives with [VehiclesDB](#-more-with-vehiclesdb).
 
+## Colors
+
+A small **canonical color palette** ships with the gem — the handful of colors
+that cover virtually every car, plus an explicit `other`. It's the shared
+vocabulary for color dropdowns today and for color-accurate imagery from the
+hosted API later, so "red" means the same thing everywhere.
+
+```ruby
+Vehicles.colors
+# => [#<Color white "White" #F4F4F4>, #<Color black "Black" #1B1B1B>, ...]
+
+Vehicles.color("navy")          # forgiving: synonyms, case, diacritics
+# => #<Vehicles::Color blue "Blue" #27408B>
+Vehicles.color("navy").slug     # => "blue"   ← the stable value you store
+Vehicles.color("navy").hex      # => "#27408B" (representative swatch)
+
+Vehicles.color_options          # => [["White", "white"], ["Black", "black"], ...]
+```
+
+Names are English — store the **slug** and localize the label in your app (the
+slug is also what maps to image color-variants down the line).
+
 ## Rails dropdowns
 
 The `*_options` helpers return `[[label, value], ...]` pairs, exactly what Rails' `select` wants:
@@ -220,16 +242,35 @@ They're forgiving the same way the lookups are (aliases, case, slugs), and they 
 
 ## Recommended integration
 
-A vehicle picker is usually two string columns on a model — `make` and `model` —
-fed by the dropdowns above. Here's the pattern that works cleanly end to end.
+Here's the pattern that works cleanly end to end — and a reference schema for the
+columns a vehicle record actually needs.
+
+**A record stores its vehicle's *identity*, not the reference data.** Make,
+model, year, and color identify the car; `kind` and `body_type` (and, later,
+specs/images) are *properties of that make+model* owned by the dataset — look
+them up via the gem, don't duplicate them per row (they'd just drift). So the
+schema is small and stable:
+
+| Column   | Type      | Store                                   | Example       |
+|----------|-----------|-----------------------------------------|---------------|
+| `make`   | `string`  | display name                            | `"Volkswagen"`|
+| `model`  | `string`  | display name                            | `"Golf"`      |
+| `year`   | `integer` | the year                                | `2022`        |
+| `color`  | `string`  | a canonical color **slug**              | `"blue"`      |
+
+Everything else (`kind`, `body_type`, production years, images, …) is derived:
+`Vehicles.model(record.make, record.model)`. No `kind`/`body_type` columns, no
+migration to add new metadata later — it lands in the dataset, not your schema.
 
 **Store the display name.** The simplest, most readable thing to persist is the
 name itself (`"Volkswagen"`, `"Golf"`). Populate the selects with the plain
 **name lists**, where the option value *is* the name:
 
 ```erb
-<%= form.select :make,  Vehicles.makes,                  { include_blank: "Make" } %>
-<%= form.select :model, Vehicles.models(@car.make),      { include_blank: "Model" } %>
+<%= form.select :make,  Vehicles.makes,             { include_blank: "Make" } %>
+<%= form.select :model, Vehicles.models(@car.make), { include_blank: "Model" } %>
+<%= form.select :year,  (Date.current.year + 1).downto(1990).to_a, { include_blank: "Year" } %>
+<%= form.select :color, Vehicles.color_options,     { include_blank: "Color" } %>
 ```
 
 > [!TIP]
@@ -244,6 +285,7 @@ validators guard every other write path (imports, console, your own API):
 ```ruby
 validates :make,  vehicle_make: true,             allow_blank: true
 validates :model, vehicle_model: { make: :make }, allow_blank: true
+validates :color, inclusion: { in: Vehicles.colors.map(&:slug) }, allow_blank: true
 ```
 
 **Read the metadata back** from a stored pair whenever you need it — kind,
@@ -355,6 +397,12 @@ make.models    make.model("a3")                make.to_h
 model.make     model.name     model.full_name  model.slug    model.to_h
 model.kind     model.body_type                 model.suv?    model.coupe?   # …predicates
 model.years    model.segment  model.image(year:, color:)     # ← hosted VehiclesDB API
+
+# Colors (canonical palette)
+Vehicles.colors                         # => [Vehicles::Color]
+Vehicles.color("navy")                  # => Vehicles::Color | nil (forgiving)
+Vehicles.color_options                  # => [[name, slug]]  (for select)
+color.slug     color.name     color.hex
 
 # Meta
 Vehicles.data_version                   # => "2026.06.1"   (snapshot the gem ships)
