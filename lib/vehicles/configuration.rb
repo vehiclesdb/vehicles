@@ -30,12 +30,36 @@ module Vehicles
     # forgivingly (case/diacritics-insensitive); values are canonical make names.
     attr_reader :aliases
 
+    # --- data refresh (optional) ---------------------------------------------
+    # The gem ships a bundled snapshot that works offline with zero setup. These
+    # let an app pull the latest published dataset (e.g. via a daily job) so data
+    # fixes and new makes land WITHOUT a gem upgrade.
+
+    # Where `Vehicles.refresh!` pulls the latest dataset. Defaults to the public
+    # VehiclesDB data repo via jsDelivr's CDN (always-latest release tag).
+    attr_accessor :data_url
+
+    # Where a refreshed dataset is cached on disk. Defaults to the app's cache dir
+    # (Rails) or the system temp dir. The refresh writes here; loads prefer it.
+    attr_accessor :cache_path
+
+    # Prefer a refreshed (cached) dataset over the bundled one when present.
+    # Set false to always use the bundled snapshot (fully offline/deterministic).
+    attr_accessor :use_cache
+
+    # Network timeout (seconds) for a refresh download.
+    attr_accessor :refresh_timeout
+
     def initialize
-      @region       = :eu
-      @api_key      = nil
-      @api_base_url = "https://api.vehiclesdb.com"
-      @api_timeout  = 2
-      @aliases      = {}
+      @region          = :eu
+      @api_key         = nil
+      @api_base_url    = "https://api.vehiclesdb.com"
+      @api_timeout     = 2
+      @aliases         = {}
+      @data_url        = "https://cdn.jsdelivr.net/gh/vehiclesdb/vehiclesdb@latest/data/vehicles.json"
+      @cache_path      = default_cache_path
+      @use_cache       = true
+      @refresh_timeout = 5
     end
 
     # Normalize alias keys at assignment time so lookups stay O(1) and forgiving.
@@ -43,6 +67,21 @@ module Vehicles
       @aliases = (hash || {}).each_with_object({}) do |(k, v), memo|
         memo[Vehicles.normalize(k)] = v.to_s
       end
+    end
+
+    private
+
+    # tmp/cache/vehicles under a Rails app, else a stable spot in the system temp
+    # dir. Refreshable data, so a cache-style location is appropriate.
+    def default_cache_path
+      base =
+        if defined?(Rails) && Rails.respond_to?(:root) && Rails.root
+          Rails.root.join("tmp", "cache", "vehicles")
+        else
+          require "tmpdir"
+          File.join(Dir.tmpdir, "vehicles")
+        end
+      File.join(base.to_s, "vehicles.json")
     end
   end
 end

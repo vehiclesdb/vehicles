@@ -5,7 +5,7 @@
 > [!TIP]
 > **🚀 Ship your next Rails app 10x faster!** I've built **[RailsFast](https://railsfast.com/?ref=vehicles)**, a production-ready Rails boilerplate template that comes with everything you need to launch a software business in days, not weeks. Go [check it out](https://railsfast.com/?ref=vehicles)!
 
-`vehicles` gives your Rails app a clean, curated list of car makes and models — ready for dropdowns, search, and validation. No API keys, no network calls, no database table, no migration. The data ships inside the gem, so it **just works** the second you `bundle install`.
+`vehicles` gives your Rails app a clean, curated list of car makes and models — ready for dropdowns, search, and validation. No API keys, no database table, no migration — it works **fully offline** the second you `bundle install`, because the data ships inside the gem. (Optionally, it can [refresh](#staying-current-optional) the data without a gem upgrade.)
 
 ✨ Perfect for marketplaces, carpooling & rideshare apps, fleet tools, parking & EV-charging apps, insurance and booking forms — anywhere a user has to pick their vehicle.
 
@@ -382,8 +382,39 @@ Vehicles.configure do |config|
   config.region    = :eu                          # default region for queries
   config.api_key   = ENV["VEHICLESDB_API_KEY"]    # optional hosted VehiclesDB data
   config.aliases   = { "Chevy" => "Chevrolet" }   # add your own make aliases
+  config.use_cache = true                         # prefer a refreshed dataset over the bundled one
 end
 ```
+
+## Staying current (optional)
+
+The bundled snapshot works offline forever — but vehicle data changes (new
+makes, fixes), and you shouldn't have to ship a gem upgrade to every app just to
+get them. So `vehicles` can **refresh** from the published
+[dataset](https://github.com/vehiclesdb/vehiclesdb) into a local file cache;
+loads prefer the cache over the bundled copy. Data fixes reach your app **without
+a gem bump.**
+
+`rails g vehicles:install` drops a `VehiclesRefreshJob` — schedule it (daily is
+plenty), e.g. with solid_queue:
+
+```yaml
+# config/recurring.yml
+vehicles_refresh:
+  class: VehiclesRefreshJob
+  schedule: every day at 3am
+```
+
+Or refresh manually:
+
+```ruby
+Vehicles.refresh!     # pull latest -> cache; true/false, never raises
+Vehicles.data_version # => the version now in effect (cached, or bundled)
+```
+
+It's safe by design: a failed/partial download never replaces good data, and the
+gem keeps serving the cache (or the bundled snapshot) no matter what. Want it
+fully offline/deterministic? `config.use_cache = false`.
 
 ## The full Ruby API
 
@@ -423,8 +454,12 @@ Vehicles.color_options                  # => [[name, slug]]  (for select)
 color.slug     color.name     color.hex
 
 # Meta
-Vehicles.data_version                   # => "2026.06.0"   (snapshot the gem ships)
+Vehicles.data_version                   # => "2026.06.0"   (version in effect: cached or bundled)
 Vehicles.region                         # => :eu
+
+# Refresh (optional — keep data current without a gem upgrade)
+Vehicles.refresh!                       # pull latest published data -> cache; true/false, never raises
+Vehicles.reload!                        # drop the in-memory dataset (reload from disk)
 ```
 
 ## Where the data comes from
@@ -450,7 +485,7 @@ Every record is shaped like this:
 - **This dataset** (`data/vehicles.json`): **CC-BY 4.0**. Attribution: *"Vehicle data from VehiclesDB, derived from RDW Open Data."*
 - **The gem code:** MIT.
 
-The data is versioned (`Vehicles.data_version`) and ships frozen inside the gem, so your app's behavior is deterministic across deploys. New snapshots arrive with new gem versions — no surprise mutations in production.
+The data is versioned (`Vehicles.data_version`). Each gem release bundles a known snapshot — the offline, deterministic floor. To get newer data, either upgrade the gem or enable [refresh](#staying-current-optional) (which pulls published releases without a gem bump). Either way it's explicit and versioned — no silent mutations.
 
 ## How it works
 

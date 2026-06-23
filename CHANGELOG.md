@@ -23,6 +23,13 @@ Initial release.
 - `Vehicles.catalog(kind:, region:)` — a `{ make => [model names] }` map, so a
   dependent make→model picker can be built fully client-side (embed once, no
   route/controller/fetch). The recommended dropdown recipe in the README.
+- **Data refresh** (optional): `Vehicles.refresh!` pulls the latest published
+  dataset (from the VehiclesDB data repo via CDN) into a local file cache; loads
+  prefer the cache over the bundled snapshot, so data fixes reach an app **without
+  a gem upgrade**. Bundled data remains the offline, zero-config floor. Config:
+  `data_url` / `cache_path` / `use_cache`. The install generator drops a
+  schedulable `VehiclesRefreshJob`. Error-isolated (never raises; a bad download
+  never clobbers good data).
 - Canonical color palette: `Vehicles.colors`, `Vehicles.color(query)` (forgiving,
   with synonyms), `Vehicles.color_options`, and the `Vehicles::Color` value object
   (slug/name/hex) — shared vocabulary for color dropdowns and future image variants.

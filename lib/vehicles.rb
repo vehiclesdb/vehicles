@@ -6,6 +6,7 @@ require_relative "vehicles/make"
 require_relative "vehicles/model"
 require_relative "vehicles/color"
 require_relative "vehicles/dataset"
+require_relative "vehicles/refresher"
 require_relative "vehicles/providers/local_provider"
 require_relative "vehicles/providers/hosted_provider"
 
@@ -46,17 +47,42 @@ module Vehicles
 
     # --- data access ---------------------------------------------------------
 
+    # Path to the bundled snapshot (or an explicit override via `data_path=`).
     def data_path
       @data_path || DATA_PATH
     end
 
     attr_writer :data_path, :logger
 
-    def dataset
-      Dataset.load(data_path)
+    # The dataset file actually in effect: an explicit override wins; otherwise a
+    # refreshed cache (if present and `use_cache`); otherwise the bundled snapshot.
+    # This is how a refresh reaches the running app — no gem upgrade needed.
+    def active_data_path
+      return @data_path if @data_path
+      return Refresher.cached_path if configuration.use_cache && Refresher.cached?
+
+      DATA_PATH
     end
 
-    # Snapshot version the gem ships, e.g. "2026.06.0".
+    def dataset
+      Dataset.load(active_data_path)
+    end
+
+    # Pull the latest published dataset into the local cache, so data fixes / new
+    # makes land WITHOUT a gem upgrade. Returns true/false; never raises. Schedule
+    # it (e.g. a daily job — `rails g vehicles:install` sets one up).
+    def refresh!
+      Refresher.refresh!
+    end
+
+    # Drop the in-memory dataset so the next access reloads from disk (after a
+    # refresh, a cache clear, or a `data_path=` change).
+    def reload!
+      Dataset.reset!
+    end
+
+    # Version of the dataset currently in effect (refreshed cache or bundled),
+    # e.g. "2026.06.0".
     def data_version
       dataset.version
     end

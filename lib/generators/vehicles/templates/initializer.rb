@@ -20,4 +20,14 @@ Vehicles.configure do |config|
   # Optional: your own make aliases, merged over the built-ins. Matched
   # forgivingly (case/diacritics-insensitive).
   # config.aliases = { "Chevy" => "Chevrolet", "Landy" => "Land Rover" }
+
+  # --- Data refresh (optional) ----------------------------------------------
+  # The gem works offline with its bundled snapshot. To get data fixes and new
+  # makes WITHOUT upgrading the gem, schedule VehiclesRefreshJob (see app/jobs)
+  # — it pulls the latest published dataset into a local cache, which loads
+  # prefer over the bundled copy. Defaults below are sensible; override if needed.
+  #
+  # config.data_url   = "https://cdn.jsdelivr.net/gh/vehiclesdb/vehiclesdb@latest/data/vehicles.json"
+  # config.cache_path = Rails.root.join("tmp", "cache", "vehicles", "vehicles.json")
+  # config.use_cache  = true   # set false to always use the bundled snapshot (fully offline/deterministic)
 end

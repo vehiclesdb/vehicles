@@ -27,9 +27,19 @@ if defined?(Rails::Generators::TestCase)
           assert_match(/Vehicles\.configure/, content)
           assert_match(/config\.region/, content)
           assert_match(/config\.api_key/, content)
+          assert_match(/config\.use_cache/, content)
         end
         # The gem has no table — the generator must NOT create a migration.
         assert_no_migration "db/migrate/create_vehicles_tables.rb"
+      end
+
+      def test_creates_a_schedulable_refresh_job
+        run_generator
+
+        assert_file "app/jobs/vehicles_refresh_job.rb" do |content|
+          assert_match(/class VehiclesRefreshJob < ApplicationJob/, content)
+          assert_match(/Vehicles\.refresh!/, content)
+        end
       end
     end
   end

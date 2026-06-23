@@ -30,6 +30,9 @@ module Vehicles
   def self.dataset: () -> Dataset
   def self.data_path: () -> String
   def self.data_path=: (String) -> void
+  def self.active_data_path: () -> String
+  def self.refresh!: () -> bool
+  def self.reload!: () -> void
   def self.normalize: (untyped str) -> String
   def self.slugify: (untyped str) -> String
 
@@ -42,6 +45,10 @@ module Vehicles
     attr_accessor api_base_url: String
     attr_accessor api_timeout: Integer
     attr_reader aliases: Hash[String, String]
+    attr_accessor data_url: String
+    attr_accessor cache_path: String
+    attr_accessor use_cache: bool
+    attr_accessor refresh_timeout: Integer
   end
 
   class Make
