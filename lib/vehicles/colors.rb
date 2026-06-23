@@ -27,15 +27,15 @@ module Vehicles
     # Accept a few common spellings/synonyms so lookups are forgiving like the
     # rest of the gem (normalized keys → canonical slug).
     SYNONYMS = {
-      "gray"     => "grey",
-      "silvery"  => "silver",
-      "tan"      => "beige",
-      "cream"    => "beige",
+      "gray" => "grey",
+      "silvery" => "silver",
+      "tan" => "beige",
+      "cream" => "beige",
       "burgundy" => "red",
-      "navy"     => "blue"
+      "navy" => "blue"
     }.freeze
 
-    BY_SLUG = ALL.each_with_object({}) { |c, h| h[c.slug] = c }.freeze
-    BY_NAME = ALL.each_with_object({}) { |c, h| h[Vehicles.normalize(c.name)] = c }.freeze
+    BY_SLUG = ALL.to_h { |c| [c.slug, c] }.freeze
+    BY_NAME = ALL.to_h { |c| [Vehicles.normalize(c.name), c] }.freeze
   end
 end
