@@ -28,14 +28,14 @@ module Vehicles
       Vehicles.configure { |c| c.api_key = "secret" }
       Providers::HostedProvider.stubs(:get).returns(
         "year_start" => 1974, "year_end" => 2024,
-        "segment" => "hot_hatch", "url" => "https://cdn.vehiclesdb.org/vw/golf.webp"
+        "segment" => "hot_hatch", "url" => "https://cdn.vehiclesdb.com/vw/golf.webp"
       )
 
       golf = Vehicles.find("vw golf")
 
       assert_equal(1974..2024, golf.years)
       assert_equal :hot_hatch, golf.segment
-      assert_equal "https://cdn.vehiclesdb.org/vw/golf.webp", golf.image(year: 2020)
+      assert_equal "https://cdn.vehiclesdb.com/vw/golf.webp", golf.image(year: 2020)
     end
 
     def test_open_ended_year_range

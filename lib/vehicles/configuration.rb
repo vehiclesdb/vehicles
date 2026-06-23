@@ -33,7 +33,7 @@ module Vehicles
     def initialize
       @region       = :eu
       @api_key      = nil
-      @api_base_url = "https://api.vehiclesdb.org"
+      @api_base_url = "https://api.vehiclesdb.com"
       @api_timeout  = 2
       @aliases      = {}
     end

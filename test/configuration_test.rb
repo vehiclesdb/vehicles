@@ -9,7 +9,7 @@ module Vehicles
 
       assert_equal :eu, config.region
       assert_nil config.api_key
-      assert_equal "https://api.vehiclesdb.org", config.api_base_url
+      assert_equal "https://api.vehiclesdb.com", config.api_base_url
       assert_equal({}, config.aliases)
     end
 

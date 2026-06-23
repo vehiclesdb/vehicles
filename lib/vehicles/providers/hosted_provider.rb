@@ -14,7 +14,7 @@ module Vehicles
     # NOTE: the public VehiclesDB API is not live yet. This is the wired-up seam:
     # the moment the service ships (and you set `config.api_key`), these methods
     # light up with zero code changes on the consumer's side. Until then they
-    # safely return nil. Endpoint shape is provisional — see https://vehiclesdb.org.
+    # safely return nil. Endpoint shape is provisional — see https://vehiclesdb.com.
     module HostedProvider
       module_function
 

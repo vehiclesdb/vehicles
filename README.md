@@ -348,7 +348,7 @@ end
 
 ## 🔓 More with VehiclesDB
 
-`vehicles` is the free, open-source SDK for [**VehiclesDB**](https://vehiclesdb.org) — a hosted API for richer vehicle data. The gem is **fully standalone and always will be**; pointing it at VehiclesDB is purely additive. Drop in an API key and the same objects you already use light up with more:
+`vehicles` is the free, open-source SDK for [**VehiclesDB**](https://vehiclesdb.com) — a hosted API for richer vehicle data. The gem is **fully standalone and always will be**; pointing it at VehiclesDB is purely additive. Drop in an API key and the same objects you already use light up with more:
 
 ```ruby
 Vehicles.configure do |config|
@@ -358,7 +358,7 @@ end
 car = Vehicles.find("vw golf")
 car.years                       # => 1974..2024            production years
 car.segment                     # => :hatchback / :hot_hatch   editorial segment
-car.image                       # => "https://cdn.vehiclesdb.org/volkswagen/golf.webp"
+car.image                       # => "https://cdn.vehiclesdb.com/volkswagen/golf.webp"
 car.image(year: 2020)           # year-accurate photo
 car.image(year: 2020, color: :silver)
 ```
