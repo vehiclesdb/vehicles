@@ -75,7 +75,10 @@ module Vehicles
       response = http.get(uri.request_uri, "Accept" => "application/json")
       case response
       when Net::HTTPSuccess
-        response.body
+        # Net::HTTP hands back an ASCII-8BIT body (e.g. after gzip decompression);
+        # our datasets are UTF-8 JSON, so label it correctly. Otherwise downstream
+        # writes/parses can transcode-raise under Encoding.default_internal = UTF-8.
+        response.body&.dup&.force_encoding(Encoding::UTF_8)
       when Net::HTTPRedirection
         return nil if redirects_left <= 0
 
@@ -87,7 +90,9 @@ module Vehicles
       require "fileutils"
       FileUtils.mkdir_p(File.dirname(path))
       tmp = "#{path}.#{Process.pid}.tmp"
-      File.write(tmp, body)
+      # Binary write: persist the exact bytes, never transcode. Robust regardless
+      # of the body's encoding or the app's Encoding.default_internal.
+      File.binwrite(tmp, body)
       File.rename(tmp, path) # atomic on the same filesystem
     end
   end

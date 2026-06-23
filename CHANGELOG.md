@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-06-23
+
+### Fixed
+- **Data refresh** now handles real HTTP responses correctly. `Net::HTTP` returns
+  an ASCII-8BIT body (e.g. gzip-decompressed); with multibyte UTF-8 data and
+  `Encoding.default_internal = UTF-8` (as Rails sets), the cache write raised
+  `Encoding::UndefinedConversionError` and the refresh silently failed (falling
+  back to the bundled snapshot). The fetched body is now tagged UTF-8 and the
+  cache is written with `File.binwrite` (no transcoding). `Vehicles.refresh!`
+  works under Rails.
+
 ## [0.1.0] - 2026-06-23
 
 Initial release.

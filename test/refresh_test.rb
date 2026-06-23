@@ -14,6 +14,15 @@ module Vehicles
                                    "kind" => "car", "body_type" => "suv" }] }]
     )
 
+    # Multibyte UTF-8 (ë, em dash) — the bytes that break a naive transcode.
+    MULTIBYTE_PAYLOAD = JSON.generate(
+      "version" => "9999.02.0", "schema_version" => 2, "region" => "EU",
+      "source" => "Test — dash",
+      "makes" => [{ "name" => "Citroën", "slug" => "citroen", "kinds" => ["car"],
+                    "models" => [{ "name" => "C3", "slug" => "c3",
+                                   "kind" => "car", "body_type" => "hatchback" }] }]
+    )
+
     def setup
       @dir = Dir.mktmpdir
       @cache = File.join(@dir, "vehicles.json")
@@ -104,6 +113,21 @@ module Vehicles
 
       refute_path_exists @cache
       assert_equal Vehicles::DATA_PATH, Vehicles.active_data_path
+    end
+
+    # Regression: a real Net::HTTP body is ASCII-8BIT (e.g. gzip-decompressed)
+    # and our data has multibyte UTF-8; under Encoding.default_internal = UTF-8
+    # (as Rails sets) a naive File.write transcode-raised. Must round-trip cleanly.
+    def test_refresh_survives_a_binary_body_with_multibyte_chars_under_utf8_internal
+      prev_internal = Encoding.default_internal
+      Encoding.default_internal = Encoding::UTF_8
+      stub_fetch(MULTIBYTE_PAYLOAD.dup.force_encoding(Encoding::ASCII_8BIT))
+
+      assert Vehicles.refresh!
+      assert_path_exists @cache
+      assert_includes Vehicles.makes, "Citroën" # bytes preserved + readable
+    ensure
+      Encoding.default_internal = prev_internal
     end
 
     private
