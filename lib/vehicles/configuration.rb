@@ -56,7 +56,7 @@ module Vehicles
       @api_base_url    = "https://api.vehiclesdb.com"
       @api_timeout     = 2
       @aliases         = {}
-      @data_url        = "https://cdn.jsdelivr.net/gh/vehiclesdb/vehiclesdb@latest/data/vehicles.json"
+      @data_url        = "https://cdn.jsdelivr.net/gh/vehiclesdb/vehiclesdb@latest/dist/vehicles.json"
       @cache_path      = default_cache_path
       @use_cache       = true
       @refresh_timeout = 5

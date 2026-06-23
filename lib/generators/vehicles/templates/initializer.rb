@@ -27,7 +27,7 @@ Vehicles.configure do |config|
   # — it pulls the latest published dataset into a local cache, which loads
   # prefer over the bundled copy. Defaults below are sensible; override if needed.
   #
-  # config.data_url   = "https://cdn.jsdelivr.net/gh/vehiclesdb/vehiclesdb@latest/data/vehicles.json"
+  # config.data_url   = "https://cdn.jsdelivr.net/gh/vehiclesdb/vehiclesdb@latest/dist/vehicles.json"
   # config.cache_path = Rails.root.join("tmp", "cache", "vehicles", "vehicles.json")
   # config.use_cache  = true   # set false to always use the bundled snapshot (fully offline/deterministic)
 end
