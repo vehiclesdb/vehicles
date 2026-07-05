@@ -13,6 +13,6 @@ require "vehicles/mcp_server"
 
 # Anything we'd ever print for humans must go to STDERR: STDOUT is the
 # protocol channel, and a single stray line corrupts the JSON-RPC stream.
-$stderr.puts "vehicles-mcp #{Vehicles::VERSION} — dataset #{Vehicles.data_version} (#{Vehicles.dataset.kinds.join(', ')})"
+warn "vehicles-mcp #{Vehicles::VERSION} — dataset #{Vehicles.data_version} (#{Vehicles.dataset.kinds.join(", ")})"
 
 Vehicles::McpServer.new.run

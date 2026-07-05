@@ -35,9 +35,9 @@ module Vehicles
           properties: {
             query: { type: "string", description: "Make name or fragment (empty = all makes)" },
             kind: { type: "string", enum: %w[car motorcycle moped van truck bus],
-                    description: "Only makes producing this kind" },
-          },
-        },
+                    description: "Only makes producing this kind" }
+          }
+        }
       },
       {
         name: "search_models",
@@ -49,10 +49,10 @@ module Vehicles
           type: "object",
           properties: {
             query: { type: "string", description: "Model name or fragment; 'make model' works too" },
-            limit: { type: "integer", description: "Max results (default 20)" },
+            limit: { type: "integer", description: "Max results (default 20)" }
           },
-          required: ["query"],
-        },
+          required: ["query"]
+        }
       },
       {
         name: "get_model",
@@ -64,10 +64,10 @@ module Vehicles
           type: "object",
           properties: {
             make: { type: "string", description: "Make name, slug, or alias ('vw' works)" },
-            model: { type: "string", description: "Model name or slug" },
+            model: { type: "string", description: "Model name or slug" }
           },
-          required: %w[make model],
-        },
+          required: %w[make model]
+        }
       },
       {
         name: "top_models",
@@ -80,10 +80,10 @@ module Vehicles
           properties: {
             kind: { type: "string", enum: %w[car motorcycle moped van truck bus] },
             country: { type: "string", description: "ISO-3166-1 alpha-2 country code" },
-            limit: { type: "integer", description: "Max results (default 20)" },
-          },
-        },
-      },
+            limit: { type: "integer", description: "Max results (default 20)" }
+          }
+        }
+      }
     ].freeze
 
     def initialize(input: $stdin, output: $stdout)
@@ -98,6 +98,7 @@ module Vehicles
       @input.each_line do |line|
         line = line.strip
         next if line.empty?
+
         begin
           msg = JSON.parse(line)
         rescue JSON::ParserError
@@ -118,7 +119,7 @@ module Vehicles
                 protocolVersion: PROTOCOL_VERSION,
                 capabilities: { tools: {} },
                 serverInfo: { name: "vehicles", version: Vehicles::VERSION,
-                              title: "VehiclesDB — open vehicle makes & models" },
+                              title: "VehiclesDB — open vehicle makes & models" }
               })
       when "ping"
         reply(id: id, result: {})
@@ -130,7 +131,7 @@ module Vehicles
         reply(id: id, error: { code: -32_600, message: "Invalid request" }) if id
       else
         # Notifications (no id) are fine to ignore; unknown REQUESTS must error.
-        reply(id: id, error: { code: -32_601, message: "Method not found: #{msg['method']}" }) if id
+        reply(id: id, error: { code: -32_601, message: "Method not found: #{msg["method"]}" }) if id
       end
     end
 
@@ -146,7 +147,7 @@ module Vehicles
         end
       reply(id: id, result: { content: [{ type: "text", text: JSON.pretty_generate(result) }],
                               isError: false })
-    rescue => e
+    rescue StandardError => e
       # Tool-level failures are reported IN-BAND (isError), per MCP spec, so
       # the model can see what went wrong and correct its call.
       reply(id: id, result: { content: [{ type: "text", text: "Error: #{e.message}" }],
@@ -178,10 +179,14 @@ module Vehicles
 
     def get_model(args)
       m = Vehicles.model(args.fetch("make"), args.fetch("model")) ||
-          Vehicles.find("#{args.fetch('make')} #{args.fetch('model')}")
-      m ? model_json(m) : { found: false,
-                            hint: "No such model. Try search_models with a fragment — " \
-                                  "names are canonical (e.g. 'Mustang Mach-E', not 'mach e')." }
+          Vehicles.find("#{args.fetch("make")} #{args.fetch("model")}")
+      if m
+        model_json(m)
+      else
+        { found: false,
+          hint: "No such model. Try search_models with a fragment — " \
+                "names are canonical (e.g. 'Mustang Mach-E', not 'mach e')." }
+      end
     end
 
     def top_models(args)
