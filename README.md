@@ -1,6 +1,6 @@
 # 🚗 `vehicles` – Car makes & models for your Rails app
 
-[![Gem Version](https://badge.fury.io/rb/vehicles.svg)](https://badge.fury.io/rb/vehicles) [![Build Status](https://github.com/rameerez/vehicles/workflows/Tests/badge.svg)](https://github.com/rameerez/vehicles/actions)
+[![Gem Version](https://badge.fury.io/rb/vehicles.svg)](https://badge.fury.io/rb/vehicles) [![Build Status](https://github.com/vehiclesdb/vehicles/workflows/Tests/badge.svg)](https://github.com/vehiclesdb/vehicles/actions)
 
 > [!TIP]
 > **🚀 Ship your next Rails app 10x faster!** I've built **[RailsFast](https://railsfast.com/?ref=vehicles)**, a production-ready Rails boilerplate template that comes with everything you need to launch a software business in days, not weeks. Go [check it out](https://railsfast.com/?ref=vehicles)!
@@ -574,7 +574,7 @@ To install this gem onto your local machine, run `bundle exec rake install`.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/rameerez/vehicles. Our code of conduct is: just be nice and make your mom proud of what you do and post online.
+Bug reports and pull requests are welcome on GitHub at https://github.com/vehiclesdb/vehicles. Our code of conduct is: just be nice and make your mom proud of what you do and post online.
 
 ## License
 

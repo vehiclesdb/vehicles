@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
                      "search, and validation. No API keys, no network calls, no database table — the " \
                      "data lives inside the gem and just works. It also acts as the SDK for the hosted " \
                      "VehiclesDB API. Code is MIT; the bundled data is CC-BY 4.0 (derived from RDW Open Data)."
-  spec.homepage = "https://github.com/rameerez/vehicles"
+  spec.homepage = "https://github.com/vehiclesdb/vehicles"
   spec.license  = "MIT"
 
   spec.required_ruby_version = ">= 3.1.0"
