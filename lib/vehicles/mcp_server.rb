@@ -198,10 +198,10 @@ module Vehicles
               "country filters by evidenced availability." }
     end
 
-    def model_json(m)
-      { make: m.make, model: m.name, slug: m.slug, kind: m.kind,
-        body_type: m.body_type, global_popularity_decile: m.global_decile,
-        available_in: m.availability }
+    def model_json(model)
+      { make: model.make, model: model.name, slug: model.slug, kind: model.kind,
+        body_type: model.body_type, global_popularity_decile: model.global_decile,
+        available_in: model.availability }
     end
 
     def reply(id:, result: nil, error: nil)
