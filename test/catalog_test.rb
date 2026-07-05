@@ -23,11 +23,13 @@ module Vehicles
 
     def test_catalog_respects_kind_filter
       assert_equal Vehicles.makes(kind: :car), Vehicles.catalog(kind: :car).keys
-      assert_empty Vehicles.catalog(kind: :motorcycle)
+      refute_empty Vehicles.catalog(kind: :motorcycle)   # bikes ship since 0.2.0
+      assert_empty Vehicles.catalog(kind: :plane)        # reserved, no data yet
     end
 
     def test_catalog_respects_region_filter
-      assert_empty Vehicles.catalog(region: :us)
+      # The global snapshot serves every region query.
+      refute_empty Vehicles.catalog(region: :us)
       refute_empty Vehicles.catalog(region: :eu)
     end
 

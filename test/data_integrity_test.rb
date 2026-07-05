@@ -27,9 +27,16 @@ module Vehicles
       end
     end
 
-    def test_every_model_has_a_known_body_type
+    def test_body_types_are_known_and_kind_aware
       @models.each do |m|
-        assert_includes Model::BODY_TYPES, m.body_type, "#{m.full_name} has bad body_type #{m.body_type}"
+        if m.kind == :car
+          assert_includes Model::BODY_TYPES, m.body_type, "#{m.full_name} has bad body_type #{m.body_type}"
+        else
+          # Non-car kinds carry a body type only where a vocabulary exists
+          # (today: trikes); nil means "not catalogued yet" and is correct.
+          assert_includes Model::BODY_TYPES + [nil], m.body_type,
+                          "#{m.full_name} has bad body_type #{m.body_type}"
+        end
       end
     end
 
@@ -41,16 +48,20 @@ module Vehicles
     end
 
     def test_make_slugs_are_unique
-      slugs = Vehicles.makes.map { |n| Vehicles.make(n).slug }
+      slugs = Vehicles.dataset.makes.map(&:slug)
 
       assert_equal slugs, slugs.uniq
     end
 
-    def test_model_slugs_unique_within_make
-      Vehicles.makes.each do |name|
-        slugs = Vehicles.make(name).models.map(&:model_slug)
+    def test_model_slugs_unique_within_make_and_kind
+      # A slug may repeat across kinds under one make (Aixam's Mega is a real
+      # car AND a real van); within one kind it must be unique.
+      Vehicles.dataset.makes.each do |make|
+        make.models.group_by(&:kind).each do |kind, models|
+          slugs = models.map(&:model_slug)
 
-        assert_equal slugs, slugs.uniq, "duplicate model slug in #{name}"
+          assert_equal slugs, slugs.uniq, "duplicate #{kind} model slug in #{make.name}"
+        end
       end
     end
 

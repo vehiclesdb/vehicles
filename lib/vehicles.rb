@@ -134,6 +134,18 @@ module Vehicles
       dataset.search(query)
     end
 
+    # Every kind in the dataset. => [:bus, :car, :moped, :motorcycle, :truck, :van]
+    def kinds
+      dataset.kinds
+    end
+
+    # The most popular models by official registration counts, most popular
+    # first. Country filters by evidenced availability (ISO alpha-2).
+    #   Vehicles.top_models(kind: :car, country: :nl, limit: 10).map(&:name)
+    def top_models(kind: nil, country: nil, limit: 20)
+      dataset.top_models(kind: kind, country: country, limit: limit)
+    end
+
     # --- colors (canonical reference palette) --------------------------------
 
     # The canonical color palette, frequency-ordered. => [Vehicles::Color, ...]

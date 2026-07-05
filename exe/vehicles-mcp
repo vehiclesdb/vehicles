@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# vehicles-mcp — a read-only MCP server over the bundled VehiclesDB dataset.
+# Wire it into any MCP-capable agent host:
+#
+#   { "mcpServers": { "vehicles": { "command": "vehicles-mcp" } } }
+#
+# No network, no keys, no config. Data: CC-BY 4.0 (VehiclesDB), code: MIT.
+
+require "vehicles"
+require "vehicles/mcp_server"
+
+# Anything we'd ever print for humans must go to STDERR: STDOUT is the
+# protocol channel, and a single stray line corrupts the JSON-RPC stream.
+$stderr.puts "vehicles-mcp #{Vehicles::VERSION} — dataset #{Vehicles.data_version} (#{Vehicles.dataset.kinds.join(', ')})"
+
+Vehicles::McpServer.new.run

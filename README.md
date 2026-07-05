@@ -5,7 +5,7 @@
 > [!TIP]
 > **🚀 Ship your next Rails app 10x faster!** I've built **[RailsFast](https://railsfast.com/?ref=vehicles)**, a production-ready Rails boilerplate template that comes with everything you need to launch a software business in days, not weeks. Go [check it out](https://railsfast.com/?ref=vehicles)!
 
-`vehicles` gives your Rails app a clean, curated list of car makes and models — ready for dropdowns, search, and validation. No API keys, no database table, no migration — it works **fully offline** the second you `bundle install`, because the data ships inside the gem. (Optionally, it can [refresh](#staying-current-optional) the data without a gem upgrade.)
+`vehicles` gives your Rails app a clean, curated list of vehicle makes and models — **18.5k models across 900+ makes: cars, motorcycles, mopeds, vans, trucks and buses**, reconciled from official registers of 14 countries — ready for dropdowns, search, and validation. No API keys, no database table, no migration — it works **fully offline** the second you `bundle install`, because the data ships inside the gem. (Optionally, it can [refresh](#staying-current-optional) the data without a gem upgrade.)
 
 ✨ Perfect for marketplaces, carpooling & rideshare apps, fleet tools, parking & EV-charging apps, insurance and booking forms — anywhere a user has to pick their vehicle.
 
@@ -27,6 +27,11 @@ car.full_name                      # => "Volkswagen Golf"
 car.kind                           # => :car
 car.body_type                      # => :hatchback
 car.hatchback?                     # => true
+car.global_decile                  # => 2       (top 20% worldwide, measured from registrations)
+car.available_in?(:nl)             # => true    (evidence in the Dutch register)
+
+Vehicles.top_models(kind: :car, country: :nl, limit: 5).map(&:name)
+# => the most popular models, from real registration counts
 ```
 
 …and the whole reason this gem exists — a make → model picker in two lines:
@@ -57,10 +62,10 @@ Two methods cover 90% of what you need:
 
 ```ruby
 Vehicles.makes
-# => ["Alfa Romeo", "Audi", "BMW", ...]   (alphabetical, ~47 makes)
+# => ["Abarth", "Acura", "Alfa Romeo", ...]   (alphabetical, 900+ makes)
 
 Vehicles.models("Toyota")
-# => ["Yaris", "Corolla", "Aygo", "RAV4", "C-HR", "Prius", ...]   (most common first)
+# => ["Yaris", "Corolla", "Aygo", "RAV4", "C-HR", "Prius", ...]
 ```
 
 Make lookups are **forgiving by default** — case-insensitive, slug-friendly, and alias-aware, so whatever your users type tends to land:
@@ -118,43 +123,84 @@ car.name        # => "Leon"
 car.full_name   # => "SEAT Leon"
 car.slug        # => "seat-leon"
 car.to_h        # => { make: "SEAT", model: "Leon", slug: "seat-leon",
-                #      kind: :car, body_type: :hatchback }
+                #      kind: :car, body_type: :hatchback, global_decile: 2,
+                #      availability: ["es", "fi", "gb", ...] }
 ```
 
 ## Kinds & body types
 
 Every vehicle is classified on two axes, so you can filter, group, and label without maintaining your own taxonomy.
 
-**`kind`** — what *sort* of vehicle it is. Sourced straight from official registration data:
+**`kind`** — what *sort* of vehicle it is. Sourced straight from official registration data. Six kinds ship today:
 
 ```ruby
-:car  ·  :motorcycle  ·  :van  ·  :truck  ·  :pickup  ·  :trailer  ·  :bus  ·  :moped  ·  :quad
+Vehicles.kinds   # => [:bus, :car, :moped, :motorcycle, :truck, :van]
 ```
 
 **`body_type`** — the sub-classification *within* a kind:
 
 ```ruby
-# cars         :hatchback :sedan :wagon :suv :mpv :coupe :convertible :roadster :pickup :van
-# motorcycles  :naked :sport :adventure :trail :enduro :motocross :scooter :cruiser :touring
+# cars   :hatchback :sedan :wagon :suv :mpv :coupe :convertible :roadster :pickup :van
 ```
 
 ```ruby
 Vehicles.find("vw tiguan").kind        # => :car
 Vehicles.find("vw tiguan").body_type   # => :suv
 Vehicles.find("vw tiguan").suv?        # => true   ← predicate sugar for every body_type
+Vehicles.find("yamaha mt-07").kind     # => :motorcycle
+Vehicles.find("yamaha mt-07").two_wheeler?  # => true  (motorcycle OR moped — picker unions)
 ```
 
 Filter any list by either axis:
 
 ```ruby
 Vehicles.models("Toyota", body_type: :suv)   # => ["RAV4", "C-HR", "Yaris Cross", ...]
-Vehicles.makes(kind: :car)                    # => makes that build cars  (the default)
+Vehicles.makes(kind: :car)                    # => makes that build cars
 Vehicles.makes(kind: :motorcycle)             # => makes that build bikes
 Vehicles.search("golf").select(&:hatchback?)
 ```
 
 > [!NOTE]
-> **Today the bundled data is cars** (`kind: :car`), each tagged with a `body_type` from the source registration data. `kind` and `body_type` are first-class on every record, so when motorcycle, van, and trailer packs land, the API — and your code — doesn't change. Market *segments* (supercar, sports car, city car, …) are an editorial layer that arrives with [VehiclesDB](#-more-with-vehiclesdb).
+> `body_type` is honest: cars always carry one; other kinds return `nil` until
+> an honest vocabulary exists for them (a truck is not a "hatchback"). The
+> predicates just return `false` on `nil`, so your filters never crash. Market
+> *segments* (supercar, city car, …) are an editorial layer that arrives with
+> [VehiclesDB](#-more-with-vehiclesdb).
+
+## Popularity & availability
+
+Every model carries two open-data signals, measured from official registers
+(never scraped, never guessed):
+
+```ruby
+car = Vehicles.find("toyota corolla")
+car.global_decile      # => 1        1 = top 10% worldwide … 10; nil = unranked
+car.popular?           # => true     decile ≤ 2 (and `false` when unranked — honest)
+car.availability       # => ["es", "fi", "gb", ...]   countries with official evidence
+car.available_in?(:th) # => true
+
+# The most popular models — perfect for "common choices" pre-filled pickers:
+Vehicles.top_models(kind: :car, country: :nl, limit: 10)   # => [Model, ...]
+Vehicles.top_models(kind: :motorcycle, limit: 10).map(&:full_name)
+```
+
+`availability` means *an official source evidences the model there* (register,
+type approval, or sales reporting) — presence, not marketing history: grey
+imports count, because they're real vehicles on real roads.
+
+## MCP server for AI agents
+
+The gem ships `vehicles-mcp` — a read-only [MCP](https://modelcontextprotocol.io)
+server over the bundled dataset, so your agents ground themselves in real
+vehicle data instead of hallucinating nameplates. No network, no keys:
+
+```json
+{ "mcpServers": { "vehicles": { "command": "vehicles-mcp" } } }
+```
+
+Tools: `search_makes` · `search_models` · `get_model` · `top_models`. Works
+anywhere MCP does (Claude Code, Claude Desktop, Cursor, …) the moment the gem
+is installed.
 
 ## Colors
 
@@ -328,22 +374,22 @@ dependent model list (see [Rails dropdowns](#rails-dropdowns)).
 
 ## Country & region awareness
 
-Vehicle availability is regional — a Vauxhall in the UK is an Opel on the continent, a Holden only ever shipped in Australia. `vehicles` is built around this from day one:
+Vehicle availability is regional — a Vauxhall in the UK is an Opel on the continent, a Perodua exists in Malaysia and almost nowhere else. `vehicles` models this per country, from evidence:
 
 ```ruby
-Vehicles.makes(region: :eu)             # makes sold in the EU  (the default today)
-Vehicles.models("Toyota", region: :eu)
+Vehicles.find("perodua myvi").availability      # => ["gb", "my"]
+Vehicles.find("vw golf").available_in?(:nz)     # => true
+Vehicles.top_models(kind: :car, country: :es)   # country-scoped popularity
 ```
 
-> [!NOTE]
-> **Today the bundled data covers the EU market** (~47 makes, ~460 model nameplates, sourced from the Dutch national vehicle register — see [Where the data comes from](#where-the-data-comes-from)). `:us`, `:gb`, `:au`, `:nz`, and `:ca` packs are on the [roadmap](#roadmap). The region API is already in place, so adding them is additive, never a breaking change.
-
-Set your app's default once:
+The bundled snapshot is **global** (official registers of 14 countries across
+Europe, North America, SE Asia, Oceania and Ukraine — see [Where the data
+comes from](#where-the-data-comes-from)), so the region gate accepts every
+region query — `region: :eu` callers from 0.1.x keep working unchanged:
 
 ```ruby
-Vehicles.configure do |config|
-  config.region = :eu
-end
+Vehicles.makes(region: :eu)   # fine — a global snapshot covers the EU
+Vehicles.region               # => :global
 ```
 
 ## 🔓 More with VehiclesDB
@@ -438,6 +484,10 @@ Vehicles.find("audi a3")                # => Vehicles::Model | nil  (one free-te
 Vehicles.model("Audi", "A3")            # => Vehicles::Model | nil  (a stored make+model pair)
 Vehicles.search("a3")                   # => [Vehicles::Model]
 
+# Popularity & availability (open data, measured from official registers)
+Vehicles.kinds                          # => [:bus, :car, :moped, :motorcycle, :truck, :van]
+Vehicles.top_models(kind: :car, country: :nl, limit: 10)  # => [Vehicles::Model]
+
 # Vehicles::Make
 make.name      make.slug      make.aliases     make.kinds
 make.models    make.model("a3")                make.to_h
@@ -445,6 +495,8 @@ make.models    make.model("a3")                make.to_h
 # Vehicles::Model
 model.make     model.name     model.full_name  model.slug    model.to_h
 model.kind     model.body_type                 model.suv?    model.coupe?   # …predicates
+model.global_decile   model.popular?           # 1 = top 10% worldwide; nil-safe
+model.availability    model.available_in?(:nl) model.two_wheeler?
 model.years    model.segment  model.image(year:, color:)     # ← hosted VehiclesDB API
 
 # Colors (canonical palette)
@@ -454,8 +506,8 @@ Vehicles.color_options                  # => [[name, slug]]  (for select)
 color.slug     color.name     color.hex
 
 # Meta
-Vehicles.data_version                   # => "2026.06.0"   (version in effect: cached or bundled)
-Vehicles.region                         # => :eu
+Vehicles.data_version                   # => "2026.07.0"   (version in effect: cached or bundled)
+Vehicles.region                         # => :global
 
 # Refresh (optional — keep data current without a gem upgrade)
 Vehicles.refresh!                       # pull latest published data -> cache; true/false, never raises
@@ -464,25 +516,25 @@ Vehicles.reload!                        # drop the in-memory dataset (reload fro
 
 ## Where the data comes from
 
-The bundled dataset is built from [**RDW Open Data**](https://opendata.rdw.nl/) — the Dutch national vehicle register, effectively a census of every vehicle on EU roads — aggregated to clean **nameplates** (trims and generations collapsed: one "Golf", one "3 Series"), ranked by how many are actually registered, with the long tail of kit cars and gray imports filtered out.
+The bundled dataset is [**VehiclesDB**](https://github.com/vehiclesdb/vehiclesdb) — an open dataset **reconciled from official vehicle registers of 14 countries on 4 continents** (the Dutch RDW, UK DfT, Spanish DGT, Finnish Traficom, German KBA, US EPA, New Zealand's Motor Vehicle Register, Thailand's DLT, Ukraine's MVS, and more). A model ships only when **two independent official sources corroborate it** — or one shows a registration count no typo could produce — so you get real nameplates without the registry noise.
 
 Every record is shaped like this:
 
 ```json
 {
-  "name": "Volkswagen", "slug": "volkswagen", "kinds": ["car"],
+  "name": "Volkswagen", "slug": "volkswagen", "kinds": ["car", "van"],
   "models": [
-    { "name": "Golf",   "slug": "golf",   "kind": "car", "body_type": "hatchback" },
-    { "name": "Tiguan", "slug": "tiguan", "kind": "car", "body_type": "suv" },
-    { "name": "Touran", "slug": "touran", "kind": "car", "body_type": "mpv" }
+    { "name": "Golf", "slug": "golf", "kind": "car", "body_type": "hatchback",
+      "global_decile": 2, "availability": ["ca", "es", "fi", "gb", "nl", "..."] }
   ]
 }
 ```
 
-- **`kind` is sourced, not guessed** — straight from RDW's `voertuigsoort`, the same classification the government uses. **`body_type` is curated** on top of RDW's `inrichting` (which is too coarse to use raw — it lumps wagons, SUVs and crossovers together), mapped to a clean canonical vocabulary.
-- **Nameplate-level, on purpose.** "Golf" covers the GTI, the Variant, the R. "3 Series" covers every 3-series trim. That's what a dropdown wants. Per-trim and per-generation detail is a VehiclesDB API concern.
-- **Source data:** RDW Open Data, licensed **CC0**.
-- **This dataset** (`data/vehicles.json`): **CC-BY 4.0**. Attribution: *"Vehicle data from VehiclesDB, derived from RDW Open Data."*
+- **`kind` is sourced, not guessed** — straight from each register's official classification. **`body_type` is curated** on top (registers lump wagons, SUVs and crossovers together), mapped to a clean canonical vocabulary.
+- **Nameplate-level, on purpose.** "Golf" covers the GTI, the Variant, the R — that's what a dropdown wants. Two-wheelers keep displacement granularity ("Wave110i", "CBR600RR") because that's how riders and registers both speak. Per-trim and per-generation detail is a VehiclesDB API concern.
+- **Popularity is measured**, from real registration/fleet counts — never scraped rankings. **Availability is evidence** (a country appears because an official source shows the model there), not marketing history.
+- **Source data:** openly-licensed government sources only, every license pinned and verified at build time — [full source list](https://github.com/vehiclesdb/vehiclesdb/blob/main/SOURCES.md) and [attribution notices](https://github.com/vehiclesdb/vehiclesdb/blob/main/ATTRIBUTION.md).
+- **This dataset** (`data/vehicles.json`): **CC-BY 4.0**. Attribution: *"Vehicle data by VehiclesDB (CC-BY 4.0), built from official public registers."*
 - **The gem code:** MIT.
 
 The data is versioned (`Vehicles.data_version`). Each gem release bundles a known snapshot — the offline, deterministic floor. To get newer data, either upgrade the gem or enable [refresh](#staying-current-optional) (which pulls published releases without a gem bump). Either way it's explicit and versioned — no silent mutations.
@@ -498,13 +550,14 @@ No magic, just good defaults:
 
 ## Roadmap
 
-This is a young gem. What's bundled today is EU car make/model data (with `kind` + `body_type`) and the API above. On the way:
+Bundled today: 19k models across 6 kinds and 14 countries, with popularity +
+availability, plus the MCP server. On the way:
 
-- 🏍️ More **kinds**: motorcycles, vans, trucks, trailers — the shape already supports them
-- 🌍 More **regions**: `:us` (NHTSA vPIC), `:gb` (DVSA), `:au`, `:nz`, `:ca`
+- 🌍 More **countries** (Switzerland next; the dataset grows monthly)
 - 📅 Production **years** in the local data
-- 🖼️ Model **images**, year-accurate and color variants (via VehiclesDB)
-- 🏷️ **Segments** (supercar, sports car, city car, hot hatch) and richer metadata
+- 🧬 **Generations & variants** layers (the schema already reserves them)
+- 🖼️ Model **images** (via VehiclesDB)
+- 🏷️ **Segments** (supercar, city car, hot hatch) and richer metadata
 - 🔎 A mountable **autocomplete endpoint** so the dependent-dropdown recipe becomes one line
 
 Want one of these sooner? Open an issue.

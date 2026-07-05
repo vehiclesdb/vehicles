@@ -38,6 +38,11 @@ Gem::Specification.new do |spec|
   end
   spec.require_paths = ["lib"]
 
+  # `vehicles-mcp` — the bundled read-only MCP server (lib/vehicles/mcp_server.rb):
+  # `gem install vehicles` is all it takes to give an agent grounded vehicle data.
+  spec.bindir      = "exe"
+  spec.executables = ["vehicles-mcp"]
+
   # Rails is an optional, soft dependency (detected at runtime) so the gem works
   # in plain Ruby too — hence no `add_dependency "rails"`. Dev/test deps live in
   # the Gemfile (see https://guides.rubygems.org/patterns/#runtime-vs-development-dependencies).

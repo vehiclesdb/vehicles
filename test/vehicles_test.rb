@@ -10,8 +10,8 @@ module Vehicles
       assert_match(/\A\d{4}\.\d{2}\.\d+\z/, Vehicles.data_version)
     end
 
-    def test_region_is_eu
-      assert_equal :eu, Vehicles.region
+    def test_region_is_global
+      assert_equal :global, Vehicles.region
     end
 
     # --- makes ---------------------------------------------------------------
@@ -24,7 +24,9 @@ module Vehicles
     end
 
     def test_makes_are_alphabetical
-      assert_equal Vehicles.makes.sort_by(&:downcase), Vehicles.makes
+      # Diacritic-insensitive order (normalize), so \u0160koda files under S,
+      # not after Z the way a bare downcase sort would put it.
+      assert_equal Vehicles.makes.sort_by { |n| Vehicles.normalize(n) }, Vehicles.makes
     end
 
     def test_makes_include_well_known_brands
@@ -34,15 +36,22 @@ module Vehicles
     end
 
     def test_makes_filtered_by_kind_car
-      assert_equal Vehicles.makes, Vehicles.makes(kind: :car)
+      # Multi-kind data: car makes are a strict subset of all makes now.
+      car_makes = Vehicles.makes(kind: :car)
+
+      assert_operator car_makes.size, :>, 200
+      assert_operator car_makes.size, :<, Vehicles.makes.size
+      assert_includes car_makes, "Volkswagen"
     end
 
-    def test_makes_filtered_by_unknown_kind_is_empty
-      assert_empty Vehicles.makes(kind: :motorcycle)
+    def test_makes_filtered_by_absent_kind_is_empty
+      # :plane is reserved in the schema but ships no data yet.
+      assert_empty Vehicles.makes(kind: :plane)
     end
 
-    def test_makes_for_unavailable_region_is_empty
-      assert_empty Vehicles.makes(region: :us)
+    def test_makes_for_any_region_are_served_by_the_global_snapshot
+      refute_empty Vehicles.makes(region: :us)
+      assert_equal Vehicles.makes, Vehicles.makes(region: :us)
     end
 
     def test_makes_for_eu_region_is_full
@@ -87,8 +96,8 @@ module Vehicles
       refute_includes suvs, "Yaris"
     end
 
-    def test_models_for_unavailable_region_is_empty
-      assert_empty Vehicles.models("Audi", region: :us)
+    def test_models_for_any_region_are_served_by_the_global_snapshot
+      refute_empty Vehicles.models("Audi", region: :us)
     end
   end
 end

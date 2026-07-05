@@ -20,8 +20,10 @@ module Vehicles
       "chevy" => "chevrolet",
       "beemer" => "bmw", "bimmer" => "bmw",
       "alfa" => "alfa-romeo",
-      "landrover" => "land-rover", "range rover" => "land-rover", "rangerover" => "land-rover",
-      "vauxhall" => "opel" # GB badge-engineered Opel; map to the EU make we ship
+      "landrover" => "land-rover", "range rover" => "land-rover", "rangerover" => "land-rover"
+      # NOTE: no "vauxhall" alias — since 2026.07 the dataset ships Vauxhall
+      # and Opel as separate makes (deliberately: separate GB/EU model names),
+      # and an alias here would shadow the real Vauxhall records.
     }.freeze
 
     class << self
@@ -43,7 +45,10 @@ module Vehicles
       @schema_version = raw["schema_version"]
       @region         = raw["region"]
 
+      # Name-alphabetical, diacritic-insensitive — the dataset file arrives
+      # slug-sorted, which differs subtly ("Austin-Healey" vs "Austin Morris").
       @makes    = (raw["makes"] || []).map { |attrs| Make.new(attrs) }
+                                      .sort_by { |m| Vehicles.normalize(m.name) }
       @by_slug  = {}   # raw slug => Make
       @index    = {}   # normalized name/slug/alias => Make
       @makes.each do |make|
@@ -129,7 +134,26 @@ module Vehicles
       @all_models ||= @makes.flat_map(&:models).freeze
     end
 
-    # Does this snapshot cover the given region? (Today only :eu.)
+    # Every kind present in the snapshot. => [:bus, :car, :moped, ...]
+    def kinds
+      @kinds ||= @makes.flat_map(&:kinds).uniq.sort.freeze
+    end
+
+    # Ranked models by popularity: global decile first, then breadth of
+    # availability as the tiebreaker, then name. Unranked models (nil decile —
+    # catalog-only evidence) never appear: "unknown" must not outrank "known".
+    #   top_models(kind: :car, country: :nl, limit: 10)
+    def top_models(kind: nil, country: nil, limit: 20)
+      c = country&.to_s&.downcase
+      list = all_models.select(&:global_decile)
+      list = list.select { |m| m.kind == kind.to_sym } if kind
+      list = list.select { |m| m.availability.include?(c) } if c
+      list.sort_by { |m| [m.global_decile, -m.availability.size, m.name] }.first(limit)
+    end
+
+    # Does this snapshot cover the given region? A "global" snapshot covers
+    # every region, so callers pinned to `region: :eu` keep working as the
+    # dataset outgrows Europe.
     def region?(region)
       region_match?(region)
     end
@@ -141,7 +165,8 @@ module Vehicles
     end
 
     def region_match?(region)
-      Vehicles.normalize(region) == Vehicles.normalize(@region)
+      Vehicles.normalize(@region) == "global" ||
+        Vehicles.normalize(region) == Vehicles.normalize(@region)
     end
   end
 end

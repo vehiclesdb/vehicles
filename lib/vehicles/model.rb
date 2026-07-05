@@ -21,9 +21,10 @@ module Vehicles
       hatchback sedan wagon suv mpv coupe convertible roadster pickup van
     ].freeze
 
-    attr_reader :make, :make_slug, :name, :kind, :body_type
+    attr_reader :make, :make_slug, :name, :kind, :body_type, :global_decile, :availability
 
-    # @param attrs [Hash] one model entry from the dataset (name/slug/kind/body_type)
+    # @param attrs [Hash] one model entry from the dataset
+    #   (name/slug/kind/body_type + optional global_decile/availability)
     # @param make [String] the parent make's display name
     # @param make_slug [String] the parent make's slug (for the composite slug)
     def initialize(attrs, make:, make_slug:)
@@ -31,8 +32,17 @@ module Vehicles
       @make_slug  = make_slug
       @name       = attrs["name"]
       @model_slug = attrs["slug"]
-      @kind       = (attrs["kind"]      || "car").to_sym
-      @body_type  = (attrs["body_type"] || "hatchback").to_sym
+      @kind       = (attrs["kind"] || "car").to_sym
+      # nil = no body vocabulary for this record yet (most non-car kinds).
+      # A default would be a lie — predicates just return false instead.
+      @body_type  = attrs["body_type"]&.to_sym
+      # Popularity decile 1 (most popular) … 10, averaged over every country
+      # with registration counts. nil = catalog-only evidence, no counts yet.
+      @global_decile = attrs["global_decile"]
+      # ISO-3166-1 alpha-2 codes where an official source evidences the model.
+      # Evidence of PRESENCE, not proof of official marketing (grey imports
+      # count — they're real vehicles on real roads).
+      @availability  = (attrs["availability"] || []).freeze
       freeze
     end
 
@@ -56,8 +66,27 @@ module Vehicles
       define_method("#{type}?") { [@kind, @body_type].include?(type) }
     end
 
+    # Motorcycle OR moped — the union pickers usually want ("two-wheeler
+    # section" in an insurance/marketplace form).
+    def two_wheeler?
+      %i[motorcycle moped].include?(@kind)
+    end
+
+    # Evidence of presence in a country (see `availability` for semantics):
+    #   Vehicles.find("vw golf").available_in?(:nl)  # => true
+    def available_in?(country)
+      availability.include?(country.to_s.downcase)
+    end
+
+    # Top-20% popularity across covered markets. false when unranked (nil
+    # decile) — "we don't know" must never read as "popular".
+    def popular?
+      !global_decile.nil? && global_decile <= 2
+    end
+
     def to_h
-      { make: make, model: name, slug: slug, kind: kind, body_type: body_type }
+      { make: make, model: name, slug: slug, kind: kind, body_type: body_type,
+        global_decile: global_decile, availability: availability }
     end
 
     # Value-object equality — two models with the same slug are equal.
@@ -71,7 +100,7 @@ module Vehicles
     end
 
     def inspect
-      %(#<Vehicles::Model "#{full_name}" #{body_type}>)
+      %(#<Vehicles::Model "#{full_name}" #{body_type || kind}>)
     end
 
     # --- Hosted VehiclesDB data (optional) -----------------------------------

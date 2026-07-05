@@ -48,9 +48,12 @@ module Vehicles
     end
 
     def test_region_query
+      # A global snapshot covers every region — :eu callers keep working, and
+      # :us is no longer refused (the dataset genuinely covers it now).
       assert Vehicles.dataset.region?(:eu)
       assert Vehicles.dataset.region?("EU")
-      refute Vehicles.dataset.region?(:us)
+      assert Vehicles.dataset.region?(:us)
+      assert_equal :global, Vehicles.region
     end
   end
 end

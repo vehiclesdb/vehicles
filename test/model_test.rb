@@ -40,11 +40,17 @@ module Vehicles
     end
 
     def test_to_h
-      assert_equal(
-        { make: "Volkswagen", model: "Golf", slug: "volkswagen-golf",
-          kind: :car, body_type: :hatchback },
-        @golf.to_h
-      )
+      h = @golf.to_h
+
+      assert_equal "Volkswagen", h[:make]
+      assert_equal "Golf", h[:model]
+      assert_equal "volkswagen-golf", h[:slug]
+      assert_equal :car, h[:kind]
+      assert_equal :hatchback, h[:body_type]
+      # 0.2.0 additions — availability content shifts per release, so assert
+      # shape + a stable anchor, not the exact list.
+      assert_kind_of Integer, h[:global_decile]
+      assert_includes h[:availability], "nl"
     end
 
     def test_equality_by_slug

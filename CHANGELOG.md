@@ -7,6 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-07-05
+
+The global multi-kind release: the bundled dataset grows from ~456 EU car
+models to **18,556 models across 928 makes and six kinds** (cars,
+motorcycles, mopeds, vans, trucks, buses), reconciled from official registers
+of 14 countries — see [VehiclesDB](https://github.com/vehiclesdb/vehiclesdb).
+
+### Added
+- **Popularity**: `model.global_decile` (1 = top 10% worldwide, measured from
+  official registration counts; `nil` = unranked) and `model.popular?`
+  (decile ≤ 2, honest `false` when unranked).
+- **Availability**: `model.availability` (ISO alpha-2 country codes with
+  official evidence) and `model.available_in?(:nl)`. Evidence of presence,
+  not marketing history — grey imports count.
+- `Vehicles.top_models(kind:, country:, limit:)` — ranked by popularity,
+  perfect for "common choices" pickers. Unranked models never outrank ranked.
+- `Vehicles.kinds` and `model.two_wheeler?` (motorcycle OR moped — the union
+  two-wheeler pickers want).
+- **`vehicles-mcp`** — a bundled, read-only MCP server over the dataset
+  (stdio, zero config, stdlib-only): `search_makes`, `search_models`,
+  `get_model`, `top_models`. Wire it into any MCP host with
+  `{ "command": "vehicles-mcp" }`.
+- `model.to_h` now includes `global_decile` and `availability`.
+
+### Changed
+- **Dataset**: bundled snapshot is now VehiclesDB `2026.07.0` (global,
+  6 kinds, popularity + availability). `Vehicles.region` returns `:global`;
+  the region gate treats a global snapshot as covering every region, so
+  `region: :eu` callers keep working unchanged.
+- `model.body_type` is `nil` for kinds without an honest body vocabulary
+  (a truck is not a "hatchback"); predicates return `false` on `nil`.
+  Cars keep their curated body types, unchanged.
+- Removed the built-in `"vauxhall" → Opel` lookup alias: the dataset now
+  ships Vauxhall and Opel as separate makes (deliberately — separate GB/EU
+  model names), and the alias would have shadowed the real Vauxhall records.
+
 ## [0.1.1] - 2026-06-23
 
 ### Fixed
@@ -56,5 +92,6 @@ Initial release.
 - Install generator that writes a configuration initializer (no migration —
   the gem has no database table).
 
-[Unreleased]: https://github.com/rameerez/vehicles/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/rameerez/vehicles/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/rameerez/vehicles/compare/v0.1.1...v0.2.0
 [0.1.0]: https://github.com/rameerez/vehicles/releases/tag/v0.1.0
