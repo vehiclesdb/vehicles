@@ -52,3 +52,9 @@ Lint/UnusedMethodArgument:
 # Thorough unit tests legitimately make several related assertions.
 Minitest/MultipleAssertions:
   Enabled: false
+
+# The MCP server is one cohesive protocol class; half its lines are the four
+# tool JSON-Schema definitions (data, not logic).
+Metrics/ClassLength:
+  Exclude:
+    - lib/vehicles/mcp_server.rb
