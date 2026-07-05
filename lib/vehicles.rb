@@ -95,17 +95,19 @@ module Vehicles
     # --- core query API ------------------------------------------------------
 
     # Make display names. => ["Abarth", "Alfa Romeo", ...]
+    #   Vehicles.makes(kind: :motorcycle, region: :as)  # continent filter
     def makes(kind: nil, region: nil)
       dataset.makes(kind: kind, region: region || configuration.region).map(&:name)
     end
 
     # Model display names for a make. => ["Golf", "Polo", ...]. Unknown make => [].
-    def models(make, kind: nil, body_type: nil, region: nil)
-      region ||= configuration.region
-      return [] if region && !dataset.region?(region)
-
+    #   Vehicles.models("Toyota", region: :eu, rarity: :common)
+    def models(make, kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil)
       found = make(make)
-      found ? found.models(kind: kind, body_type: body_type).map(&:name) : []
+      return [] unless found
+
+      found.models(kind: kind, body_type: body_type, region: region || configuration.region,
+                   rarity: rarity, max_decile: max_decile).map(&:name)
     end
 
     # The rich Make object (or nil). Forgiving: name, slug, or alias.
@@ -140,10 +142,25 @@ module Vehicles
     end
 
     # The most popular models by official registration counts, most popular
-    # first. Country filters by evidenced availability (ISO alpha-2).
+    # first. Filter by country (ISO alpha-2) or continent (:eu/:as/…).
     #   Vehicles.top_models(kind: :car, country: :nl, limit: 10).map(&:name)
-    def top_models(kind: nil, country: nil, limit: 20)
-      dataset.top_models(kind: kind, country: country, limit: limit)
+    #   Vehicles.top_models(kind: :motorcycle, region: :as, limit: 10)
+    def top_models(kind: nil, country: nil, region: nil, limit: 20)
+      dataset.top_models(kind: kind, country: country, region: region, limit: limit)
+    end
+
+    # A curated slice of models by kind/continent/rarity — the "give me sensible
+    # data to show" entry point (ranked, unranked models excluded when a rarity
+    # or max_decile filter is set).
+    #   Vehicles.catalog_slice(kind: :car, region: :eu, rarity: :common)
+    def catalog_slice(kind: nil, region: nil, rarity: nil, max_decile: nil)
+      dataset.all_models_filtered(kind: kind, region: region || configuration.region,
+                                  rarity: rarity, max_decile: max_decile)
+    end
+
+    # Continent codes present in the dataset. => [:af, :as, :eu, :na, :oc, :sa]
+    def regions
+      @regions ||= dataset.all_models.flat_map(&:regions).uniq.sort
     end
 
     # --- colors (canonical reference palette) --------------------------------

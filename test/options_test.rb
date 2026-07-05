@@ -16,8 +16,9 @@ module Vehicles
       assert_equal Vehicles.makes, Vehicles.make_options.map(&:first)
     end
 
-    def test_make_options_for_any_region_are_served_by_the_global_snapshot
-      refute_empty Vehicles.make_options(region: :us)
+    def test_make_options_filter_by_continent
+      refute_empty Vehicles.make_options(region: :eu)
+      assert_operator Vehicles.make_options(region: :eu).size, :<=, Vehicles.make_options.size
     end
 
     def test_model_options_are_label_value_pairs

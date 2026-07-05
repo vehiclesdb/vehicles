@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-07-05
+
+Continent filtering, rarity tiers, and alternate names — plus a cleaner
+dataset (Tesla is now 6 nameplates, not 43; ~470 duplicate makes/models
+merged).
+
+### Added
+- **Continents**: `model.regions` (`[:eu, :as, …]`), `model.available_in_region?(:eu)`,
+  and predicate sugar `.european?`/`.asian?`/`.north_american?`/`.south_american?`/
+  `.oceanian?`/`.african?`. `region:` on `makes`/`models`/`top_models` now
+  filters by continent; `Vehicles.regions` lists covered continents;
+  `make.continents` / `make.in_region?`.
+- **Rarity tiers**: `model.rarity` → `:common` (decile 1–3) / `:average` (4–7) /
+  `:rare` (8–10) / `:unknown` (unranked); `model.common?` / `model.rare?`.
+  Filter with `Vehicles.catalog_slice(kind:, region:, rarity:, max_decile:)`
+  and `Vehicles.models(make, rarity:, max_decile:)` — the "how much data do I
+  want to show" knob, without exposing raw counts.
+- **Alternate names**: `make.aliases` / `model.aliases` now carry documented
+  nicknames, initialisms and native-script names (Chevy, VW, 比亚迪, カローラ,
+  Rabbit, Pajero/Montero/Shogun…). All resolve in lookups — `Vehicles.make("比亚迪")`
+  and `Vehicles.make("Chevy")` both find the make.
+- `model.to_h` gains `regions`, `rarity`, `aliases`.
+
+### Changed
+- `config.region` now defaults to **nil** (no continent filter — the whole
+  global dataset) instead of `:eu`. `region:` means a continent everywhere; a
+  country code like `:us` returns nothing (use `country:` on `top_models` for
+  countries). Bundled snapshot: VehiclesDB `2026.07.2`.
+
 ## [0.2.0] - 2026-07-05
 
 The global multi-kind release: the bundled dataset grows from ~456 EU car
@@ -92,6 +121,7 @@ Initial release.
 - Install generator that writes a configuration initializer (no migration —
   the gem has no database table).
 
-[Unreleased]: https://github.com/vehiclesdb/vehicles/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/vehiclesdb/vehicles/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/vehiclesdb/vehicles/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/vehiclesdb/vehicles/compare/v0.1.1...v0.2.0
 [0.1.0]: https://github.com/vehiclesdb/vehicles/releases/tag/v0.1.0

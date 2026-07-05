@@ -49,13 +49,13 @@ module Vehicles
       assert_empty Vehicles.makes(kind: :plane)
     end
 
-    def test_makes_for_any_region_are_served_by_the_global_snapshot
-      refute_empty Vehicles.makes(region: :us)
-      assert_equal Vehicles.makes, Vehicles.makes(region: :us)
-    end
+    def test_makes_filter_by_continent
+      # region is a CONTINENT filter now; European makes are a subset of all.
+      eu = Vehicles.makes(region: :eu)
 
-    def test_makes_for_eu_region_is_full
-      assert_equal Vehicles.makes, Vehicles.makes(region: :eu)
+      refute_empty eu
+      assert_operator eu.size, :<=, Vehicles.makes.size
+      assert_empty Vehicles.makes(region: :us) # country code, not a continent
     end
 
     # --- models --------------------------------------------------------------
@@ -96,8 +96,9 @@ module Vehicles
       refute_includes suvs, "Yaris"
     end
 
-    def test_models_for_any_region_are_served_by_the_global_snapshot
-      refute_empty Vehicles.models("Audi", region: :us)
+    def test_models_filter_by_continent
+      refute_empty Vehicles.models("Audi", region: :eu)
+      assert_empty Vehicles.models("Audi", region: :us) # country, not continent
     end
   end
 end

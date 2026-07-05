@@ -5,13 +5,16 @@ module Vehicles
   # the whole gem without ever touching this — `Vehicles.configure` is opt-in.
   #
   #   Vehicles.configure do |config|
-  #     config.region  = :eu
+  #     config.region  = :eu   # optional default continent filter
   #     config.api_key = ENV["VEHICLESDB_API_KEY"]
   #     config.aliases = { "Chevy" => "Chevrolet" }
   #   end
   class Configuration
-    # Default region for queries. Today the bundled data ships :eu; the API is
-    # already region-aware so :us/:gb/etc. are additive, never breaking.
+    # Optional default CONTINENT filter for make/model queries
+    # (:eu/:na/:as/:sa/:oc/:af). nil (the default) means "no filter — the whole
+    # global dataset". Set it to scope an app to one market without passing
+    # `region:` on every call. (Pre-1.0 this defaulted to :eu when the data
+    # was EU-only; the global dataset makes "everything" the honest default.)
     attr_accessor :region
 
     # Optional VehiclesDB API key. When set, the hosted provider activates and
@@ -51,7 +54,7 @@ module Vehicles
     attr_accessor :refresh_timeout
 
     def initialize
-      @region          = :eu
+      @region          = nil # no continent filter by default (global dataset)
       @api_key         = nil
       @api_base_url    = "https://api.vehiclesdb.com"
       @api_timeout     = 2

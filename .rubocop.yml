@@ -56,3 +56,8 @@ Lint/UnusedMethodArgument:
 # Thorough unit tests legitimately make several related assertions.
 Minitest/MultipleAssertions:
   Enabled: false
+
+# A few query methods take make + several optional keyword filters;
+# the keywords are one cohesive filter group, not a long positional list.
+Metrics/ParameterLists:
+  CountKeywordArgs: false

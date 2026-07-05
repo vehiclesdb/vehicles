@@ -50,22 +50,30 @@ module Vehicles
       @makes    = (raw["makes"] || []).map { |attrs| Make.new(attrs) }
                                       .sort_by { |m| Vehicles.normalize(m.name) }
       @by_slug  = {}   # raw slug => Make
-      @index    = {}   # normalized name/slug/alias => Make
+      @index    = {}   # normalized (ASCII-folded) name/slug/alias => Make
+      @exact    = {}   # downcased exact string => Make — for non-Latin aliases
+      # (比亚迪, ヤマハ, 현대) that fold to "" under normalize
       @makes.each do |make|
         @by_slug[make.slug] = make
         index(make.name, make)
         index(make.slug, make)
-        make.aliases.each { |a| index(a, make) }
+        make.aliases.each do |a|
+          index(a, make)
+          @exact[a.downcase] ||= make
+        end
       end
     end
 
-    # All makes, optionally filtered by kind/region. Unknown region => [] (honest:
-    # we don't ship that pack yet), so callers never get wrong-region data.
+    # All makes, optionally filtered by kind and/or continent. `region:` is a
+    # CONTINENT (:eu/:na/:as/:sa/:oc/:af) — a make matches if it's evidenced
+    # there. (Legacy note: pre-1.0 `region:` meant "does the snapshot cover
+    # this?"; on today's global snapshot both readings return European makes
+    # for `region: :eu`, so existing callers are unaffected.) An unmapped
+    # continent honestly returns [].
     def makes(kind: nil, region: nil)
-      return [] if region && !region_match?(region)
-
       list = @makes
       list = list.select { |m| m.kinds.include?(kind.to_sym) } if kind
+      list = list.select { |m| m.in_region?(region) }          if region
       list
     end
 
@@ -74,7 +82,8 @@ module Vehicles
       return query if query.is_a?(Make)
 
       q = Vehicles.normalize(query)
-      return nil if q.empty?
+      # Non-Latin queries (比亚迪, 현대) fold to "" — try the exact index first.
+      return @exact[query.to_s.strip.downcase] if q.empty?
 
       # 1. user-supplied aliases win
       if (canonical = Vehicles.configuration.aliases[q])
@@ -143,12 +152,25 @@ module Vehicles
     # availability as the tiebreaker, then name. Unranked models (nil decile —
     # catalog-only evidence) never appear: "unknown" must not outrank "known".
     #   top_models(kind: :car, country: :nl, limit: 10)
-    def top_models(kind: nil, country: nil, limit: 20)
+    #   top_models(kind: :motorcycle, region: :as, limit: 10)  # by continent
+    def top_models(kind: nil, country: nil, region: nil, limit: 20)
       c = country&.to_s&.downcase
       list = all_models.select(&:global_decile)
       list = list.select { |m| m.kind == kind.to_sym } if kind
       list = list.select { |m| m.availability.include?(c) } if c
+      list = list.select { |m| m.available_in_region?(region) } if region
       list.sort_by { |m| [m.global_decile, -m.availability.size, m.name] }.first(limit)
+    end
+
+    # Every model matching optional kind/region/rarity filters, ranked by
+    # popularity. The "give me a sensible slice" entry point.
+    def all_models_filtered(kind: nil, region: nil, rarity: nil, max_decile: nil)
+      list = all_models
+      list = list.select { |m| m.kind == kind.to_sym }          if kind
+      list = list.select { |m| m.available_in_region?(region) } if region
+      list = list.select { |m| m.rarity == rarity.to_sym }      if rarity
+      list = list.select { |m| m.global_decile && m.global_decile <= max_decile } if max_decile
+      list
     end
 
     # Does this snapshot cover the given region? A "global" snapshot covers

@@ -21,10 +21,14 @@ module Vehicles
       hatchback sedan wagon suv mpv coupe convertible roadster pickup van
     ].freeze
 
-    attr_reader :make, :make_slug, :name, :kind, :body_type, :global_decile, :availability
+    # Continent codes (the model `regions` rollup). Order = rough market size.
+    REGIONS = %i[eu na as sa oc af].freeze
 
-    # @param attrs [Hash] one model entry from the dataset
-    #   (name/slug/kind/body_type + optional global_decile/availability)
+    attr_reader :make, :make_slug, :name, :kind, :body_type, :global_decile,
+                :availability, :regions, :aliases
+
+    # @param attrs [Hash] one model entry from the dataset (name/slug/kind +
+    #   optional body_type/global_decile/availability/regions/aliases)
     # @param make [String] the parent make's display name
     # @param make_slug [String] the parent make's slug (for the composite slug)
     def initialize(attrs, make:, make_slug:)
@@ -43,6 +47,10 @@ module Vehicles
       # Evidence of PRESENCE, not proof of official marketing (grey imports
       # count — they're real vehicles on real roads).
       @availability  = (attrs["availability"] || []).freeze
+      # Continent rollup of availability (:eu/:na/:sa/:as/:oc/:af).
+      @regions       = (attrs["regions"] || []).map(&:to_sym).freeze
+      # Documented alternate names (nicknames, native scripts, market names).
+      @aliases       = (attrs["aliases"] || []).freeze
       freeze
     end
 
@@ -78,15 +86,47 @@ module Vehicles
       availability.include?(country.to_s.downcase)
     end
 
+    # Evidence of presence on a continent (:eu/:na/:sa/:as/:oc/:af):
+    #   Vehicles.find("perodua myvi").available_in_region?(:as)  # => true
+    def available_in_region?(region)
+      regions.include?(region.to_sym)
+    end
+
+    # Continent predicate sugar: `.european?`, `.asian?`, `.north_american?`,
+    # `.south_american?`, `.oceanian?`, `.african?`.
+    { european: :eu, north_american: :na, asian: :as,
+      south_american: :sa, oceanian: :oc, african: :af }.each do |word, code|
+      define_method("#{word}?") { @regions.include?(code) }
+    end
+
     # Top-20% popularity across covered markets. false when unranked (nil
     # decile) — "we don't know" must never read as "popular".
     def popular?
       !global_decile.nil? && global_decile <= 2
     end
 
+    # Rarity tier from the popularity decile — the coarse "how much data do I
+    # want to show" knob. Deciles are the moat's measured signal; this buckets
+    # them into three names apps can filter on WITHOUT us exposing raw counts:
+    #   :common  deciles 1-3   (the names everyone knows — safe default filter)
+    #   :average deciles 4-7
+    #   :rare    deciles 8-10
+    #   :unknown unranked (catalog-only evidence — no popularity signal yet)
+    def rarity
+      return :unknown if global_decile.nil?
+      return :common  if global_decile <= 3
+      return :average if global_decile <= 7
+
+      :rare
+    end
+
+    def common?  = rarity == :common
+    def rare?    = rarity == :rare
+
     def to_h
       { make: make, model: name, slug: slug, kind: kind, body_type: body_type,
-        global_decile: global_decile, availability: availability }
+        global_decile: global_decile, rarity: rarity,
+        availability: availability, regions: regions, aliases: aliases }
     end
 
     # Value-object equality — two models with the same slug are equal.

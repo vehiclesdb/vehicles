@@ -19,16 +19,33 @@ module Vehicles
       @raw_models = attrs["models"] || []
     end
 
-    # All models for this make, optionally filtered by kind/body_type.
-    # Returns Vehicles::Model objects, ordered by popularity (as built).
+    # All models for this make, optionally filtered by kind/body_type/region/
+    # rarity. Returns Vehicles::Model objects, ordered by popularity (as built).
     # The unfiltered list is memoized AND frozen — it's shared process-wide, so a
     # frozen array turns accidental caller mutation into a loud error instead of
     # silently corrupting the dataset. Filtered calls return a fresh array.
-    def models(kind: nil, body_type: nil)
+    #   models(kind: :car, region: :eu)          # European cars only
+    #   models(rarity: :common)                  # just the well-known ones
+    #   models(max_decile: 3)                     # top-30% by popularity
+    def models(kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil)
       list = (@models ||= @raw_models.map { |m| Model.new(m, make: name, make_slug: slug) }.freeze)
-      list = list.select { |m| m.kind == kind.to_sym }           if kind
-      list = list.select { |m| m.body_type == body_type.to_sym } if body_type
+      list = list.select { |m| m.kind == kind.to_sym }             if kind
+      list = list.select { |m| m.body_type == body_type.to_sym }   if body_type
+      list = list.select { |m| m.available_in_region?(region) }    if region
+      list = list.select { |m| m.rarity == rarity.to_sym }         if rarity
+      list = list.select { |m| m.global_decile && m.global_decile <= max_decile } if max_decile
       list
+    end
+
+    # Continents this make is evidenced in (union of its models' regions).
+    # => [:eu, :as, :na] — powers make-level continent filtering.
+    def continents
+      @continents ||= models.flat_map(&:regions).uniq.freeze
+    end
+
+    # Is this make evidenced on the given continent? (:eu/:na/:as/:sa/:oc/:af)
+    def in_region?(region)
+      continents.include?(region.to_sym)
     end
 
     # Model display names — what you drop into a dropdown. => ["A3", "A4", ...]

@@ -28,9 +28,11 @@ module Vehicles
     end
 
     def test_catalog_respects_region_filter
-      # The global snapshot serves every region query.
-      refute_empty Vehicles.catalog(region: :us)
+      # region is a CONTINENT filter (:eu/:na/:as/...); a country code or an
+      # unmapped continent honestly returns nothing.
       refute_empty Vehicles.catalog(region: :eu)
+      refute_empty Vehicles.catalog(region: :as)
+      assert_empty Vehicles.catalog(region: :us) # :us is a country, not a continent
     end
 
     def test_catalog_is_json_ready
