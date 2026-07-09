@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-07-09
+
+A first-class **"Other / not in the list" escape hatch** for make/model pickers,
+so a vehicle the dataset doesn't cover is never a dead end:
+
+- `include_other:` on `makes`, `models`, `make_options`, and `model_options`
+  appends the option (name lists get the label; option pairs get the stable
+  `"other"` slug). Idempotent.
+- `allow_other: true` on the `vehicle_make` / `vehicle_model` validators accepts
+  it, so the dropdown and the validation agree by construction.
+- `config.other_label` (default `"Other"`) localizes the label; `Vehicles.other?`
+  recognizes the label or the canonical `"other"` slug (case/diacritics-forgiving),
+  and `Vehicles.other_label` reads it back.
+
 ## [0.3.0] - 2026-07-05
 
 Continent filtering, rarity tiers, and alternate names — plus a cleaner
@@ -121,7 +135,8 @@ Initial release.
 - Install generator that writes a configuration initializer (no migration —
   the gem has no database table).
 
-[Unreleased]: https://github.com/vehiclesdb/vehicles/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/vehiclesdb/vehicles/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/vehiclesdb/vehicles/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/vehiclesdb/vehicles/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/vehiclesdb/vehicles/compare/v0.1.1...v0.2.0
 [0.1.0]: https://github.com/vehiclesdb/vehicles/releases/tag/v0.1.0

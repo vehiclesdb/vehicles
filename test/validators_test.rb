@@ -23,6 +23,16 @@ module Vehicles
       validates :make, presence: true, vehicle_make: true
     end
 
+    # Opts into the "Other / not in the list" escape hatch on both fields.
+    class CarWithOther
+      include ActiveModel::Model
+
+      attr_accessor :make, :model
+
+      validates :make, vehicle_make: { allow_other: true }
+      validates :model, vehicle_model: { make: :make, allow_other: true }
+    end
+
     def setup
       skip "ActiveModel not available" unless defined?(ActiveModel::EachValidator)
     end
@@ -58,6 +68,25 @@ module Vehicles
     def test_presence_composes
       refute_predicate CarRequired.new(make: nil), :valid?
       assert_predicate CarRequired.new(make: "Audi"), :valid?
+    end
+
+    def test_allow_other_accepts_the_escape_hatch
+      Vehicles.configure { |c| c.other_label = "Otro" }
+
+      # "Otro" is not a real make/model but is accepted when allow_other is set.
+      assert_predicate CarWithOther.new(make: "Otro", model: "Otro"), :valid?
+      # a real make with an "Other" model (car not in the dataset) is fine too
+      assert_predicate CarWithOther.new(make: "Audi", model: "Otro"), :valid?
+      # and the canonical slug is always accepted, whatever the label
+      assert_predicate CarWithOther.new(make: "other", model: "other"), :valid?
+    end
+
+    def test_without_allow_other_the_escape_hatch_is_rejected
+      # Default validators still reject "Other" — it isn't in the dataset.
+      car = Car.new(make: "Other", model: "Other")
+
+      refute_predicate car, :valid?
+      assert_includes car.errors[:make], "is not a recognized vehicle make"
     end
 
     def test_model_validator_defers_when_make_unknown

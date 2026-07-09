@@ -33,6 +33,13 @@ module Vehicles
     # forgivingly (case/diacritics-insensitive); values are canonical make names.
     attr_reader :aliases
 
+    # Label for the "Other / not in the list" escape-hatch option, used by the
+    # `include_other:` helpers and the `allow_other:` validators. Defaults to
+    # "Other"; set it to your UI language (e.g. "Otro", "Autre") so the option
+    # reads naturally. Matching is forgiving: the canonical slug "other" is always
+    # accepted too, so a stored "Other" validates even if you later relabel it.
+    attr_accessor :other_label
+
     # --- data refresh (optional) ---------------------------------------------
     # The gem ships a bundled snapshot that works offline with zero setup. These
     # let an app pull the latest published dataset (e.g. via a daily job) so data
@@ -59,6 +66,7 @@ module Vehicles
       @api_base_url    = "https://api.vehiclesdb.com"
       @api_timeout     = 2
       @aliases         = {}
+      @other_label     = "Other"
       @data_url        = "https://cdn.jsdelivr.net/gh/vehiclesdb/vehiclesdb@latest/dist/vehicles.json"
       @cache_path      = default_cache_path
       @use_cache       = true

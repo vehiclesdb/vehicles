@@ -7,9 +7,14 @@
 # enough. Forgiving (aliases/case/slug) like every other lookup, and defensive:
 # blank values pass (pair with `presence: true` if you want them rejected), and
 # any internal error degrades to a generic message instead of blowing up a form.
+#
+# Pass `allow_other: true` to accept the "Other / not in the list" escape hatch
+# (see `Vehicles.other?`) — pair it with `Vehicles.make_options(include_other:)`
+# so the dropdown and the validation agree by construction.
 class VehicleMakeValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     return if value.blank?
+    return if options[:allow_other] && Vehicles.other?(value)
     return if Vehicles.make(value)
 
     record.errors.add(attribute, options[:message] || "is not a recognized vehicle make")

@@ -21,6 +21,13 @@ Vehicles.configure do |config|
   # forgivingly (case/diacritics-insensitive).
   # config.aliases = { "Chevy" => "Chevrolet", "Landy" => "Land Rover" }
 
+  # Optional: label for the "Other / not in the list" escape-hatch option (for
+  # make/model pickers). Defaults to "Other"; set it to your UI language. Turn it
+  # on per field with `Vehicles.makes(include_other: true)` /
+  # `Vehicles.make_options(include_other: true)` and accept it in validation with
+  # `validates :make, vehicle_make: { allow_other: true }`.
+  # config.other_label = "Other"
+
   # --- Data refresh (optional) ----------------------------------------------
   # The gem works offline with its bundled snapshot. To get data fixes and new
   # makes WITHOUT upgrading the gem, schedule VehiclesRefreshJob (see app/jobs)

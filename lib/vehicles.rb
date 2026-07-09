@@ -9,6 +9,7 @@ require_relative "vehicles/dataset"
 require_relative "vehicles/refresher"
 require_relative "vehicles/providers/local_provider"
 require_relative "vehicles/providers/hosted_provider"
+require_relative "vehicles/other_option"
 
 # Car makes & models for your Rails app — dropdowns, search, validation. Bundled
 # data, zero config, no network calls. Standalone first; an SDK for the hosted
@@ -96,18 +97,21 @@ module Vehicles
 
     # Make display names. => ["Abarth", "Alfa Romeo", ...]
     #   Vehicles.makes(kind: :motorcycle, region: :as)  # continent filter
-    def makes(kind: nil, region: nil)
-      dataset.makes(kind: kind, region: region || configuration.region).map(&:name)
+    #   Vehicles.makes(include_other: true)             # ... + the "Other" escape hatch
+    def makes(kind: nil, region: nil, include_other: false)
+      names = dataset.makes(kind: kind, region: region || configuration.region).map(&:name)
+      append_other_name(names, include_other)
     end
 
     # Model display names for a make. => ["Golf", "Polo", ...]. Unknown make => [].
     #   Vehicles.models("Toyota", region: :eu, rarity: :common)
-    def models(make, kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil)
-      found = make(make)
-      return [] unless found
-
-      found.models(kind: kind, body_type: body_type, region: region || configuration.region,
-                   rarity: rarity, max_decile: max_decile).map(&:name)
+    #   Vehicles.models("Toyota", include_other: true)  # ... + the "Other" escape hatch
+    # With `include_other:`, an unknown make (e.g. the "Other" make itself) yields
+    # just `[other_label]`, so a make→model picker never dead-ends.
+    def models(make, kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil, include_other: false)
+      names = make(make)&.models(kind: kind, body_type: body_type, region: region || configuration.region,
+                                 rarity: rarity, max_decile: max_decile)&.map(&:name) || []
+      append_other_name(names, include_other)
     end
 
     # The rich Make object (or nil). Forgiving: name, slug, or alias.
@@ -186,15 +190,23 @@ module Vehicles
     end
 
     # [[label, value], ...] of makes for a Rails `select`.
-    def make_options(kind: nil, region: nil)
-      dataset.makes(kind: kind, region: region || configuration.region).map { |m| [m.name, m.slug] }
+    #   Vehicles.make_options(include_other: true)  # ... + [other_label, "other"]
+    def make_options(kind: nil, region: nil, include_other: false)
+      opts = dataset.makes(kind: kind, region: region || configuration.region).map { |m| [m.name, m.slug] }
+      append_other_option(opts, include_other)
     end
 
     # [[label, value], ...] of a make's models for a Rails `select`. Unknown => [].
-    def model_options(make, kind: nil, body_type: nil)
+    #   Vehicles.model_options("audi", include_other: true)  # ... + [other_label, "other"]
+    def model_options(make, kind: nil, body_type: nil, include_other: false)
       found = make(make)
-      found ? found.model_options(kind: kind, body_type: body_type) : []
+      opts = found ? found.model_options(kind: kind, body_type: body_type) : []
+      append_other_option(opts, include_other)
     end
+
+    # The "Other / not in the list" escape hatch (`other_label`, `other?`, and the
+    # `include_other:` support wired into the helpers above) lives in the
+    # OtherOption module, extended onto this singleton at the bottom of the file.
 
     # A { make => [model names] } map for the given filters — everything you need
     # to build a dependent make → model picker entirely on the client: embed it
@@ -271,6 +283,12 @@ module Vehicles
       @validators_loaded = true
     end
   end
+
+  # The "Other" escape hatch: `other_label` / `other?` (public) and the private
+  # `append_other_*` builders the `include_other:` helpers call. Extended here so
+  # they become Vehicles singleton methods with access to `configuration` /
+  # `normalize`.
+  extend OtherOption
 end
 
 # Loaded after the module so its lookup tables can use Vehicles.normalize.
