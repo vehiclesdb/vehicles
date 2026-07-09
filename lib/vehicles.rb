@@ -9,6 +9,7 @@ require_relative "vehicles/dataset"
 require_relative "vehicles/refresher"
 require_relative "vehicles/providers/local_provider"
 require_relative "vehicles/providers/hosted_provider"
+require_relative "vehicles/other_option"
 
 # Car makes & models for your Rails app — dropdowns, search, validation. Bundled
 # data, zero config, no network calls. Standalone first; an SDK for the hosted
@@ -23,11 +24,6 @@ module Vehicles
 
   # The bundled snapshot, packaged in the gem. Overridable via `Vehicles.data_path=`.
   DATA_PATH = File.expand_path("../data/vehicles.json", __dir__)
-
-  # Stable, language-independent value for the "Other / not in the list" escape
-  # hatch — the slug the `*_options(include_other:)` helpers emit, and a value
-  # `other?` always recognizes regardless of the configured display label.
-  OTHER_SLUG = "other"
 
   class << self
     # --- configuration -------------------------------------------------------
@@ -113,9 +109,8 @@ module Vehicles
     # With `include_other:`, an unknown make (e.g. the "Other" make itself) yields
     # just `[other_label]`, so a make→model picker never dead-ends.
     def models(make, kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil, include_other: false)
-      found = make(make)
-      names = found ? found.models(kind: kind, body_type: body_type, region: region || configuration.region,
-                                   rarity: rarity, max_decile: max_decile).map(&:name) : []
+      names = make(make)&.models(kind: kind, body_type: body_type, region: region || configuration.region,
+                                 rarity: rarity, max_decile: max_decile)&.map(&:name) || []
       append_other_name(names, include_other)
     end
 
@@ -209,29 +204,9 @@ module Vehicles
       append_other_option(opts, include_other)
     end
 
-    # --- "Other" escape hatch ------------------------------------------------
-    # A first-class "my vehicle isn't in the list" option for make/model pickers.
-    # `include_other:` appends it to the helpers above; `allow_other: true` on the
-    # vehicle_make / vehicle_model validators lets the stored value through. The
-    # label is localizable (`config.other_label`); the value you store is that
-    # label (name-valued `makes`/`models`) or the "other" slug (`*_options`).
-
-    # The configured "Other" display label (default "Other"). Use it as the
-    # picker's escape-hatch value and to recognize it on read.
-    def other_label
-      configuration.other_label
-    end
-
-    # Is `value` the "Other / not in the list" escape hatch? Forgiving: matches the
-    # configured label ("Otro") OR the canonical slug ("other"), case/diacritics-
-    # insensitively. nil/blank => false. Handy for hiding it from a display string
-    # or skipping dataset lookups on it.
-    def other?(value)
-      normalized = normalize(value)
-      return false if normalized.empty?
-
-      normalized == OTHER_SLUG || normalized == normalize(other_label)
-    end
+    # The "Other / not in the list" escape hatch (`other_label`, `other?`, and the
+    # `include_other:` support wired into the helpers above) lives in the
+    # OtherOption module, extended onto this singleton at the bottom of the file.
 
     # A { make => [model names] } map for the given filters — everything you need
     # to build a dependent make → model picker entirely on the client: embed it
@@ -307,28 +282,13 @@ module Vehicles
       require_relative "vehicles/validators/vehicle_model_validator"
       @validators_loaded = true
     end
-
-    private
-
-    # Append the "Other" label to a name list (makes/models), unless disabled or
-    # already present. Kept idempotent so a dataset that ever ships its own
-    # "Other" entry won't double it.
-    def append_other_name(names, include_other)
-      return names unless include_other
-      return names if names.any? { |name| other?(name) }
-
-      names + [other_label]
-    end
-
-    # Same, for [[label, value], ...] option pairs — the appended value is the
-    # stable OTHER_SLUG so slug-valued forms store a language-independent value.
-    def append_other_option(pairs, include_other)
-      return pairs unless include_other
-      return pairs if pairs.any? { |(_label, value)| other?(value) }
-
-      pairs + [[other_label, OTHER_SLUG]]
-    end
   end
+
+  # The "Other" escape hatch: `other_label` / `other?` (public) and the private
+  # `append_other_*` builders the `include_other:` helpers call. Extended here so
+  # they become Vehicles singleton methods with access to `configuration` /
+  # `normalize`.
+  extend OtherOption
 end
 
 # Loaded after the module so its lookup tables can use Vehicles.normalize.
