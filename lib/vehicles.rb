@@ -24,6 +24,11 @@ module Vehicles
   # The bundled snapshot, packaged in the gem. Overridable via `Vehicles.data_path=`.
   DATA_PATH = File.expand_path("../data/vehicles.json", __dir__)
 
+  # Stable, language-independent value for the "Other / not in the list" escape
+  # hatch — the slug the `*_options(include_other:)` helpers emit, and a value
+  # `other?` always recognizes regardless of the configured display label.
+  OTHER_SLUG = "other"
+
   class << self
     # --- configuration -------------------------------------------------------
 
@@ -96,18 +101,22 @@ module Vehicles
 
     # Make display names. => ["Abarth", "Alfa Romeo", ...]
     #   Vehicles.makes(kind: :motorcycle, region: :as)  # continent filter
-    def makes(kind: nil, region: nil)
-      dataset.makes(kind: kind, region: region || configuration.region).map(&:name)
+    #   Vehicles.makes(include_other: true)             # ... + the "Other" escape hatch
+    def makes(kind: nil, region: nil, include_other: false)
+      names = dataset.makes(kind: kind, region: region || configuration.region).map(&:name)
+      append_other_name(names, include_other)
     end
 
     # Model display names for a make. => ["Golf", "Polo", ...]. Unknown make => [].
     #   Vehicles.models("Toyota", region: :eu, rarity: :common)
-    def models(make, kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil)
+    #   Vehicles.models("Toyota", include_other: true)  # ... + the "Other" escape hatch
+    # With `include_other:`, an unknown make (e.g. the "Other" make itself) yields
+    # just `[other_label]`, so a make→model picker never dead-ends.
+    def models(make, kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil, include_other: false)
       found = make(make)
-      return [] unless found
-
-      found.models(kind: kind, body_type: body_type, region: region || configuration.region,
-                   rarity: rarity, max_decile: max_decile).map(&:name)
+      names = found ? found.models(kind: kind, body_type: body_type, region: region || configuration.region,
+                                   rarity: rarity, max_decile: max_decile).map(&:name) : []
+      append_other_name(names, include_other)
     end
 
     # The rich Make object (or nil). Forgiving: name, slug, or alias.
@@ -186,14 +195,42 @@ module Vehicles
     end
 
     # [[label, value], ...] of makes for a Rails `select`.
-    def make_options(kind: nil, region: nil)
-      dataset.makes(kind: kind, region: region || configuration.region).map { |m| [m.name, m.slug] }
+    #   Vehicles.make_options(include_other: true)  # ... + [other_label, "other"]
+    def make_options(kind: nil, region: nil, include_other: false)
+      opts = dataset.makes(kind: kind, region: region || configuration.region).map { |m| [m.name, m.slug] }
+      append_other_option(opts, include_other)
     end
 
     # [[label, value], ...] of a make's models for a Rails `select`. Unknown => [].
-    def model_options(make, kind: nil, body_type: nil)
+    #   Vehicles.model_options("audi", include_other: true)  # ... + [other_label, "other"]
+    def model_options(make, kind: nil, body_type: nil, include_other: false)
       found = make(make)
-      found ? found.model_options(kind: kind, body_type: body_type) : []
+      opts = found ? found.model_options(kind: kind, body_type: body_type) : []
+      append_other_option(opts, include_other)
+    end
+
+    # --- "Other" escape hatch ------------------------------------------------
+    # A first-class "my vehicle isn't in the list" option for make/model pickers.
+    # `include_other:` appends it to the helpers above; `allow_other: true` on the
+    # vehicle_make / vehicle_model validators lets the stored value through. The
+    # label is localizable (`config.other_label`); the value you store is that
+    # label (name-valued `makes`/`models`) or the "other" slug (`*_options`).
+
+    # The configured "Other" display label (default "Other"). Use it as the
+    # picker's escape-hatch value and to recognize it on read.
+    def other_label
+      configuration.other_label
+    end
+
+    # Is `value` the "Other / not in the list" escape hatch? Forgiving: matches the
+    # configured label ("Otro") OR the canonical slug ("other"), case/diacritics-
+    # insensitively. nil/blank => false. Handy for hiding it from a display string
+    # or skipping dataset lookups on it.
+    def other?(value)
+      normalized = normalize(value)
+      return false if normalized.empty?
+
+      normalized == OTHER_SLUG || normalized == normalize(other_label)
     end
 
     # A { make => [model names] } map for the given filters — everything you need
@@ -269,6 +306,27 @@ module Vehicles
       require_relative "vehicles/validators/vehicle_make_validator"
       require_relative "vehicles/validators/vehicle_model_validator"
       @validators_loaded = true
+    end
+
+    private
+
+    # Append the "Other" label to a name list (makes/models), unless disabled or
+    # already present. Kept idempotent so a dataset that ever ships its own
+    # "Other" entry won't double it.
+    def append_other_name(names, include_other)
+      return names unless include_other
+      return names if names.any? { |name| other?(name) }
+
+      names + [other_label]
+    end
+
+    # Same, for [[label, value], ...] option pairs — the appended value is the
+    # stable OTHER_SLUG so slug-valued forms store a language-independent value.
+    def append_other_option(pairs, include_other)
+      return pairs unless include_other
+      return pairs if pairs.any? { |(_label, value)| other?(value) }
+
+      pairs + [[other_label, OTHER_SLUG]]
     end
   end
 end

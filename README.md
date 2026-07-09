@@ -301,6 +301,46 @@ Car.new(make: "Tesler",     model: "Model 3").valid?   # => false
 
 They're forgiving the same way the lookups are (aliases, case, slugs), and they never raise on blank/garbage input — they just add an error.
 
+### An "Other / not in the list" escape hatch
+
+Make/model dropdowns should never be a dead end — 18.5k models is a lot, but
+someone always shows up with the one car that isn't there. Turn on a first-class
+"Other" option and the pieces agree by construction: `include_other:` adds it to
+the picker, `allow_other:` lets it through validation.
+
+```ruby
+# config/initializers/vehicles.rb — localize the label once (default "Other")
+Vehicles.configure { |c| c.other_label = "Otro" }
+```
+
+```erb
+<%= form.select :make,  Vehicles.makes(include_other: true),        { include_blank: "Marca" } %>
+<%= form.select :model, Vehicles.models(@car.make, include_other: true), { include_blank: "Modelo" } %>
+```
+
+```ruby
+validates :make,  vehicle_make: { allow_other: true },             allow_blank: true
+validates :model, vehicle_model: { make: :make, allow_other: true }, allow_blank: true
+```
+
+You store the label itself (`"Otro"`) with the name-valued helpers, or the stable
+`"other"` slug with `make_options` / `model_options`. Either way `Vehicles.other?`
+recognizes it on read — matching the configured label **or** the canonical slug,
+case/diacritics-insensitively — so it's easy to skip a dataset lookup or hide it
+from a display string:
+
+```ruby
+Vehicles.other?("Otro")     # => true   (your label)
+Vehicles.other?("other")    # => true   (canonical slug, always)
+Vehicles.other?("Audi")     # => false
+
+[make, model].reject { |v| Vehicles.other?(v) }.join(" ")   # a clean display name
+```
+
+An unknown make (like the "Other" make itself) has no models, so
+`Vehicles.models("Otro", include_other: true)` returns just `["Otro"]` — the
+dependent picker gets a valid choice instead of an empty select.
+
 ## Recommended integration
 
 Here's the pattern that works cleanly end to end — and a reference schema for the

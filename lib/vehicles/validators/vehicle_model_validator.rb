@@ -10,9 +10,13 @@
 # Defensive by design: blank model passes; an unknown/blank make can't disprove
 # the model, so it passes (let the make's own validator flag that); errors never
 # raise out of a form submission.
+#
+# Pass `allow_other: true` to accept the "Other / not in the list" escape hatch
+# (see `Vehicles.other?`) — pair it with `Vehicles.model_options(include_other:)`.
 class VehicleModelValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     return if value.blank?
+    return if options[:allow_other] && Vehicles.other?(value)
 
     make_attribute = options[:make] || :make
     make_value = record.respond_to?(make_attribute) ? record.public_send(make_attribute) : nil
