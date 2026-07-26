@@ -159,9 +159,21 @@ module Vehicles
       Vehicles.resolve(:segment, self)
     end
 
-    # Image URL, optionally year-/color-accurate. nil without hosted data.
-    def image(year: nil, color: nil)
-      Vehicles.resolve(:image, self, year: year, color: color)
+    # One rendered image URL, ready for an <img src>. `size` picks the
+    # variant (:sm/:md/:lg), `color` a palette slug (Vehicles.colors); an
+    # un-rendered color falls back honestly server-side rather than erroring.
+    # `year` is accepted for forward-compatibility but not yet served.
+    # nil without hosted data — always render a placeholder path.
+    def image(year: nil, color: nil, size: :md)
+      Vehicles.resolve(:image, self, year: year, color: color, size: size)
+    end
+
+    # The full hosted images payload — every variant with dimensions, the
+    # rendered palette for this model, served-vs-requested color, provenance.
+    # Reach for this when one URL isn't enough (srcset, color pickers,
+    # caching whole responses). nil without hosted data.
+    def images(color: nil)
+      Vehicles.resolve(:images, self, color: color)
     end
   end
 end

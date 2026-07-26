@@ -9,7 +9,7 @@ module Vehicles
 
       assert_nil config.region # no continent filter by default (global dataset)
       assert_nil config.api_key
-      assert_equal "https://api.vehiclesdb.com", config.api_base_url
+      assert_equal "https://vehiclesdb.com", config.api_base_url
       assert_equal({}, config.aliases)
     end
 

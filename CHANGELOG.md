@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-26
+
+The hosted images API is **live** — this release points the wired-up provider
+seam at the real thing.
+
+### Added
+- `Model#image(color:, size:)` returns a rendered variant URL from the live
+  VehiclesDB images API (`:sm` 320×180, `:md` 640×360, `:lg` 1280×720, webp).
+  Mint a key at <https://vehiclesdb.com/settings/api-keys> and set
+  `config.api_key`; without a key it stays nil, as always.
+- `Model#images(color:)` returns the full payload: every variant with
+  dimensions, the rendered palette for the model, served-vs-requested color
+  (un-rendered colors fall back honestly instead of 404ing), provenance.
+
+### Changed
+- `config.api_base_url` default is now `https://vehiclesdb.com` (the live API
+  origin; endpoint paths carry `/v1`). It must be an ORIGIN — no path suffix.
+- `Model#image` accepts `year:` but does not send it: `year`/`trim` are
+  reserved filters server-side (the API 422s on them by contract) until
+  year-accurate renders ship.
+
 ## [0.4.1] - 2026-07-26
 
 Data-only refresh to VehiclesDB dataset **2026.07.4** — the July correction

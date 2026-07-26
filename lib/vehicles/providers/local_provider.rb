@@ -17,9 +17,10 @@ module Vehicles
       # The bundled snapshot is make/model/kind/body_type only — richer fields
       # come from the hosted API. Returning nil here lets the resolver move on
       # (and ultimately yield nil) instead of raising.
-      def years(_model)               = nil
-      def segment(_model)             = nil
-      def image(_model, year:, color:) = nil
+      def years(_model)                                          = nil
+      def segment(_model)                                        = nil
+      def image(_model, year: nil, color: nil, size: :md)        = nil
+      def images(_model, color: nil)                             = nil
     end
   end
 end

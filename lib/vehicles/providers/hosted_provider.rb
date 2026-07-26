@@ -11,10 +11,11 @@ module Vehicles
     # resolver falls back to the local data. Tracking/enrichment must never break
     # the host app, so this never raises out.
     #
-    # NOTE: the public VehiclesDB API is not live yet. This is the wired-up seam:
-    # the moment the service ships (and you set `config.api_key`), these methods
-    # light up with zero code changes on the consumer's side. Until then they
-    # safely return nil. Endpoint shape is provisional — see https://vehiclesdb.com.
+    # The images endpoint is LIVE (since 2026-07): mint a key at
+    # https://vehiclesdb.com/settings/api-keys, set `config.api_key`, and
+    # `model.image` / `model.images` answer with rendered vehicle imagery.
+    # The enrichment endpoints (years/segment) are still the wired-up seam —
+    # they safely return nil until the service ships them.
     module HostedProvider
       module_function
 
@@ -33,11 +34,28 @@ module Vehicles
         fetch(model)&.dig("segment")&.to_sym
       end
 
-      def image(model, year:, color:)
+      # One variant URL — the common "just give me an <img src>" case.
+      # `size` picks from the API's rendered variants (:sm 320×180, :md
+      # 640×360, :lg 1280×720; webp).
+      def image(model, year: nil, color: nil, size: :md)
+        images(model, color: color)&.dig("variants", size.to_s, "url")
+      end
+
+      # The full images payload for a model — palette, every variant with
+      # dimensions, provenance, and the honest color fallback: `color` is what
+      # the API actually served, `requested_color` what you asked for (a color
+      # that isn't rendered yet falls back rather than 404ing).
+      #
+      # GET /v1/vehicles/:kind/:make_slug/:model_slug/images?color=<slug>
+      #
+      # `year`/`trim` filters are RESERVED server-side today (the API 422s on
+      # them by contract, so callers can't silently build on unimplemented
+      # semantics) — which is why `image` accepts `year:` but never sends it:
+      # serving the current rendering beats an error until the filter ships.
+      def images(model, color: nil)
         params = {}
-        params[:year]  = year  if year
-        params[:color] = color if color
-        get("/v1/models/#{model.slug}/image", params)&.dig("url")
+        params[:color] = color.to_s unless color.to_s.empty?
+        get("/v1/vehicles/#{model.kind}/#{model.make_slug}/#{model.model_slug}/images", params)
       end
 
       # --- internals -----------------------------------------------------------

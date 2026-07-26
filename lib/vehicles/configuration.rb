@@ -22,7 +22,9 @@ module Vehicles
     # works on the bundled data — the gem is standalone first, SDK second.
     attr_accessor :api_key
 
-    # Base URL for the hosted VehiclesDB API. Overridable for self-hosting/testing.
+    # ORIGIN of the hosted VehiclesDB API — scheme + host only, no path
+    # (endpoint paths carry their own /v1 prefix, and URI.join would drop a
+    # path suffix here anyway). Overridable for self-hosting/testing.
     attr_accessor :api_base_url
 
     # Network timeout (seconds) for hosted API calls. Kept short so a slow/missing
@@ -63,7 +65,7 @@ module Vehicles
     def initialize
       @region          = nil # no continent filter by default (global dataset)
       @api_key         = nil
-      @api_base_url    = "https://api.vehiclesdb.com"
+      @api_base_url    = "https://vehiclesdb.com"
       @api_timeout     = 2
       @aliases         = {}
       @other_label     = "Other"

@@ -442,11 +442,20 @@ Vehicles.configure do |config|
 end
 
 car = Vehicles.find("vw golf")
-car.years                       # => 1974..2024            production years
-car.segment                     # => :hatchback / :hot_hatch   editorial segment
-car.image                       # => "https://cdn.vehiclesdb.com/volkswagen/golf.webp"
-car.image(year: 2020)           # year-accurate photo
-car.image(year: 2020, color: :silver)
+
+# Rendered vehicle imagery — LIVE today. Mint a key at
+# https://vehiclesdb.com/settings/api-keys
+car.image                        # => "https://vehiclesdb.com/…/md.webp"  (640×360)
+car.image(size: :lg)             # :sm 320×180 · :md 640×360 · :lg 1280×720
+car.image(color: "red")          # color-accurate; un-rendered colors fall back honestly
+car.images(color: "red")         # the full payload: every variant + dimensions,
+                                 #    rendered palette, served-vs-requested color
+# color slugs are the gem's own canon — Vehicles.colors — so a stored
+# dropdown value maps 1:1 to the rendered imagery.
+
+# Enrichment — the wired-up seam; ships next. nil until then, same objects.
+car.years                        # => 1974..2024            production years
+car.segment                      # => :hatchback / :hot_hatch   editorial segment
 ```
 
 Under the hood this is a simple **provider** model: a `LocalProvider` (the bundled data) is always available, and a `HostedProvider` activates only when an API key is configured. Calls prefer the hosted data when it's there and **fall back to the local data otherwise — never raising, never blocking** your request:
