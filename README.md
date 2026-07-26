@@ -5,7 +5,7 @@
 > [!TIP]
 > **🚀 Ship your next Rails app 10x faster!** I've built **[RailsFast](https://railsfast.com/?ref=vehicles)**, a production-ready Rails boilerplate template that comes with everything you need to launch a software business in days, not weeks. Go [check it out](https://railsfast.com/?ref=vehicles)!
 
-`vehicles` gives your Rails app a clean, curated list of vehicle makes and models — **18.5k models across 900+ makes: cars, motorcycles, mopeds, vans, trucks and buses**, reconciled from official registers of 14 countries — ready for dropdowns, search, and validation. No API keys, no database table, no migration — it works **fully offline** the second you `bundle install`, because the data ships inside the gem. (Optionally, it can [refresh](#staying-current-optional) the data without a gem upgrade.)
+`vehicles` gives your Rails app a clean, curated list of vehicle makes and models — **~17k models across 850+ makes: cars, motorcycles, mopeds, vans, trucks and buses**, reconciled from official registers of 14 countries — ready for dropdowns, search, and validation. No API keys, no database table, no migration — it works **fully offline** the second you `bundle install`, because the data ships inside the gem. (Optionally, it can [refresh](#staying-current-optional) the data without a gem upgrade.)
 
 ✨ Perfect for marketplaces, carpooling & rideshare apps, fleet tools, parking & EV-charging apps, insurance and booking forms — anywhere a user has to pick their vehicle.
 
@@ -62,7 +62,7 @@ Two methods cover 90% of what you need:
 
 ```ruby
 Vehicles.makes
-# => ["Abarth", "Acura", "Alfa Romeo", ...]   (alphabetical, 900+ makes)
+# => ["Abarth", "Acura", "Alfa Romeo", ...]   (alphabetical, 850+ makes)
 
 Vehicles.models("Toyota")
 # => ["Yaris", "Corolla", "Aygo", "RAV4", "C-HR", "Prius", ...]
@@ -303,7 +303,7 @@ They're forgiving the same way the lookups are (aliases, case, slugs), and they 
 
 ### An "Other / not in the list" escape hatch
 
-Make/model dropdowns should never be a dead end — 18.5k models is a lot, but
+Make/model dropdowns should never be a dead end — ~17k models is a lot, but
 someone always shows up with the one car that isn't there. Turn on a first-class
 "Other" option and the pieces agree by construction: `include_other:` adds it to
 the picker, `allow_other:` lets it through validation.
