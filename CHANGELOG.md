@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-07-26
+
+Data-only refresh to VehiclesDB dataset **2026.07.4** — the July correction
+pass: 16,948 models across 858 makes (~1,200 registry-junk and duplicate
+records removed, per-marque naming canon applied). No API changes.
+
 ## [0.4.0] - 2026-07-09
 
 A first-class **"Other / not in the list" escape hatch** for make/model pickers,
@@ -135,7 +141,8 @@ Initial release.
 - Install generator that writes a configuration initializer (no migration —
   the gem has no database table).
 
-[Unreleased]: https://github.com/vehiclesdb/vehicles/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/vehiclesdb/vehicles/compare/v0.4.1...HEAD
+[0.4.1]: https://github.com/vehiclesdb/vehicles/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/vehiclesdb/vehicles/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/vehiclesdb/vehicles/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/vehiclesdb/vehicles/compare/v0.1.1...v0.2.0
