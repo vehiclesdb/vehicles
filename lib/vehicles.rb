@@ -10,6 +10,9 @@ require_relative "vehicles/refresher"
 require_relative "vehicles/providers/local_provider"
 require_relative "vehicles/providers/hosted_provider"
 require_relative "vehicles/other_option"
+require_relative "vehicles/plates"
+require_relative "vehicles/plates/jurisdiction"
+require_relative "vehicles/plates/series"
 
 # Car makes & models for your Rails app — dropdowns, search, validation. Bundled
 # data, zero config, no network calls. Standalone first; an SDK for the hosted
@@ -133,6 +136,24 @@ module Vehicles
     def model(make_name, model_name)
       found = make(make_name)
       found&.model(model_name)
+    end
+
+    # License plates (the bundled PRD-PLATES dataset). No argument: every
+    # jurisdiction. With a code: that jurisdiction (or nil — forgiving).
+    #   Vehicles.plates          # => [#<Jurisdiction nl …>, …]
+    #   Vehicles.plates(:nl)     # => the Netherlands entry (33 series)
+    def plates(code = nil)
+      code.nil? ? Plates.jurisdictions : Plates.jurisdiction(code)
+    end
+
+    # Validate a typed registration against a jurisdiction's real series.
+    # Two-tier: exact as-issued, else separator-forgiving with a formatting
+    # suggestion. Never raises; unknown jurisdictions yield an empty match.
+    #   Vehicles.plate("12-GB-BD", jurisdiction: :nl).valid?     # => true (exact)
+    #   Vehicles.plate("1234XYZ", jurisdiction: :es).suggestion  # => "1234 XYZ"
+    #   Vehicles.plate("12-AB-CD", jurisdiction: :nl).valid?     # => false (vowel purge)
+    def plate(input, jurisdiction:)
+      Plates.match(input, jurisdiction: jurisdiction)
     end
 
     # Every model matching a query, ranked. => [Vehicles::Model, ...]

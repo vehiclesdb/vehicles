@@ -7,7 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.0] - 2026-07-26
+## [0.6.0] - 2026-07-27
+
+License plates become a first-class citizen: the PRD-PLATES registration-mark
+dataset ships in the gem, bundled and offline like everything else.
+
+### Added
+- `Vehicles.plate(input, jurisdiction:)` — two-tier plate validation:
+  exact as-issued, then separator-forgiving ("1234XYZ" == "1234 XYZ" ==
+  "1234-xyz") with `Match#suggestion` returning the as-issued formatting.
+  Leniency forgives punctuation, never the alphabet — strict regexes encode
+  what each authority really issues. `Match#strict?` separates
+  authority-alphabet hits from recall-only catch-alls (export plates etc.).
+- `Vehicles.plates` / `Vehicles.plates(:nl)` — the full series data:
+  73 series across NL/ES/DE/US-FL (gate L0, NL corpus-proven), each with
+  pattern, period, class, categories, sourced design facts and citations.
+- Bundled data under `data/plates/` (CC-BY, pinned upstream commit in
+  `data/plates/PROVENANCE.md`).
 
 The hosted images API is **live** — this release points the wired-up provider
 seam at the real thing.

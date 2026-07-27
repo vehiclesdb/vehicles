@@ -432,6 +432,25 @@ Vehicles.makes(region: :eu)   # fine — a global snapshot covers the EU
 Vehicles.region               # => :global
 ```
 
+## License plates
+
+The gem bundles the VehiclesDB **registration-mark dataset** (PRD-PLATES): every plate series per jurisdiction, researched to the issuing authority's own documents — formats, eras, alphabets, designs. Ask it whether a typed registration is real:
+
+```ruby
+Vehicles.plate("12-GB-BD", jurisdiction: :nl).valid?    # => true — exact, as issued
+Vehicles.plate("12gbbd", jurisdiction: :nl).suggestion  # => "12-GB-BD"  (did you mean)
+Vehicles.plate("12-AB-CD", jurisdiction: :nl).strict?   # => false — vowels aren't issued
+```
+
+Matching is **two-tier**: exact as-issued first, then a separator-forgiving tier — `"1234XYZ"`, `"1234 xyz"` and `"1234-XYZ"` all resolve to the same serial, with `suggestion` giving the formatting the plate actually wears. Leniency forgives punctuation, **never the alphabet**: the strict regexes encode what the authority really issues (the Dutch vowel purge, the Spanish consonant-triplet rule…). `Match#strict?` separates authority-alphabet hits from recall-only catch-alls (export plates accept any current shape, by law).
+
+```ruby
+Vehicles.plates              # => every jurisdiction
+Vehicles.plates(:es).series  # => 18 series: formats, periods, sourced designs
+```
+
+Pilot coverage (gate L0): 🇳🇱 🇪🇸 🇩🇪 + US-Florida, 73 series, corpus-proven in NL. Same posture as everything else here: bundled, offline, forgiving in, honest out.
+
 ## 🔓 More with VehiclesDB
 
 `vehicles` is the free, open-source SDK for [**VehiclesDB**](https://vehiclesdb.com) — a hosted API for richer vehicle data. The gem is **fully standalone and always will be**; pointing it at VehiclesDB is purely additive. Drop in an API key and the same objects you already use light up with more:
