@@ -53,6 +53,22 @@ module Vehicles
       assert_includes h[:availability], "nl"
     end
 
+    def test_former_ids_surface_the_migration_aliases
+      # Which records carry former_ids shifts per release — find one instead
+      # of pinning one (same doctrine as the availability assertion above).
+      migrated = Vehicles.makes.lazy.filter_map { |name| Vehicles.make(name) }
+                         .flat_map(&:models).find { |m| m.former_ids.any? }
+
+      refute_nil migrated, "expected the bundled snapshot to carry former_ids"
+      # Former ids are FULL canonical ids: "kind/make/model".
+      assert_match %r{\A[a-z]+/[^/]+/[^/]+\z}, migrated.former_ids.first
+      assert migrated.former_ids.frozen?
+
+      # Never-renamed records answer with an empty array, not nil.
+      assert_equal [], @golf.former_ids if @golf.former_ids.empty?
+      assert_equal migrated.former_ids, migrated.to_h[:former_ids]
+    end
+
     def test_equality_by_slug
       assert_equal Vehicles.find("vw golf"), Vehicles.find("Volkswagen Golf")
       assert_equal Vehicles.find("vw golf").hash, Vehicles.find("Volkswagen Golf").hash

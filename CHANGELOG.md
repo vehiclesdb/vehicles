@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-08-01
+
+### Added
+
+- `Model#former_ids` — the full canonical ids a record absorbed through the
+  dataset's append-only migration contract (e.g. `car/alfa-romeo/159sw`).
+  The field was already in the bundled snapshot; the reader now surfaces it,
+  so integrators can migrate stored ids without re-parsing the raw JSON.
+  Also included in `Model#to_h`.
+
 ## [0.6.0] - 2026-07-27
 
 License plates become a first-class citizen: the PRD-PLATES registration-mark

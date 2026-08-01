@@ -25,10 +25,10 @@ module Vehicles
     REGIONS = %i[eu na as sa oc af].freeze
 
     attr_reader :make, :make_slug, :name, :kind, :body_type, :global_decile,
-                :availability, :regions, :aliases
+                :availability, :regions, :aliases, :former_ids
 
     # @param attrs [Hash] one model entry from the dataset (name/slug/kind +
-    #   optional body_type/global_decile/availability/regions/aliases)
+    #   optional body_type/global_decile/availability/regions/aliases/former_ids)
     # @param make [String] the parent make's display name
     # @param make_slug [String] the parent make's slug (for the composite slug)
     def initialize(attrs, make:, make_slug:)
@@ -51,6 +51,10 @@ module Vehicles
       @regions       = (attrs["regions"] || []).map(&:to_sym).freeze
       # Documented alternate names (nicknames, native scripts, market names).
       @aliases       = (attrs["aliases"] || []).freeze
+      # Full canonical ids ("car/alfa-romeo/159sw") this record absorbed via
+      # the dataset's append-only migration contract (SCHEMA.md: renames
+      # alias, nothing is silently deleted). Empty for never-renamed records.
+      @former_ids    = (attrs["former_ids"] || []).freeze
       freeze
     end
 
@@ -126,7 +130,8 @@ module Vehicles
     def to_h
       { make: make, model: name, slug: slug, kind: kind, body_type: body_type,
         global_decile: global_decile, rarity: rarity,
-        availability: availability, regions: regions, aliases: aliases }
+        availability: availability, regions: regions, aliases: aliases,
+        former_ids: former_ids }
     end
 
     # Value-object equality — two models with the same slug are equal.
