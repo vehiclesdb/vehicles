@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.3] - 2026-08-03
+
+### Fixed
+
+- Pattern-language literal escapes: ca-nb-truck-2003 introduced "\L"
+  (a literal L, vs the any-letter placeholder). New Series#display_pattern
+  resolves escapes for display and slot walks; the round-trip test
+  substitutes placeholders escape-aware. Escape convention flagged to the
+  data maintainers for a ruling.
+
 ## [0.7.2] - 2026-08-03
 
 ### Added

@@ -78,7 +78,9 @@ module Vehicles
       Vehicles.plates.flat_map(&:series).each do |series|
         next if series.pattern.nil? || series.regex.nil?
 
-        sample = series.pattern.gsub("9", "1").gsub("L", "B")
+        # Escape-aware: "\L" is a LITERAL L (ca-nb-truck) and must survive
+        # untouched; bare placeholders substitute 9→1, L→B.
+        sample = series.pattern.gsub(/\\.|[9L]/) { |m| { "9" => "1", "L" => "B" }[m] || m[1] }
         canon  = sample.gsub(Plates::SEPARATORS, "")
         lenient_recall = Regexp.new(Plates::Series.strip_separators(series.regex))
 

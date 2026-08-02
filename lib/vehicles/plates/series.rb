@@ -9,9 +9,9 @@ module Vehicles
     # the authority actually issues). Validation prefers strict.
     class Series
       attr_reader :id, :klass, :categories, :period, :period_evidence,
-        :pattern, :regex, :regex_strict, :design, :variants, :sources,
-        :notes, :validation_regexp, :lenient_regexp, :issued_regexp,
-        :issued_separators
+        :pattern, :display_pattern, :regex, :regex_strict, :design,
+        :variants, :sources, :notes, :validation_regexp, :lenient_regexp,
+        :issued_regexp, :issued_separators
 
       def initialize(entry)
         @id           = entry["id"]
@@ -20,6 +20,9 @@ module Vehicles
         @period       = (entry["period"] || {}).freeze
         @period_evidence = entry["period_evidence"]
         @pattern      = entry.dig("format", "pattern")
+        # "\L" escapes a LITERAL L (vs the any-letter placeholder) —
+        # ca-nb-truck-2003 introduced it; resolved for display and walks.
+        @display_pattern = @pattern&.gsub(/\\(.)/) { $1 }
         @regex        = entry.dig("format", "regex")
         @regex_strict = entry.dig("format", "regex_strict")
         @design       = (entry["design"] || {}).freeze
@@ -91,10 +94,10 @@ module Vehicles
         # exactly — it knows splits the regex cannot (CC-999-999 over
         # `\d+[- ]\d+` is ambiguous to a greedy match, unambiguous to the
         # pattern).
-        slots = pattern&.each_char&.count { |ch| ![ "-", " ", "·", "." ].include?(ch) }
+        slots = display_pattern&.each_char&.count { |ch| ![ "-", " ", "·", "." ].include?(ch) }
         if slots && serial.length == slots
           idx = 0
-          out = pattern.each_char.with_object(+"") do |ch, str|
+          out = display_pattern.each_char.with_object(+"") do |ch, str|
             if [ "-", " ", "·", "." ].include?(ch)
               str << ch
             else
