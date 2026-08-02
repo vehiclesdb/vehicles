@@ -43,11 +43,16 @@ module Vehicles
         !regex_strict.nil?
       end
 
-      # period_evidence values on which the recorded START is an instrument
-      # date, not the series' birth (the dataset's own honesty discipline:
-      # the format is known or suspected to be older than its earliest
-      # pinned instrument). The label must not present these as the era.
-      INSTRUMENT_DATED_EVIDENCE = %w[instrument-in-force instrument-window].freeze
+      # period_evidence values on which the recorded START is not (or not
+      # provenly) the series' birth — an instrument/consolidation date, an
+      # upper bound, or an unverified secondary (the dataset's own honesty
+      # discipline). The label must not present these as the era. Values
+      # like enabling-instrument / statutory-creation-date /
+      # instrument-dated-both-ends ARE true starts and stay unmarked.
+      INSTRUMENT_DATED_EVIDENCE = %w[
+        instrument-in-force instrument-window
+        instrument-in-force-upper-bound secondary-locator-unverified
+      ].freeze
 
       # "2000 → today" (open, still issued), "1971–2000", or — when the
       # start is only an instrument date — "~1999–2000" / "~2000 → today":

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.4] - 2026-08-02
+
+### Changed
+
+- Bundled plates data refreshed from the redate pass: es-provincial is now
+  1971-2000 pinned to Decreto 2046/1971 at both ends (was a 1999-2000
+  instrument window), plus the 1900-1971 Spanish numeric era, the German
+  1956-2000 DIN era, 11 German and 10 Florida period corrections — all
+  cited to gazette primaries.
+- `approximate_start?` covers the two new honesty vocabularies
+  (instrument-in-force-upper-bound, secondary-locator-unverified), so
+  upper-bounded and uncited-secondary starts render with the "~".
+
 ## [0.6.3] - 2026-08-02
 
 ### Changed
