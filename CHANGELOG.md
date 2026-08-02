@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-08-02
+
+### Added
+
+- The FULL plates corpus ships in the gem: 67 jurisdictions / 606 series
+  (the 8-country L1 EU wave, all 50 US states + DC + 5 territories, and
+  the redated pilots) + 10 decode tables — up from the 4 pilot files.
+  The art tier stays in the data repo; the gem bundles format data.
+
 ## [0.6.4] - 2026-08-02
 
 ### Changed

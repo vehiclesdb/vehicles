@@ -5,8 +5,13 @@ require "test_helper"
 module Vehicles
   class PlatesTest < TestCase
     def test_bundled_jurisdictions_load
-      assert_equal %w[de es nl us-fl], Vehicles.plates.map(&:code)
-      assert_operator Vehicles.plates.sum { |j| j.series.size }, :>=, 73
+      codes = Vehicles.plates.map(&:code)
+      assert_operator codes.size, :>=, 67
+      # The four pilots, the L1 EU wave, and the US federation all present.
+      %w[de es nl us-fl gb ch at fr it be se fi us-ca us-ny us-tx us-pr].each do |code|
+        assert_includes codes, code
+      end
+      assert_operator Vehicles.plates.sum { |j| j.series.size }, :>=, 600
     end
 
     def test_jurisdiction_lookup_is_forgiving
