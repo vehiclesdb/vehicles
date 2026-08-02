@@ -90,5 +90,49 @@ module Vehicles
       assert_equal '\A\d{4}[A-Z]{3}\z', Plates::Series.strip_separators('\A\d{4}\s[A-Z]{3}\z')
       assert_equal '\A\d{2}[A-Z\-]{2}\z', Plates::Series.strip_separators('\A\d{2} [A-Z\-]{2}\z')
     end
+
+    def test_variable_length_series_reconstruct_from_the_match_not_the_pattern
+      # THE Madrid bug: es-provincial's regex allows a 1-2 letter province
+      # and 1-2 suffix letters, so "M1234LA" (7 chars) must come back as
+      # M-1234-LA — the old fixed-slot pattern walk sliced it into
+      # "M1-234L-A". Both prefix widths must reconstruct.
+      assert_equal "M-1234-LA", Vehicles.plate("M1234LA", jurisdiction: :es).formatted
+      assert_equal "SE-1234-AB", Vehicles.plate("SE1234AB", jurisdiction: :es).formatted
+      assert_equal "M-1234-A", Vehicles.plate("M1234A", jurisdiction: :es).formatted
+    end
+
+    def test_segment_separators_shapes
+      segments, separators = Plates::Series.segment_separators('\A[A-Z]{1,2}-\d{4}-[A-Z]{1,2}\z')
+      assert_equal [ '[A-Z]{1,2}', '\d{4}', '[A-Z]{1,2}' ], segments
+      assert_equal [ "-", "-" ], separators
+
+      # No separators anywhere → nothing to segment, fallback territory.
+      assert_equal [ nil, nil ], Plates::Series.segment_separators('\AE\d{4}[A-Z]{3}\z')
+      # A separator-only class prints its first token; \s prints a space.
+      _, seps = Plates::Series.segment_separators('\ACC[- ]\d{3}[- ]\d{3}\z')
+      assert_equal [ "-", "-" ], seps
+      _, seps = Plates::Series.segment_separators('\A\d{4}\s[A-Z]{3}\z')
+      assert_equal [ " " ], seps
+    end
+
+    def test_format_serial_never_misplaces_separators_when_it_cannot_know
+      # A serial the issued regex does not match and whose length does not
+      # fill the pattern comes back untouched — unformatted is honest,
+      # misplaced separators are not.
+      series = Vehicles.plates(:es).series.find { |s| s.id == "es-provincial" }
+      assert_equal "M12", series.format_serial("M12")
+    end
+
+    def test_period_label_marks_instrument_dated_starts
+      # es-provincial records period_evidence: instrument-window — the 1999
+      # start is RD 2822/1998's in-force date, not the format's birth. The
+      # label must say "began by", never present the window as the era.
+      provincial = Vehicles.plates(:es).series.find { |s| s.id == "es-provincial" }
+      assert_equal "≤1999–2000", provincial.period_label
+
+      # An exact-evidence series keeps the plain label.
+      sidecode = Vehicles.plates(:nl).series.find { |s| s.id == "nl-sidecode6-car" }
+      refute_match(/≤/, sidecode.period_label)
+    end
   end
 end

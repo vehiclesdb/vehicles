@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.2] - 2026-08-02
+
+### Fixed
+
+- `Plates::Series#format_serial` reconstructed variable-length serials by
+  walking the fixed display pattern, misplacing separators ("M1234LA" came
+  back as "M1-234L-A" instead of "M-1234-LA"). The pattern walk now applies
+  only when the serial exactly fills the pattern; length-mismatched serials
+  reconstruct from the regex segmented at its separators (new
+  `Series.segment_separators`, riding the dataset separator contract), and
+  a serial neither path can place comes back untouched rather than
+  mis-punctuated.
+
+### Changed
+
+- `Plates::Series#period_label` no longer presents instrument-dated starts
+  as the series era: rows whose `period_evidence` is `instrument-in-force`
+  or `instrument-window` label as "≤1999–2000" ("began by", not "began
+  in"). New `Series#period_evidence`, `#issued_regexp`,
+  `#issued_separators` readers for consumers mirroring the reconstruction.
+
 ## [0.6.1] - 2026-08-01
 
 ### Added
