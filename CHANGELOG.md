@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.2] - 2026-08-03
+
+### Added
+
+- The L3 wave: 28 jurisdiction files across five continents (jp cn in
+  th my br mx ar nz za ua + Australia's 8 states + Canada's 13
+  provinces/territories), 415 series and 10 more decode tables incl.
+  Japan's 138-mark statutory office table. Corpus now: 123
+  jurisdictions / 1,360 series / 34 decode tables.
+
 ## [0.7.1] - 2026-08-02
 
 ### Added

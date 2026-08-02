@@ -4,7 +4,7 @@ Copy of `plates/` from the public data repo (EXCLUDING `_art/`),
 refreshed on gem releases:
 
 - **Source**: https://github.com/vehiclesdb/vehiclesdb `plates/`
-- **Commit**: `e8cc2f7db4139b8e9379da5c9803f297f2a4dd92`
+- **Commit**: `523f488ac4dd84a9694fdc984f90639c8b0da6dd`
 - **License**: CC-BY 4.0 (see the data repo's LICENSE + ATTRIBUTION.md)
 
 Refresh: `git archive origin/main plates | tar -x --exclude 'plates/_art' -C data/`
