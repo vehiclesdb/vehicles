@@ -126,13 +126,19 @@ module Vehicles
     def test_period_label_marks_instrument_dated_starts
       # es-provincial records period_evidence: instrument-window — the 1999
       # start is RD 2822/1998's in-force date, not the format's birth. The
-      # label must say "began by", never present the window as the era.
+      # label must read "documented from", never present the window as the
+      # era; open-ended periods say "today" in words.
       provincial = Vehicles.plates(:es).series.find { |s| s.id == "es-provincial" }
-      assert_equal "≤1999–2000", provincial.period_label
+      assert_equal "~1999–2000", provincial.period_label
+      assert_predicate provincial, :approximate_start?
+
+      national = Vehicles.plates(:es).series.find { |s| s.id == "es-national-2000" }
+      assert_match(/→ today\z/, national.period_label)
 
       # An exact-evidence series keeps the plain label.
       sidecode = Vehicles.plates(:nl).series.find { |s| s.id == "nl-sidecode6-car" }
-      refute_match(/≤/, sidecode.period_label)
+      refute_predicate sidecode, :approximate_start?
+      refute_match(/~/, sidecode.period_label)
     end
   end
 end

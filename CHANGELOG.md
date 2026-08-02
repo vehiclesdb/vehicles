@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.3] - 2026-08-02
+
+### Changed
+
+- Plate period labels read naturally: open series say "2000 → today", and
+  instrument-dated starts mark approximation as "~1999" instead of the
+  cryptic "≤1999". New `Series#approximate_start?` so displays can explain
+  the tilde ("documented from this year; the format may be older").
+
 ## [0.6.2] - 2026-08-02
 
 ### Fixed

@@ -49,15 +49,23 @@ module Vehicles
       # pinned instrument). The label must not present these as the era.
       INSTRUMENT_DATED_EVIDENCE = %w[instrument-in-force instrument-window].freeze
 
-      # "2000 →" (open, runs until exhausted), "1971–2000", or — when the
-      # start is only an instrument date — "≤1999–2000" / "≤2001 →": began
-      # BY that year, not IN it. es-provincial's 1999–2000 instrument window
-      # over a format that ran for decades is the case this guards.
+      # "2000 → today" (open, still issued), "1971–2000", or — when the
+      # start is only an instrument date — "~1999–2000" / "~2000 → today":
+      # the format is documented FROM that year and may be older.
+      # es-provincial's 1999–2000 instrument window over a format that ran
+      # for decades is the case this guards. approximate_start? tells a
+      # consumer to explain the "~".
       def period_label
         start = period["start"]
-        start = "≤#{start}" if INSTRUMENT_DATED_EVIDENCE.include?(period_evidence)
+        start = "~#{start}" if approximate_start?
         finish = period["end"]
-        finish ? "#{start}–#{finish}" : "#{start} →"
+        finish ? "#{start}–#{finish}" : "#{start} → today"
+      end
+
+      # True when the recorded start is an instrument date, not the series'
+      # birth — the display should read it as "documented from", not "began in".
+      def approximate_start?
+        INSTRUMENT_DATED_EVIDENCE.include?(period_evidence)
       end
 
       # Re-print a separator-less serial the way this series formats it.
