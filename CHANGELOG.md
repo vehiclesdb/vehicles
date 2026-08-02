@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.4] - 2026-08-03
+
+### Added
+
+- South Korea (21 series + hangul decode tables) — corpus: 124
+  jurisdictions / 1,381 series.
+
 ## [0.7.3] - 2026-08-03
 
 ### Fixed
