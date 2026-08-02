@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.1] - 2026-08-02
+
+### Added
+
+- Plates corpus refreshed to 91 jurisdictions (the EU/EEA wave-2 landing:
+  ie dk no is pt lu pl cz sk hu ro si hr ee lv lt gr cy mt + microstates)
+  with 22 decode tables.
+
 ## [0.7.0] - 2026-08-02
 
 ### Added
