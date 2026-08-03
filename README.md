@@ -451,6 +451,8 @@ Vehicles.plates(:es).series  # => 18 series: formats, periods, sourced designs
 
 Pilot coverage (gate L0): 🇳🇱 🇪🇸 🇩🇪 + US-Florida, 73 series, corpus-proven in NL. Same posture as everything else here: bundled, offline, forgiving in, honest out.
 
+**Prefer HTTP?** The same matcher and the full format corpus are hosted endpoints on the [VehiclesDB API](https://vehiclesdb.com/api): `GET /v1/plates/{code}` (a jurisdiction's every series, with 1:1 SVG render URLs) and `GET /v1/plates/{code}/match?plate=…` (validity + as-issued formatting + a render of *that* registration on the real plate design). Free API keys at [vehiclesdb.com](https://vehiclesdb.com).
+
 ## 🔓 More with VehiclesDB
 
 `vehicles` is the free, open-source SDK for [**VehiclesDB**](https://vehiclesdb.com) — a hosted API for richer vehicle data. The gem is **fully standalone and always will be**; pointing it at VehiclesDB is purely additive. Drop in an API key and the same objects you already use light up with more:
