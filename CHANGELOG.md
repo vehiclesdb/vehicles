@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.7] - 2026-08-03
+
+### Changed
+
+- Plates dataset refreshed — the overnight swarm passes' settlements
+  land: the Cypriot centre date mark, Brazil's square-dot printed form
+  and photographed moto split, San Marino's structured legend/sigla
+  fields, Ukraine's statutory line counts, California's pixel-sampled
+  colours and corner-sticker guides, the Texas exempt restatement,
+  Korea's corporate characters block, Thailand's seven-photo
+  cross-check, and China's two-row trailer + NEV dedicated-mark flips
+  (#288-#290).
+
 ## [0.7.5] - 2026-08-03
 
 ### Added
