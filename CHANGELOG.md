@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.5] - 2026-08-03
+
+### Added
+
+- `Plates.decode_table(name)` — the _decode lookups (district/office/
+  use-mark tables) exposed to consumers, enabling serial-driven
+  subregion resolution (renderers picking the right Land arms from a
+  district prefix).
+
 ## [0.7.4] - 2026-08-03
 
 ### Added

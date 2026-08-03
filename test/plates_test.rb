@@ -152,5 +152,11 @@ module Vehicles
       refute_predicate sidecode, :approximate_start?
       refute_match(/~/, sidecode.period_label)
     end
+    def test_decode_tables_load_by_name
+      table = Plates.decode_table("at-districts")
+      assert_operator table["codes"].length, :>=, 98
+      assert_equal "Wien", table["codes"].find { |r| r["code"] == "W" }["land"]
+      assert_nil Plates.decode_table("no-such-table")
+    end
   end
 end

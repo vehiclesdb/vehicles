@@ -48,6 +48,18 @@ module Vehicles
       @classes ||= YAML.safe_load_file(File.join(DATA_DIR, "_meta", "classes.yml")) || {}
     end
 
+    # A _decode table by bare name ("at-districts", "jp-office-marks") —
+    # the region/office/use-mark lookups that make plates decodable and
+    # let renderers resolve subregion emblems from a serial. Nil for
+    # unknown names; memoized like everything else here.
+    def decode_table(name)
+      @decode_tables ||= {}
+      @decode_tables[name] ||= begin
+        path = File.join(DATA_DIR, "_decode", "#{name.to_s.tr('_', '-')}.yml")
+        File.exist?(path) ? YAML.safe_load_file(path) : nil
+      end
+    end
+
     # The matcher behind Vehicles.plate. Unknown jurisdiction => empty Match.
     def match(input, jurisdiction:)
       juris = jurisdiction(jurisdiction)
