@@ -5,7 +5,7 @@
 > [!TIP]
 > **🚀 Ship your next Rails app 10x faster!** I've built **[RailsFast](https://railsfast.com/?ref=vehicles)**, a production-ready Rails boilerplate template that comes with everything you need to launch a software business in days, not weeks. Go [check it out](https://railsfast.com/?ref=vehicles)!
 
-`vehicles` gives your Rails app a clean, curated list of vehicle makes and models — **14k+ models across 850+ makes: cars, motorcycles, mopeds, vans, trucks and buses**, reconciled from official registers of 14 countries — ready for dropdowns, search, and validation. No API keys, no database table, no migration — it works **fully offline** the second you `bundle install`, because the data ships inside the gem. (Optionally, it can [refresh](#staying-current-optional) the data without a gem upgrade.)
+`vehicles` gives your Rails app a clean, curated list of vehicle makes and models — **~17k models across 850+ makes: cars, motorcycles, mopeds, vans, trucks and buses**, reconciled from official registers of 14 countries — ready for dropdowns, search, and validation. No API keys, no database table, no migration — it works **fully offline** the second you `bundle install`, because the data ships inside the gem. (Optionally, it can [refresh](#staying-current-optional) the data without a gem upgrade.)
 
 ✨ Perfect for marketplaces, carpooling & rideshare apps, fleet tools, parking & EV-charging apps, insurance and booking forms — anywhere a user has to pick their vehicle.
 
@@ -620,7 +620,7 @@ No magic, just good defaults:
 
 ## Roadmap
 
-Bundled today: 14k+ models across 6 kinds and 14 countries, with popularity +
+Bundled today: ~17k models across 6 kinds and 14 countries, with popularity +
 availability, plus the MCP server. On the way:
 
 - 🌍 More **countries** (Switzerland next; the dataset grows monthly)

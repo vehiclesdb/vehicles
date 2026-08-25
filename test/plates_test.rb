@@ -100,7 +100,7 @@ module Vehicles
 
     def test_strip_separators_collapses_redundant_character_class_repeats
       # Removing the separator from these real dataset shapes otherwise leaves
-      # nested repeats such as `[A-Z0-9]+(?:[A-Z0-9]+)*`. Ruby 4 warns while
+      # nested repeats such as `[A-Z0-9]+(?:[A-Z0-9]+)*`. Ruby (3.1+) warns while
       # compiling them. Both languages are exactly one-or-more characters from
       # the same class, so return that canonical equivalent instead.
       repeated = Plates::Series.strip_separators('\A[A-Z0-9]+(?:-[A-Z0-9]+)*\z')
@@ -111,14 +111,18 @@ module Vehicles
     end
 
     def test_every_lenient_regex_compiles_without_nested_repeat_warnings
+      # The same source production feeds into compile: regex_strict when a
+      # series has one (427 of them do), regex otherwise. Auditing only
+      # `regex` would leave the strict variants unguarded.
       _, warnings = capture_io do
-        Vehicles.plates.flat_map(&:series).filter_map(&:regex).each do |source|
+        Vehicles.plates.flat_map(&:series).filter_map { |series| series.regex_strict || series.regex }.each do |source|
           Regexp.new(Plates::Series.strip_separators(source))
         end
       end
 
-      assert_empty warnings.lines.grep(/nested repeat operator/),
-        "separator stripping generated a Ruby 4 nested-repeat regexp"
+      warning_lines = warnings.lines.grep(/nested repeat operator/)
+
+      assert_empty warning_lines, "separator stripping generated a nested-repeat regexp"
     end
 
     def test_variable_length_series_reconstruct_from_the_match_not_the_pattern

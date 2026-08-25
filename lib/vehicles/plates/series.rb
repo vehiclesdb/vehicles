@@ -131,7 +131,7 @@ module Vehicles
 
       # Removing a separator can join two repetitions of the same character
       # class: `[A-Z0-9]+(?:-[A-Z0-9]+)*` becomes the redundant
-      # `[A-Z0-9]+(?:[A-Z0-9]+)*`. Ruby 4 warns while compiling that shape.
+      # `[A-Z0-9]+(?:[A-Z0-9]+)*`. Ruby (3.1+) warns while compiling that shape.
       # Its language is exactly `[A-Z0-9]+`, whether the trailing group is
       # optional or repeated, so canonicalize it after the separator walk.
       REDUNDANT_CHARACTER_CLASS_REPEAT = /(\[[^\]]+\])\+\(\?:\1\+\)[*?]/
