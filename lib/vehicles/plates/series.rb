@@ -129,6 +129,13 @@ module Vehicles
       # i.e. a separator spelled as a class.
       SEPARATOR_TOKENS = [ " ", "-", "·", ".", '\s', '\-', '\.', '\ ' ].freeze
 
+      # Removing a separator can join two repetitions of the same character
+      # class: `[A-Z0-9]+(?:-[A-Z0-9]+)*` becomes the redundant
+      # `[A-Z0-9]+(?:[A-Z0-9]+)*`. Ruby 4 warns while compiling that shape.
+      # Its language is exactly `[A-Z0-9]+`, whether the trailing group is
+      # optional or repeated, so canonicalize it after the separator walk.
+      REDUNDANT_CHARACTER_CLASS_REPEAT = /(\[[^\]]+\])\+\(\?:\1\+\)[*?]/
+
       # Split a regex source into its serial SEGMENTS and the separator
       # character printed between each pair — the reconstruction data behind
       # format_serial. Same scan as strip_separators (same class-vs-range
@@ -264,7 +271,7 @@ module Vehicles
             i += 1
           end
         end
-        out
+        out.gsub(REDUNDANT_CHARACTER_CLASS_REPEAT) { "#{Regexp.last_match(1)}+" }
       end
 
       def inspect = %(#<Vehicles::Plates::Series #{id} "#{pattern}">)
