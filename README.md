@@ -620,7 +620,7 @@ No magic, just good defaults:
 
 ## Roadmap
 
-Bundled today: 19k models across 6 kinds and 14 countries, with popularity +
+Bundled today: ~17k models across 6 kinds and 14 countries, with popularity +
 availability, plus the MCP server. On the way:
 
 - 🌍 More **countries** (Switzerland next; the dataset grows monthly)

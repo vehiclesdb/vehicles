@@ -98,6 +98,33 @@ module Vehicles
       assert_equal '\A\d{2}[A-Z\-]{2}\z', Plates::Series.strip_separators('\A\d{2} [A-Z\-]{2}\z')
     end
 
+    def test_strip_separators_collapses_redundant_character_class_repeats
+      # Removing the separator from these real dataset shapes otherwise leaves
+      # nested repeats such as `[A-Z0-9]+(?:[A-Z0-9]+)*`. Ruby (3.1+) warns while
+      # compiling them. Both languages are exactly one-or-more characters from
+      # the same class, so return that canonical equivalent instead.
+      repeated = Plates::Series.strip_separators('\A[A-Z0-9]+(?:-[A-Z0-9]+)*\z')
+      optional = Plates::Series.strip_separators('\A[A-Z0-9]+(?: [A-Z0-9]+)?\z')
+
+      assert_equal '\A[A-Z0-9]+\z', repeated
+      assert_equal '\A[A-Z0-9]+\z', optional
+    end
+
+    def test_every_lenient_regex_compiles_without_nested_repeat_warnings
+      # The same source production feeds into compile: regex_strict when a
+      # series has one (427 of them do), regex otherwise. Auditing only
+      # `regex` would leave the strict variants unguarded.
+      _, warnings = capture_io do
+        Vehicles.plates.flat_map(&:series).filter_map { |series| series.regex_strict || series.regex }.each do |source|
+          Regexp.new(Plates::Series.strip_separators(source))
+        end
+      end
+
+      warning_lines = warnings.lines.grep(/nested repeat operator/)
+
+      assert_empty warning_lines, "separator stripping generated a nested-repeat regexp"
+    end
+
     def test_variable_length_series_reconstruct_from_the_match_not_the_pattern
       # THE Madrid bug: es-provincial's regex allows a 1-2 letter province
       # and 1-2 suffix letters, so "M1234LA" (7 chars) must come back as
