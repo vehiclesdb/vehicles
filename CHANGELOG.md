@@ -37,7 +37,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `global_decile` stays what it is — a presence average.
   `top_models(by: :mass_decile)` ranks by it (records without it are
   excluded, so it is `[]` on 2026.10.0 data); `by:` defaults to
-  `:global_decile`; anything else raises ArgumentError.
+  `:global_decile`; anything else raises ArgumentError. With `country:`
+  the country's rank still sorts first (the decile breaks ties).
+  `Model#to_h` gains `:mass_decile`.
 - `rake "data:refresh[<tag>]"` — refreshes `data/vehicles.json` from a
   dataset release tag and writes `data/PROVENANCE-vehicles.md`; fills
   `country_ranks` from the same tag's catalog until the projection ships
@@ -56,18 +58,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The make and model validators stay EXACT (`fuzzy: false`): a typo never
   validates as a stored make.
 
-- Fuzzy matching is for human-typed names only: input containing `/`
-  (ids, paths) or slug-shaped (`marcedes-benz`) resolves exactly or not at
-  all; the MCP server's tools are exact-only.
-- CI: the 111 rubocop offenses inherited from main are frozen in
-  `.rubocop_todo.yml` (no code changes) so the Lint job is green again; new
-  code is fully linted.
+- Fuzzy matching is for human-typed names only: Symbols, input containing
+  `/`, `_`, `+` or `\` (ids, paths), hyphen-edged strings and single-case
+  hyphenated slugs (`marcedes-benz`, `MARCEDES-BENZ`) resolve exactly or
+  not at all; the MCP server's tools are exact-only.
+- CI: the 111 rubocop offenses inherited from main are frozen (110 in a
+  generated `.rubocop_todo.yml`, plus `plates/series.rb` in `.rubocop.yml`'s
+  own ClassLength Exclude, which overrides the todo) — no code changes — so
+  the Lint job is green again; new code is fully linted.
 
 ### Upgrade notes
 
-- Apps that route or 404 on `Vehicles.make(param)` will now resolve near
-  misses to a real make. If a misspelled URL must 404 (or 301 to the
-  canonical slug), call `Vehicles.make(param, fuzzy: false)` there.
+- Apps that route or 404 on `Vehicles.make(param)`: slug-shaped params
+  (`marcedes-benz`, anything with `/`, `_`, `+`, a Symbol) never fuzz, but
+  a single-word param still does (`/makes/marcedes` → param `"marcedes"` →
+  Mercedes-Benz). If a misspelled URL must 404 (or 301 to the canonical
+  slug), call `Vehicles.make(param, fuzzy: false)` there.
 
 ## [0.7.7] - 2026-08-03
 

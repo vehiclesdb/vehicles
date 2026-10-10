@@ -175,6 +175,8 @@ module Vehicles
     # "how many exist"; data 2026.10.1+). Records without the chosen decile
     # never appear, so `by: :mass_decile` on an older snapshot returns [].
     #   top_models(kind: :car, country: :gb, limit: 10)
+    # With `country:`, the country's own rank still sorts first and the
+    # chosen decile only breaks ties among models ranked equally there.
     #   top_models(kind: :car, by: :mass_decile, limit: 10)
     #   top_models(kind: :motorcycle, region: :as, limit: 10)  # by continent
     def top_models(kind: nil, country: nil, region: nil, limit: 20, by: :global_decile)

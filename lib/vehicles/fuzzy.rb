@@ -26,9 +26,18 @@ module Vehicles
     # "marcedes-benz/c-class") or all-lowercase hyphenated ("marcedes-benz") —
     # is machine input: it must resolve exactly or not at all, never to a
     # guessed make (web routing and API ids rely on it; web-session ruling).
+    # Symbols are always machine input; so is anything with / _ + or a
+    # backslash, a leading/trailing/double hyphen, or a single-case
+    # hyphenated token ("marcedes-benz", "MARCEDES-BENZ"). Mixed case
+    # ("Marcedes-Benz") and plain words ("marcedes") are human. Verifier
+    # finding (0.7.8): each of those machine shapes fuzzed for every typo.
     def eligible_input?(raw)
+      return false if raw.is_a?(Symbol)
+
       s = raw.to_s.strip
-      !s.include?("/") && !s.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)+\z/)
+      return false if s.match?(%r{[/_+\\]}) || s.start_with?("-") || s.end_with?("-") || s.include?("--")
+
+      !s.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)+\z/) && !s.match?(/\A[A-Z0-9]+(?:-[A-Z0-9]+)+\z/)
     end
 
     # Maximum edit distance allowed for a query of this many characters.

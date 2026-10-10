@@ -20,6 +20,20 @@ module Vehicles
       assert_nil Vehicles.make("makes/marcedes")
     end
 
+    def test_other_machine_shapes_never_fuzz
+      # Verifier finding (0.7.8 delta): each of these fuzzed for every typo.
+      [:marcedes, :marcedes_benz, "marcedes_benz", "Marcedes_Benz", "MARCEDES-BENZ",
+       "marcedes-benz-", "-marcedes-benz", "marcedes+benz", "marcedes--benz"].each do |q|
+        assert_nil Vehicles.make(q), "#{q.inspect} must not fuzz"
+      end
+      assert_nil Vehicles.find("MARCEDES-BENZ-C-CLASS")
+      assert_nil Vehicles.find("marcedes_benz_c_class")
+      assert_nil Vehicles.find(:marcedes_benz_c_class)
+      assert_nil Vehicles.model("MARCEDES-BENZ", "c-class")
+      assert_empty Vehicles.models(:marcedes_benz)
+      assert_equal "mercedes-benz", Vehicles.make(:mercedes)&.slug, "exact Symbol input still resolves"
+    end
+
     def test_human_typed_names_still_fuzz
       assert_equal "mercedes-benz", Vehicles.make("marcedes")&.slug
       assert_equal "mercedes-benz", Vehicles.make("Marcedes-Benz")&.slug, "mixed case = typed by a person"

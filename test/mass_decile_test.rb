@@ -41,6 +41,12 @@ module Vehicles
       assert_equal 2, m.mass_decile
     end
 
+    def test_a_non_hash_popularity_never_raises
+      attrs = { "name" => "X", "slug" => "x", "popularity" => "n/a" }
+
+      assert_nil Model.new(attrs, make: "A", make_slug: "a").mass_decile
+    end
+
     def test_unknown_ranking_raises
       assert_raises(ArgumentError) { Vehicles.top_models(by: :popularity) }
     end

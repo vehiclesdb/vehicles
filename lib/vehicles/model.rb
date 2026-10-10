@@ -65,7 +65,8 @@ module Vehicles
       # (a presence average) answers "popular in many places". Published from
       # dataset 2026.10.1 (pipeline#255, ruling R3); nil on older snapshots
       # (including the bundled 2026.10.0) and for unranked records.
-      @mass_decile   = attrs["mass_decile"] || attrs.dig("popularity", "mass_decile")
+      pop = attrs["popularity"]
+      @mass_decile = attrs["mass_decile"] || (pop.is_a?(Hash) ? pop["mass_decile"] : nil)
       freeze
     end
 
