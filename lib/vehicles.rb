@@ -112,9 +112,12 @@ module Vehicles
     #   Vehicles.models("Toyota", include_other: true)  # ... + the "Other" escape hatch
     # With `include_other:`, an unknown make (e.g. the "Other" make itself) yields
     # just `[other_label]`, so a make→model picker never dead-ends.
-    def models(make, kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil, include_other: false)
-      names = make(make)&.models(kind: kind, body_type: body_type, region: region || configuration.region,
-                                 rarity: rarity, max_decile: max_decile)&.map(&:name) || []
+    # `fuzzy:` is forwarded to `make` (typo-tolerant by default since 0.7.8).
+    def models(make, kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil, include_other: false,
+               fuzzy: true)
+      names = make(make, fuzzy: fuzzy)&.models(kind: kind, body_type: body_type,
+                                               region: region || configuration.region,
+                                               rarity: rarity, max_decile: max_decile)&.map(&:name) || []
       append_other_name(names, include_other)
     end
 
@@ -139,8 +142,8 @@ module Vehicles
     # model's metadata (kind, body_type, …) back.
     #   Vehicles.model("Audi", "A3")   # => #<Vehicles::Model "Audi A3">
     #   Vehicles.model("vw", "golf")   # forgiving, like every other lookup
-    def model(make_name, model_name)
-      found = make(make_name)
+    def model(make_name, model_name, fuzzy: true)
+      found = make(make_name, fuzzy: fuzzy)
       found&.model(model_name)
     end
 
@@ -225,8 +228,8 @@ module Vehicles
 
     # [[label, value], ...] of a make's models for a Rails `select`. Unknown => [].
     #   Vehicles.model_options("audi", include_other: true)  # ... + [other_label, "other"]
-    def model_options(make, kind: nil, body_type: nil, include_other: false)
-      found = make(make)
+    def model_options(make, kind: nil, body_type: nil, include_other: false, fuzzy: true)
+      found = make(make, fuzzy: fuzzy)
       opts = found ? found.model_options(kind: kind, body_type: body_type) : []
       append_other_option(opts, include_other)
     end

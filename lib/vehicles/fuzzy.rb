@@ -31,7 +31,10 @@ module Vehicles
         next if (key.length - query.length).abs > limit # cannot be within budget
 
         dist = distance(query, key, limit)
-        next if dist > best
+        # `distance` reports out-of-budget as limit + 1, the same value `best`
+        # starts at — test the LIMIT, or a lone length-compatible key would be
+        # accepted at any distance (codex review, 0.7.8: "z" * 28 → a make).
+        next if dist > limit || dist > best
 
         hits = {} if dist < best
         best = dist

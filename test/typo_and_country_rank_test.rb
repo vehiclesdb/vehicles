@@ -39,6 +39,21 @@ module Vehicles
       assert_nil Vehicles.find("volkswagon golf", fuzzy: false)
     end
 
+    def test_out_of_budget_input_never_matches
+      # Regression (codex review): a lone length-compatible key used to be
+      # accepted at budget + 1.
+      assert_nil Vehicles.make("z" * 28)
+      assert_nil Vehicles.make("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
+    end
+
+    def test_helpers_forward_the_fuzzy_opt_out
+      assert_empty Vehicles.models("marcedes", fuzzy: false)
+      refute_empty Vehicles.models("marcedes")
+      assert_empty Vehicles.model_options("marcedes", fuzzy: false)
+      assert_nil Vehicles.model("marcedes", "sprinter", fuzzy: false)
+      assert_equal "Sprinter", Vehicles.model("marcedes", "sprinter")&.name
+    end
+
     def test_short_queries_never_fuzzy_match
       # 3 characters: a one-edit radius is noise (bmw→bmx, kia→kis, …).
       assert_nil Vehicles.make("bnw")
