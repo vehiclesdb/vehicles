@@ -46,6 +46,17 @@ module Vehicles
       assert_nil Vehicles.make("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
     end
 
+    def test_a_make_prefix_never_swallows_a_model_token
+      # Regression (found by the DEVQ A1 sweep): "volvo v" is two edits from
+      # "volvo", so the make prefix ate the model's letter and "Volvo V 60"
+      # resolved to Volvo "60". Fuzzy candidates may not have fewer words.
+      assert_nil Vehicles.make("volvo v")
+      refute_equal "volvo-60", Vehicles.find("Volvo V 60")&.slug
+      refute_equal "mercedes-benz-180", Vehicles.find("Mercedes-Benz B 180")&.slug
+      assert_equal "mercedes-benz", Vehicles.make("marcedes benz")&.slug, "same word count still matches"
+      assert_equal "de-lorean", Vehicles.make("DeLorean")&.slug, "fewer query words than the key is fine"
+    end
+
     def test_helpers_forward_the_fuzzy_opt_out
       assert_empty Vehicles.models("marcedes", fuzzy: false)
       refute_empty Vehicles.models("marcedes")

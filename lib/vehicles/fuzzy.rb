@@ -8,7 +8,10 @@ module Vehicles
   #   - queries under MIN_LENGTH characters never fuzzy-match;
   #   - the edit budget is 1 for 4-5 characters and 2 from 6 up (never more);
   #   - the answer must be UNIQUE: if two different makes tie at the best
-  #     distance, the result is nil ("acra": one edit from Acura AND Acma).
+  #     distance, the result is nil ("acra": one edit from Acura AND Acma);
+  #   - a candidate may never have FEWER words than the query: deleting a
+  #     whole word is how a make prefix swallows a model token ("volvo v" is
+  #     two edits from "volvo", which turned "Volvo V 60" into Volvo 60).
   module Fuzzy
     MIN_LENGTH = 4
 
@@ -25,10 +28,12 @@ module Vehicles
       return nil if query.length < MIN_LENGTH
 
       limit = budget(query.length)
+      words = query.count(" ") + 1
       best = limit + 1
       hits = {}
       keys.each do |key, make|
         next if (key.length - query.length).abs > limit # cannot be within budget
+        next if key.count(" ") + 1 < words              # would swallow a word
 
         dist = distance(query, key, limit)
         # `distance` reports out-of-budget as limit + 1, the same value `best`
