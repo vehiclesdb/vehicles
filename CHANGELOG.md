@@ -20,7 +20,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`"Acra"`: Acura / Acma) the answer is `nil`. Exact, alias and slug
   matches always win; `Vehicles.find` runs its exact pass over every
   make/model split before retrying a misspelled make, so no answer that
-  resolved in 0.7.7 changes. Opt out per call with `fuzzy: false`.
+  resolved in 0.7.7 changes. Opt out per call with `fuzzy: false`
+  (`make`, `models`, `model`, `model_options`, `find`). Guards: optimal
+  string alignment (an adjacent swap is one edit — `"telsa"` ties Tesla/
+  Temsa → nil, never Temsa); a candidate never has fewer words than the
+  query (`"Volvo V 60"` cannot become Volvo "60"); every word keeps its
+  first letter (`"citroen e"` is not Citroën DS); the configured
+  `other_label` is never fuzzy-matched. Verified: 0 changed / 0 lost
+  answers over 37,050 `find` and 65,871 web-resolver-style queries.
 - `Model#country_ranks` / `Model#rank_in(country)` — the model's rank
   among all models of its kind in that country (dataset key
   `country_ranks`, from `catalog/` `popularity.by_country[cc].rank`).

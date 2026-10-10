@@ -93,9 +93,10 @@ namespace :data do
     tag = args[:tag] or abort 'usage: rake "data:refresh[vYYYY.MM.P]" (a release tag)'
     root = File.expand_path("..", __dir__)
     repo = File.expand_path(ENV.fetch("VDB_DATA_REPO", "~/GitHub/vehiclesdb"))
-    sh "git -C #{repo} fetch origin --tags -q"
-    commit = `git -C #{repo} rev-parse #{tag}^{commit}`.strip
-    abort "unknown tag #{tag}" unless $CHILD_STATUS.success? && !commit.empty?
+    sh "git", "-C", repo, "fetch", "origin", "--tags", "-q"
+    # refs/tags/ only: a branch name or a bare SHA must not pass for a release.
+    commit = IO.popen(["git", "-C", repo, "rev-parse", "--verify", "-q", "refs/tags/#{tag}^{commit}"], &:read).strip
+    abort "not a release tag: #{tag}" unless $CHILD_STATUS.success? && !commit.empty?
 
     dist = JSON.parse(DataRefresh.git_show(repo, tag, "dist/vehicles.json"))
     merged, native = DataRefresh.merge!(dist, DataRefresh.catalog_ranks(repo, tag, dist["kinds"]))

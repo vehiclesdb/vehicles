@@ -73,6 +73,23 @@ module Vehicles
       assert_equal "Sprinter", Vehicles.model("marcedes", "sprinter")&.name
     end
 
+    def test_a_transposition_is_one_edit
+      # Verifier finding: plain Levenshtein made "telsa" (the commonest Tesla
+      # typo) TWO edits from Tesla and one from the bus maker Temsa, so it
+      # confidently answered Temsa. As one edit it now ties → nil, never Temsa.
+      refute_equal "temsa", Vehicles.make("telsa")&.slug
+      refute_equal "setra", Vehicles.make("seta")&.slug
+      assert_equal 1, Fuzzy.distance("telsa", "tesla", 2)
+      assert_equal 2, Fuzzy.distance("abcd", "badc", 2)
+    end
+
+    def test_the_other_label_never_fuzzy_matches
+      Vehicles.configure { |c| c.other_label = "Otra" } # one edit from the make "Ora"
+
+      assert_equal ["Otra"], Vehicles.models("Otra", include_other: true)
+      assert_nil Vehicles.make("Otra")
+    end
+
     def test_short_queries_never_fuzzy_match
       # 3 characters: a one-edit radius is noise (bmw→bmx, kia→kis, …).
       assert_nil Vehicles.make("bnw")

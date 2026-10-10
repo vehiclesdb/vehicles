@@ -78,7 +78,7 @@ Vehicles.models("alfa-romeo") # slug form
 Vehicles.models("marcedes")   # => Mercedes-Benz (typo: one make is clearly closest)
 ```
 
-Typos resolve too: when nothing matches exactly, the closest make within a small edit distance wins (1 edit up to 5 characters, 2 from 6 up, none under 4) — but only if ONE make is closest, so `"Acra"` (one edit from both Acura and Acma) stays `nil` rather than guessing. Pass `fuzzy: false` (`Vehicles.make("marcedes", fuzzy: false) # => nil`) when you need exact-only matching; the validators always do, so a typo never validates as a stored make.
+Typos resolve too: when nothing matches exactly, the closest make within a small edit distance wins (1 edit up to 5 characters, 2 from 6 up, none under 4) — but only if ONE make is closest, so `"Acra"` (one edit from both Acura and Acma) stays `nil` rather than guessing. Pass `fuzzy: false` (`Vehicles.make("marcedes", fuzzy: false) # => nil`) when you need exact-only matching; the validators always do, so a typo never validates as a stored make. Three more guards keep it from guessing: a swap of two neighbouring letters counts as one edit (`"telsa"` is equally close to Tesla and Temsa, so it stays `nil`); a match may not drop a whole word (so `"Volvo V 60"` never turns into Volvo "60"); and every word keeps its first letter (so `"citroen e"` is not Citroën DS). Your configured `other_label` never fuzzy-matches a real make.
 
 Unknown make? You get an empty array, never an exception:
 
@@ -183,9 +183,11 @@ car.availability       # => ["es", "fi", "gb", ...]   countries with official ev
 car.available_in?(:th) # => true
 
 # The most popular models — perfect for "common choices" pre-filled pickers.
-# With `country:`, ordered by THAT country's own registration rank:
+# With `country:`, ordered by THAT country's own registration rank (ranks are per kind,
+# so pass `kind:`; countries whose sources record presence only — us, ca for cars —
+# have no ranks and keep the global order):
 Vehicles.top_models(kind: :car, country: :gb, limit: 3).map(&:name)  # => ["Fiesta", "Golf", "Corsa"]
-car.rank_in(:gb)       # => 2        rank among all GB cars (nil where unranked)
+Vehicles.find("vw golf").rank_in(:gb)   # => 2    rank among all GB cars (nil where unranked)
 Vehicles.top_models(kind: :motorcycle, limit: 10).map(&:full_name)
 ```
 
@@ -427,8 +429,8 @@ Vehicles.find("vw golf").available_in?(:nz)     # => true
 Vehicles.top_models(kind: :car, country: :es)   # country-scoped popularity
 ```
 
-The bundled snapshot is **global** (official registers of 14 countries across
-Europe, North America, SE Asia, Oceania and Ukraine — see [Where the data
+The bundled snapshot is **global** (official registers of 15 countries across
+Europe, North America, South America, SE Asia, Oceania and Ukraine — see [Where the data
 comes from](#where-the-data-comes-from)), so the region gate accepts every
 region query — `region: :eu` callers from 0.1.x keep working unchanged:
 
@@ -625,7 +627,7 @@ No magic, just good defaults:
 
 ## Roadmap
 
-Bundled today: ~17k models across 6 kinds and 14 countries, with popularity +
+Bundled today: ~15k models across 6 kinds and 15 countries, with popularity +
 availability, plus the MCP server. On the way:
 
 - 🌍 More **countries** (Switzerland next; the dataset grows monthly)

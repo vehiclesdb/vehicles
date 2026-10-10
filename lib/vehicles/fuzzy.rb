@@ -64,20 +64,33 @@ module Vehicles
       qw.zip(kw).all? { |q, k| q[0] == k[0] }
     end
 
-    # Levenshtein distance between two strings, giving up early: returns
-    # `limit + 1` as soon as the distance provably exceeds `limit`.
+    # Edit distance (optimal string alignment: Levenshtein plus adjacent
+    # transposition = 1 edit, so "telsa" is ONE edit from "tesla" — plain
+    # Levenshtein counted it as two and let the one-substitution "temsa" win).
+    # Gives up early: returns `limit + 1` once two consecutive rows exceed
+    # `limit` (a transposition reads two rows back, so one row is not enough).
     def distance(left, right, limit)
+      prev2 = nil
       prev = (0..right.length).to_a
       left.each_char.with_index(1) do |lch, row|
         cur = [row]
         right.each_char.with_index(1) do |rch, col|
-          cur << [prev[col] + 1, cur[col - 1] + 1, prev[col - 1] + (lch == rch ? 0 : 1)].min
+          swap = prev2 && col > 1 && lch == right[col - 2] && left[row - 2] == rch
+          cur << cell(prev, cur, col, lch == rch, swap ? prev2[col - 2] : nil)
         end
-        return limit + 1 if cur.min > limit
+        return limit + 1 if cur.min > limit && prev.min > limit
 
+        prev2 = prev
         prev = cur
       end
       [prev.last, limit + 1].min
+    end
+
+    # One DP cell: deletion, insertion, substitution, and — when the two
+    # characters are swapped neighbours — transposition from two rows back.
+    def cell(prev, cur, col, same, swap_from)
+      best = [prev[col] + 1, cur[col - 1] + 1, prev[col - 1] + (same ? 0 : 1)].min
+      swap_from ? [best, swap_from + 1].min : best
     end
   end
 end

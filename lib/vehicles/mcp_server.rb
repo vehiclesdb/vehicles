@@ -194,8 +194,8 @@ module Vehicles
       list = Vehicles.dataset.top_models(kind: args["kind"]&.to_sym,
                                          country: args["country"], limit: limit)
       { models: list.map { |m| model_json(m) },
-        note: "Ranked by global popularity decile from official registration counts; " \
-              "country filters by evidenced availability." }
+        note: "Ranked from official registration counts: with a country, by that country's own " \
+              "rank (per kind — pass kind for a clean list); without one, by global popularity decile." }
     end
 
     def model_json(model)

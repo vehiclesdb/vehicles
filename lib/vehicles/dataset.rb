@@ -101,7 +101,10 @@ module Vehicles
       # 3. direct slug / normalized name / make alias
       # 4. bounded edit-distance fallback over names/slugs/aliases (Fuzzy);
       #    user-configured aliases are not fuzzy-matched
-      @by_slug[q] || @index[q] || (fuzzy ? Fuzzy.unique_closest(q, fuzzy_keys) : nil)
+      #    — never for the "Other" escape hatch's label ("Otra" is one edit
+      #    from the make Ora; Vehicles.models("Otra", include_other: true)
+      #    must stay [other_label])
+      @by_slug[q] || @index[q] || (fuzzy && !Vehicles.other?(query) ? Fuzzy.unique_closest(q, fuzzy_keys) : nil)
     end
 
     # Resolve a free-text "make + model" string into one Model. Tries the longest
