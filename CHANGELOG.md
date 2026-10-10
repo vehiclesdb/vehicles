@@ -31,6 +31,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Model#country_ranks` / `Model#rank_in(country)` — the model's rank
   among all models of its kind in that country (dataset key
   `country_ranks`, from `catalog/` `popularity.by_country[cc].rank`).
+- `Model#mass_decile` — per-kind registration-mass decile (1 = heaviest),
+  the dataset's `popularity.mass_decile` (2026.10.1+, pipeline#255 /
+  ruling R3); nil-safe on older snapshots (the bundled 2026.10.0 has none).
+  `global_decile` stays what it is — a presence average.
+  `top_models(by: :mass_decile)` ranks by it (records without it are
+  excluded, so it is `[]` on 2026.10.0 data); `by:` defaults to
+  `:global_decile`; anything else raises ArgumentError.
 - `rake "data:refresh[<tag>]"` — refreshes `data/vehicles.json` from a
   dataset release tag and writes `data/PROVENANCE-vehicles.md`; fills
   `country_ranks` from the same tag's catalog until the projection ships
@@ -48,6 +55,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   countries; `dist/vehicles.json` at tag v2026.10.0 + `country_ranks`).
 - The make and model validators stay EXACT (`fuzzy: false`): a typo never
   validates as a stored make.
+
+- Fuzzy matching is for human-typed names only: input containing `/`
+  (ids, paths) or slug-shaped (`marcedes-benz`) resolves exactly or not at
+  all; the MCP server's tools are exact-only.
+- CI: the 111 rubocop offenses inherited from main are frozen in
+  `.rubocop_todo.yml` (no code changes) so the Lint job is green again; new
+  code is fully linted.
 
 ### Upgrade notes
 

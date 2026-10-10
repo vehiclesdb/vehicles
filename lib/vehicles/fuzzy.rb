@@ -21,6 +21,16 @@ module Vehicles
 
     module_function
 
+    # Only HUMAN-typed names are fuzzy-matched. Anything shaped like an id, a
+    # path or a slug — any "/" ("car/mercedes-benz/c-class", "/makes/marcedes",
+    # "marcedes-benz/c-class") or all-lowercase hyphenated ("marcedes-benz") —
+    # is machine input: it must resolve exactly or not at all, never to a
+    # guessed make (web routing and API ids rely on it; web-session ruling).
+    def eligible_input?(raw)
+      s = raw.to_s.strip
+      !s.include?("/") && !s.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)+\z/)
+    end
+
     # Maximum edit distance allowed for a query of this many characters.
     def budget(length)
       length >= 6 ? 2 : 1

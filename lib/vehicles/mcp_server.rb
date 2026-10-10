@@ -162,7 +162,7 @@ module Vehicles
       makes = Vehicles.dataset.makes(kind: kind)
       unless q.strip.empty?
         n = Vehicles.normalize(q)
-        exact = Vehicles.dataset.find_make(q)
+        exact = Vehicles.dataset.find_make(q, fuzzy: false) # MCP tools stay exact (agents pass ids/slugs)
         makes = makes.select { |m| Vehicles.normalize(m.name).include?(n) }
         makes = [exact, *makes].uniq if exact && (kind.nil? || exact.kinds.include?(kind))
       end
@@ -178,8 +178,8 @@ module Vehicles
     end
 
     def get_model(args)
-      m = Vehicles.model(args.fetch("make"), args.fetch("model")) ||
-          Vehicles.find("#{args.fetch("make")} #{args.fetch("model")}")
+      m = Vehicles.model(args.fetch("make"), args.fetch("model"), fuzzy: false) ||
+          Vehicles.find("#{args.fetch("make")} #{args.fetch("model")}", fuzzy: false)
       if m
         model_json(m)
       else

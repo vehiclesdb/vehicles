@@ -179,8 +179,9 @@ module Vehicles
     # first. Filter by country (ISO alpha-2) or continent (:eu/:as/…).
     #   Vehicles.top_models(kind: :car, country: :nl, limit: 10).map(&:name)
     #   Vehicles.top_models(kind: :motorcycle, region: :as, limit: 10)
-    def top_models(kind: nil, country: nil, region: nil, limit: 20)
-      dataset.top_models(kind: kind, country: country, region: region, limit: limit)
+    #   Vehicles.top_models(kind: :car, by: :mass_decile)  # by registration mass (data 2026.10.1+)
+    def top_models(kind: nil, country: nil, region: nil, limit: 20, by: :global_decile)
+      dataset.top_models(kind: kind, country: country, region: region, limit: limit, by: by)
     end
 
     # A curated slice of models by kind/continent/rarity — the "give me sensible

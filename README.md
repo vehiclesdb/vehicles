@@ -78,7 +78,7 @@ Vehicles.models("alfa-romeo") # slug form
 Vehicles.models("marcedes")   # => Mercedes-Benz (typo: one make is clearly closest)
 ```
 
-Typos resolve too: when nothing matches exactly, the closest make within a small edit distance wins (1 edit up to 5 characters, 2 from 6 up, none under 4) — but only if ONE make is closest, so `"Acra"` (one edit from both Acura and Acma) stays `nil` rather than guessing. Pass `fuzzy: false` (`Vehicles.make("marcedes", fuzzy: false) # => nil`) when you need exact-only matching; the validators always do, so a typo never validates as a stored make. Three more guards keep it from guessing: a swap of two neighbouring letters counts as one edit (`"telsa"` is equally close to Tesla and Temsa, so it stays `nil`); a match may not drop a whole word (so `"Volvo V 60"` never turns into Volvo "60"); and every word keeps its first letter (so `"citroen e"` is not Citroën DS). Your configured `other_label` never fuzzy-matches a real make.
+Typos resolve too: when nothing matches exactly, the closest make within a small edit distance wins (1 edit up to 5 characters, 2 from 6 up, none under 4) — but only if ONE make is closest, so `"Acra"` (one edit from both Acura and Acma) stays `nil` rather than guessing. Pass `fuzzy: false` (`Vehicles.make("marcedes", fuzzy: false) # => nil`) when you need exact-only matching; the validators always do, so a typo never validates as a stored make. Three more guards keep it from guessing: a swap of two neighbouring letters counts as one edit (`"telsa"` is equally close to Tesla and Temsa, so it stays `nil`); a match may not drop a whole word (so `"Volvo V 60"` never turns into Volvo "60"); and every word keeps its first letter (so `"citroen e"` is not Citroën DS). Your configured `other_label` never fuzzy-matches a real make. Machine input never fuzzes either: anything with a `/` (ids like `car/mercedes-benz/c-class`, paths like `/makes/marcedes`) or shaped like a slug (`marcedes-benz`) resolves exactly or returns `nil` — so routes and stored ids can never land on a guessed make. The MCP server tools are exact-only.
 
 Unknown make? You get an empty array, never an exception:
 
@@ -188,6 +188,12 @@ car.available_in?(:th) # => true
 # have no ranks and keep the global order):
 Vehicles.top_models(kind: :car, country: :gb, limit: 3).map(&:name)  # => ["Fiesta", "Golf", "Corsa"]
 Vehicles.find("vw golf").rank_in(:gb)   # => 2    rank among all GB cars (nil where unranked)
+
+# Two different "popularity" questions — pick the one you mean:
+car.global_decile      # presence average: "popular in MANY countries" (equal country weight)
+car.mass_decile        # registration mass per kind: "how many EXIST" (1 = heaviest 10%)
+                       #   nil until your data is 2026.10.1+ (refresh! or a newer gem)
+Vehicles.top_models(kind: :car, by: :mass_decile, limit: 10)  # [] on older snapshots
 Vehicles.top_models(kind: :motorcycle, limit: 10).map(&:full_name)
 ```
 

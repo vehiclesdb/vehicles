@@ -25,7 +25,7 @@ module Vehicles
     REGIONS = %i[eu na as sa oc af].freeze
 
     attr_reader :make, :make_slug, :name, :kind, :body_type, :global_decile,
-                :availability, :regions, :aliases, :former_ids, :country_ranks
+                :availability, :regions, :aliases, :former_ids, :country_ranks, :mass_decile
 
     # @param attrs [Hash] one model entry from the dataset (name/slug/kind +
     #   optional body_type/global_decile/availability/regions/aliases/former_ids)
@@ -60,6 +60,12 @@ module Vehicles
       # projection key `country_ranks`, data 2026.10+). Empty when unranked or
       # when the snapshot predates the key; `rank_in` then returns nil.
       @country_ranks = (attrs["country_ranks"] || {}).freeze
+      # Per-KIND mass decile 1 (heaviest 10% by registrations summed across
+      # measured countries) … 10 — "how many exist", where global_decile
+      # (a presence average) answers "popular in many places". Published from
+      # dataset 2026.10.1 (pipeline#255, ruling R3); nil on older snapshots
+      # (including the bundled 2026.10.0) and for unranked records.
+      @mass_decile   = attrs["mass_decile"] || attrs.dig("popularity", "mass_decile")
       freeze
     end
 
@@ -143,7 +149,7 @@ module Vehicles
       { make: make, model: name, slug: slug, kind: kind, body_type: body_type,
         global_decile: global_decile, rarity: rarity,
         availability: availability, regions: regions, aliases: aliases,
-        former_ids: former_ids, country_ranks: country_ranks }
+        former_ids: former_ids, country_ranks: country_ranks, mass_decile: mass_decile }
     end
 
     # Value-object equality — two models with the same slug are equal.

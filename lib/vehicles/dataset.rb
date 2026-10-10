@@ -104,7 +104,9 @@ module Vehicles
       #    — never for the "Other" escape hatch's label ("Otra" is one edit
       #    from the make Ora; Vehicles.models("Otra", include_other: true)
       #    must stay [other_label])
-      @by_slug[q] || @index[q] || (fuzzy && !Vehicles.other?(query) ? Fuzzy.unique_closest(q, fuzzy_keys) : nil)
+      #    — and never for id/slug/path-shaped input (Fuzzy.eligible_input?)
+      fuzzy &&= Fuzzy.eligible_input?(query) && !Vehicles.other?(query)
+      @by_slug[q] || @index[q] || (fuzzy ? Fuzzy.unique_closest(q, fuzzy_keys) : nil)
     end
 
     # Resolve a free-text "make + model" string into one Model. Tries the longest
@@ -120,6 +122,7 @@ module Vehicles
       tokens = q.split
       return nil if tokens.empty?
 
+      fuzzy &&= Fuzzy.eligible_input?(query) # ids/slugs/paths resolve exactly or not at all
       model_by_split(tokens, fuzzy: false) || (fuzzy ? model_by_split(tokens, fuzzy: true) : nil)
     end
 
@@ -166,19 +169,29 @@ module Vehicles
     # snapshot without `country_ranks` (data before 2026.10) degrades to the
     # 0.7.7 order. Ranks are per KIND, so pass `kind:` for a clean ranking —
     # without it, kinds interleave by rank (car #1, motorcycle #1, …).
+    #
+    # `by:` picks the decile: :global_decile (default — presence average,
+    # "popular in many places") or :mass_decile (per-kind registration mass,
+    # "how many exist"; data 2026.10.1+). Records without the chosen decile
+    # never appear, so `by: :mass_decile` on an older snapshot returns [].
     #   top_models(kind: :car, country: :gb, limit: 10)
+    #   top_models(kind: :car, by: :mass_decile, limit: 10)
     #   top_models(kind: :motorcycle, region: :as, limit: 10)  # by continent
-    def top_models(kind: nil, country: nil, region: nil, limit: 20)
+    def top_models(kind: nil, country: nil, region: nil, limit: 20, by: :global_decile)
+      raise ArgumentError, "by: must be :global_decile or :mass_decile" unless RANKINGS.include?(by)
+
       c = country&.to_s&.downcase
-      list = all_models.select(&:global_decile)
+      list = all_models.select(&by)
       list = list.select { |m| m.kind == kind.to_sym } if kind
       list = list.select { |m| m.availability.include?(c) } if c
       list = list.select { |m| m.available_in_region?(region) } if region
       list.sort_by do |m|
         rank = c && m.rank_in(c)
-        [rank ? 0 : 1, rank || 0, m.global_decile, -m.availability.size, m.name]
+        [rank ? 0 : 1, rank || 0, m.public_send(by), -m.availability.size, m.name]
       end.first(limit)
     end
+
+    RANKINGS = %i[global_decile mass_decile].freeze
 
     # Every model matching optional kind/region/rarity filters, ranked by
     # popularity. The "give me a sensible slice" entry point.
