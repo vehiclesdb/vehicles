@@ -22,16 +22,16 @@ require "json"
 module DataRefresh
   module_function
 
-  def git_show(repo, tag, path)
-    out = IO.popen(["git", "-C", repo, "show", "#{tag}:#{path}"], &:read)
-    abort "missing #{path} at #{tag}" unless $CHILD_STATUS.success?
+  def git_show(repo, rev, path)
+    out = IO.popen(["git", "-C", repo, "show", "#{rev}:#{path}"], &:read)
+    abort "missing #{path} at #{rev}" unless $CHILD_STATUS.success?
     out
   end
 
   # "kind/make/model" => { "gb" => 2, … } for every ranked model at the tag.
-  def catalog_ranks(repo, tag, kinds)
+  def catalog_ranks(repo, rev, kinds)
     kinds.each_with_object({}) do |kind, ranks|
-      JSON.parse(git_show(repo, tag, "catalog/#{kind}/models.json")).each do |m|
+      JSON.parse(git_show(repo, rev, "catalog/#{kind}/models.json")).each do |m|
         by_country = m.dig("popularity", "by_country") || {}
         r = by_country.filter_map { |cc, p| [cc, p["rank"]] if p["rank"] }.sort.to_h
         ranks["#{kind}/#{m["id"]}"] = r unless r.empty?
@@ -98,8 +98,9 @@ namespace :data do
     commit = IO.popen(["git", "-C", repo, "rev-parse", "--verify", "-q", "refs/tags/#{tag}^{commit}"], &:read).strip
     abort "not a release tag: #{tag}" unless $CHILD_STATUS.success? && !commit.empty?
 
-    dist = JSON.parse(DataRefresh.git_show(repo, tag, "dist/vehicles.json"))
-    merged, native = DataRefresh.merge!(dist, DataRefresh.catalog_ranks(repo, tag, dist["kinds"]))
+    # Read at the VERIFIED commit, not the tag name (a same-named branch must never win).
+    dist = JSON.parse(DataRefresh.git_show(repo, commit, "dist/vehicles.json"))
+    merged, native = DataRefresh.merge!(dist, DataRefresh.catalog_ranks(repo, commit, dist["kinds"]))
     File.write("#{root}/data/vehicles.json", "#{JSON.pretty_generate(dist)}\n")
     File.write("#{root}/data/PROVENANCE-vehicles.md",
                DataRefresh.provenance(tag, commit, dist["version"], merged, native))
