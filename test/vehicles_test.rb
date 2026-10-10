@@ -84,7 +84,9 @@ module Vehicles
     end
 
     def test_models_for_unknown_make_is_empty
-      assert_empty Vehicles.models("DeLorean")
+      # Not "DeLorean": since 0.7.8 that is a one-space typo of the real make
+      # "De Lorean" (dataset 2026.10) and resolves — correctly.
+      assert_empty Vehicles.models("Zzyzx Motors")
       assert_empty Vehicles.models("")
       assert_empty Vehicles.models(nil)
     end

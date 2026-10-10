@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.8] - 2026-10-10
+
+### Added
+
+- **Typo-tolerant make lookup.** `Vehicles.make`, `Vehicles.models` and
+  every make-taking helper now fall back to the closest make by edit
+  distance when nothing matches exactly: `"marcedes"` → Mercedes-Benz,
+  `"volkswagon"` → Volkswagen, `"DeLorean"` → De Lorean. Bounded
+  (Levenshtein 1 for 4-5 characters, 2 from 6 up, never under 4), stdlib
+  only, and never a guess: when two different makes are equally close
+  (`"Acra"`: Acura / Acma) the answer is `nil`. Exact, alias and slug
+  matches always win; `Vehicles.find` runs its exact pass over every
+  make/model split before retrying a misspelled make, so no answer that
+  resolved in 0.7.7 changes. Opt out per call with `fuzzy: false`.
+- `Model#country_ranks` / `Model#rank_in(country)` — the model's rank
+  among all models of its kind in that country (dataset key
+  `country_ranks`, from `catalog/` `popularity.by_country[cc].rank`).
+- `rake "data:refresh[<tag>]"` — refreshes `data/vehicles.json` from a
+  dataset release tag and writes `data/PROVENANCE-vehicles.md`; fills
+  `country_ranks` from the same tag's catalog until the projection ships
+  the key natively (then it asserts equality instead).
+
+### Changed
+
+- **`top_models(country:)` orders by that country's own rank.** Until now a
+  country-filtered list kept the GLOBAL order (`global_decile`, a
+  presence-weighted average across countries), so the UK top-10 read in
+  everybody else's order. Models available there without a rank there
+  follow in the old order; data without `country_ranks` degrades to the
+  0.7.7 order. Ranks are per kind — pass `kind:` for a clean ranking.
+- Bundled dataset refreshed 2026.07.4 → **2026.10.0** (14,997 models, 15
+  countries; `dist/vehicles.json` at tag v2026.10.0 + `country_ranks`).
+- The make and model validators stay EXACT (`fuzzy: false`): a typo never
+  validates as a stored make.
+
+### Upgrade notes
+
+- Apps that route or 404 on `Vehicles.make(param)` will now resolve near
+  misses to a real make. If a misspelled URL must 404 (or 301 to the
+  canonical slug), call `Vehicles.make(param, fuzzy: false)` there.
+
 ## [0.7.7] - 2026-08-03
 
 ### Changed

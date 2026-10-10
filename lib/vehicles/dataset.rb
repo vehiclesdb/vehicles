@@ -78,7 +78,11 @@ module Vehicles
     end
 
     # Resolve a make from a String/Symbol/Make via aliases, slug, or name.
-    def find_make(query)
+    # With `fuzzy:` (the default), a query that matches nothing exactly falls
+    # back to the closest make by edit distance — "marcedes" → Mercedes-Benz —
+    # but only when ONE make is strictly closest; equally close makes → nil.
+    # Pass `fuzzy: false` where a typo must NOT count as a match (validators).
+    def find_make(query, fuzzy: true)
       return query if query.is_a?(Make)
 
       q = Vehicles.normalize(query)
@@ -95,25 +99,25 @@ module Vehicles
       end
 
       # 3. direct slug / normalized name / make alias
-      @by_slug[q] || @index[q]
+      # 4. bounded edit-distance fallback over names/slugs/aliases (Fuzzy);
+      #    user-configured aliases are not fuzzy-matched
+      @by_slug[q] || @index[q] || (fuzzy ? Fuzzy.unique_closest(q, fuzzy_keys) : nil)
     end
 
     # Resolve a free-text "make + model" string into one Model. Tries the longest
     # leading make prefix first ("land rover defender"), then the remainder as the
     # model. Returns nil if nothing matches.
-    def find_model(query)
+    #
+    # The exact pass runs first over EVERY split; only if nothing matches is
+    # the make prefix retried with typo tolerance, so no answer that resolved
+    # before 0.7.8 can change ("volkswagon golf" now resolves; "vw golf" is
+    # answered by the exact pass exactly as before).
+    def find_model(query, fuzzy: true)
       q = Vehicles.normalize(query)
       tokens = q.split
       return nil if tokens.empty?
 
-      (tokens.length - 1).downto(1) do |i|
-        make = find_make(tokens[0, i].join(" "))
-        next unless make
-
-        model = make.model(tokens[i..].join(" "))
-        return model if model
-      end
-      nil
+      model_by_split(tokens, fuzzy: false) || (fuzzy ? model_by_split(tokens, fuzzy: true) : nil)
     end
 
     # Every model whose name (or full name) matches the query, ranked: exact name,
@@ -148,10 +152,18 @@ module Vehicles
       @kinds ||= @makes.flat_map(&:kinds).uniq.sort.freeze
     end
 
-    # Ranked models by popularity: global decile first, then breadth of
-    # availability as the tiebreaker, then name. Unranked models (nil decile —
-    # catalog-only evidence) never appear: "unknown" must not outrank "known".
-    #   top_models(kind: :car, country: :nl, limit: 10)
+    # Ranked models by popularity. Unranked models (nil decile — catalog-only
+    # evidence) never appear: "unknown" must not outrank "known".
+    #
+    # Without `country:` — global decile, then breadth of availability, then
+    # name. WITH `country:` — that country's OWN rank (Model#rank_in) first,
+    # so a UK list reads in UK order, not in the presence-weighted global
+    # order (until 0.7.7 a filtered list kept the global sort). Models
+    # available there but without a rank there follow, in global order; a
+    # snapshot without `country_ranks` (data before 2026.10) degrades to the
+    # 0.7.7 order. Ranks are per KIND, so pass `kind:` for a clean ranking —
+    # without it, kinds interleave by rank (car #1, motorcycle #1, …).
+    #   top_models(kind: :car, country: :gb, limit: 10)
     #   top_models(kind: :motorcycle, region: :as, limit: 10)  # by continent
     def top_models(kind: nil, country: nil, region: nil, limit: 20)
       c = country&.to_s&.downcase
@@ -159,7 +171,10 @@ module Vehicles
       list = list.select { |m| m.kind == kind.to_sym } if kind
       list = list.select { |m| m.availability.include?(c) } if c
       list = list.select { |m| m.available_in_region?(region) } if region
-      list.sort_by { |m| [m.global_decile, -m.availability.size, m.name] }.first(limit)
+      list.sort_by do |m|
+        rank = c && m.rank_in(c)
+        [rank ? 0 : 1, rank || 0, m.global_decile, -m.availability.size, m.name]
+      end.first(limit)
     end
 
     # Every model matching optional kind/region/rarity filters, ranked by
@@ -184,6 +199,28 @@ module Vehicles
 
     def index(key, make)
       @index[Vehicles.normalize(key)] ||= make
+    end
+
+    # The longest-make-prefix split behind #find_model, one pass.
+    def model_by_split(tokens, fuzzy:)
+      (tokens.length - 1).downto(1) do |i|
+        make = find_make(tokens[0, i].join(" "), fuzzy: fuzzy)
+        next unless make
+
+        model = make.model(tokens[i..].join(" "))
+        return model if model
+      end
+      nil
+    end
+
+    # Every normalized key a make answers to (name, slug, published aliases,
+    # built-in aliases) — the haystack for #fuzzy_make. Built once.
+    def fuzzy_keys
+      @fuzzy_keys ||= begin
+        keys = @index.to_a
+        BUILTIN_ALIASES.each { |key, slug| keys << [key, @by_slug[slug]] if @by_slug[slug] }
+        keys.reject { |k, _m| k.empty? }.freeze
+      end
     end
 
     def region_match?(region)

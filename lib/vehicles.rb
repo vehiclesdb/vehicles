@@ -5,6 +5,7 @@ require_relative "vehicles/configuration"
 require_relative "vehicles/make"
 require_relative "vehicles/model"
 require_relative "vehicles/color"
+require_relative "vehicles/fuzzy"
 require_relative "vehicles/dataset"
 require_relative "vehicles/refresher"
 require_relative "vehicles/providers/local_provider"
@@ -117,14 +118,19 @@ module Vehicles
       append_other_name(names, include_other)
     end
 
-    # The rich Make object (or nil). Forgiving: name, slug, or alias.
-    def make(query)
-      dataset.find_make(query)
+    # The rich Make object (or nil). Forgiving: name, slug, alias — and, since
+    # 0.7.8, typos: "marcedes" → Mercedes-Benz, "volkswagon" → Volkswagen
+    # (bounded edit distance, only when ONE make is closest; ties → nil).
+    # Pass `fuzzy: false` for exact-only resolution (the validators do).
+    def make(query, fuzzy: true)
+      dataset.find_make(query, fuzzy: fuzzy)
     end
 
     # Resolve a free-text "make + model" string into one Model (or nil).
-    def find(query)
-      dataset.find_model(query)
+    # Exact makes are tried first; a misspelled make is retried with the same
+    # typo tolerance as `make` ("volkswagon golf"). `fuzzy: false` disables it.
+    def find(query, fuzzy: true)
+      dataset.find_model(query, fuzzy: fuzzy)
     end
 
     # Resolve a stored make + model PAIR into a Model (or nil). The structured

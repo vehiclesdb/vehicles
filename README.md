@@ -5,7 +5,7 @@
 > [!TIP]
 > **🚀 Ship your next Rails app 10x faster!** I've built **[RailsFast](https://railsfast.com/?ref=vehicles)**, a production-ready Rails boilerplate template that comes with everything you need to launch a software business in days, not weeks. Go [check it out](https://railsfast.com/?ref=vehicles)!
 
-`vehicles` gives your Rails app a clean, curated list of vehicle makes and models — **~17k models across 850+ makes: cars, motorcycles, mopeds, vans, trucks and buses**, reconciled from official registers of 14 countries — ready for dropdowns, search, and validation. No API keys, no database table, no migration — it works **fully offline** the second you `bundle install`, because the data ships inside the gem. (Optionally, it can [refresh](#staying-current-optional) the data without a gem upgrade.)
+`vehicles` gives your Rails app a clean, curated list of vehicle makes and models — **~17k models across 850+ makes: cars, motorcycles, mopeds, vans, trucks and buses**, reconciled from official registers of 15 countries — ready for dropdowns, search, and validation. No API keys, no database table, no migration — it works **fully offline** the second you `bundle install`, because the data ships inside the gem. (Optionally, it can [refresh](#staying-current-optional) the data without a gem upgrade.)
 
 ✨ Perfect for marketplaces, carpooling & rideshare apps, fleet tools, parking & EV-charging apps, insurance and booking forms — anywhere a user has to pick their vehicle.
 
@@ -75,12 +75,15 @@ Vehicles.models("toyota")     # case-insensitive
 Vehicles.models("VW")         # => Volkswagen   (common abbreviation)
 Vehicles.models("merc")       # => Mercedes-Benz
 Vehicles.models("alfa-romeo") # slug form
+Vehicles.models("marcedes")   # => Mercedes-Benz (typo: one make is clearly closest)
 ```
+
+Typos resolve too: when nothing matches exactly, the closest make within a small edit distance wins (1 edit up to 5 characters, 2 from 6 up, none under 4) — but only if ONE make is closest, so `"Acra"` (one edit from both Acura and Acma) stays `nil` rather than guessing. Pass `fuzzy: false` (`Vehicles.make("marcedes", fuzzy: false) # => nil`) when you need exact-only matching; the validators always do, so a typo never validates as a stored make.
 
 Unknown make? You get an empty array, never an exception:
 
 ```ruby
-Vehicles.models("DeLorean")   # => []
+Vehicles.models("Zzyzx Motors")   # => []
 ```
 
 ## Smart lookup & search
@@ -179,8 +182,10 @@ car.popular?           # => true     decile ≤ 2 (and `false` when unranked —
 car.availability       # => ["es", "fi", "gb", ...]   countries with official evidence
 car.available_in?(:th) # => true
 
-# The most popular models — perfect for "common choices" pre-filled pickers:
-Vehicles.top_models(kind: :car, country: :nl, limit: 10)   # => [Model, ...]
+# The most popular models — perfect for "common choices" pre-filled pickers.
+# With `country:`, ordered by THAT country's own registration rank:
+Vehicles.top_models(kind: :car, country: :gb, limit: 3).map(&:name)  # => ["Fiesta", "Golf", "Corsa"]
+car.rank_in(:gb)       # => 2        rank among all GB cars (nil where unranked)
 Vehicles.top_models(kind: :motorcycle, limit: 10).map(&:full_name)
 ```
 
@@ -586,7 +591,7 @@ Vehicles.reload!                        # drop the in-memory dataset (reload fro
 
 ## Where the data comes from
 
-The bundled dataset is [**VehiclesDB**](https://github.com/vehiclesdb/vehiclesdb) — an open dataset **reconciled from official vehicle registers of 14 countries on 4 continents** (the Dutch RDW, UK DfT, Spanish DGT, Finnish Traficom, German KBA, US EPA, New Zealand's Motor Vehicle Register, Thailand's DLT, Ukraine's MVS, and more). A model ships only when **two independent official sources corroborate it** — or one shows a registration count no typo could produce — so you get real nameplates without the registry noise.
+The bundled dataset is [**VehiclesDB**](https://github.com/vehiclesdb/vehiclesdb) — an open dataset **reconciled from official vehicle registers of 15 countries on 5 continents** (bundled dataset 2026.10.0; the exact list is `countries` in the data repo's `manifest.json`) (the Dutch RDW, UK DfT, Spanish DGT, Finnish Traficom, German KBA, US EPA, New Zealand's Motor Vehicle Register, Thailand's DLT, Ukraine's MVS, and more). A model ships only when **two independent official sources corroborate it** — or one shows a registration count no typo could produce — so you get real nameplates without the registry noise.
 
 Every record is shaped like this:
 

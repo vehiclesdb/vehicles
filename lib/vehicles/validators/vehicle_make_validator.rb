@@ -15,7 +15,9 @@ class VehicleMakeValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     return if value.blank?
     return if options[:allow_other] && Vehicles.other?(value)
-    return if Vehicles.make(value)
+    # Exact-only: a typo must fail validation, not be stored as if it were the
+    # make it resembles (Vehicles.make is typo-tolerant since 0.7.8).
+    return if Vehicles.make(value, fuzzy: false)
 
     record.errors.add(attribute, options[:message] || "is not a recognized vehicle make")
   rescue StandardError => e
