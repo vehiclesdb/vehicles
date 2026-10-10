@@ -25,7 +25,7 @@ module Vehicles
     REGIONS = %i[eu na as sa oc af].freeze
 
     attr_reader :make, :make_slug, :name, :kind, :body_type, :global_decile,
-                :availability, :regions, :aliases, :former_ids
+                :availability, :regions, :aliases, :former_ids, :country_ranks, :mass_decile
 
     # @param attrs [Hash] one model entry from the dataset (name/slug/kind +
     #   optional body_type/global_decile/availability/regions/aliases/former_ids)
@@ -55,6 +55,18 @@ module Vehicles
       # the dataset's append-only migration contract (SCHEMA.md: renames
       # alias, nothing is silently deleted). Empty for never-renamed records.
       @former_ids    = (attrs["former_ids"] || []).freeze
+      # { "gb" => 2, "nl" => 1, ... } — the model's rank among every model of
+      # its KIND in that country, from official registration counts (dataset
+      # projection key `country_ranks`, data 2026.10+). Empty when unranked or
+      # when the snapshot predates the key; `rank_in` then returns nil.
+      @country_ranks = (attrs["country_ranks"] || {}).freeze
+      # Per-KIND mass decile 1 (heaviest 10% by registrations summed across
+      # measured countries) … 10 — "how many exist", where global_decile
+      # (a presence average) answers "popular in many places". Published from
+      # dataset 2026.10.1 (pipeline#255, ruling R3); nil on older snapshots
+      # (including the bundled 2026.10.0) and for unranked records.
+      pop = attrs["popularity"]
+      @mass_decile = attrs["mass_decile"] || (pop.is_a?(Hash) ? pop["mass_decile"] : nil)
       freeze
     end
 
@@ -88,6 +100,13 @@ module Vehicles
     #   Vehicles.find("vw golf").available_in?(:nl)  # => true
     def available_in?(country)
       availability.include?(country.to_s.downcase)
+    end
+
+    # Rank in one country among all models of the same kind (1 = most
+    # registered there), or nil when that country has no ranking for it.
+    #   Vehicles.find("vw golf").rank_in(:gb)  # => 2
+    def rank_in(country)
+      country_ranks[country.to_s.downcase]
     end
 
     # Evidence of presence on a continent (:eu/:na/:sa/:as/:oc/:af):
@@ -131,7 +150,7 @@ module Vehicles
       { make: make, model: name, slug: slug, kind: kind, body_type: body_type,
         global_decile: global_decile, rarity: rarity,
         availability: availability, regions: regions, aliases: aliases,
-        former_ids: former_ids }
+        former_ids: former_ids, country_ranks: country_ranks, mass_decile: mass_decile }
     end
 
     # Value-object equality — two models with the same slug are equal.

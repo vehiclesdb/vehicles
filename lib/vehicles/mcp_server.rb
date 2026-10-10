@@ -162,7 +162,7 @@ module Vehicles
       makes = Vehicles.dataset.makes(kind: kind)
       unless q.strip.empty?
         n = Vehicles.normalize(q)
-        exact = Vehicles.dataset.find_make(q)
+        exact = Vehicles.dataset.find_make(q, fuzzy: false) # MCP tools stay exact (agents pass ids/slugs)
         makes = makes.select { |m| Vehicles.normalize(m.name).include?(n) }
         makes = [exact, *makes].uniq if exact && (kind.nil? || exact.kinds.include?(kind))
       end
@@ -178,8 +178,8 @@ module Vehicles
     end
 
     def get_model(args)
-      m = Vehicles.model(args.fetch("make"), args.fetch("model")) ||
-          Vehicles.find("#{args.fetch("make")} #{args.fetch("model")}")
+      m = Vehicles.model(args.fetch("make"), args.fetch("model"), fuzzy: false) ||
+          Vehicles.find("#{args.fetch("make")} #{args.fetch("model")}", fuzzy: false)
       if m
         model_json(m)
       else
@@ -194,8 +194,8 @@ module Vehicles
       list = Vehicles.dataset.top_models(kind: args["kind"]&.to_sym,
                                          country: args["country"], limit: limit)
       { models: list.map { |m| model_json(m) },
-        note: "Ranked by global popularity decile from official registration counts; " \
-              "country filters by evidenced availability." }
+        note: "Ranked from official registration counts: with a country, by that country's own " \
+              "rank (per kind — pass kind for a clean list); without one, by global popularity decile." }
     end
 
     def model_json(model)

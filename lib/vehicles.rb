@@ -5,6 +5,7 @@ require_relative "vehicles/configuration"
 require_relative "vehicles/make"
 require_relative "vehicles/model"
 require_relative "vehicles/color"
+require_relative "vehicles/fuzzy"
 require_relative "vehicles/dataset"
 require_relative "vehicles/refresher"
 require_relative "vehicles/providers/local_provider"
@@ -111,20 +112,28 @@ module Vehicles
     #   Vehicles.models("Toyota", include_other: true)  # ... + the "Other" escape hatch
     # With `include_other:`, an unknown make (e.g. the "Other" make itself) yields
     # just `[other_label]`, so a make→model picker never dead-ends.
-    def models(make, kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil, include_other: false)
-      names = make(make)&.models(kind: kind, body_type: body_type, region: region || configuration.region,
-                                 rarity: rarity, max_decile: max_decile)&.map(&:name) || []
+    # `fuzzy:` is forwarded to `make` (typo-tolerant by default since 0.7.8).
+    def models(make, kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil, include_other: false,
+               fuzzy: true)
+      names = make(make, fuzzy: fuzzy)&.models(kind: kind, body_type: body_type,
+                                               region: region || configuration.region,
+                                               rarity: rarity, max_decile: max_decile)&.map(&:name) || []
       append_other_name(names, include_other)
     end
 
-    # The rich Make object (or nil). Forgiving: name, slug, or alias.
-    def make(query)
-      dataset.find_make(query)
+    # The rich Make object (or nil). Forgiving: name, slug, alias — and, since
+    # 0.7.8, typos: "marcedes" → Mercedes-Benz, "volkswagon" → Volkswagen
+    # (bounded edit distance, only when ONE make is closest; ties → nil).
+    # Pass `fuzzy: false` for exact-only resolution (the validators do).
+    def make(query, fuzzy: true)
+      dataset.find_make(query, fuzzy: fuzzy)
     end
 
     # Resolve a free-text "make + model" string into one Model (or nil).
-    def find(query)
-      dataset.find_model(query)
+    # Exact makes are tried first; a misspelled make is retried with the same
+    # typo tolerance as `make` ("volkswagon golf"). `fuzzy: false` disables it.
+    def find(query, fuzzy: true)
+      dataset.find_model(query, fuzzy: fuzzy)
     end
 
     # Resolve a stored make + model PAIR into a Model (or nil). The structured
@@ -133,8 +142,8 @@ module Vehicles
     # model's metadata (kind, body_type, …) back.
     #   Vehicles.model("Audi", "A3")   # => #<Vehicles::Model "Audi A3">
     #   Vehicles.model("vw", "golf")   # forgiving, like every other lookup
-    def model(make_name, model_name)
-      found = make(make_name)
+    def model(make_name, model_name, fuzzy: true)
+      found = make(make_name, fuzzy: fuzzy)
       found&.model(model_name)
     end
 
@@ -170,8 +179,9 @@ module Vehicles
     # first. Filter by country (ISO alpha-2) or continent (:eu/:as/…).
     #   Vehicles.top_models(kind: :car, country: :nl, limit: 10).map(&:name)
     #   Vehicles.top_models(kind: :motorcycle, region: :as, limit: 10)
-    def top_models(kind: nil, country: nil, region: nil, limit: 20)
-      dataset.top_models(kind: kind, country: country, region: region, limit: limit)
+    #   Vehicles.top_models(kind: :car, by: :mass_decile)  # by registration mass (data 2026.10.1+)
+    def top_models(kind: nil, country: nil, region: nil, limit: 20, by: :global_decile)
+      dataset.top_models(kind: kind, country: country, region: region, limit: limit, by: by)
     end
 
     # A curated slice of models by kind/continent/rarity — the "give me sensible
@@ -219,8 +229,8 @@ module Vehicles
 
     # [[label, value], ...] of a make's models for a Rails `select`. Unknown => [].
     #   Vehicles.model_options("audi", include_other: true)  # ... + [other_label, "other"]
-    def model_options(make, kind: nil, body_type: nil, include_other: false)
-      found = make(make)
+    def model_options(make, kind: nil, body_type: nil, include_other: false, fuzzy: true)
+      found = make(make, fuzzy: fuzzy)
       opts = found ? found.model_options(kind: kind, body_type: body_type) : []
       append_other_option(opts, include_other)
     end

@@ -21,7 +21,10 @@ module Vehicles
     end
 
     def test_make_returns_nil_for_unknown
-      assert_nil Vehicles.make("Tesler")
+      assert_nil Vehicles.make("Zzyzx Motors")
+      # "Tesler" is one edit from Tesla: typo-tolerant by default since 0.7.8,
+      # unknown under exact-only resolution.
+      assert_nil Vehicles.make("Tesler", fuzzy: false)
       assert_nil Vehicles.make("")
       assert_nil Vehicles.make(nil)
     end

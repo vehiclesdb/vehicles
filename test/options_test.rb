@@ -36,7 +36,8 @@ module Vehicles
     end
 
     def test_model_options_for_unknown_make_is_empty
-      assert_empty Vehicles.model_options("DeLorean")
+      # Not "DeLorean": it resolves to "De Lorean" since 0.7.8 (typo tolerance).
+      assert_empty Vehicles.model_options("Zzyzx Motors")
     end
 
     def test_model_options_filtered

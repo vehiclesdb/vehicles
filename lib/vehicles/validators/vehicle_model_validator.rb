@@ -20,7 +20,7 @@ class VehicleModelValidator < ActiveModel::EachValidator
 
     make_attribute = options[:make] || :make
     make_value = record.respond_to?(make_attribute) ? record.public_send(make_attribute) : nil
-    make = Vehicles.make(make_value)
+    make = Vehicles.make(make_value, fuzzy: false) # exact, same rule as the make validator
     return if make.nil? # unknown make -> defer to the make validator
     return if make.model(value)
 
