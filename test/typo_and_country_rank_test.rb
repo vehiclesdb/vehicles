@@ -57,6 +57,14 @@ module Vehicles
       assert_equal "de-lorean", Vehicles.make("DeLorean")&.slug, "fewer query words than the key is fine"
     end
 
+    def test_a_model_token_is_never_edited_into_a_make_word
+      # Regression (DEVQ A1 sweep, web resolver longest-prefix loop): "citroen e"
+      # is two edits from "citroen ds", so "Citroën e-C3" became Citroën DS C3.
+      assert_nil Vehicles.make("citroen e")
+      assert_nil Vehicles.make("peugeot e")
+      assert_equal "Citroën", Vehicles.find("Citroën e-C3")&.make
+    end
+
     def test_helpers_forward_the_fuzzy_opt_out
       assert_empty Vehicles.models("marcedes", fuzzy: false)
       refute_empty Vehicles.models("marcedes")

@@ -11,7 +11,11 @@ module Vehicles
   #     distance, the result is nil ("acra": one edit from Acura AND Acma);
   #   - a candidate may never have FEWER words than the query: deleting a
   #     whole word is how a make prefix swallows a model token ("volvo v" is
-  #     two edits from "volvo", which turned "Volvo V 60" into Volvo 60).
+  #     two edits from "volvo", which turned "Volvo V 60" into Volvo 60);
+  #   - every word keeps its first letter (word for word when the counts
+  #     match, else the first letter of the query): typos rarely hit the
+  #     first letter, model tokens almost always differ there ("citroen e"
+  #     is two edits from "citroen ds" — that is the e-C3, not Citroën DS).
   module Fuzzy
     MIN_LENGTH = 4
 
@@ -34,6 +38,7 @@ module Vehicles
       keys.each do |key, make|
         next if (key.length - query.length).abs > limit # cannot be within budget
         next if key.count(" ") + 1 < words              # would swallow a word
+        next unless initials_match?(query, key)
 
         dist = distance(query, key, limit)
         # `distance` reports out-of-budget as limit + 1, the same value `best`
@@ -46,6 +51,17 @@ module Vehicles
         hits[make.slug] = make
       end
       hits.size == 1 ? hits.values.first : nil
+    end
+
+    # First letters agree: word for word when both have the same number of
+    # words, otherwise (the query has fewer words, "delorean" vs
+    # "de lorean") just the first letter.
+    def initials_match?(query, key)
+      qw = query.split
+      kw = key.split
+      return qw.first[0] == kw.first[0] unless qw.size == kw.size
+
+      qw.zip(kw).all? { |q, k| q[0] == k[0] }
     end
 
     # Levenshtein distance between two strings, giving up early: returns
