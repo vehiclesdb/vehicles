@@ -49,6 +49,24 @@ module Vehicles
     attr_accessor cache_path: String
     attr_accessor use_cache: bool
     attr_accessor refresh_timeout: Integer
+    attr_accessor plate_template_cache: untyped
+    attr_accessor plate_template_ttl: Integer
+  end
+
+  module Plates
+    def self.template: (code: String | Symbol, series: String, ?shape: String?, ?region: String?) -> String?
+    def self.render: (String registration, jurisdiction: String | Symbol, ?region: String?, ?label: String?) -> String?
+
+    module TemplateFill
+      class Error < StandardError
+      end
+
+      SCHEMA_VERSION: Integer
+      def self.fill: (String svg, String registration, ?label: String?) -> String
+      def self.shape_of: (String text) -> String?
+      def self.fit_size: (Numeric size, Numeric room, Numeric natural_width) -> Float
+      def self.recentered_baseline: (Numeric origin, Numeric size, Numeric per_size) -> Float
+    end
   end
 
   class Make

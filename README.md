@@ -472,6 +472,29 @@ Pilot coverage (gate L0): 🇳🇱 🇪🇸 🇩🇪 + US-Florida, 73 series, co
 
 **Prefer HTTP?** The same matcher and the full format corpus are hosted endpoints on the [VehiclesDB API](https://vehiclesdb.com/api): `GET /api/v1/plates/{code}` (a jurisdiction's every series, with 1:1 SVG render URLs) and `GET /api/v1/plates/{code}/match?plate=…` (validity + as-issued formatting + a render of *that* registration on the real plate design). Free API keys at [vehiclesdb.com](https://vehiclesdb.com).
 
+### Drawing a plate without sending it anywhere
+
+A registration is personal data. To show a user their own plate on the real VehiclesDB plate art, the gem fetches a **blank template** (the series, the registration's *shape* — `NNNN LLL`, character classes only — and an optional region) and fills it **locally**:
+
+```ruby
+Vehicles::Plates.render("1234 BCD", jurisdiction: :es)
+# => "<svg … aria-label=\"Spain plate 1234 BCD\">…</svg>"  (nil when it can't)
+
+Vehicles::Plates.render("1234 BCD", jurisdiction: :es, label: "Matrícula 1234 BCD") # your language
+Vehicles::Plates.render("AB-123-CD", jurisdiction: :fr, region: "75")             # FR département band
+```
+
+Only `GET {api_base_url}/plates/es/es-national-2000/template.svg?shape=NNNN_LLL` goes on the wire: no registration, no API key (the route is public). Anything ambiguous (a German `MAB1234` could be `M-AB` or `MA-B`) or unreachable answers `nil` — keep drawing whatever you drew before. Templates are cached in-process; share them across processes with any store that has `read` / `write(key, value, expires_in:)`:
+
+```ruby
+Vehicles.configure do |config|
+  config.plate_template_cache = Rails.cache
+  config.plate_template_ttl   = 7 * 24 * 3600 # templates are public and change only with the plate art
+end
+```
+
+The pieces are public too: `Vehicles::Plates.template(code:, series:, shape:, region:)` returns the blank SVG, and `Vehicles::Plates::TemplateFill.fill(svg, registration)` is the dependency-free filler (stdlib `json` only) if you fetch templates yourself — in a browser, say.
+
 ## 🔓 More with VehiclesDB
 
 `vehicles` is the free, open-source SDK for [**VehiclesDB**](https://vehiclesdb.com) — a hosted API for richer vehicle data. The gem is **fully standalone and always will be**; pointing it at VehiclesDB is purely additive. Drop in an API key and the same objects you already use light up with more:

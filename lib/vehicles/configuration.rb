@@ -31,6 +31,19 @@ module Vehicles
     # API never blocks a request — hosted lookups degrade to the local data.
     attr_accessor :api_timeout
 
+    # Plate templates (Vehicles::Plates.template / .render): where fetched
+    # templates are kept, and for how long. Any store with read(key) and
+    # write(key, value, expires_in:) works — `Rails.cache` shares them across
+    # processes. Defaults to an in-process cache. Templates are public and
+    # carry nothing personal, so a long TTL is safe; the server re-renders
+    # them only when VehiclesDB's plate art changes.
+    attr_writer :plate_template_cache
+    attr_accessor :plate_template_ttl
+
+    def plate_template_cache
+      @plate_template_cache ||= Plates::TemplateCache.new
+    end
+
     # Extra make aliases, merged over the built-in ones. Keys are matched
     # forgivingly (case/diacritics-insensitive); values are canonical make names.
     attr_reader :aliases
@@ -73,6 +86,7 @@ module Vehicles
       @cache_path      = default_cache_path
       @use_cache       = true
       @refresh_timeout = 5
+      @plate_template_ttl = 86_400 # a day, the server's own shared-cache lifetime
     end
 
     # Normalize alias keys at assignment time so lookups stay O(1) and forgiving.

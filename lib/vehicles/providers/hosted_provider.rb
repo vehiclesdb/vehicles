@@ -64,45 +64,15 @@ module Vehicles
 
       # --- internals -----------------------------------------------------------
 
-      # Issue a GET and parse JSON. Returns nil on ANY failure (network, timeout,
-      # non-200, bad JSON) — callers treat nil as "fall back to local data".
+      # Issue a keyed GET and parse JSON. Returns nil on ANY failure (network,
+      # timeout, non-200, bad JSON) — callers treat nil as "fall back to local
+      # data". The wire rules (timeout, no retry) are Vehicles::HTTP's.
       def get(path, params)
-        # Lazy-required: the gem is standalone-first, and this whole module is
-        # inert without an api_key, so we don't pay net/http at load time.
-        require "net/http"
-        require "uri"
-
-        config = Vehicles.configuration
-        uri = url_for(path, params)
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = uri.scheme == "https"
-        http.open_timeout = config.api_timeout
-        http.read_timeout = config.api_timeout
-        # Net::HTTP silently re-sends an idempotent GET once after a read
-        # timeout. Here that would double the latency we promise to cap AND
-        # bill a served image twice, so one request means one request.
-        http.max_retries = 0
-
-        request = Net::HTTP::Get.new(uri)
-        request["Authorization"] = "Bearer #{config.api_key}"
-        request["Accept"] = "application/json"
-
-        response = http.request(request)
-        return nil unless response.is_a?(Net::HTTPSuccess)
-
-        JSON.parse(response.body)
-      rescue StandardError => e
-        warn "[vehicles] hosted lookup failed (#{e.class}); using local data" if $DEBUG
+        body = HTTP.get(HTTP.url(path, params),
+                        "Authorization" => "Bearer #{Vehicles.configuration.api_key}", "Accept" => "application/json")
+        body && JSON.parse(body)
+      rescue StandardError # bad JSON, a malformed api_base_url
         nil
-      end
-
-      # `config.api_base_url` + path + query. Plain concatenation, not
-      # URI.join: an origin ("http://localhost:3030") and an origin behind a
-      # path prefix ("https://proxy.example/vdb") both keep everything they say.
-      def url_for(path, params)
-        uri = URI("#{Vehicles.configuration.api_base_url.to_s.chomp("/")}#{path}")
-        uri.query = URI.encode_www_form(params) unless params.empty?
-        uri
       end
     end
   end
