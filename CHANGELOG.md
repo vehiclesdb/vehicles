@@ -22,6 +22,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   instead of being dropped by `URI.join`. Pinned by tests over a real local
   socket: the exact request line, the Bearer header, and nil on a 404 HTML
   page, a 401, a non-JSON 200 and a refused connection.
+- **One hosted request is one request.** Net::HTTP re-sends an idempotent
+  GET once after a read timeout, so a slow images response was asked for
+  twice: double the latency `api_timeout` promises to cap, and two billed
+  calls when the second one is served (seen against a cold local server).
+  `max_retries` is now 0; pinned by a socket test that counts connections.
 - **A name that exists as several kinds answers with the car.**
   `Vehicles.model("Toyota", "Land Cruiser")` returned the **bus** (the first
   record of four kinds). Without `kind:`, `Make#model` / `Vehicles.model` /

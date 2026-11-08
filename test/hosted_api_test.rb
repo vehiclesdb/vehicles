@@ -89,6 +89,31 @@ module Vehicles
       assert_nil @leon.images
     end
 
+    # Net::HTTP retries an idempotent GET after a read timeout by default:
+    # for a billed endpoint that is two charges and twice the latency.
+    def test_a_slow_api_is_asked_once_and_answers_nil
+      Vehicles.configuration.api_timeout = 0.3
+      accepted = 0
+      held = []
+      thread = Thread.new do
+        loop do
+          held << @server.accept # read nothing, answer nothing: a read timeout
+          accepted += 1
+        end
+      rescue IOError, Errno::EBADF
+        nil
+      end
+
+      assert_nil @leon.images
+      sleep 0.3 # room for a retry to connect, if one were coming
+
+      assert_equal 1, accepted
+    ensure
+      held&.each(&:close)
+      @server.close
+      thread&.join(1)
+    end
+
     IMAGES_JSON = JSON.generate(
       "id" => "car/seat/leon", "color" => "white", "requested_color" => "white",
       "palette" => %w[white grey],

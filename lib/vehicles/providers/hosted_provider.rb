@@ -78,6 +78,10 @@ module Vehicles
         http.use_ssl = uri.scheme == "https"
         http.open_timeout = config.api_timeout
         http.read_timeout = config.api_timeout
+        # Net::HTTP silently re-sends an idempotent GET once after a read
+        # timeout. Here that would double the latency we promise to cap AND
+        # bill a served image twice, so one request means one request.
+        http.max_retries = 0
 
         request = Net::HTTP::Get.new(uri)
         request["Authorization"] = "Bearer #{config.api_key}"
