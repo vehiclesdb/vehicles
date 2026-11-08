@@ -47,7 +47,6 @@ module Vehicles
       @providers = nil
       @data_path = nil
       Dataset.reset!
-      Providers::HostedProvider.reset!
     end
 
     # --- data access ---------------------------------------------------------
@@ -142,9 +141,13 @@ module Vehicles
     # model's metadata (kind, body_type, …) back.
     #   Vehicles.model("Audi", "A3")   # => #<Vehicles::Model "Audi A3">
     #   Vehicles.model("vw", "golf")   # forgiving, like every other lookup
-    def model(make_name, model_name, fuzzy: true)
+    #   Vehicles.model("Kia", "XCeed") # spacing-blind: the dataset's "X Ceed"
+    #   Vehicles.model("BMW", "Serie 1")                 # => BMW 1 Series
+    #   Vehicles.model("Toyota", "Land Cruiser")         # => the car (preferred)
+    #   Vehicles.model("Toyota", "Land Cruiser", kind: :bus)
+    def model(make_name, model_name, fuzzy: true, kind: nil)
       found = make(make_name, fuzzy: fuzzy)
-      found&.model(model_name)
+      found&.model(model_name, kind: kind)
     end
 
     # License plates (the bundled PRD-PLATES dataset). No argument: every

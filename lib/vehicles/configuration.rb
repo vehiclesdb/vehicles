@@ -22,9 +22,9 @@ module Vehicles
     # works on the bundled data — the gem is standalone first, SDK second.
     attr_accessor :api_key
 
-    # ORIGIN of the hosted VehiclesDB API — scheme + host only, no path
-    # (endpoint paths carry their own /v1 prefix, and URI.join would drop a
-    # path suffix here anyway). Overridable for self-hosting/testing.
+    # Where the hosted VehiclesDB API lives — the ORIGIN, without the /api/v1
+    # (endpoint paths carry it: HostedProvider::API_PREFIX). Overridable for
+    # self-hosting, staging or a local server: "http://localhost:3030".
     attr_accessor :api_base_url
 
     # Network timeout (seconds) for hosted API calls. Kept short so a slow/missing

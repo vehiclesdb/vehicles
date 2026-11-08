@@ -9,6 +9,10 @@ module Vehicles
   #   make.models     # => ["A3", "A4", "Q3", ...]
   #   make.model("a3")# => #<Vehicles::Model "Audi A3">
   class Make
+    # "Serie 3" — how BMW sells the 3 Series in Spain and Italy (and "Série"
+    # in France, which normalizes the same) — read as "3 Series".
+    LOCALIZED_SERIES = /\Aserie (\w+)\z/
+
     attr_reader :name, :slug, :aliases, :kinds
 
     def initialize(attrs)
@@ -58,15 +62,26 @@ module Vehicles
       models(**filters).map { |m| [m.name, m.model_slug] }
     end
 
-    # Find one model within this make by exact (normalized) name or slug.
-    # "a3" / "A3" / "Q 3" resolve; partial input does NOT (so `model("a")`
-    # returns nil, not "A3" — important, since the vehicle_model validator relies
-    # on this). Fuzzy/partial matching lives in `Vehicles.search`.
-    def model(query)
+    # Find one model within this make by name or slug. Forgiving about case,
+    # accents and spacing — "a3", "A 3", "XCeed" (the dataset's "X Ceed") and
+    # BMW's Spanish "Serie 3" (→ "3 Series") all resolve — but partial input
+    # does NOT (so `model("a")` returns nil, not "A3" — important, since the
+    # vehicle_model validator relies on this). Fuzzy/partial matching lives in
+    # `Vehicles.search`.
+    #
+    # Some names exist as several kinds (Toyota "Land Cruiser" is a car, a
+    # van, a truck and a bus). Without `kind:` the car wins — it's what people
+    # mean — and pass `kind:` to pick another:
+    #   toyota.model("Land Cruiser")              # => the car
+    #   toyota.model("Land Cruiser", kind: :bus)  # => the bus
+    def model(query, kind: nil)
       q = Vehicles.normalize(query)
       return nil if q.empty?
 
-      models.find { |m| Vehicles.normalize(m.name) == q || m.model_slug == q }
+      pool = models(kind: kind)
+      series = q.sub(LOCALIZED_SERIES, '\\1 series')
+      matches = named(pool, q) || (named(pool, series) unless series == q)
+      matches && (matches.find(&:car?) || matches.first)
     end
 
     def to_h
@@ -88,6 +103,21 @@ module Vehicles
 
     def inspect
       %(#<Vehicles::Make "#{name}">)
+    end
+
+    private
+
+    # The models answering to a normalized query: by exact name or slug; failing
+    # that, by the same letters and digits with spacing ignored ("xceed" is
+    # "X Ceed", "a 5" is "A5") — but only when that lands on ONE name, never a
+    # guess between two. nil when nothing answers.
+    def named(pool, query)
+      exact = pool.select { |m| Vehicles.normalize(m.name) == query || m.model_slug == query }
+      return exact if exact.any?
+
+      squeezed = query.delete(" ")
+      loose = pool.select { |m| Vehicles.normalize(m.name).delete(" ") == squeezed }
+      loose if loose.map { |m| Vehicles.normalize(m.name) }.uniq.one?
     end
   end
 end

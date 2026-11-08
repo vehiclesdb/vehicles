@@ -7,6 +7,57 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.9] - 2026-11-08
+
+### Fixed
+
+- **Hosted images now reach the API.** `HostedProvider` requested
+  `https://vehiclesdb.com/v1/vehicles/…/images`, but the VehiclesDB API lives
+  under **`/api/v1`**: `/v1/…` is the website's HTML 404, so `Model#image` /
+  `Model#images` returned nil for every key since 0.5.0. Requests now go to
+  `GET {api_base_url}/api/v1/vehicles/:kind/:make_slug/:model_slug/images`
+  (`HostedProvider::API_PREFIX`). `config.api_base_url` is still the origin
+  and still overridable (`"http://localhost:3030"` for a local server); a
+  trailing slash or a proxy path prefix on it is now kept as written
+  instead of being dropped by `URI.join`. Pinned by tests over a real local
+  socket: the exact request line, the Bearer header, and nil on a 404 HTML
+  page, a 401, a non-JSON 200 and a refused connection.
+- **A name that exists as several kinds answers with the car.**
+  `Vehicles.model("Toyota", "Land Cruiser")` returned the **bus** (the first
+  record of four kinds). Without `kind:`, `Make#model` / `Vehicles.model` /
+  `Vehicles.find` now prefer the `:car` record and keep the first record
+  when there is no car. Over every model name and slug in the bundled data
+  this moves 51 names from bus to car — same make and model, never a
+  different one.
+
+### Added
+
+- `kind:` on `Vehicles.model` and `Make#model` to pick the kind explicitly:
+  `Vehicles.model("Toyota", "Land Cruiser", kind: :bus)`.
+- **Spacing-blind model names.** When no name matches exactly, `Make#model`
+  compares letters and digits only, so `"XCeed"` is Kia's `"X Ceed"`, `"A 5"`
+  is Audi `"A5"`, `"CX5"` is `"CX-5"`, `"XC 90"` is `"XC90"` — but only when
+  that lands on ONE name (never a guess between two), and never partially
+  (`"X Cee"` stays nil). The model validator answers the same way: spacing
+  is not a typo.
+- **BMW's Spanish/Italian `"Serie N"`** reads as `"N Series"`
+  (`Vehicles.model("BMW", "Serie 3")` → 3 Series); a real `"Serie …"` name
+  (`"Serie X1"`) still wins.
+- Measured on a Spanish carpooling app's 1,329 free-text vehicles (make/model
+  typed or picked in Spanish): 17 more make/model pairs (23 vehicles) now
+  resolve, and the 3 Land Cruisers resolve to the car. Internal double
+  spaces were already collapsed by `Vehicles.normalize`; now pinned by a test.
+
+### Changed
+
+- `Model#years` / `Model#segment` no longer spend a request: the API serves
+  no endpoint for them yet (the old `/v1/models/:slug` never existed), so
+  the hosted provider answers nil without touching the network and the
+  chain falls through to the local data, exactly as before. They light up
+  when the API ships them. `HostedProvider.reset!` (its per-process cache)
+  is gone with it.
+- README: the plates endpoints are `/api/v1/plates/…`.
+
 ## [0.7.8] - 2026-10-10
 
 ### Added

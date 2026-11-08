@@ -22,27 +22,18 @@ module Vehicles
       assert_equal [Providers::HostedProvider, Providers::LocalProvider], Vehicles.providers
     end
 
-    def test_hosted_enrichment_when_key_present
+    def test_years_and_segment_never_reach_the_network
       skip "mocha not available" unless defined?(Mocha)
 
+      # The API serves no years/segment endpoint yet: asking must not spend a
+      # request on one — the chain falls through to the local data.
       Vehicles.configure { |c| c.api_key = "secret" }
-      Providers::HostedProvider.stubs(:get).returns(
-        "year_start" => 1974, "year_end" => 2024, "segment" => "hot_hatch"
-      )
+      Providers::HostedProvider.expects(:get).never
 
       golf = Vehicles.find("vw golf")
 
-      assert_equal(1974..2024, golf.years)
-      assert_equal :hot_hatch, golf.segment
-    end
-
-    def test_open_ended_year_range
-      skip "mocha not available" unless defined?(Mocha)
-
-      Vehicles.configure { |c| c.api_key = "secret" }
-      Providers::HostedProvider.stubs(:get).returns("year_start" => 2019, "year_end" => nil)
-
-      assert_equal(2019..nil, Vehicles.find("vw golf").years)
+      assert_nil golf.years
+      assert_nil golf.segment
     end
 
     def test_image_hits_the_live_images_endpoint_and_returns_the_variant_url
@@ -52,7 +43,7 @@ module Vehicles
       golf = Vehicles.find("vw golf")
       Providers::HostedProvider
         .expects(:get)
-        .with("/v1/vehicles/#{golf.kind}/#{golf.make_slug}/#{golf.model_slug}/images", { color: "blue" })
+        .with("/api/v1/vehicles/#{golf.kind}/#{golf.make_slug}/#{golf.model_slug}/images", { color: "blue" })
         .returns(images_payload)
 
       assert_equal "https://vehiclesdb.com/img/md.webp", golf.image(color: "blue")
