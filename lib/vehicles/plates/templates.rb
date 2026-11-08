@@ -32,6 +32,13 @@ module Vehicles
     TEMPLATE_SERIES = /\A[a-z0-9-]+\z/
     TEMPLATE_SHAPE = /\A[NL]+(?:[- .·_][NL]+)*\z/
     TEMPLATE_REGION = /\A[A-Za-z0-9-]{1,8}\z/
+    # A template is meant to be inlined into a host page, i.e. trusted as
+    # HTML. Real templates are inert: shapes, text, and data: URIs for the
+    # face and region art. Anything active or external is refused.
+    TEMPLATE_ACTIVE_CONTENT = Regexp.union(
+      /<(?:script|foreignObject|iframe)/i, /\son[a-z]+\s*=/i, /javascript:/i,
+      /href\s*=\s*["'](?!data:|#)/i, /url\(\s*["']?(?!data:|#)/i
+    )
 
     module_function
 
@@ -91,6 +98,7 @@ module Vehicles
       # Net::HTTP hands back binary; the template is UTF-8 ("·" separators).
       svg = body.dup.force_encoding(Encoding::UTF_8)
       return nil unless svg.valid_encoding?
+      return nil if svg.match?(TEMPLATE_ACTIVE_CONTENT)
 
       svg if TemplateFill.metadata(svg)["version"] == TemplateFill::SCHEMA_VERSION
     rescue TemplateFill::Error, JSON::ParserError

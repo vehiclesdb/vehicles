@@ -7,7 +7,7 @@ module Vehicles
   # The template client over a REAL socket: exactly what goes on the wire
   # (and what never does: the registration, the API key), caching, and nil
   # on every failure. A local HTTP server plays VehiclesDB.
-  class PlateTemplatesTest < TestCase
+  class PlateTemplatesTest < TestCase # rubocop:disable Metrics/ClassLength -- one wire contract, one file
     FIXTURES = File.expand_path("fixtures/plate_templates", __dir__)
     SPAIN = File.read(File.join(FIXTURES, "es-national-2000.svg"), encoding: "UTF-8")
 
@@ -109,6 +109,26 @@ module Vehicles
       @responses[ES_PATH] = [200, SPAIN.sub('{"version":1,', '{"version":2,'), "image/svg+xml"]
 
       assert_nil Plates.render("1234BCD", jurisdiction: :es)
+    end
+
+    # Hosts inline the SVG into their pages: a template with anything active
+    # or external is not one.
+    def test_a_template_with_active_or_external_content_is_nil
+      [SPAIN.sub("<defs>", "<defs><script>alert(1)</script>"),
+       SPAIN.sub('role="img"', 'role="img" onload="alert(1)"'),
+       SPAIN.sub("<defs>", '<defs><image href="https://evil.example/x.png"/>'),
+       SPAIN.sub("<defs>", "<defs><style>a{background:url(https://evil.example/x)}</style>")].each do |bad|
+        Vehicles.configuration.plate_template_cache = Plates::TemplateCache.new
+        @responses[ES_PATH] = [200, bad, "image/svg+xml"]
+
+        assert_nil Plates.render("1234BCD", jurisdiction: :es), bad[0, 300]
+      end
+    end
+
+    def test_the_real_templates_are_inert
+      Dir[File.join(FIXTURES, "*.svg")].each do |path|
+        refute_match Plates::TEMPLATE_ACTIVE_CONTENT, File.read(path, encoding: "UTF-8"), path
+      end
     end
 
     def test_an_unreachable_server_is_nil
