@@ -10,6 +10,8 @@ module Vehicles
   # Instances are memoized per data path (see .load), so the JSON is parsed once
   # per process.
   class Dataset
+    include DatasetResolution
+
     # Built-in make aliases (normalized key => make slug). Common abbreviations
     # and nicknames so whatever a user types tends to land. Diacritics and case
     # are already handled by Vehicles.normalize, so "škoda"/"citroën" need no entry.

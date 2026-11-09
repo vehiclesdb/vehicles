@@ -115,33 +115,33 @@ module Vehicles
 
   # The ladder, rung by rung: what each answers and what it reports.
   class ModelMatchLadderTest < ModelMatchTestCase
-    def test_strict_name_is_rung_a
+    def test_strict_name_is_the_fold_rung
       m = Vehicles.match_model("Peugeot", "2008")
 
-      assert_equal [:name, 1.0, ["name:2008"]], [m.method, m.confidence, m.via]
+      assert_equal [:fold, 0.97, []], [m.rung, m.confidence, m.via]
       refute_predicate m, :ambiguous?
     end
 
-    def test_spacing_and_series_are_name_matches_with_a_lower_label
+    def test_spacing_and_series_are_folds_with_the_transformation_in_via
       xceed = Vehicles.match_model("Kia", "XCeed")
       serie = Vehicles.match_model("BMW", "Serie 3")
 
-      assert_equal ["X Ceed", :name, 0.97], [xceed.model.name, xceed.method, xceed.confidence]
-      assert_equal ["spacing:xceed→x-ceed"], xceed.via
-      assert_equal ["3 Series", ["series:serie 3→3-series"]], [serie.model.name, serie.via]
+      assert_equal ["X Ceed", :fold, 0.97], [xceed.model.name, xceed.rung, xceed.confidence]
+      assert_equal ["fold:xceed→x-ceed"], xceed.via
+      assert_equal ["3 Series", ["fold:serie 3→3-series"]], [serie.model.name, serie.via]
     end
 
     def test_published_alias
       m = Vehicles.match_model("Nissan", "Qashqai +2")
 
-      assert_equal ["car/nissan/qashqai", :alias, 0.93], [id(m.model), m.method, m.confidence]
+      assert_equal ["car/nissan/qashqai", :alias, 0.93], [id(m.model), m.rung, m.confidence]
       assert_equal ["alias:qashqai 2→qashqai"], m.via
     end
 
     def test_curated_form
       m = Vehicles.match_model("Ford", "Focus C-Max")
 
-      assert_equal ["car/ford/c-max", :form, 0.92], [id(m.model), m.method, m.confidence]
+      assert_equal ["car/ford/c-max", :form, 0.92], [id(m.model), m.rung, m.confidence]
       assert_equal ["form:focus c max→c-max"], m.via
       assert_includes m.model.forms, "Focus C-Max"
     end
@@ -150,9 +150,9 @@ module Vehicles
       golf = Vehicles.match_model("VW", "Nuevo Golf")
       c4 = Vehicles.match_model("Citroën", "Nuevo Citroën C4")
 
-      assert_equal ["car/volkswagen/golf", :cleaned, 0.9], [id(golf.model), golf.method, golf.confidence]
-      assert_equal ["make_alias:vw→volkswagen", "filler:nuevo", "name:golf"], golf.via
-      assert_equal ["filler:nuevo", "make_echo:citroen", "name:c4"], c4.via
+      assert_equal ["car/volkswagen/golf", :cleaned, 0.9], [id(golf.model), golf.rung, golf.confidence]
+      assert_equal ["make_alias:vw→volkswagen", "filler:nuevo"], golf.via
+      assert_equal ["filler:nuevo", "make_echo:citroen"], c4.via
     end
 
     def test_cleanup_reads_ampersand_as_and
@@ -184,9 +184,9 @@ module Vehicles
        %w[Opel Insignai car/opel/insignia], %w[Ford Mustnag car/ford/mustang]].each do |make, model, want|
         m = Vehicles.match_model(make, model)
 
-        assert_equal [want, :typo, 0.8], [id(m&.model), m&.method, m&.confidence], "#{make} #{model}"
+        assert_equal [want, :fuzzy, 0.8], [id(m&.model), m&.rung, m&.confidence], "#{make} #{model}"
       end
-      assert_equal ["typo:sirocco→scirocco"], Vehicles.match_model("Volkswagen", "Sirocco").via
+      assert_equal ["model_typo:sirocco→scirocco"], Vehicles.match_model("Volkswagen", "Sirocco").via
     end
   end
 
@@ -240,11 +240,11 @@ module Vehicles
       assert_nil Vehicles.match_model("Volkswagon", "Sirocco")
     end
 
-    def test_a_typo_corrected_make_caps_the_confidence
+    def test_anything_behind_a_typo_corrected_make_is_fuzzy
       m = Vehicles.match_model("Volkswagon", "Golf")
 
-      assert_equal ["car/volkswagen/golf", :name, 0.8], [id(m.model), m.method, m.confidence]
-      assert_equal ["make_typo:volkswagon→volkswagen", "name:golf"], m.via
+      assert_equal ["car/volkswagen/golf", :fuzzy, 0.8], [id(m.model), m.rung, m.confidence]
+      assert_equal ["make_typo:volkswagon→volkswagen"], m.via
     end
 
     def test_id_shaped_input_never_takes_the_heuristic_rungs
@@ -267,7 +267,7 @@ module Vehicles
         m = Vehicles.match_model("Testa", "Nuevo Gamma")
 
         assert_predicate m, :ambiguous?
-        assert_equal [:form, %w[alpha beta]], [m.method, m.candidates.map(&:model_slug).sort]
+        assert_equal [:form, %w[alpha beta]], [m.rung, m.candidates.map(&:model_slug).sort]
         assert_nil Vehicles.model("Testa", "Nuevo Gamma")
       end
       Dir.mktmpdir do |dir| # sanity: without the collision, cleanup does reach Gamma
@@ -362,7 +362,7 @@ module Vehicles
       assert_predicate m.via, :frozen?
       assert_predicate m.candidates, :frozen?
       assert_equal m, Vehicles.match_model("Ford", "Focus C-Max")
-      assert_equal ["ford-c-max", :form, false], [m.to_h[:model][:slug], m.to_h[:method], m.to_h[:ambiguous]]
+      assert_equal ["ford-c-max", "form", false], [m.to_h[:model][:slug], m.to_h[:method], m.to_h[:ambiguous]]
       assert_match(/Ford C-Max/, m.inspect)
     end
 

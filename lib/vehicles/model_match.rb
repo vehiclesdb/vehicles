@@ -1,37 +1,41 @@
 # frozen_string_literal: true
 
 module Vehicles
-  # The answer to Vehicles.match_model: which model a stored make + model pair
-  # means, HOW it was found, and the evidence. Immutable value object.
+  # The answer to Vehicles.match_model / Vehicles.identify: which model a
+  # typed make + model (or one free-text string) means, WHICH RUNG of the
+  # resolution ladder found it, and the evidence. Immutable value object.
+  # Vocabulary and confidences follow the cross-surface contract
+  # (vehiclesdb RESOLUTION.md), so the gem, the API and the SDKs agree.
   #
   #   m = Vehicles.match_model("VW", "Tuareg")
   #   m.model       # => #<Vehicles::Model "Volkswagen Touareg" suv>
-  #   m.method      # => :typo
+  #   m.rung        # => :fuzzy
   #   m.confidence  # => 0.8
-  #   m.via         # => ["make_alias:vw→volkswagen", "typo:tuareg→touareg"]
+  #   m.via         # => ["make_alias:vw→volkswagen", "model_typo:tuareg→touareg"]
   #   m.candidates  # => every kind-variant of the answer
+  #   m.to_h        # => { ..., method: "fuzzy", ... }  (the API's JSON key)
   #
   # An AMBIGUOUS match has `model` nil, `ambiguous?` true and the competing
   # models in `candidates` — the data knows several answers and will not pick.
-  # (No match at all is not a ModelMatch: match_model returns nil.)
+  # (No match at all is not a ModelMatch: the resolvers return nil.)
   #
-  # `confidence` is a fixed LABEL per method (see CONFIDENCE), not a measured
-  # probability: it orders methods by how much evidence they rest on, so an
-  # app can pick a threshold ("auto-accept >= 0.9, ask the user below").
+  # `confidence` is a fixed LABEL per rung (see CONFIDENCE), not a measured
+  # probability: it orders rungs by how much evidence they rest on, so an app
+  # can pick a threshold ("auto-accept >= 0.9, ask the user below").
   class ModelMatch
-    # Strongest first. `name` covers exact name/slug (1.0) and the spacing-blind
-    # / "Serie N" equivalences of Make#model (0.97, recorded in `via`).
-    CONFIDENCE = { name: 1.0, spacing: 0.97, alias: 0.93, form: 0.92, cleaned: 0.9, typo: 0.8 }.freeze
+    # Rung => confidence, strongest first (RESOLUTION.md §3). `fold` is the
+    # name/slug match by normalization, spacing-blind and "Serie N" alike.
+    # A whole-text alias (Vehicles.identify, no make) is rung :alias at 0.90.
+    CONFIDENCE = { exact: 1.0, former_id: 0.98, fold: 0.97, alias: 0.93, form: 0.92,
+                   cleaned: 0.9, fuzzy: 0.8 }.freeze
 
-    # `method` deliberately mirrors the vocabulary above (:name, :alias, :form,
-    # :cleaned, :typo). NOTE it shadows Object#method on this class — call
-    # `Object.instance_method(:method).bind_call(match, :x)` if you ever need
-    # reflection on a ModelMatch.
-    attr_reader :model, :method, :confidence, :via, :candidates
+    # Named `rung`, not `method`: that would shadow Object#method. `to_h`
+    # still says `method:` (the API's field name), as a String.
+    attr_reader :model, :rung, :confidence, :via, :candidates
 
-    def initialize(model:, method:, confidence:, via:, candidates:)
+    def initialize(model:, rung:, confidence:, via:, candidates:)
       @model      = model
-      @method     = method
+      @rung       = rung
       @confidence = confidence
       @via        = via.dup.freeze
       @candidates = candidates.dup.freeze
@@ -43,7 +47,7 @@ module Vehicles
     end
 
     def to_h
-      { model: model&.to_h, method: method, confidence: confidence, via: via,
+      { model: model&.to_h, method: rung.to_s, confidence: confidence, via: via,
         candidates: candidates.map(&:to_h), ambiguous: ambiguous? }
     end
 
@@ -58,13 +62,13 @@ module Vehicles
 
     def inspect
       answer = ambiguous? ? "ambiguous #{candidates.map(&:full_name).uniq.inspect}" : model.full_name.inspect
-      %(#<Vehicles::ModelMatch #{answer} #{method} #{confidence}>)
+      %(#<Vehicles::ModelMatch #{answer} #{rung} #{confidence}>)
     end
 
     protected
 
     def to_a
-      [model, method, confidence, via, candidates]
+      [model, rung, confidence, via, candidates]
     end
   end
 end

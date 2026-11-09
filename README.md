@@ -123,13 +123,13 @@ For messy free text, `match_model` goes further and tells you **how** it matched
 ```ruby
 m = Vehicles.match_model("VW", "Tuareg")
 m.model       # => #<Vehicles::Model "Volkswagen Touareg">
-m.method      # => :typo
+m.rung        # => :fuzzy
 m.confidence  # => 0.8
-m.via         # => ["make_alias:vw→volkswagen", "typo:tuareg→touareg"]
+m.via         # => ["make_alias:vw→volkswagen", "model_typo:tuareg→touareg"]
 m.candidates  # => every kind of the answer ([car], or [car, van, bus] for a Land Cruiser)
 
 Vehicles.match_model("Citroën", "Nuevo Citroën C4").via
-# => ["filler:nuevo", "make_echo:citroen", "name:c4"]
+# => ["filler:nuevo", "make_echo:citroen"]
 
 Vehicles.match_model("Toyota", "Corola")      # => ambiguous: Corolla or Corona?
 # .model => nil, .ambiguous? => true, .candidates => [Corolla, Corona]
@@ -140,15 +140,15 @@ Vehicles.match_model("Peugeot", "2009")       # => nil (never "the 2008", never 
 
 It tries, strongest first, and stops at the first rung that answers:
 
-| method | rung | confidence |
+| `rung` | what matched | confidence |
 |---|---|---|
-| `:name` | exact name or slug (`make.model`) — spacing-blind and "Serie 3" equivalences score 0.97 | 1.0 / 0.97 |
+| `:fold` | the name or slug (`make.model`): by normalization, spacing-blind ("XCeed" = "X Ceed"), or "Serie 3" = "3 Series" | 0.97 |
 | `:alias` | a published model alias | 0.93 |
 | `:form` | a curated registry spelling (`Model#forms`) | 0.92 |
 | `:cleaned` | the above after peeling a complete make name typed into the model ("Citroën C3", "Lynk And Co 01") and leading "new" words (nuevo/nueva/new/neu/neue/nouveau/nouvelle/nuovo/nuova/novo/nova) | 0.9 |
-| `:typo` | a small, unique typo of a name, alias or form ("Sirocco", "Tuareg", "Mustnag") | 0.8 |
+| `:fuzzy` | a small, unique typo of a name, alias or form ("Sirocco", "Tuareg", "Mustnag") — and anything found behind a typo-corrected make ("Volkswagon") | 0.8 |
 
-`confidence` is a fixed label per method, not a measured probability: use it as a threshold ("auto-accept ≥ 0.9, ask the user below"). A typo-corrected make caps it at 0.8. The rules that keep it from ever guessing:
+`confidence` is a fixed label per rung, not a measured probability: use it as a threshold ("auto-accept ≥ 0.9, ask the user below"). `to_h` reports the rung as `method: "fuzzy"`, the same field and values as the VehiclesDB API and SDKs: every surface follows one resolution contract and runs the same conformance cases. The rules that keep it from ever guessing:
 
 - **Ambiguity stops the ladder.** If the data knows two answers (a spelling claimed by two models, a typo equally close to two), you get `ambiguous?` with the `candidates` — a weaker rung never overrules it.
 - **Typos never touch numbers or codes.** A word containing a digit must match exactly ("2008" ≠ "208", "TRX250R" ≠ "TLR250R"); short tokens never change ("Passat GT" is not the "Passat GL"); one edit per word (two only in long words); never on top of a typo-corrected make.
@@ -156,6 +156,15 @@ It tries, strongest first, and stops at the first rung that answers:
 - **Ids stay exact.** Slug-, id- and path-shaped input (`"golf-gti"`, `"car/volkswagen/golf"`, symbols) only takes the exact rungs.
 
 `make.model(...)` and the `vehicle_model` validator stay strict — a form or a typo is not a valid model name to store. `kind:` works as in `model` (the car is preferred without it).
+
+One free-text string instead of a pair? `identify` splits off the make (the longest leading run that is a make) and runs the same ladder. It also takes canonical ids (`:exact`, 1.0), ids a record has replaced (`:former_id`, 0.98), and a whole string that is exactly one model's published alias (`:alias`, 0.90). Apart from those, nothing resolves without a make:
+
+```ruby
+Vehicles.identify("vw tuareg").model          # => #<Vehicles::Model "Volkswagen Touareg"> (:fuzzy)
+Vehicles.identify("car/volkswagen/golf").rung # => :exact
+Vehicles.identify("1er").model                # => #<Vehicles::Model "BMW 1 Series"> (:alias, 0.9)
+Vehicles.identify("golf")                     # => nil (no make)
+```
 
 `search` returns every model that matches, ranked — perfect for an autocomplete endpoint:
 
@@ -645,7 +654,8 @@ Vehicles.make("Audi")                   # => Vehicles::Make | nil
 Vehicles.find("audi a3")                # => Vehicles::Model | nil  (one free-text string)
 Vehicles.model("Audi", "A3")            # => Vehicles::Model | nil  (a stored make+model pair)
 Vehicles.model("Toyota", "Land Cruiser", kind: :bus)  # pick a kind (default: the car)
-Vehicles.match_model("VW", "Tuareg")    # => Vehicles::ModelMatch | nil  (model, method, confidence, via, candidates)
+Vehicles.match_model("VW", "Tuareg")    # => Vehicles::ModelMatch | nil  (model, rung, confidence, via, candidates)
+Vehicles.identify("vw tuareg")          # => Vehicles::ModelMatch | nil  (one free-text string)
 Vehicles.search("a3")                   # => [Vehicles::Model]
 
 # Popularity & availability (open data, measured from official registers)

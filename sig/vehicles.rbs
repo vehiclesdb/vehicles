@@ -19,6 +19,7 @@ module Vehicles
   def self.find: (untyped query) -> Model?
   def self.model: (untyped make_name, untyped model_name, ?fuzzy: bool, ?kind: Symbol?) -> Model?
   def self.match_model: (untyped make_name, untyped model_name, ?kind: Symbol?) -> ModelMatch?
+  def self.identify: (untyped text, ?kind: Symbol?) -> ModelMatch?
   def self.search: (untyped query) -> Array[Model]
   def self.make_options: (?kind: Symbol?, ?region: Symbol?) -> Array[[String, String]]
   def self.model_options: (untyped make, ?kind: Symbol?, ?body_type: Symbol?) -> Array[[String, String]]
@@ -85,7 +86,7 @@ module Vehicles
   class ModelMatch
     CONFIDENCE: Hash[Symbol, Float]
     attr_reader model: Model?
-    attr_reader method: Symbol
+    attr_reader rung: Symbol
     attr_reader confidence: Float
     attr_reader via: Array[String]
     attr_reader candidates: Array[Model]

@@ -2,14 +2,16 @@
 
 module Vehicles
   # The model-resolution ladder behind Vehicles.match_model (0.9.0); its exact
-  # rungs a–c are also what Vehicles.model answers.
-  #
-  # Rungs, strongest first; the first rung that answers wins:
-  #   a. strict  — Make#model exactly (name/slug, spacing-blind, "Serie N")
-  #   b. alias   — a published model alias (Model#aliases)
-  #   c. form    — a curated registry spelling (Model#forms)
-  #   d. cleaned — peel an echoed make name and "new" fillers, retry a–c
-  #   e. typo    — bounded edit distance over names, aliases and forms
+  # rungs a–c are also what Vehicles.model answers, and Vehicles.identify
+  # (TextMatcher) runs it after splitting off the make. Rung names and
+  # confidences follow the cross-surface contract (vehiclesdb RESOLUTION.md
+  # §3 — rungs 3–5, 7, 8 there):
+  #   a. :fold    — Make#model exactly (name/slug, spacing-blind, "Serie N")
+  #   b. :alias   — a published model alias (Model#aliases)
+  #   c. :form    — a curated registry spelling (Model#forms)
+  #   d. :cleaned — peel an echoed make name and "new" fillers, retry a–c
+  #   e. :fuzzy   — bounded edit distance over names, aliases and forms
+  # Any answer reached through a typo-corrected make is :fuzzy as well.
   #
   # The one rule above all: never a confident WRONG answer. Hence:
   #   - b and c are curated data (normalized equality, then spacing-blind
@@ -46,6 +48,13 @@ module Vehicles
       make, via, make_typo = resolve_make(make_query)
       return nil unless make
 
+      via = kind_hint(kind) + via
+      ladder(make, model_query, kind, via, make_query: make_query, make_typo: make_typo)
+    end
+
+    # The model half of the ladder on a resolved make: a–c, then (for
+    # human-shaped input) d and e.
+    def ladder(make, model_query, kind, via, make_query:, make_typo:)
       query = Vehicles.normalize(model_query)
       return non_latin_alias(make, model_query, kind, via) if query.empty?
 
@@ -54,8 +63,10 @@ module Vehicles
       # Ids/slugs/paths resolve exactly or not at all (same rule as makes).
       return nil unless Fuzzy.eligible_input?(model_query)
 
-      cleaned(make, query, kind, via, make_query: make_query, make_typo: make_typo)
+      heuristic(make, query, kind, via, make_query: make_query, make_typo: make_typo)
     end
+
+    def kind_hint(kind) = kind ? ["kind_hint:#{kind}"] : []
 
     # Rungs a–c only, on a resolved Make — what Vehicles.model answers. Rung a
     # is Make#model itself, so every pair that resolved before 0.9.0 resolves
@@ -63,47 +74,43 @@ module Vehicles
     # (an ambiguous spelling is nil, exactly as it stops match_model).
     def exact(make, model_query, kind: nil)
       query = Vehicles.normalize(model_query)
-      found = if query.empty?
-                non_latin_alias(make, model_query, kind, [])
-              else
-                rungs(make, query, kind, [], [])
-              end
+      found = query.empty? ? non_latin_alias(make, model_query, kind, []) : rungs(make, query, kind, [], [])
       found&.model
     end
 
     # --- rungs ---------------------------------------------------------------
 
     # a → b → c on one normalized query. A ModelMatch (possibly ambiguous) or
-    # nil. `caps` are weaker labels that also apply (see #build).
+    # nil. `caps` are weaker rungs that also apply (see #build).
     def rungs(make, query, kind, via, caps)
       strict(make, query, kind, via, caps) || curated(make, query, kind, via, caps)
     end
 
-    # The labels a match inherits from earlier steps: a cleanup (d) and a
-    # typo-corrected make (the make itself was a guess).
+    # The rungs a match inherits from earlier steps: a cleanup (d) and a
+    # typo-corrected make (the make itself was a guess → :fuzzy).
     def typo_caps(make_typo, cleaned:)
-      [(:cleaned if cleaned), (:typo if make_typo)].compact
+      [(:cleaned if cleaned), (:fuzzy if make_typo)].compact
     end
 
     # a.
     def strict(make, query, kind, via, caps)
       matches, how = make.strict_lookup(query, kind: kind)
       return nil unless matches
-      return ambiguous(matches, :name, via + ["spacing:#{query}"]) if how == :ambiguous
+      return ambiguous(matches, :fold, via + ["fold:#{query}"]) if how == :ambiguous
 
       model = make.pick(matches)
-      step = how == :name ? "name:#{query}" : "#{how}:#{query}→#{model.model_slug}"
-      build(model, matches, :name, [how == :name ? :name : :spacing, *caps], via + [step])
+      # A plain name/slug hit transforms nothing; spacing / "Serie N" do.
+      steps = how == :name ? [] : ["fold:#{query}→#{model.model_slug}"]
+      build(model, matches, [:fold, *caps], via + steps)
     end
 
     # b, c.
     def curated(make, query, kind, via, caps)
       %i[alias form].each do |field|
-        hits, how = make.curated_lookup(field, query, kind: kind)
+        hits, = make.curated_lookup(field, query, kind: kind)
         next if hits.empty?
 
-        tag = how == :spacing ? "#{field}_spacing" : field.to_s
-        return decide(make, hits, field, via + ["#{tag}:#{query}"], caps)
+        return decide(make, hits, field, via + ["#{field}:#{query}"], caps)
       end
       nil
     end
@@ -112,7 +119,7 @@ module Vehicles
     # each peel, so the SHORTEST cleanup that matches wins ("Jensen
     # Jensen-Healey" is the Jensen-Healey, not a "Healey" after peeling
     # "jensen" twice). Whatever is left goes to the typo rung.
-    def cleaned(make, query, kind, via, make_query:, make_typo:)
+    def heuristic(make, query, kind, via, make_query:, make_typo:)
       steps = []
       while (peeled = peel(make, query, make_query, make_typo))
         query, step = peeled
@@ -166,10 +173,10 @@ module Vehicles
       top, runner = ranked
       if runner && runner[0] == top[0]
         tied = ranked.take_while { |r| r[0] == top[0] }.flat_map(&:last)
-        return ambiguous(tied, :typo, via + ["typo:#{query}"])
+        return ambiguous(tied, :fuzzy, via + ["model_typo:#{query}"])
       end
       _dist, key, models = top
-      build(make.pick(models), models, :typo, [:typo], via + ["typo:#{query}→#{key}"])
+      build(make.pick(models), models, [:fuzzy], via + ["model_typo:#{query}→#{key}"])
     end
 
     # { model slug => [distance, key, [models at that distance]] } for every
@@ -221,7 +228,9 @@ module Vehicles
 
     # [make, via, typo_corrected?]. The make's own name/slug leaves no trace;
     # an alias ("vw") and a typo ("volkswagon") are recorded.
-    def resolve_make(make_query)
+    # `fuzzy: false` skips the make typo pass (TextMatcher tries every split
+    # exactly before any typo).
+    def resolve_make(make_query, fuzzy: true)
       return [make_query, [], false] if make_query.is_a?(Make)
 
       ds = Vehicles.dataset
@@ -230,7 +239,7 @@ module Vehicles
         own = key.empty? || key == Vehicles.normalize(make.name) || key == Vehicles.normalize(make.slug)
         return [make, own ? [] : ["make_alias:#{key}→#{make.slug}"], false]
       end
-      make = ds.find_make(make_query, fuzzy: true)
+      make = fuzzy ? ds.find_make(make_query, fuzzy: true) : nil
       make ? [make, ["make_typo:#{key}→#{make.slug}"], true] : [nil, [], false]
     end
 
@@ -254,25 +263,26 @@ module Vehicles
 
     # One model slug among the hits → that model (its slug appended to the
     # last step of the trail); several → ambiguous.
-    def decide(make, hits, method, trail, caps)
-      return ambiguous(hits, method, trail) unless hits.map(&:model_slug).uniq.one?
+    def decide(make, hits, rung, trail, caps)
+      return ambiguous(hits, rung, trail) unless hits.map(&:model_slug).uniq.one?
 
       model = make.pick(hits)
-      build(model, hits, method, [method, *caps], [*trail[0...-1], "#{trail.last}→#{model.model_slug}"])
+      build(model, hits, [rung, *caps], [*trail[0...-1], "#{trail.last}→#{model.model_slug}"])
     end
 
-    # `labels` are every confidence label the match rests on — the weakest
-    # decides. A cleaned match reports method :cleaned (its `via` still shows
-    # the rung that answered after the cleanup).
-    def build(model, hits, method, labels, via)
-      method = :cleaned if labels.include?(:cleaned)
+    # `rungs` are every rung the match rests on; the WEAKEST is reported, with
+    # its confidence (a cleaned :form is :cleaned, anything behind a
+    # typo-corrected make is :fuzzy). `confidence:` overrides the label (the
+    # whole-text alias rung is :alias at 0.90).
+    def build(model, hits, rungs, via, confidence: nil)
+      rung = rungs.min_by { |r| CONFIDENCE.fetch(r) }
       variants = hits.select { |m| m.model_slug == model.model_slug }.uniq(&:object_id)
-      ModelMatch.new(model: model, method: method, confidence: labels.map { |l| CONFIDENCE.fetch(l) }.min,
+      ModelMatch.new(model: model, rung: rung, confidence: confidence || CONFIDENCE.fetch(rung),
                      via: via, candidates: variants)
     end
 
-    def ambiguous(hits, method, via)
-      ModelMatch.new(model: nil, method: method, confidence: 0.0, via: via, candidates: hits.uniq(&:object_id))
+    def ambiguous(hits, rung, via)
+      ModelMatch.new(model: nil, rung: rung, confidence: 0.0, via: via, candidates: hits.uniq(&:object_id))
     end
   end
 end

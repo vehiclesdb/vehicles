@@ -32,24 +32,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `Vehicles.match_model(make, model, kind: nil)` returns a
-  `Vehicles::ModelMatch` (`model`, `method`, `confidence`, `via`,
-  `candidates`, `ambiguous?`), or nil when nothing matched at all. It tries,
-  strongest first: the exact name (`:name`, 1.0; 0.97 for the spacing-blind
-  and "Serie 3" equivalences), a published alias (`:alias`, 0.93), a curated
-  form (`:form`, 0.92), the same after peeling a complete make name echoed
-  into the model and leading "new" fillers ("Nuevo Citroën C4"; `:cleaned`,
-  0.9), and a small unique typo of a name/alias/form ("Sirocco" → Scirocco;
-  `:typo`, 0.8). Confidence values are fixed labels per method, not
-  probabilities; a typo-corrected make caps them at 0.8. `via` records every
-  step ("make_alias:vw→volkswagen", "filler:nuevo", "form:…→…").
-  Safety rules: an ambiguous rung returns a ModelMatch with `model` nil and
-  the competing `candidates`, and stops the ladder; typos never edit a word
-  that contains a digit ("2008" stays a 2008), never change short tokens
-  ("Passat GT" is not the "Passat GL"), allow one edit per word (two from nine
-  letters), and never stack on a typo-corrected make; cleanup never peels a
-  partial make name or a word that is itself a model name ("Nova"); id-,
-  slug- and path-shaped input only takes the exact rungs; no prefix or
-  truncation heuristics.
+  `Vehicles::ModelMatch` (`model`, `rung`, `confidence`, `via`,
+  `candidates`, `ambiguous?`), or nil when nothing matched at all. It follows
+  the cross-surface resolution contract (vehiclesdb `RESOLUTION.md`) shared
+  with the API, widget and SDKs. Rungs, strongest first: the name or slug by
+  normalization, spacing-blind or "Serie 3" (`:fold`, 0.97); a published
+  alias (`:alias`, 0.93); a curated form (`:form`, 0.92); the same after
+  peeling a complete make name echoed into the model and leading "new"
+  fillers ("Nuevo Citroën C4"; `:cleaned`, 0.90); a small unique typo of a
+  name/alias/form ("Sirocco" → Scirocco; `:fuzzy`, 0.80). Any answer reached
+  through a typo-corrected make is `:fuzzy` at 0.80 too. Confidences are fixed
+  labels per rung, not probabilities. `to_h` reports the rung as
+  `method: "fold"` etc., matching the API JSON. `via` records every
+  transformation (`make_alias:`, `make_typo:`, `filler:`, `make_echo:`,
+  `alias:`, `form:`, `fold:`, `model_typo:`, `kind_hint:`).
+  Safety rules:
+  - An ambiguous rung returns a ModelMatch with `model` nil and the competing
+    `candidates`, and stops the ladder.
+  - Typos never edit a word that contains a digit ("2008" stays a 2008) and
+    never change short tokens ("Passat GT" is not the "Passat GL"). They allow
+    one edit per word (two from nine letters) and never stack on a
+    typo-corrected make.
+  - Cleanup never peels a partial make name, or a word that is itself a model
+    name ("Nova").
+  - Id-, slug- and path-shaped input only takes the exact rungs.
+  - There are no prefix or truncation heuristics.
+- `Vehicles.identify(text, kind: nil)`: the contract's text entry point.
+  It takes one free-text string and returns a `ModelMatch` or nil. It tries
+  the canonical id verbatim (`:exact`, 1.0), then a former id (`:former_id`,
+  0.98). Next it splits off the make (the longest leading run that is a make:
+  exact splits first, then make typos) and runs the model ladder. Between the
+  curated rungs and the heuristics, it accepts the whole text when it is
+  exactly one model's published alias across all makes and no record is
+  named that (`:alias`, 0.90). Apart from ids and whole-text aliases, nothing
+  resolves without a make: "golf" is nil.
+- A conformance runner (`test/resolution_conformance_test.rb`) that plays the
+  contract's shared cases (`test/fixtures/conformance/resolve.json`, copied
+  from the data repo) against the bundled dataset. It skips cases newer than
+  the data and skips entirely while the file is absent.
 - `Model#forms`: curated registry spellings that fold into the record
   (dataset key `forms`; `[]` on snapshots that predate it). Not part of
   `Model#to_h`.
