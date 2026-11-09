@@ -7,6 +7,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-09
+
+### Changed
+
+- **Behaviour change: `Vehicles.model(make, model)` now also answers a
+  model's published aliases and its curated registry spellings** (the new
+  `Model#forms`, below), after the name lookup misses. "Focus C-Max" is the
+  Ford C-Max, "Megane Conquest" the Renault Arkana, "Qashqai +2" the Nissan
+  Qashqai. This is curated data, not guessing: normalized equality, then
+  spacing-blind equality; a spelling that two different models answer to
+  returns nil. Every pair that resolved before resolves identically (the
+  name lookup still runs first), so the only change is fewer nils. Found by
+  dogfooding: 36 of the 41 make/model pairs our own CarHey app could not
+  resolve were already curated in the open dataset, but never reached the
+  gem. `fuzzy:` still governs the make typo tolerance only. The MCP
+  `get_model` tool inherits this.
+- `Make#model` (and so the `vehicle_model` validator) is unchanged and stays
+  strict: a form or a typo is not a model name to store. It now answers from
+  per-make indexes built once on first use instead of normalizing every model
+  name on every call; bulk lookups are about 10x faster (31.5k registry
+  pairs: 38 s for `model` on 0.8.0, under 4 s for `model` plus `match_model`).
+
+### Added
+
+- `Vehicles.match_model(make, model, kind: nil)` returns a
+  `Vehicles::ModelMatch` (`model`, `method`, `confidence`, `via`,
+  `candidates`, `ambiguous?`), or nil when nothing matched at all. It tries,
+  strongest first: the exact name (`:name`, 1.0; 0.97 for the spacing-blind
+  and "Serie 3" equivalences), a published alias (`:alias`, 0.93), a curated
+  form (`:form`, 0.92), the same after peeling a complete make name echoed
+  into the model and leading "new" fillers ("Nuevo Citroën C4"; `:cleaned`,
+  0.9), and a small unique typo of a name/alias/form ("Sirocco" → Scirocco;
+  `:typo`, 0.8). Confidence values are fixed labels per method, not
+  probabilities; a typo-corrected make caps them at 0.8. `via` records every
+  step ("make_alias:vw→volkswagen", "filler:nuevo", "form:…→…").
+  Safety rules: an ambiguous rung returns a ModelMatch with `model` nil and
+  the competing `candidates`, and stops the ladder; typos never edit a word
+  that contains a digit ("2008" stays a 2008), never change short tokens
+  ("Passat GT" is not the "Passat GL"), allow one edit per word (two from nine
+  letters), and never stack on a typo-corrected make; cleanup never peels a
+  partial make name or a word that is itself a model name ("Nova"); id-,
+  slug- and path-shaped input only takes the exact rungs; no prefix or
+  truncation heuristics.
+- `Model#forms`: curated registry spellings that fold into the record
+  (dataset key `forms`; `[]` on snapshots that predate it). Not part of
+  `Model#to_h`.
+
 ## [0.8.0] - 2026-11-08
 
 ### Added

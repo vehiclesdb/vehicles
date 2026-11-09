@@ -107,6 +107,56 @@ Vehicles.find("Mercedes C Class") # => #<Vehicles::Model "Mercedes-Benz C-Class"
 Vehicles.find("nope nope")        # => nil
 ```
 
+### Matching stored make + model pairs
+
+Records that keep make and model in separate columns resolve with `model`. Since 0.9.0 it also answers the model's published aliases and its **curated registry spellings** (`Model#forms`: how registries and people actually type the model, curated per make in the open dataset — never ambiguous within a make):
+
+```ruby
+Vehicles.model("Ford", "Focus C-Max")        # => #<Vehicles::Model "Ford C-Max">       (a curated form)
+Vehicles.model("Renault", "Megane Conquest") # => #<Vehicles::Model "Renault Arkana">  (not the Megane)
+Vehicles.model("Nissan", "Qashqai +2")       # => #<Vehicles::Model "Nissan Qashqai">  (a published alias)
+Vehicles.model("Ford", "C-Max").forms        # => ["4D Focus C-Max", "C-Max Energi", "Cmax", ...]
+```
+
+For messy free text, `match_model` goes further and tells you **how** it matched, so you decide what to trust:
+
+```ruby
+m = Vehicles.match_model("VW", "Tuareg")
+m.model       # => #<Vehicles::Model "Volkswagen Touareg">
+m.method      # => :typo
+m.confidence  # => 0.8
+m.via         # => ["make_alias:vw→volkswagen", "typo:tuareg→touareg"]
+m.candidates  # => every kind of the answer ([car], or [car, van, bus] for a Land Cruiser)
+
+Vehicles.match_model("Citroën", "Nuevo Citroën C4").via
+# => ["filler:nuevo", "make_echo:citroen", "name:c4"]
+
+Vehicles.match_model("Toyota", "Corola")      # => ambiguous: Corolla or Corona?
+# .model => nil, .ambiguous? => true, .candidates => [Corolla, Corona]
+
+Vehicles.match_model("Honda", "Honda")        # => nil (a make, not a model)
+Vehicles.match_model("Peugeot", "2009")       # => nil (never "the 2008", never "the 208")
+```
+
+It tries, strongest first, and stops at the first rung that answers:
+
+| method | rung | confidence |
+|---|---|---|
+| `:name` | exact name or slug (`make.model`) — spacing-blind and "Serie 3" equivalences score 0.97 | 1.0 / 0.97 |
+| `:alias` | a published model alias | 0.93 |
+| `:form` | a curated registry spelling (`Model#forms`) | 0.92 |
+| `:cleaned` | the above after peeling a complete make name typed into the model ("Citroën C3", "Lynk And Co 01") and leading "new" words (nuevo/nueva/new/neu/neue/nouveau/nouvelle/nuovo/nuova/novo/nova) | 0.9 |
+| `:typo` | a small, unique typo of a name, alias or form ("Sirocco", "Tuareg", "Mustnag") | 0.8 |
+
+`confidence` is a fixed label per method, not a measured probability: use it as a threshold ("auto-accept ≥ 0.9, ask the user below"). A typo-corrected make caps it at 0.8. The rules that keep it from ever guessing:
+
+- **Ambiguity stops the ladder.** If the data knows two answers (a spelling claimed by two models, a typo equally close to two), you get `ambiguous?` with the `candidates` — a weaker rung never overrules it.
+- **Typos never touch numbers or codes.** A word containing a digit must match exactly ("2008" ≠ "208", "TRX250R" ≠ "TLR250R"); short tokens never change ("Passat GT" is not the "Passat GL"); one edit per word (two only in long words); never on top of a typo-corrected make.
+- **No guessing from prefixes.** "C3 Aircr" is not "C3" (it's the C3 Aircross); only a curated form can say so.
+- **Ids stay exact.** Slug-, id- and path-shaped input (`"golf-gti"`, `"car/volkswagen/golf"`, symbols) only takes the exact rungs.
+
+`make.model(...)` and the `vehicle_model` validator stay strict — a form or a typo is not a valid model name to store. `kind:` works as in `model` (the car is preferred without it).
+
 `search` returns every model that matches, ranked — perfect for an autocomplete endpoint:
 
 ```ruby
@@ -595,6 +645,7 @@ Vehicles.make("Audi")                   # => Vehicles::Make | nil
 Vehicles.find("audi a3")                # => Vehicles::Model | nil  (one free-text string)
 Vehicles.model("Audi", "A3")            # => Vehicles::Model | nil  (a stored make+model pair)
 Vehicles.model("Toyota", "Land Cruiser", kind: :bus)  # pick a kind (default: the car)
+Vehicles.match_model("VW", "Tuareg")    # => Vehicles::ModelMatch | nil  (model, method, confidence, via, candidates)
 Vehicles.search("a3")                   # => [Vehicles::Model]
 
 # Popularity & availability (open data, measured from official registers)
@@ -607,6 +658,7 @@ make.models    make.model("a3")                make.to_h
 
 # Vehicles::Model
 model.make     model.name     model.full_name  model.slug    model.to_h
+model.aliases  model.forms                     # published alternate names; curated registry spellings
 model.kind     model.body_type                 model.suv?    model.coupe?   # …predicates
 model.global_decile   model.popular?           # 1 = top 10% worldwide; nil-safe
 model.availability    model.available_in?(:nl) model.two_wheeler?
