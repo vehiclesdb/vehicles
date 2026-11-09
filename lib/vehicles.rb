@@ -2,6 +2,7 @@
 
 require_relative "vehicles/version"
 require_relative "vehicles/configuration"
+require_relative "vehicles/http"
 require_relative "vehicles/make"
 require_relative "vehicles/model"
 require_relative "vehicles/color"
@@ -14,6 +15,8 @@ require_relative "vehicles/other_option"
 require_relative "vehicles/plates"
 require_relative "vehicles/plates/jurisdiction"
 require_relative "vehicles/plates/series"
+require_relative "vehicles/plates/template_fill"
+require_relative "vehicles/plates/templates"
 
 # Car makes & models for your Rails app — dropdowns, search, validation. Bundled
 # data, zero config, no network calls. Standalone first; an SDK for the hosted

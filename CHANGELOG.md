@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-11-08
+
+### Added
+
+- **Plate art without sending the plate.** `Vehicles::Plates.render(registration,
+  jurisdiction:, region: nil, label: nil)` draws a registration on its series'
+  real VehiclesDB plate as an SVG, and nothing personal leaves the machine: the
+  gem picks the series locally (the bundled matcher; the only standard-class
+  hit, else the only hit — ambiguous plates such as German `MAB1234` answer
+  nil instead of the wrong plate), derives the shape (`NNNN LLL`), fetches the
+  BLANK template `GET {api_base_url}/plates/:code/:series_id/template.svg?shape=&region=`
+  and fills it here. No API key is sent (the route is public). Returns nil on
+  any failure, never raises.
+- `Vehicles::Plates.template(code:, series:, shape: nil, region: nil)`: the
+  blank template, or nil. Client-side fences refuse a shape that is not pure
+  N/L classes and separators, so a registration passed by mistake never
+  reaches the wire. Cached in-process by default; `config.plate_template_cache`
+  takes any `read` / `write(key, value, expires_in:)` store (e.g. `Rails.cache`)
+  and `config.plate_template_ttl` (default one day) the lifetime. Failures are
+  remembered for five minutes, so an unreachable server costs one timeout per
+  template per window, not one per call. Keys carry the template schema and
+  gem version.
+- `Vehicles::Plates::TemplateFill`: the reference filler, moved verbatim from
+  vehiclesdb-web (`fill`, `metadata`, `groups`, and the shared fit formulas
+  `fit_size` / `recentered_baseline` the VehiclesDB renderer will call from
+  here), plus `shape_of` and a `label:` option for a localized accessible
+  name. Standard library only; the file loads on its own in a gem-less Ruby.
+- Templates are inlined into host pages, so both the fetch and
+  `TemplateFill.fill` itself refuse a template carrying anything active or
+  external (`<script>`, event handlers including `<svg/onload=…>`,
+  `javascript:`, non-`data:` hrefs and `url()`s): `TemplateFill.inert?`.
+- `region:` takes subdivision keys only (`75`, `2A`, `971`, `44-bzh`, `BY`,
+  `ZH`, `9`), so a registration passed there by mistake is refused locally
+  and never sent.
+
+### Changed
+
+- The HTTP plumbing (timeout, no silent retry, nil on failure) moved from
+  `HostedProvider` into `Vehicles::HTTP`, shared by images and plate
+  templates. Behaviour of the images calls is unchanged.
+
 ## [0.7.9] - 2026-11-08
 
 ### Fixed
