@@ -21,7 +21,8 @@ module Vehicles
     def test_refuses_to_fill_a_template_with_active_content
       [@spain.sub("<defs>", "<defs><script>alert(1)</script>"),
        @spain.sub('role="img"', 'role="img" onload="alert(1)"'),
-       @spain.sub("<defs>", '<defs><svg/onload="alert(1)"></svg>')].each do |bad|
+       @spain.sub("<defs>", '<defs><svg/onload="alert(1)"></svg>'),
+       @spain.sub("<defs>", "<defs><desc>data:<script>alert(1)</script></desc>")].each do |bad|
         assert_raises(Fill::Error) { Fill.fill(bad, "1234 BCD") }
       end
       %w[es-national-2000 de-standard-nw fr-siv-standard-75].each do |name|

@@ -34,7 +34,7 @@ module Vehicles
     # A region is a subdivision KEY, never free text, so a registration
     # passed by mistake cannot leave in it: FR département (75, 2A, 971,
     # 44-bzh), DE Land / CH canton (two letters), AT Land (one digit).
-    TEMPLATE_REGION = /\A(?:[0-9]{1,3}|2[AB]|[A-Z]{2}|[0-9]{2}-[A-Z]{3})\z/i
+    TEMPLATE_REGION = /\A(?:[1-9]|[0-9]{2}|97[1-6]|2[AB]|[A-Z]{2}|[0-9]{2}-[A-Z]{3})\z/i
     # Inert-template fence: TemplateFill::ACTIVE_CONTENT (also enforced by
     # TemplateFill.fill itself).
     TEMPLATE_ACTIVE_CONTENT = TemplateFill::ACTIVE_CONTENT

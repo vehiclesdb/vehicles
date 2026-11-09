@@ -88,7 +88,7 @@ module Vehicles
       end
       assert_nil Plates.template(code: "es/../x", series: "es-national-2000")
       assert_nil Plates.template(code: :es, series: "ES 1234", shape: "NNNN LLL")
-      ["1234 BCD", "1234BCD", "AB123CD", "B-MW1234", "12345"].each do |region|
+      ["1234 BCD", "1234BCD", "AB123CD", "B-MW1234", "12345", "123", "0"].each do |region|
         assert_nil Plates.template(code: :fr, series: "fr-siv-standard", shape: "LL-NNN-LL", region: region), region
       end
       assert_empty requests

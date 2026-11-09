@@ -50,7 +50,9 @@ module Vehicles
         /javascript:/i, /@import/i,
         /href\s*+=\s*+(?!["']?\s*(?:data:|#))/i, /url\(\s*+(?!["']?\s*(?:data:|#))/i
       )
-      DATA_URI = /data:[^"')\s]*/i
+      # Only a data: URI's own alphabet (base64 / percent-encoding) is blanked, so
+      # markup after a bare "data:" is still scanned.
+      DATA_URI = %r{data:[a-z]+/[a-z0-9.+-]+(?:;[a-z0-9=.+-]+)*,[A-Za-z0-9+/=%._~-]*}i
 
       module_function
 
