@@ -18,6 +18,17 @@ module Vehicles
       @spain = template("es-national-2000")
     end
 
+    def test_refuses_to_fill_a_template_with_active_content
+      [@spain.sub("<defs>", "<defs><script>alert(1)</script>"),
+       @spain.sub('role="img"', 'role="img" onload="alert(1)"'),
+       @spain.sub("<defs>", '<defs><svg/onload="alert(1)"></svg>')].each do |bad|
+        assert_raises(Fill::Error) { Fill.fill(bad, "1234 BCD") }
+      end
+      %w[es-national-2000 de-standard-nw fr-siv-standard-75].each do |name|
+        assert Fill.inert?(template(name)), "#{name} is not inert"
+      end
+    end
+
     def test_fills_upcases_and_drops_the_metadata_block
       out = Fill.fill(@spain, " 1234 bcd ")
 

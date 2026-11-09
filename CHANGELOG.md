@@ -34,6 +34,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `fit_size` / `recentered_baseline` the VehiclesDB renderer will call from
   here), plus `shape_of` and a `label:` option for a localized accessible
   name. Standard library only; the file loads on its own in a gem-less Ruby.
+- Templates are inlined into host pages, so both the fetch and
+  `TemplateFill.fill` itself refuse a template carrying anything active or
+  external (`<script>`, event handlers including `<svg/onload=…>`,
+  `javascript:`, non-`data:` hrefs and `url()`s): `TemplateFill.inert?`.
+- `region:` takes subdivision keys only (`75`, `2A`, `971`, `44-bzh`, `BY`,
+  `ZH`, `9`), so a registration passed there by mistake is refused locally
+  and never sent.
 
 ### Changed
 

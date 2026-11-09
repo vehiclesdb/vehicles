@@ -39,13 +39,32 @@ module Vehicles
       CLASSES = { "N" => /\A[0-9]\z/, "L" => /\A[A-ZÄÖÜ]\z/ }.freeze
       METADATA = %r{<metadata id="vdb-template"><!\[CDATA\[(.*?)\]\]></metadata>}m
 
+      # A filled template is meant to be inlined into a host page, i.e. trusted as
+      # HTML. Real templates are inert: shapes, text, and data: URIs for the face
+      # and region art. Anything active or external is refused, here at the fill
+      # boundary as well as wherever a template is fetched. data: payloads are
+      # blanked before the scan (base64 may spell "/onxy=" by chance).
+      ACTIVE_CONTENT = Regexp.union(
+        /<\s*(?:script|foreignObject|iframe|object|embed)\b/i,
+        %r{[\s/"']on[a-z]+\s*=}i, # also <svg/onload=…>, which HTML parsers accept
+        /javascript:/i, /@import/i,
+        /href\s*+=\s*+(?!["']?\s*(?:data:|#))/i, /url\(\s*+(?!["']?\s*(?:data:|#))/i
+      )
+      DATA_URI = /data:[^"')\s]*/i
+
       module_function
+
+      # True when the SVG carries nothing a browser would run or fetch.
+      def inert?(svg)
+        !svg.to_s.gsub(DATA_URI, "data:").match?(ACTIVE_CONTENT)
+      end
 
       # The filled SVG document. Raises Error when the template is not one or
       # the registration does not fit its shape. `label:` replaces the whole
       # accessible name (default: "<Country> plate <REGISTRATION>"), e.g.
       # "Matrícula 1234 BCD" for a Spanish-language page.
       def fill(svg, registration, label: nil) # rubocop:disable Metrics/AbcSize -- same logic as the VehiclesDB copy
+        inert?(svg) or raise Error, "template carries active or external content; refusing to fill it"
         meta = metadata(svg)
         out = svg.sub(METADATA, "")
         groups(meta, registration).each do |g|

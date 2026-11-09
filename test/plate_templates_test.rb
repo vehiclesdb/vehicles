@@ -88,7 +88,9 @@ module Vehicles
       end
       assert_nil Plates.template(code: "es/../x", series: "es-national-2000")
       assert_nil Plates.template(code: :es, series: "ES 1234", shape: "NNNN LLL")
-      assert_nil Plates.template(code: :es, series: "es-national-2000", region: "1234 BCD")
+      ["1234 BCD", "1234BCD", "AB123CD", "B-MW1234", "12345"].each do |region|
+        assert_nil Plates.template(code: :fr, series: "fr-siv-standard", shape: "LL-NNN-LL", region: region), region
+      end
       assert_empty requests
     end
 
@@ -117,7 +119,9 @@ module Vehicles
       [SPAIN.sub("<defs>", "<defs><script>alert(1)</script>"),
        SPAIN.sub('role="img"', 'role="img" onload="alert(1)"'),
        SPAIN.sub("<defs>", '<defs><image href="https://evil.example/x.png"/>'),
-       SPAIN.sub("<defs>", "<defs><style>a{background:url(https://evil.example/x)}</style>")].each do |bad|
+       SPAIN.sub("<defs>", "<defs><style>a{background:url(https://evil.example/x)}</style>"),
+       SPAIN.sub("<defs>", '<defs><svg/onload="alert(1)"></svg>'),
+       SPAIN.sub("<defs>", "<defs><image href=https://evil.example/x.png />")].each do |bad|
         Vehicles.configuration.plate_template_cache = Plates::TemplateCache.new
         @responses[ES_PATH] = [200, bad, "image/svg+xml"]
 
@@ -127,7 +131,7 @@ module Vehicles
 
     def test_the_real_templates_are_inert
       Dir[File.join(FIXTURES, "*.svg")].each do |path|
-        refute_match Plates::TEMPLATE_ACTIVE_CONTENT, File.read(path, encoding: "UTF-8"), path
+        assert Plates::TemplateFill.inert?(File.read(path, encoding: "UTF-8")), "#{path} is not inert"
       end
     end
 
