@@ -7,6 +7,10 @@ require_relative "vehicles/make"
 require_relative "vehicles/model"
 require_relative "vehicles/color"
 require_relative "vehicles/fuzzy"
+require_relative "vehicles/model_match"
+require_relative "vehicles/model_matcher"
+require_relative "vehicles/text_matcher"
+require_relative "vehicles/dataset_resolution"
 require_relative "vehicles/dataset"
 require_relative "vehicles/refresher"
 require_relative "vehicles/providers/local_provider"
@@ -148,10 +152,43 @@ module Vehicles
     #   Vehicles.model("BMW", "Serie 1")                 # => BMW 1 Series
     #   Vehicles.model("Toyota", "Land Cruiser")         # => the car (preferred)
     #   Vehicles.model("Toyota", "Land Cruiser", kind: :bus)
+    #   Vehicles.model("Ford", "Focus C-Max")            # => Ford C-Max (curated form)
+    #
+    # Since 0.9.0, when the name itself misses, the model's published aliases
+    # and curated registry spellings (Model#forms) are tried too — curated
+    # data, not guessing: a spelling claimed by two different models answers
+    # nil. `fuzzy:` governs the MAKE typo tolerance only, as before. Need to
+    # know how a pair matched, or want cleanup/typo tolerance? `match_model`.
     def model(make_name, model_name, fuzzy: true, kind: nil)
-      found = make(make_name, fuzzy: fuzzy)
-      found&.model(model_name, kind: kind)
+      (found = make(make_name, fuzzy: fuzzy)) && ModelMatcher.exact(found, model_name, kind: kind)
     end
+
+    # Resolve a stored make + model pair and say HOW: a Vehicles::ModelMatch
+    # (model, method, confidence, via, candidates, ambiguous?), or nil when
+    # nothing matched at all. The forgiving counterpart to `model` for
+    # free-text data: on top of name → alias → curated form it strips an
+    # echoed make name and "new" fillers ("Nuevo Citroën C3") and corrects
+    # small typos ("Tuareg" → Touareg) — conservatively, and never into a
+    # different number ("2008" stays a 2008). When the data knows two answers
+    # the match is ambiguous (model nil, candidates set), never a pick.
+    #   Vehicles.match_model("VW", "Sirocco").model     # => Volkswagen Scirocco
+    #   Vehicles.match_model("Citroën", "Nuevo C4").via # => [..., "filler:nuevo", ...]
+    #   Vehicles.match_model("VW", "Sirocco").rung       # => :fuzzy
+    #   Vehicles.match_model("Honda", "Honda")          # => nil
+    # See Vehicles::ModelMatcher for the rungs and their rules.
+    def match_model(make_name, model_name, kind: nil)
+      ModelMatcher.match(make_name, model_name, kind: kind)
+    end
+
+    # Resolve ONE free-text string ("vw golf", "MERCEDES-BENZ SPRINTER",
+    # "car/volkswagen/golf") the way match_model resolves a pair, and say how:
+    # a Vehicles::ModelMatch, or nil. The lenient counterpart to `find`:
+    # canonical id → former id → longest make prefix + the model ladder →
+    # whole-text published alias (no make needed, 0.90) → cleanup → typo.
+    # Nothing resolves without a make except ids and whole-text aliases.
+    #   Vehicles.identify("vw tuareg").model   # => Volkswagen Touareg (:fuzzy)
+    #   Vehicles.identify("golf")              # => nil
+    def identify(text, kind: nil) = TextMatcher.identify(text, kind: kind)
 
     # License plates (the bundled PRD-PLATES dataset). No argument: every
     # jurisdiction. With a code: that jurisdiction (or nil — forgiving).

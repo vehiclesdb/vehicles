@@ -10,21 +10,20 @@ module Vehicles
   # Instances are memoized per data path (see .load), so the JSON is parsed once
   # per process.
   class Dataset
-    # Built-in make aliases (normalized key => make slug). Common abbreviations
-    # and nicknames so whatever a user types tends to land. Diacritics and case
-    # are already handled by Vehicles.normalize, so "škoda"/"citroën" need no entry.
-    BUILTIN_ALIASES = {
-      "vw" => "volkswagen", "vdub" => "volkswagen",
-      "merc" => "mercedes-benz", "mercedes" => "mercedes-benz", "benz" => "mercedes-benz",
-      "mb" => "mercedes-benz",
-      "chevy" => "chevrolet",
-      "beemer" => "bmw", "bimmer" => "bmw",
-      "alfa" => "alfa-romeo",
-      "landrover" => "land-rover", "range rover" => "land-rover", "rangerover" => "land-rover"
-      # NOTE: no "vauxhall" alias — since 2026.07 the dataset ships Vauxhall
-      # and Opel as separate makes (deliberately: separate GB/EU model names),
-      # and an alias here would shadow the real Vauxhall records.
-    }.freeze
+    include DatasetResolution
+
+    # Built-in make aliases — EMPTY since 0.9.0, kept only so code that
+    # references the constant does not break. RESOLUTION.md §1 ("only
+    # published data counts"): a Ruby-only table made "Landrover Discovery"
+    # resolve here and nowhere else (JS/Python SDKs, the API, the widget).
+    # Every nickname that lived here (vw, vdub, merc, mercedes, benz, mb,
+    # chevy, beemer, bimmer, alfa, landrover) is now a PUBLISHED make alias in
+    # the dataset (overrides/makes/search_aliases.yml, data 2026.11.0), so all
+    # surfaces agree. "range rover"/"rangerover" were dropped, not published:
+    # Range Rover is a Land Rover model family, not a make ("Range Rover
+    # Defender" is not a vehicle). Need a private nickname? Use
+    # `config.aliases`, which stays yours alone by design.
+    BUILTIN_ALIASES = {}.freeze
 
     class << self
       # Memoized per path so the bundled JSON is parsed only once per process.

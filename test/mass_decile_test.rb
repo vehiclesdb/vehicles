@@ -18,11 +18,13 @@ module Vehicles
       ] }
     end
 
-    def test_mass_decile_is_nil_safe_on_the_bundled_snapshot
+    # The bundled snapshot carries mass_decile since data 2026.11.0 (the gem
+    # bundled 2026.10.0, which predated it, until 0.9.0).
+    def test_mass_decile_on_the_bundled_snapshot
       golf = Vehicles.find("vw golf")
 
-      assert_nil golf.mass_decile, "2026.10.0 predates popularity.mass_decile"
-      assert_equal [], Vehicles.top_models(kind: :car, by: :mass_decile), "no mass ranks yet → honestly empty"
+      assert_kind_of Integer, golf.mass_decile
+      refute_empty Vehicles.top_models(kind: :car, by: :mass_decile)
       refute_empty Vehicles.top_models(kind: :car)
     end
 

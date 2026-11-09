@@ -7,6 +7,94 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-09
+
+### Changed
+
+- **Behaviour change: `Vehicles.model(make, model)` now also answers a
+  model's published aliases and its curated registry spellings** (the new
+  `Model#forms`, below), after the name lookup misses. "Focus C-Max" is the
+  Ford C-Max, "Megane Conquest" the Renault Arkana, "Qashqai +2" the Nissan
+  Qashqai. This is curated data, not guessing: normalized equality, then
+  spacing-blind equality; a spelling that two different models answer to
+  returns nil. Every pair that resolved before resolves identically (the
+  name lookup still runs first), so the only change is fewer nils. Found by
+  dogfooding: 36 of the 41 make/model pairs our own CarHey app could not
+  resolve were already curated in the open dataset, but never reached the
+  gem. `fuzzy:` still governs the make typo tolerance only. The MCP
+  `get_model` tool inherits this.
+- **Bundled data refreshed to 2026.11.0** (15,629 models, 953 makes, 18
+  countries) — the first release carrying `forms` (7,574 curated spellings).
+- **The built-in make alias table is now empty** (`Dataset::BUILTIN_ALIASES`
+  is kept, frozen and empty, for compatibility). Every nickname it held is a
+  published dataset alias since 2026.11.0, so the JS/Python SDKs, the API and
+  the widget agree with Ruby (RESOLUTION.md §1, "only published data counts").
+  "range rover"/"rangerover" were dropped, not published: Range Rover is a Land
+  Rover model family, not a make. Private nicknames belong in `config.aliases`.
+- `Make#model` (and so the `vehicle_model` validator) is unchanged and stays
+  strict: a form or a typo is not a model name to store. It now answers from
+  per-make indexes built once on first use instead of normalizing every model
+  name on every call; bulk lookups are about 10x faster (31.5k registry
+  pairs: 38 s for `model` on 0.8.0, under 4 s for `model` plus `match_model`).
+
+### Contract conformance (pre-release review)
+
+- `Vehicles.identify`: a whole-text alias is refused only when ANOTHER record is
+  named that — SEAT's "Málaga" alias on `seat/malaga` resolves ("malaga"),
+  "Rabbit" (a Golf alias and `car/volkswagen/rabbit`'s name) stays nil.
+- Machine-shaped input is checked per raw token, in both entry points: one
+  slug-shaped token ("marcedes-benz gla", "New alpha-z") disables the typo
+  rungs, exactly like the pair `marcedes-benz` + `GLA`.
+- `match_model`: two DIFFERENT records with the same name answer `ambiguous`,
+  never the first one (`Make#model` keeps its first match for the validator).
+- `test/resolution_conformance_test.rb` runs the data repo's
+  `conformance/resolve.json` (79 cases) — all pass on the bundled 2026.11.0.
+
+### Added
+
+- `Vehicles.match_model(make, model, kind: nil)` returns a
+  `Vehicles::ModelMatch` (`model`, `rung`, `confidence`, `via`,
+  `candidates`, `ambiguous?`), or nil when nothing matched at all. It follows
+  the cross-surface resolution contract (vehiclesdb `RESOLUTION.md`) shared
+  with the API, widget and SDKs. Rungs, strongest first: the name or slug by
+  normalization, spacing-blind or "Serie 3" (`:fold`, 0.97); a published
+  alias (`:alias`, 0.93); a curated form (`:form`, 0.92); the same after
+  peeling a complete make name echoed into the model and leading "new"
+  fillers ("Nuevo Citroën C4"; `:cleaned`, 0.90); a small unique typo of a
+  name/alias/form ("Sirocco" → Scirocco; `:fuzzy`, 0.80). Any answer reached
+  through a typo-corrected make is `:fuzzy` at 0.80 too. Confidences are fixed
+  labels per rung, not probabilities. `to_h` reports the rung as
+  `method: "fold"` etc., matching the API JSON. `via` records every
+  transformation (`make_alias:`, `make_typo:`, `filler:`, `make_echo:`,
+  `alias:`, `form:`, `fold:`, `model_typo:`, `kind_hint:`).
+  Safety rules:
+  - An ambiguous rung returns a ModelMatch with `model` nil and the competing
+    `candidates`, and stops the ladder.
+  - Typos never edit a word that contains a digit ("2008" stays a 2008) and
+    never change short tokens ("Passat GT" is not the "Passat GL"). They allow
+    one edit per word (two from nine letters) and never stack on a
+    typo-corrected make.
+  - Cleanup never peels a partial make name, or a word that is itself a model
+    name ("Nova").
+  - Id-, slug- and path-shaped input only takes the exact rungs.
+  - There are no prefix or truncation heuristics.
+- `Vehicles.identify(text, kind: nil)`: the contract's text entry point.
+  It takes one free-text string and returns a `ModelMatch` or nil. It tries
+  the canonical id verbatim (`:exact`, 1.0), then a former id (`:former_id`,
+  0.98). Next it splits off the make (the longest leading run that is a make:
+  exact splits first, then make typos) and runs the model ladder. Between the
+  curated rungs and the heuristics, it accepts the whole text when it is
+  exactly one model's published alias across all makes and no record is
+  named that (`:alias`, 0.90). Apart from ids and whole-text aliases, nothing
+  resolves without a make: "golf" is nil.
+- A conformance runner (`test/resolution_conformance_test.rb`) that plays the
+  contract's shared cases (`test/fixtures/conformance/resolve.json`, copied
+  from the data repo) against the bundled dataset. It skips cases newer than
+  the data and skips entirely while the file is absent.
+- `Model#forms`: curated registry spellings that fold into the record
+  (dataset key `forms`; `[]` on snapshots that predate it). Not part of
+  `Model#to_h`.
+
 ## [0.8.0] - 2026-11-08
 
 ### Added

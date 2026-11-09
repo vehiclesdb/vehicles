@@ -17,7 +17,9 @@ module Vehicles
   def self.models: (untyped make, ?kind: Symbol?, ?body_type: Symbol?, ?region: Symbol?) -> Array[String]
   def self.make: (untyped query) -> Make?
   def self.find: (untyped query) -> Model?
-  def self.model: (untyped make_name, untyped model_name) -> Model?
+  def self.model: (untyped make_name, untyped model_name, ?fuzzy: bool, ?kind: Symbol?) -> Model?
+  def self.match_model: (untyped make_name, untyped model_name, ?kind: Symbol?) -> ModelMatch?
+  def self.identify: (untyped text, ?kind: Symbol?) -> ModelMatch?
   def self.search: (untyped query) -> Array[Model]
   def self.make_options: (?kind: Symbol?, ?region: Symbol?) -> Array[[String, String]]
   def self.model_options: (untyped make, ?kind: Symbol?, ?body_type: Symbol?) -> Array[[String, String]]
@@ -75,9 +77,20 @@ module Vehicles
     attr_reader aliases: Array[String]
     attr_reader kinds: Array[Symbol]
     def models: (?kind: Symbol?, ?body_type: Symbol?) -> Array[Model]
-    def model: (untyped query) -> Model?
+    def model: (untyped query, ?kind: Symbol?) -> Model?
     def model_names: (?kind: Symbol?, ?body_type: Symbol?) -> Array[String]
     def model_options: (?kind: Symbol?, ?body_type: Symbol?) -> Array[[String, String]]
+    def to_h: () -> Hash[Symbol, untyped]
+  end
+
+  class ModelMatch
+    CONFIDENCE: Hash[Symbol, Float]
+    attr_reader model: Model?
+    attr_reader rung: Symbol
+    attr_reader confidence: Float
+    attr_reader via: Array[String]
+    attr_reader candidates: Array[Model]
+    def ambiguous?: () -> bool
     def to_h: () -> Hash[Symbol, untyped]
   end
 
@@ -96,6 +109,8 @@ module Vehicles
     attr_reader name: String
     attr_reader kind: Symbol
     attr_reader body_type: Symbol
+    attr_reader aliases: Array[String]
+    attr_reader forms: Array[String]
     def full_name: () -> String
     def to_s: () -> String
     def slug: () -> String

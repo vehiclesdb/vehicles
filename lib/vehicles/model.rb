@@ -25,10 +25,10 @@ module Vehicles
     REGIONS = %i[eu na as sa oc af].freeze
 
     attr_reader :make, :make_slug, :name, :kind, :body_type, :global_decile,
-                :availability, :regions, :aliases, :former_ids, :country_ranks, :mass_decile
+                :availability, :regions, :aliases, :forms, :former_ids, :country_ranks, :mass_decile
 
     # @param attrs [Hash] one model entry from the dataset (name/slug/kind +
-    #   optional body_type/global_decile/availability/regions/aliases/former_ids)
+    #   optional body_type/global_decile/availability/regions/aliases/forms/former_ids)
     # @param make [String] the parent make's display name
     # @param make_slug [String] the parent make's slug (for the composite slug)
     def initialize(attrs, make:, make_slug:)
@@ -51,6 +51,14 @@ module Vehicles
       @regions       = (attrs["regions"] || []).map(&:to_sym).freeze
       # Documented alternate names (nicknames, native scripts, market names).
       @aliases       = (attrs["aliases"] || []).freeze
+      # Curated registry spellings that fold into this record ("Focus C-Max"
+      # → C-Max, "Nuevo C4" → C4) — dataset key `forms`.
+      # Unlike aliases they are not names anyone markets: they are how
+      # registries and people actually TYPE the model, curated per make (never
+      # ambiguous within a make, never equal to the name or an alias, and the
+      # same on every kind's record of a make + slug). They power
+      # Vehicles.model / Vehicles.match_model; [] on older snapshots.
+      @forms         = (attrs["forms"] || []).freeze
       # Full canonical ids ("car/alfa-romeo/159sw") this record absorbed via
       # the dataset's append-only migration contract (SCHEMA.md: renames
       # alias, nothing is silently deleted). Empty for never-renamed records.
@@ -65,8 +73,7 @@ module Vehicles
       # (a presence average) answers "popular in many places". Published from
       # dataset 2026.10.1 (pipeline#255, ruling R3); nil on older snapshots
       # (including the bundled 2026.10.0) and for unranked records.
-      pop = attrs["popularity"]
-      @mass_decile = attrs["mass_decile"] || (pop.is_a?(Hash) ? pop["mass_decile"] : nil)
+      @mass_decile = mass_decile_of(attrs)
       freeze
     end
 
@@ -198,6 +205,15 @@ module Vehicles
     # caching whole responses). nil without hosted data.
     def images(color: nil)
       Vehicles.resolve(:images, self, color: color)
+    end
+
+    private
+
+    # The flat `mass_decile` key, or the nested `popularity.mass_decile` some
+    # projections use.
+    def mass_decile_of(attrs)
+      pop = attrs["popularity"]
+      attrs["mass_decile"] || (pop.is_a?(Hash) ? pop["mass_decile"] : nil)
     end
   end
 end
