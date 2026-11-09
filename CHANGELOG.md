@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.1] - 2026-11-09
+
+### Changed
+- Bundled data refreshed to VehiclesDB v2026.11.1: 15,635 models. Passenger versions of van-based MPVs now also publish in kind `car` (Caddy, Berlingo, Kangoo, Rifter, Tourneo Custom/Courier/Connect, Transit Custom, Doblò and more), plus the VW Multivan, GWM Ora 5, Ebro S800/S900, the Alfa Romeo 6C/8C classics and 24 typo-twin folds. Every retired id resolves through `former_ids`. Spanish new-car registrations landing on a published record go from 90.2% to 96.5%.
+
 ## [0.9.0] - 2026-11-09
 
 ### Changed
