@@ -20,9 +20,9 @@ module Vehicles
       resolution_index[:alias][key] || []
     end
 
-    # Is some model (any make) NAMED this (normalized)?
-    def model_named?(key)
-      resolution_index[:name].key?(key)
+    # Records ("make/model" slugs, any make) NAMED this (normalized).
+    def records_named(key)
+      resolution_index[:name][key] || []
     end
 
     private
@@ -31,17 +31,20 @@ module Vehicles
     def resolution_index
       @resolution_index ||= begin
         idx = { id: {}, former_id: {}, alias: {}, name: {} }
-        all_models.each do |m|
-          (idx[:id]["#{m.kind}/#{m.make_slug}/#{m.model_slug}"] ||= []) << m
-          m.former_ids.each { |f| (idx[:former_id][f] ||= []) << m }
-          m.aliases.each do |a|
-            key = Vehicles.normalize(a)
-            (idx[:alias][key] ||= []) << m unless key.empty?
-          end
-          idx[:name][Vehicles.normalize(m.name)] = true
-        end
+        all_models.each { |m| index_model(idx, m) }
         idx.each_value(&:freeze).freeze
       end
+    end
+
+    def index_model(idx, model)
+      record = "#{model.make_slug}/#{model.model_slug}"
+      (idx[:id]["#{model.kind}/#{record}"] ||= []) << model
+      model.former_ids.each { |f| (idx[:former_id][f] ||= []) << model }
+      model.aliases.each do |a|
+        key = Vehicles.normalize(a)
+        (idx[:alias][key] ||= []) << model unless key.empty?
+      end
+      (idx[:name][Vehicles.normalize(model.name)] ||= []) << record
     end
   end
 end

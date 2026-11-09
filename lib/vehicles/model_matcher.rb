@@ -60,8 +60,11 @@ module Vehicles
 
       exact = rungs(make, query, kind, via, typo_caps(make_typo, cleaned: false))
       return exact if exact
-      # Ids/slugs/paths resolve exactly or not at all (same rule as makes).
-      return nil unless Fuzzy.eligible_input?(model_query)
+      # Ids/slugs/paths resolve exactly or not at all (same rule as makes),
+      # checked per raw TOKEN like the text entry (RESOLUTION.md §4), so
+      # "New alpha-z" is machine input here exactly as it is in identify().
+      return nil unless Fuzzy.eligible_input?(model_query) &&
+                        model_query.to_s.split.all? { |t| Fuzzy.eligible_input?(t) }
 
       heuristic(make, query, kind, via, make_query: make_query, make_typo: make_typo)
     end
@@ -96,7 +99,9 @@ module Vehicles
     def strict(make, query, kind, via, caps)
       matches, how = make.strict_lookup(query, kind: kind)
       return nil unless matches
-      return ambiguous(matches, :fold, via + ["fold:#{query}"]) if how == :ambiguous
+
+      # Two DIFFERENT records with one name → ambiguous (RESOLUTION.md §3), never a coin-flip.
+      return ambiguous(matches, :fold, via + ["fold:#{query}"]) if how == :ambiguous || matches.uniq(&:model_slug)[1]
 
       model = make.pick(matches)
       # A plain name/slug hit transforms nothing; spacing / "Serie N" do.

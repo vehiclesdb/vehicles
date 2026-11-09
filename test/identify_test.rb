@@ -89,6 +89,26 @@ module Vehicles
       assert_equal [:bus, ["kind_hint:bus"]], [bus.model.kind, bus.via]
     end
 
+    # Rung 6 refuses only when ANOTHER record is named that: SEAT's own
+    # "Málaga" alias on seat/malaga answers; "Rabbit" (a Golf alias that is
+    # also car/volkswagen/rabbit's name) does not.
+    def test_whole_text_alias_may_fold_onto_its_own_name_but_not_another
+      Dir.mktmpdir do |dir|
+        Vehicles.data_path = dataset(dir, { "name" => "SEAT", "models" => [model("Malaga", aliases: ["Málaga"])] },
+                                     { "name" => "Volkswagen",
+                                       "models" => [model("Golf", aliases: ["Rabbit"]), model("Rabbit")] })
+
+        assert_equal(["seat-malaga", :alias], Vehicles.identify("malaga").then { |m| [m.model.slug, m.rung] })
+        assert_nil Vehicles.identify("Rabbit")
+      end
+    end
+
+    def test_a_machine_shaped_token_disables_typos_for_the_whole_text
+      assert_nil Vehicles.identify("marcedes-benz gla")
+      assert_nil Vehicles.identify("MARCEDES-BENZ GLA")
+      assert_nil Vehicles.match_model("marcedes-benz", "GLA"), "same answer as the pair entry"
+    end
+
     private
 
     def model(name, **extra)

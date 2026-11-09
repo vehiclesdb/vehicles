@@ -46,7 +46,12 @@ module Vehicles
       tokens = Vehicles.normalize(text).split
       return nil if tokens.empty?
 
-      eligible = Fuzzy.eligible_input?(text)
+      # Per raw TOKEN, before normalization (RESOLUTION.md §4): one
+      # machine-shaped token disables both typo rungs for the whole text.
+      # Checking the whole string missed "marcedes-benz gla" — the space hid
+      # the slug-shaped make from Fuzzy's anchored patterns (pre-release
+      # review, 2026.11.0).
+      eligible = !text.is_a?(Symbol) && text.to_s.split.all? { |t| Fuzzy.eligible_input?(t) }
       make, rest, via, make_typo, prefix = split(tokens, eligible)
       model_part = make && !rest.empty?
       if model_part
@@ -77,13 +82,16 @@ module Vehicles
     end
 
     # Rung 6. Unambiguous ACROSS MAKES (two records → ambiguous), and never
-    # when some record is named that — a name always outranks an alias.
+    # when ANOTHER record is named that — a name always outranks an alias
+    # ("Rabbit" is a Golf alias AND car/volkswagen/rabbit's name → nil). An
+    # alias folding onto its OWN record's name is fine: SEAT publishes
+    # "Málaga" on seat/malaga, and "malaga" must answer (SDK adjudication
+    # 2026-07-27; RESOLUTION.md rung 6 says "no OTHER record").
     def whole_text_alias(dataset, query, kind, hint)
-      return nil if dataset.model_named?(query)
-
       hits = dataset.models_by_alias(query)
       hits = hits.select { |m| m.kind == kind.to_sym } if kind
       return nil if hits.empty?
+      return nil if (dataset.records_named(query) - hits.map { |m| record(m) }).any?
 
       via = hint + ["alias:#{query}"]
       return ModelMatcher.ambiguous(hits, :alias, via) unless hits.map { |m| record(m) }.uniq.one?

@@ -23,11 +23,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   resolve were already curated in the open dataset, but never reached the
   gem. `fuzzy:` still governs the make typo tolerance only. The MCP
   `get_model` tool inherits this.
+- **Bundled data refreshed to 2026.11.0** (15,629 models, 953 makes, 18
+  countries) — the first release carrying `forms` (7,574 curated spellings).
+- **The built-in make alias table is now empty** (`Dataset::BUILTIN_ALIASES`
+  is kept, frozen and empty, for compatibility). Every nickname it held is a
+  published dataset alias since 2026.11.0, so the JS/Python SDKs, the API and
+  the widget agree with Ruby (RESOLUTION.md §1, "only published data counts").
+  "range rover"/"rangerover" were dropped, not published: Range Rover is a Land
+  Rover model family, not a make. Private nicknames belong in `config.aliases`.
 - `Make#model` (and so the `vehicle_model` validator) is unchanged and stays
   strict: a form or a typo is not a model name to store. It now answers from
   per-make indexes built once on first use instead of normalizing every model
   name on every call; bulk lookups are about 10x faster (31.5k registry
   pairs: 38 s for `model` on 0.8.0, under 4 s for `model` plus `match_model`).
+
+### Contract conformance (pre-release review)
+
+- `Vehicles.identify`: a whole-text alias is refused only when ANOTHER record is
+  named that — SEAT's "Málaga" alias on `seat/malaga` resolves ("malaga"),
+  "Rabbit" (a Golf alias and `car/volkswagen/rabbit`'s name) stays nil.
+- Machine-shaped input is checked per raw token, in both entry points: one
+  slug-shaped token ("marcedes-benz gla", "New alpha-z") disables the typo
+  rungs, exactly like the pair `marcedes-benz` + `GLA`.
+- `match_model`: two DIFFERENT records with the same name answer `ambiguous`,
+  never the first one (`Make#model` keeps its first match for the validator).
+- `test/resolution_conformance_test.rb` runs the data repo's
+  `conformance/resolve.json` (79 cases) — all pass on the bundled 2026.11.0.
 
 ### Added
 
