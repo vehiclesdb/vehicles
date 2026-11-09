@@ -57,7 +57,7 @@ module Vehicles
       # Which records carry former_ids shifts per release — find one instead
       # of pinning one (same doctrine as the availability assertion above).
       migrated = Vehicles.makes.lazy.filter_map { |name| Vehicles.make(name) }
-                         .flat_map(&:models).find { |m| m.former_ids.any? }
+                                    .flat_map(&:models).find { |m| m.former_ids.any? }
 
       refute_nil migrated, "expected the bundled snapshot to carry former_ids"
       # Former ids are FULL canonical ids: "kind/make/model".
