@@ -28,7 +28,7 @@ Vehicles.load_validators!
 
 module Vehicles
   # Base test case: resets configuration + provider caches between tests so state
-  # never leaks (aliases, api_key, the hosted provider's memoized cache).
+  # never leaks (aliases, api_key, api_base_url).
   class TestCase < Minitest::Test
     def teardown
       Vehicles.reset_configuration!

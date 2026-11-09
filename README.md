@@ -411,6 +411,12 @@ car&.body_type                                      # => :hatchback
 car&.suv?                                           # => false
 ```
 
+It reads what people actually type: case, accents and spacing don't matter
+(`"XCeed"` is Kia's `"X Ceed"`, `"A 5"` is `"A5"`), BMW's Spanish/Italian
+`"Serie 3"` is the `"3 Series"`, and a name that exists as several kinds
+(Toyota's Land Cruiser: car, van, truck, bus) answers with the car unless you
+pass `kind:` — `Vehicles.model("Toyota", "Land Cruiser", kind: :bus)`.
+
 **Only accept the kinds you support.** Filter every list/lookup by `kind:` so
 the picker only ever offers vehicles your app handles — and widening later (when
 new kind packs ship, or when you decide to accept them) is a one-word change, not
@@ -464,7 +470,7 @@ Vehicles.plates(:es).series  # => 18 series: formats, periods, sourced designs
 
 Pilot coverage (gate L0): 🇳🇱 🇪🇸 🇩🇪 + US-Florida, 73 series, corpus-proven in NL. Same posture as everything else here: bundled, offline, forgiving in, honest out.
 
-**Prefer HTTP?** The same matcher and the full format corpus are hosted endpoints on the [VehiclesDB API](https://vehiclesdb.com/api): `GET /v1/plates/{code}` (a jurisdiction's every series, with 1:1 SVG render URLs) and `GET /v1/plates/{code}/match?plate=…` (validity + as-issued formatting + a render of *that* registration on the real plate design). Free API keys at [vehiclesdb.com](https://vehiclesdb.com).
+**Prefer HTTP?** The same matcher and the full format corpus are hosted endpoints on the [VehiclesDB API](https://vehiclesdb.com/api): `GET /api/v1/plates/{code}` (a jurisdiction's every series, with 1:1 SVG render URLs) and `GET /api/v1/plates/{code}/match?plate=…` (validity + as-issued formatting + a render of *that* registration on the real plate design). Free API keys at [vehiclesdb.com](https://vehiclesdb.com).
 
 ## 🔓 More with VehiclesDB
 
@@ -565,6 +571,7 @@ Vehicles.catalog(kind: :car)            # => { "Audi" => ["A3", ...], ... }
 Vehicles.make("Audi")                   # => Vehicles::Make | nil
 Vehicles.find("audi a3")                # => Vehicles::Model | nil  (one free-text string)
 Vehicles.model("Audi", "A3")            # => Vehicles::Model | nil  (a stored make+model pair)
+Vehicles.model("Toyota", "Land Cruiser", kind: :bus)  # pick a kind (default: the car)
 Vehicles.search("a3")                   # => [Vehicles::Model]
 
 # Popularity & availability (open data, measured from official registers)
