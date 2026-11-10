@@ -2,6 +2,8 @@
 
 [![Gem Version](https://badge.fury.io/rb/vehicles.svg)](https://badge.fury.io/rb/vehicles) [![Build Status](https://github.com/vehiclesdb/vehicles/workflows/Tests/badge.svg)](https://github.com/vehiclesdb/vehicles/actions)
 
+> **Get your free key, the integration guide and the credit snippet at [vehiclesdb.com](https://vehiclesdb.com/users/sign_up?for=app_saas&cta=readme_vehicles)**
+
 > [!TIP]
 > **🚀 Ship your next Rails app 10x faster!** I've built **[RailsFast](https://railsfast.com/?ref=vehicles)**, a production-ready Rails boilerplate template that comes with everything you need to launch a software business in days, not weeks. Go [check it out](https://railsfast.com/?ref=vehicles)!
 
@@ -288,6 +290,8 @@ type approval, or sales reporting) — presence, not marketing history: grey
 imports count, because they're real vehicles on real roads.
 
 ## MCP server for AI agents
+
+> **Get your free key, the integration guide and the credit snippet at [vehiclesdb.com](https://vehiclesdb.com/users/sign_up?for=ai_app&cta=readme_vehicles_mcp)**
 
 The gem ships `vehicles-mcp` — a read-only [MCP](https://modelcontextprotocol.io)
 server over the bundled dataset, so your agents ground themselves in real
@@ -972,7 +976,7 @@ Vehicles.reload!                        # drop the in-memory dataset now (proces
 
 ## Where the data comes from
 
-The bundled dataset is [**VehiclesDB**](https://github.com/vehiclesdb/vehiclesdb) — an open dataset **reconciled from the official vehicle registers of every covered country, on five continents** (the Dutch RDW, UK DfT, Spanish DGT, Finnish Traficom, German KBA, US EPA, New Zealand's Motor Vehicle Register, Thailand's DLT, Ukraine's MVS, and more — the exact list for the bundled 2026.10.0 snapshot is `countries` in the data repo's `manifest.json`). A model ships only when **two independent official sources corroborate it** — or one shows a registration count no typo could produce — so you get real nameplates without the registry noise.
+The bundled dataset is [**VehiclesDB**](https://github.com/vehiclesdb/vehiclesdb) — an open dataset **reconciled from the official vehicle registers of every covered country, on five continents** (the Dutch RDW, UK DfT, Spanish DGT, Finnish Traficom, German KBA, US EPA, New Zealand's Motor Vehicle Register, Thailand's DLT, Ukraine's MVS, and more — the exact list for the bundled 2026.11.4 snapshot is `countries` in the data repo's `manifest.json`). A model ships only when **two independent official sources corroborate it** — or one shows a registration count no typo could produce — so you get real nameplates without the registry noise.
 
 Every record is shaped like this:
 
@@ -1010,7 +1014,7 @@ Bundled today: the full VehiclesDB catalog across all 6 kinds, with popularity +
 availability, plus the MCP server (the live counts are in the data repo's
 `manifest.json`; this README deliberately carries none). On the way:
 
-- 🌍 More **countries** (Switzerland next; the dataset grows monthly)
+- 🌍 More **countries** (the dataset grows monthly)
 - 📅 Production **years** in the local data
 - 🧬 **Generations & variants** layers (the schema already reserves them)
 - 🏷️ **Segments** (supercar, city car, hot hatch) and richer metadata
