@@ -3,6 +3,7 @@
 require_relative "vehicles/version"
 require_relative "vehicles/configuration"
 require_relative "vehicles/http"
+require_relative "vehicles/kind_rule"
 require_relative "vehicles/make"
 require_relative "vehicles/model"
 require_relative "vehicles/color"
@@ -12,10 +13,16 @@ require_relative "vehicles/model_matcher"
 require_relative "vehicles/text_matcher"
 require_relative "vehicles/dataset_resolution"
 require_relative "vehicles/dataset"
+require_relative "vehicles/data_source"
+require_relative "vehicles/refresh_result"
+require_relative "vehicles/release_checks"
 require_relative "vehicles/refresher"
+require_relative "vehicles/hosted_result"
+require_relative "vehicles/labels"
 require_relative "vehicles/providers/local_provider"
 require_relative "vehicles/providers/hosted_provider"
 require_relative "vehicles/other_option"
+require_relative "vehicles/id_lookup"
 require_relative "vehicles/plates"
 require_relative "vehicles/plates/jurisdiction"
 require_relative "vehicles/plates/series"
@@ -53,7 +60,7 @@ module Vehicles
       @configuration = Configuration.new
       @providers = nil
       @data_path = nil
-      Dataset.reset!
+      reload!
     end
 
     # --- data access ---------------------------------------------------------
@@ -63,33 +70,57 @@ module Vehicles
       @data_path || DATA_PATH
     end
 
-    attr_writer :data_path, :logger
+    attr_writer :logger
 
-    # The dataset file actually in effect: an explicit override wins; otherwise a
-    # refreshed cache (if present and `use_cache`); otherwise the bundled snapshot.
-    # This is how a refresh reaches the running app — no gem upgrade needed.
-    def active_data_path
-      return @data_path if @data_path
-      return Refresher.cached_path if configuration.use_cache && Refresher.cached?
-
-      DATA_PATH
+    # Serve this file instead (tests, a pinned snapshot). Takes effect on the
+    # next call; nil goes back to the cache/bundled rules.
+    def data_path=(path)
+      @data_path = path&.to_s
+      reload!
     end
 
-    def dataset
-      Dataset.load(active_data_path)
-    end
+    # The explicit `data_path=` override, or nil.
+    def data_path_override = @data_path
 
-    # Pull the latest published dataset into the local cache, so data fixes / new
-    # makes land WITHOUT a gem upgrade. Returns true/false; never raises. Schedule
-    # it (e.g. a daily job — `rails g vehicles:install` sets one up).
-    def refresh!
-      Refresher.refresh!
-    end
+    # The dataset file actually in effect: an explicit override wins; otherwise
+    # a refreshed cache when usable (`use_cache`, a schema this gem reads, not
+    # older than the bundled data); otherwise the bundled snapshot. This is how
+    # a refresh reaches the running app — no gem upgrade, no restart.
+    def active_data_path = DataSource.active_path
 
-    # Drop the in-memory dataset so the next access reloads from disk (after a
-    # refresh, a cache clear, or a `data_path=` change).
+    # The Vehicles::Dataset in effect. Every process re-checks the file every
+    # `config.reload_check_interval` seconds and adopts a newer one on its own.
+    def dataset = DataSource.dataset
+
+    # Pull the latest published dataset into `config.cache_path`, so data
+    # fixes and new makes land WITHOUT a gem upgrade, safely: manifest first,
+    # never a downgrade, never a schema this gem cannot read, never a release
+    # that lost a chunk of your data (see Vehicles::Refresher). Never raises;
+    # returns a Vehicles::RefreshResult (`ok?`, `updated?`, `status`,
+    # `reason`, `message`). Schedule it daily (`rails g vehicles:install`).
+    #   result = Vehicles.refresh
+    #   Rails.logger.warn(result.message) unless result.ok?
+    def refresh = Refresher.refresh
+
+    # `refresh.ok?` — true when the app has the latest release (just written,
+    # or already current). Kept for callers of the pre-0.9.2 boolean API.
+    def refresh! = Refresher.refresh!
+
+    # Drop the in-memory dataset so the next access reloads from disk now
+    # (processes also notice a changed file on their own; see `dataset`).
     def reload!
+      DataSource.reset!
       Dataset.reset!
+    end
+
+    # ActiveSupport::Notifications when present ("refresh.vehicles",
+    # "request.vehicles"); a no-op otherwise. Never raises.
+    def instrument(name, payload)
+      return unless defined?(ActiveSupport::Notifications)
+
+      ActiveSupport::Notifications.instrument(name, payload)
+    rescue StandardError
+      nil
     end
 
     # Version of the dataset currently in effect (refreshed cache or bundled),
@@ -108,8 +139,9 @@ module Vehicles
     # Make display names. => ["Abarth", "Alfa Romeo", ...]
     #   Vehicles.makes(kind: :motorcycle, region: :as)  # continent filter
     #   Vehicles.makes(include_other: true)             # ... + the "Other" escape hatch
-    def makes(kind: nil, region: nil, include_other: false)
-      names = dataset.makes(kind: kind, region: region || configuration.region).map(&:name)
+    #   Vehicles.makes(kind: :car, country: :es)       # makes with a car evidenced in Spain
+    def makes(kind: nil, region: nil, country: nil, include_other: false)
+      names = dataset.makes(kind: kind, region: region || configuration.region, country: country).map(&:name)
       append_other_name(names, include_other)
     end
 
@@ -119,10 +151,15 @@ module Vehicles
     # With `include_other:`, an unknown make (e.g. the "Other" make itself) yields
     # just `[other_label]`, so a make→model picker never dead-ends.
     # `fuzzy:` is forwarded to `make` (typo-tolerant by default since 0.7.8).
-    def models(make, kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil, include_other: false,
-               fuzzy: true)
+    #
+    # With `country:` (ISO alpha-2), only models evidenced there, in that
+    # country's own popularity order:
+    #   Vehicles.models("SEAT", kind: :car, country: :es)  # => ["Ibiza", "Arona", "León", ...]
+    # A name can repeat when the make sells it as several kinds (pass `kind:`).
+    def models(make, kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil, country: nil,
+               include_other: false, fuzzy: true)
       names = make(make, fuzzy: fuzzy)&.models(kind: kind, body_type: body_type,
-                                               region: region || configuration.region,
+                                               region: region || configuration.region, country: country,
                                                rarity: rarity, max_decile: max_decile)&.map(&:name) || []
       append_other_name(names, include_other)
     end
@@ -159,8 +196,14 @@ module Vehicles
     # data, not guessing: a spelling claimed by two different models answers
     # nil. `fuzzy:` governs the MAKE typo tolerance only, as before. Need to
     # know how a pair matched, or want cleanup/typo tolerance? `match_model`.
-    def model(make_name, model_name, fuzzy: true, kind: nil)
-      (found = make(make_name, fuzzy: fuzzy)) && ModelMatcher.exact(found, model_name, kind: kind)
+    #
+    # Kind collisions (one nameplate as several kinds) follow the one rule
+    # every VehiclesDB surface shares (Vehicles::KindRule): "Iveco Daily"
+    # is the van. `kind:` picks a kind; `kinds:` allows only some (nil when
+    # none of them has that name).
+    def model(make_name, model_name, fuzzy: true, kind: nil, kinds: nil)
+      (found = make(make_name, fuzzy: fuzzy)) &&
+        ModelMatcher.exact(found, model_name, kind: KindRule.scope(kind, kinds))
     end
 
     # Resolve a stored make + model pair and say HOW: a Vehicles::ModelMatch
@@ -176,8 +219,13 @@ module Vehicles
     #   Vehicles.match_model("VW", "Sirocco").rung       # => :fuzzy
     #   Vehicles.match_model("Honda", "Honda")          # => nil
     # See Vehicles::ModelMatcher for the rungs and their rules.
-    def match_model(make_name, model_name, kind: nil)
-      ModelMatcher.match(make_name, model_name, kind: kind)
+    #
+    # Safe to write back without asking? `match.confident?` (curated rungs
+    # only, never a typo guess, never ambiguous). Scope by kind with `kind:`
+    # (one kind) or `kinds:` (a hard list: a record of another kind never
+    # answers).
+    def match_model(make_name, model_name, kind: nil, kinds: nil)
+      ModelMatcher.match(make_name, model_name, kind: kind, kinds: kinds)
     end
 
     # Resolve ONE free-text string ("vw golf", "MERCEDES-BENZ SPRINTER",
@@ -188,7 +236,10 @@ module Vehicles
     # Nothing resolves without a make except ids and whole-text aliases.
     #   Vehicles.identify("vw tuareg").model   # => Volkswagen Touareg (:fuzzy)
     #   Vehicles.identify("golf")              # => nil
-    def identify(text, kind: nil) = TextMatcher.identify(text, kind: kind)
+    # `kind:` scopes the name rungs (an explicit id still answers whatever
+    # its kind); `kinds:` is a hard filter on every rung, ids included:
+    #   Vehicles.identify("bus/iveco/daily", kinds: [:car])  # => nil
+    def identify(text, kind: nil, kinds: nil) = TextMatcher.identify(text, kind: kind, kinds: kinds)
 
     # License plates (the bundled PRD-PLATES dataset). No argument: every
     # jurisdiction. With a code: that jurisdiction (or nil — forgiving).
@@ -223,6 +274,7 @@ module Vehicles
     #   Vehicles.top_models(kind: :car, country: :nl, limit: 10).map(&:name)
     #   Vehicles.top_models(kind: :motorcycle, region: :as, limit: 10)
     #   Vehicles.top_models(kind: :car, by: :mass_decile)  # by registration mass (data 2026.10.1+)
+    # `limit: nil` returns every match (for a per-country picker, prefer `catalog(country:)`).
     def top_models(kind: nil, country: nil, region: nil, limit: 20, by: :global_decile)
       dataset.top_models(kind: kind, country: country, region: region, limit: limit, by: by)
     end
@@ -238,43 +290,22 @@ module Vehicles
 
     # Continent codes present in the dataset. => [:af, :as, :eu, :na, :oc, :sa]
     def regions
-      @regions ||= dataset.all_models.flat_map(&:regions).uniq.sort
-    end
-
-    # --- colors (canonical reference palette) --------------------------------
-
-    # The canonical color palette, frequency-ordered. => [Vehicles::Color, ...]
-    def colors
-      Colors::ALL
-    end
-
-    # [[name, slug], ...] for a Rails `select`. Names are English — localize the
-    # labels in your app; the slug is the stable value you store.
-    def color_options
-      Colors::ALL.map { |c| [c.name, c.slug] }
-    end
-
-    # Resolve a color by slug or name (forgiving: case, diacritics, synonyms like
-    # "gray"→grey, "navy"→blue). Returns a Vehicles::Color, or nil.
-    def color(query)
-      q = normalize(query)
-      return nil if q.empty?
-
-      Colors::BY_SLUG[q] || Colors::BY_NAME[q] || Colors::BY_SLUG[Colors::SYNONYMS[q]]
+      dataset.regions
     end
 
     # [[label, value], ...] of makes for a Rails `select`.
     #   Vehicles.make_options(include_other: true)  # ... + [other_label, "other"]
-    def make_options(kind: nil, region: nil, include_other: false)
-      opts = dataset.makes(kind: kind, region: region || configuration.region).map { |m| [m.name, m.slug] }
+    def make_options(kind: nil, region: nil, country: nil, include_other: false)
+      opts = dataset.makes(kind: kind, region: region || configuration.region, country: country)
+                    .map { |m| [m.name, m.slug] }
       append_other_option(opts, include_other)
     end
 
     # [[label, value], ...] of a make's models for a Rails `select`. Unknown => [].
     #   Vehicles.model_options("audi", include_other: true)  # ... + [other_label, "other"]
-    def model_options(make, kind: nil, body_type: nil, include_other: false, fuzzy: true)
+    def model_options(make, kind: nil, body_type: nil, country: nil, include_other: false, fuzzy: true)
       found = make(make, fuzzy: fuzzy)
-      opts = found ? found.model_options(kind: kind, body_type: body_type) : []
+      opts = found ? found.model_options(kind: kind, body_type: body_type, country: country) : []
       append_other_option(opts, include_other)
     end
 
@@ -284,13 +315,22 @@ module Vehicles
 
     # A { make => [model names] } map for the given filters — everything you need
     # to build a dependent make → model picker entirely on the client: embed it
-    # once (`Vehicles.catalog(kind: :car).to_json`) and switch the model list in a
-    # few lines of JS. No endpoint, no extra request, instant. The whole car
-    # catalog is small (tens of KB), so this is the simplest path for most apps.
-    #   Vehicles.catalog(kind: :car)   # => { "Audi" => ["A3", "A4", ...], ... }
-    def catalog(kind: nil, region: nil)
-      makes(kind: kind, region: region).to_h do |name|
-        [name, models(name, kind: kind, region: region)]
+    # once and switch the model list in a few lines of JS (or hand it to the
+    # make-model-dropdown widget). No endpoint, no extra request, instant.
+    # Makes are alphabetical.
+    #
+    # Scope it to your market with `country:` (ISO alpha-2): only models with
+    # official evidence there, each make's models in that country's popularity
+    # order. That is the picker list a one-country app wants — Spain's cars are
+    # ~140 makes / ~1,300 models, ~14 KB of JSON — where the whole global car
+    # catalog is ~330 makes / ~6,000 models (~63 KB).
+    #   Vehicles.catalog(kind: :car, country: :es)  # => { "Abarth" => ["500", "595", ...], ... }
+    #   Vehicles.catalog(kind: :car)                # => every car, worldwide
+    # Pass `kind:` for a picker: without it a nameplate sold as a car and a
+    # van appears twice.
+    def catalog(kind: nil, region: nil, country: nil)
+      dataset.makes(kind: kind, region: region || configuration.region, country: country).to_h do |make|
+        [make.name, make.models(kind: kind, region: region || configuration.region, country: country).map(&:name)]
       end
     end
 
@@ -363,6 +403,11 @@ module Vehicles
   # they become Vehicles singleton methods with access to `configuration` /
   # `normalize`.
   extend OtherOption
+  # Canonical-id lookups (`by_id`, `successor`, `live?`) and the en/es label
+  # helpers (`kind_label`, `kind_options`, `body_type_label`,
+  # `body_type_options`), extended the same way.
+  extend IdLookup
+  extend LabelOptions
 end
 
 # Loaded after the module so its lookup tables can use Vehicles.normalize.

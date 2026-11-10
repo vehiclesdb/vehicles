@@ -44,12 +44,12 @@ module Vehicles
     module_function
 
     # The full ladder a–e. A ModelMatch, or nil when nothing matched at all.
-    def match(make_query, model_query, kind: nil)
+    def match(make_query, model_query, kind: nil, kinds: nil)
       make, via, make_typo = resolve_make(make_query)
       return nil unless make
 
-      via = kind_hint(kind) + via
-      ladder(make, model_query, kind, via, make_query: make_query, make_typo: make_typo)
+      ladder(make, model_query, KindRule.scope(kind, kinds), KindRule.via(kind, kinds) + via,
+             make_query: make_query, make_typo: make_typo)
     end
 
     # The model half of the ladder on a resolved make: a–c, then (for
@@ -68,8 +68,6 @@ module Vehicles
 
       heuristic(make, query, kind, via, make_query: make_query, make_typo: make_typo)
     end
-
-    def kind_hint(kind) = kind ? ["kind_hint:#{kind}"] : []
 
     # Rungs a–c only, on a resolved Make — what Vehicles.model answers. Rung a
     # is Make#model itself, so every pair that resolved before 0.9.0 resolves
@@ -189,9 +187,10 @@ module Vehicles
     def typo_hits(make, query, kind)
       limit = Fuzzy.budget(query.length)
       words = query.split
+      allowed = KindRule.symbols(kind)
       best = {}
       make.typo_keys.each do |key, model|
-        next if kind && model.kind != kind.to_sym
+        next unless KindRule.allows?(allowed, model)
         next if (key.length - query.length).abs > limit
         next unless (dist = word_distance(words, key, limit))
 

@@ -19,8 +19,8 @@ module Vehicles
       # (and ultimately yield nil) instead of raising.
       def years(_model)                                          = nil
       def segment(_model)                                        = nil
-      def image(_model, year: nil, color: nil, size: :md)        = nil
-      def images(_model, color: nil)                             = nil
+      def image(_model, year: nil, color: nil, size: :md, exact_color: false) = nil
+      def images(_model, color: nil, year: nil, exact_color: false) = nil
     end
   end
 end

@@ -70,13 +70,14 @@ module Vehicles
     end
 
     def test_search_is_ranked_exact_first
-      # "Leon" is built by both Cupra and SEAT — an exact name match must rank
-      # ahead of substring matches like "Leon"-in-something-else.
+      # "León" is built by both Cupra and SEAT — an exact name match must rank
+      # ahead of substring matches like "Leone" (data 2026.11.2 restyled the
+      # records "Leon" → "León"; search folds the accent).
       results = Vehicles.search("leon")
 
-      assert_equal "Leon", results.first.name
-      assert_includes results.map(&:full_name), "SEAT Leon"
-      assert_includes results.map(&:full_name), "Cupra Leon"
+      assert_equal "León", results.first.name
+      assert_includes results.map(&:full_name), "SEAT León"
+      assert_includes results.map(&:full_name), "Cupra León"
     end
 
     def test_search_returns_models

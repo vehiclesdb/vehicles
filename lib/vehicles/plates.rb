@@ -127,6 +127,42 @@ module Vehicles
       def suggestion
         formatted if valid? && !exact?
       end
+
+      # WHY the plate is (not) valid, as one Symbol — the same codes the
+      # VehiclesDB API answers (as strings):
+      #   :ok                   a strict series issues it (the authority's real alphabet)
+      #   :unverifiable         only a recall-only series has the shape (an era
+      #                         or catch-all whose alphabet is not published)
+      #   :excluded_letters     a series has this shape but never issues these
+      #                         letters ("1234 ABC": Spain issues no vowels, Ñ or Q)
+      #   :bad_shape            no series has this shape
+      #   :empty                nothing but separators was typed
+      #   :unknown_jurisdiction no plate data for that code
+      # Validity only: whether a passenger vehicle may carry it is `passenger?`.
+      def reason
+        return :unknown_jurisdiction if jurisdiction.nil?
+        return :empty if canon.empty?
+        return :ok if strict?
+        return :unverifiable if valid?
+
+        excluded_letters.empty? ? :bad_shape : :excluded_letters
+      end
+
+      # The letters of the plate that a near-miss series (same shape, an
+      # enumerated alphabet) never issues, e.g. ["A", "E"] for "1234 ABE" in
+      # Spain. [] when that is not why it failed.
+      def excluded_letters
+        letters = canon.scan(/[[:alpha:]]/).uniq
+        near_misses.select(&:letters).flat_map { |series| letters - series.letters }.uniq.sort
+      end
+
+      # Does a STRICT hit come from a series issued to passenger-carrying
+      # vehicles (Series#passenger?)? false for a valid trailer or tractor
+      # plate, and for anything not strictly valid. For apps that move
+      # people (ride sharing, rentals).
+      def passenger?
+        hits.any? { |hit| hit.series.strict? && hit.series.passenger? }
+      end
     end
   end
 end

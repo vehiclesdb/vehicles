@@ -13,26 +13,34 @@ module Vehicles
   def self.data_version: () -> String?
   def self.region: () -> Symbol
 
-  def self.makes: (?kind: Symbol?, ?region: Symbol?) -> Array[String]
-  def self.models: (untyped make, ?kind: Symbol?, ?body_type: Symbol?, ?region: Symbol?) -> Array[String]
+  def self.makes: (?kind: Symbol?, ?region: Symbol?, ?country: untyped, ?include_other: bool) -> Array[String]
+  def self.models: (untyped make, ?kind: Symbol?, ?body_type: Symbol?, ?region: Symbol?, ?country: untyped) -> Array[String]
   def self.make: (untyped query) -> Make?
   def self.find: (untyped query) -> Model?
-  def self.model: (untyped make_name, untyped model_name, ?fuzzy: bool, ?kind: Symbol?) -> Model?
-  def self.match_model: (untyped make_name, untyped model_name, ?kind: Symbol?) -> ModelMatch?
-  def self.identify: (untyped text, ?kind: Symbol?) -> ModelMatch?
+  def self.model: (untyped make_name, untyped model_name, ?fuzzy: bool, ?kind: Symbol?, ?kinds: Array[Symbol]?) -> Model?
+  def self.match_model: (untyped make_name, untyped model_name, ?kind: Symbol?, ?kinds: Array[Symbol]?) -> ModelMatch?
+  def self.identify: (untyped text, ?kind: Symbol?, ?kinds: Array[Symbol]?) -> ModelMatch?
+  def self.by_id: (untyped id, ?follow: bool) -> Model?
+  def self.successor: (untyped id) -> String?
+  def self.live?: (untyped id) -> bool
   def self.search: (untyped query) -> Array[Model]
-  def self.make_options: (?kind: Symbol?, ?region: Symbol?) -> Array[[String, String]]
-  def self.model_options: (untyped make, ?kind: Symbol?, ?body_type: Symbol?) -> Array[[String, String]]
-  def self.catalog: (?kind: Symbol?, ?region: Symbol?) -> Hash[String, Array[String]]
+  def self.make_options: (?kind: Symbol?, ?region: Symbol?, ?country: untyped) -> Array[[String, String]]
+  def self.model_options: (untyped make, ?kind: Symbol?, ?body_type: Symbol?, ?country: untyped) -> Array[[String, String]]
+  def self.catalog: (?kind: Symbol?, ?region: Symbol?, ?country: untyped) -> Hash[String, Array[String]]
 
   def self.colors: () -> Array[Color]
   def self.color: (untyped query) -> Color?
-  def self.color_options: () -> Array[[String, String]]
+  def self.color_options: (?locale: untyped) -> Array[[String, String]]
+  def self.kind_label: (untyped kind, ?locale: untyped) -> String?
+  def self.kind_options: (?locale: untyped, ?kinds: Array[Symbol]) -> Array[[String, String]]
+  def self.body_type_label: (untyped body_type, ?locale: untyped) -> String?
+  def self.body_type_options: (?locale: untyped) -> Array[[String, String]]
 
   def self.dataset: () -> Dataset
   def self.data_path: () -> String
   def self.data_path=: (String) -> void
   def self.active_data_path: () -> String
+  def self.refresh: () -> RefreshResult
   def self.refresh!: () -> bool
   def self.reload!: () -> void
   def self.normalize: (untyped str) -> String
@@ -53,6 +61,43 @@ module Vehicles
     attr_accessor refresh_timeout: Integer
     attr_accessor plate_template_cache: untyped
     attr_accessor plate_template_ttl: Integer
+    attr_accessor manifest_url: String?
+    attr_accessor cache_dir: String
+    attr_accessor reload_check_interval: Numeric?
+    attr_accessor refresh_min_ratio: Float?
+    attr_accessor refresh_guard: (^(Dataset, Dataset) -> boolish)?
+    attr_accessor on_hosted_error: (^(HostedResult) -> void)?
+    attr_accessor image_cache: untyped
+    attr_accessor image_cache_ttl: Integer
+    attr_accessor image_miss_ttl: Integer
+  end
+
+  class RefreshResult
+    attr_reader status: Symbol
+    attr_reader reason: Symbol?
+    attr_reader version: String?
+    attr_reader previous_version: String?
+    attr_reader detail: String?
+    def ok?: () -> bool
+    def updated?: () -> bool
+    def message: () -> String
+    def to_h: () -> Hash[Symbol, untyped]
+  end
+
+  class HostedResult
+    attr_reader reason: Symbol
+    attr_reader status: Integer?
+    attr_reader error: String?
+    attr_reader payload: Hash[String, untyped]?
+    attr_reader path: String?
+    def ok?: () -> bool
+    def cached?: () -> bool
+    def url: (?Symbol size) -> String?
+    def to_error: () -> HostedError
+  end
+
+  class HostedError < StandardError
+    attr_accessor result: HostedResult
   end
 
   module Plates
@@ -77,7 +122,8 @@ module Vehicles
     attr_reader aliases: Array[String]
     attr_reader kinds: Array[Symbol]
     def models: (?kind: Symbol?, ?body_type: Symbol?) -> Array[Model]
-    def model: (untyped query, ?kind: Symbol?) -> Model?
+    attr_reader former_slugs: Array[String]
+    def model: (untyped query, ?kind: Symbol?, ?kinds: Array[Symbol]?) -> Model?
     def model_names: (?kind: Symbol?, ?body_type: Symbol?) -> Array[String]
     def model_options: (?kind: Symbol?, ?body_type: Symbol?) -> Array[[String, String]]
     def to_h: () -> Hash[Symbol, untyped]
@@ -91,6 +137,7 @@ module Vehicles
     attr_reader via: Array[String]
     attr_reader candidates: Array[Model]
     def ambiguous?: () -> bool
+    def confident?: () -> bool
     def to_h: () -> Hash[Symbol, untyped]
   end
 
@@ -98,6 +145,7 @@ module Vehicles
     attr_reader slug: String
     attr_reader name: String
     attr_reader hex: String
+    def label: (?untyped locale) -> String
     def to_h: () -> Hash[Symbol, String]
   end
 
@@ -111,6 +159,9 @@ module Vehicles
     attr_reader body_type: Symbol
     attr_reader aliases: Array[String]
     attr_reader forms: Array[String]
+    attr_reader id: String
+    attr_reader former_ids: Array[String]
+    attr_reader registration_years: Range[Integer]?
     def full_name: () -> String
     def to_s: () -> String
     def slug: () -> String
@@ -122,6 +173,8 @@ module Vehicles
     def hatchback?: () -> bool
     def years: () -> Range[Integer]?
     def segment: () -> Symbol?
-    def image: (?year: Integer?, ?color: untyped) -> String?
+    def image: (?year: Integer?, ?color: untyped, ?size: Symbol, ?exact_color: bool) -> String?
+    def images: (?color: untyped, ?year: Integer?, ?exact_color: bool) -> Hash[String, untyped]?
+    def images_result: (?color: untyped, ?year: Integer?, ?exact_color: bool) -> HostedResult
   end
 end

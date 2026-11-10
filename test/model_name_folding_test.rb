@@ -22,10 +22,12 @@ module Vehicles
       assert_nil Vehicles.model("BMW", "Serie 9")
     end
 
+    # Data 2026.11.2 restyled Kia's "X Ceed"/"Pro Ceed" to "XCeed"/"ProCeed";
+    # the spaced spellings must keep answering.
     def test_spacing_does_not_matter_xceed_is_x_ceed
-      assert_equal "X Ceed", Vehicles.model("Kia", "XCeed")&.name
-      assert_equal "X Ceed", Vehicles.model("Kia", "xceed")&.name
-      assert_equal "Pro Ceed", Vehicles.model("Kia", "ProCeed")&.name
+      assert_equal "XCeed", Vehicles.model("Kia", "X Ceed")&.name
+      assert_equal "XCeed", Vehicles.model("Kia", "xceed")&.name
+      assert_equal "ProCeed", Vehicles.model("Kia", "Pro Ceed")&.name
     end
 
     def test_spaced_codes_join
@@ -40,14 +42,19 @@ module Vehicles
 
     def test_internal_double_spaces_collapse
       assert_equal "Model 3", Vehicles.model("Tesla", "Model  3")&.name
-      assert_equal "Leon", Vehicles.model("SEAT", "  Leon ")&.name
+      assert_equal "León", Vehicles.model("SEAT", "  Leon ")&.name
     end
 
-    def test_the_car_wins_when_a_name_is_several_kinds
-      cruiser = Vehicles.model("Toyota", "Land Cruiser")
-
-      assert_equal :car, cruiser.kind
-      assert_equal :car, Vehicles.find("toyota land cruiser").kind
+    # The one kind-collision rule (0.9.2; Vehicles::KindRule): lowest
+    # mass_decile, then van > car > truck > bus > moped > motorcycle. Every
+    # Land Cruiser record is decile 1, so the van answers; the car is one
+    # `kind:` away.
+    def test_the_collision_rule_picks_when_a_name_is_several_kinds
+      assert_equal :van, Vehicles.model("Toyota", "Land Cruiser").kind
+      assert_equal :van, Vehicles.find("toyota land cruiser").kind
+      assert_equal :van, Vehicles.model("Iveco", "Daily").kind
+      assert_equal :car, Vehicles.model("Mercedes-Benz", "V-Class").kind # car decile 1 beats van decile 2
+      assert_equal :car, Vehicles.model("Toyota", "Land Cruiser", kind: :car).kind
     end
 
     def test_kind_picks_another_kind
@@ -56,8 +63,15 @@ module Vehicles
       assert_nil Vehicles.model("SEAT", "Leon", kind: :motorcycle)
     end
 
-    def test_a_name_with_no_car_keeps_the_first_kind
-      assert_equal :moped, Vehicles.model("Aprilia", "Scarabeo").kind
+    def test_mass_decile_comes_before_the_kind_order
+      # moped decile 6, motorcycle decile 2: the motorcycle is far more registered.
+      assert_equal :motorcycle, Vehicles.model("Aprilia", "Scarabeo").kind
+    end
+
+    def test_kinds_is_a_hard_filter
+      assert_nil Vehicles.model("Iveco", "Daily", kinds: %i[car])
+      assert_equal :truck, Vehicles.model("Iveco", "Daily", kinds: %i[truck bus]).kind
+      assert_nil Vehicles.model("Iveco", "Daily", kind: :van, kinds: %i[truck])
     end
   end
 end

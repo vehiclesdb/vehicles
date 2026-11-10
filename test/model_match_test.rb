@@ -289,11 +289,27 @@ module Vehicles
 
     # --- kinds ---------------------------------------------------------------
 
-    def test_the_car_is_preferred_and_candidates_carry_every_kind
+    def test_the_collision_rule_picks_and_candidates_carry_every_kind
       m = Vehicles.match_model("Toyota", "Land Cruiser")
 
-      assert_equal :car, m.model.kind
+      assert_equal :van, m.model.kind
       assert_equal %i[bus car truck van], m.candidates.map(&:kind).sort
+    end
+
+    def test_kinds_constrains_match_model
+      assert_nil Vehicles.match_model("Toyota", "Land Cruiser", kinds: %i[motorcycle])
+      m = Vehicles.match_model("Toyota", "Land Cruiser", kinds: %i[bus truck])
+
+      assert_includes %i[bus truck], m.model.kind
+      assert_equal %i[bus truck], m.candidates.map(&:kind).sort
+      assert_includes m.via, "kinds:bus,truck"
+    end
+
+    def test_confident_means_curated_and_unambiguous
+      assert_predicate Vehicles.match_model("VW", "Golf"), :confident?
+      assert_predicate Vehicles.match_model("Citroën", "Nuevo C4"), :confident? # :cleaned
+      refute_predicate Vehicles.match_model("VW", "Tuareg"), :confident?        # :fuzzy
+      refute_predicate Vehicles.match_model("Toyota", "Corola"), :confident?    # ambiguous
     end
 
     def test_kind_is_honoured
@@ -322,7 +338,7 @@ module Vehicles
       # name and "Serie N" query.
       Vehicles.data_path = nil
       Vehicles.dataset.makes.each do |make|
-        # By identity: Model#== compares slugs, so kind variants would collide.
+        # By identity (kind variants are distinct records).
         names = make.models.each_with_object({}.compare_by_identity) { |m, h| h[m] = Vehicles.normalize(m.name) }
         make.models.each do |model|
           name = names[model]
@@ -393,7 +409,8 @@ module Vehicles
       end
       series = query.sub(Make::LOCALIZED_SERIES, '\\1 series')
       matches = named.call(query) || (named.call(series) unless series == query)
-      matches && (matches.find(&:car?) || matches.first)
+      # The pick itself is the 0.9.2 collision rule (shared, not legacy).
+      matches && KindRule.pick(matches)
     end
   end
 end
