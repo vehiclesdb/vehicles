@@ -104,6 +104,29 @@ module Vehicles
       nil
     end
 
+    # The newest dataset this app already has: the bundled one, or a usable
+    # cache (whatever `use_cache` says — a refresh never writes an older file).
+    # (and, unless `data_path=` pins a file, the dataset this process keeps
+    # in memory: it never goes back to older data on its own).
+    def newest_version
+      bundled = header(Vehicles::DATA_PATH)[:version]
+      cache = Vehicles.configuration.cache_path.to_s
+      cached = usable_cache?(cache) ? header(cache)[:version] : nil
+      memory = Vehicles.data_path_override ? nil : version(Vehicles.dataset.version)
+      [bundled, cached, memory].compact.max
+    end
+
+    # The cache file when another process promoted something newer than what
+    # this process has loaded, else the dataset in memory.
+    def newest_dataset(path)
+      current = Vehicles.dataset
+      loaded = version(current.version)
+      return current unless usable_cache?(path)
+      return current if loaded && header(path)[:version] <= loaded
+
+      build(path)
+    end
+
     # --- internals -----------------------------------------------------------
 
     def due?(snap, now = clock)
@@ -138,15 +161,28 @@ module Vehicles
     # Parse and fully build a dataset file, or raise: a file that parses but
     # is not a whole dataset (no makes, a malformed model) must fail HERE,
     # not later inside a request.
-    def build(path)
+    def build(path, previous = nil)
       raw = JSON.parse(File.read(path))
       raise Error, "#{path}: no makes" unless raw.is_a?(Hash) && raw["makes"].is_a?(Array) && raw["makes"].any?
+
+      # The header was checked on an earlier read; another process may have
+      # replaced the file since. Check what was actually parsed.
+      unless path == Vehicles::DATA_PATH || Vehicles.data_path_override
+        head = { version: version(raw["version"]), schema_version: raw["schema_version"] }
+        raise Error, "#{path}: unusable" unless compatible?(head) &&
+                                                head[:version] >= header(Vehicles::DATA_PATH)[:version]
+      end
+
+      if previous && !Vehicles.data_path_override && version(raw["version"]) < version(previous.version)
+        raise Error, "#{path}: older than the dataset in memory"
+      end
 
       Dataset.new(raw).tap(&:all_models)
     end
 
     def load_snapshot(path, stamp, now, previous)
-      dataset = build(path)
+      dataset = build(path, previous&.dataset)
+
       if previous && previous.dataset.version != dataset.version
         Vehicles.logger&.info("[vehicles] dataset #{previous.dataset.version} → #{dataset.version} (#{path})")
       end

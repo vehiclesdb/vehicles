@@ -31,7 +31,7 @@ module Vehicles
     def refresh
       baseline = nil
       outcome = begin
-        baseline = baseline_version
+        baseline = DataSource.newest_version
         run(baseline)
       rescue StandardError => e
         result(:failed, :error, detail: "#{e.class}: #{e.message}")
@@ -131,7 +131,7 @@ module Vehicles
       guard = Vehicles.configuration.refresh_guard
       return result(:rejected, :guard, version) if guard && !guard.call(candidate, Vehicles.dataset)
 
-      write(body, version)
+      write(body, version, data)
     end
 
     # Every model built once, so a malformed record fails the refresh instead
@@ -150,14 +150,18 @@ module Vehicles
       result(:rejected, :older, candidate)
     end
 
-    def write(body, version)
+    def write(body, version, data = nil)
       path = Vehicles.configuration.cache_path.to_s
       return result(:failed, :write_failed, version, detail: "no cache_path") if path.empty?
 
       promoted = with_lock(path) do
-        # Another process may have promoted a release meanwhile: re-check.
-        verdict = compare(version, baseline_version)
+        # Another process may have promoted a release meanwhile: re-check the
+        # version AND the shrink floor against the newest data on disk.
+        verdict = compare(version, DataSource.newest_version)
         next verdict if verdict
+
+        problem = data && ReleaseChecks.below_floor(data, DataSource.newest_dataset(path))
+        next result(:rejected, :below_floor, version, detail: problem) if problem
 
         write_atomic(path, body)
         nil
@@ -168,15 +172,6 @@ module Vehicles
       result(:updated, nil, version)
     rescue SystemCallError, IOError => e
       result(:failed, :write_failed, version, detail: e.class.name)
-    end
-
-    # The newest dataset this app already has: the bundled one, or a usable
-    # cache (whatever `use_cache` says — a refresh never writes an older file).
-    def baseline_version
-      bundled = DataSource.header(Vehicles::DATA_PATH)[:version]
-      cache = Vehicles.configuration.cache_path.to_s
-      cached = DataSource.usable_cache?(cache) ? DataSource.header(cache)[:version] : nil
-      [bundled, cached].compact.max
     end
 
     # jsDelivr's `@latest` resolves per file and is cached per file, so the

@@ -100,7 +100,7 @@ module Vehicles
       hits = dataset.models_by_alias(query)
       hits = scoped(hits, KindRule.symbols(kind))
       return nil if hits.empty?
-      return nil if (dataset.records_named(query) - hits.map { |m| record(m) }).any?
+      return nil if (dataset.records_named(query, KindRule.symbols(kind)) - hits.map { |m| record(m) }).any?
 
       via = hint + ["alias:#{query}"]
       return ModelMatcher.ambiguous(hits, :alias, via) unless hits.map { |m| record(m) }.uniq.one?

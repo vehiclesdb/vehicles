@@ -246,7 +246,7 @@ Labels for a kind or body type `<select>` ship in English and Spanish (you store
 Vehicles.kind_options(locale: :es)          # => [["Autobús", "bus"], ["Camión", "truck"], ["Ciclomotor", "moped"], ["Coche", "car"], ...]
 Vehicles.kind_label(:van, locale: :es)      # => "Furgoneta"
 Vehicles.body_type_label(:wagon, locale: :es) # => "Familiar"
-Vehicles.body_type_options(locale: :es)     # => [["Hatchback", "hatchback"], ["Sedán", "sedan"], ...]
+Vehicles.body_type_options(locale: :es)     # => [["Compacto", "hatchback"], ["Berlina", "sedan"], ...]
 ```
 
 > [!NOTE]
@@ -321,6 +321,7 @@ Vehicles.color_options               # => [["White", "white"], ["Black", "black"
 Vehicles.color_options(locale: :es)  # => [["Blanco", "white"], ["Negro", "black"], ["Gris", "grey"], ...]
 Vehicles.color("red").label(:es)     # => "Rojo"
 Vehicles.color("Marrón").slug        # => "brown"  — Spanish input resolves too ("rojo", "plateada", "granate")
+Vehicles.colors(locale: :es).first   # => #<Vehicles::Color white "Blanco" #F4F4F4>
 ```
 
 Store the **slug** (it is also what maps to the image color variants); labels
@@ -561,7 +562,7 @@ It reads what people actually type: case, accents and spacing don't matter
 (Iveco's Daily: van, truck, bus) follows the [one kind rule](#matching-stored-make--model-pairs)
 unless you pass `kind:` — a car-only app passes `kind: :car` everywhere.
 
-**Year pickers.** `Model#registration_years` is a *hint* — the first and last
+**Year pickers.** `Model#registration_years` is a *hint* — `{ first:, last: }`, the first and last
 year the nameplate shows up in official registrations, when the dataset
 publishes it (nil until then) — good for ordering or pre-filling a year
 `<select>`, never a validation bound (imports and late registrations fall
@@ -880,7 +881,7 @@ model.kind     model.body_type                 model.suv?    model.coupe?   # �
 model.global_decile   model.popular?           # 1 = top 10% worldwide; nil-safe
 model.availability    model.available_in?(:nl) model.two_wheeler?
 model.id       model.former_ids                # "car/volkswagen/golf"; ids this record replaced
-model.registration_years                       # 1998..2026 hint, or nil (never a validation bound)
+model.registration_years                       # { first: 1998, last: 2026 } hint, or nil (never a validation bound)
 model.years    model.segment                   # production years / segment: nil until published
 model.image(color:, size:, exact_color:)  model.images(color:)  model.images_result(color:)  # ← hosted API
 

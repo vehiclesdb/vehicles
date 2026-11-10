@@ -14,12 +14,11 @@ module Vehicles
     #   Vehicles.by_id("car/volkswagen/golf")              # => #<Vehicles::Model "Volkswagen Golf" hatchback>
     #   Vehicles.by_id("car/alfa-romeo/159sw")              # => the 159 (renamed record)
     #   Vehicles.by_id("car/alfa-romeo/159sw", follow: false) # => nil
-    def by_id(id, follow: true)
+    #   Vehicles.by_id(id, kinds: [:car])  # nil unless the answer is a car
+    def by_id(id, follow: true, kinds: nil)
       id = id.to_s.strip
-      exact = dataset.models_by_id(id).first
-      return exact if exact || !follow
-
-      dataset.successor_of(id)
+      found = dataset.models_by_id(id).first || (follow ? dataset.successor_of(id) : nil)
+      found && KindRule.allows?(KindRule.symbols(kinds), found) ? found : nil
     end
 
     # The id to store NOW for a stored id: itself when live, its successor's

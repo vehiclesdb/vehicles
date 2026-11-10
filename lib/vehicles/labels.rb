@@ -26,18 +26,16 @@ module Vehicles
             "yellow" => "Amarillo", "gold" => "Dorado", "purple" => "Morado", "other" => "Otro" }
     }.freeze
 
-    # What people type for a color besides its label, per locale: feminine
-    # forms ("furgoneta blanca"), the adjective forms of the metals and
-    # everyday near-synonyms. Matched after Vehicles.normalize ("marrón" →
-    # "marron"), so accents never matter.
+    # What people type for a color besides its label, per locale (the
+    # cross-surface list, DECISIONS D2 — the SDKs carry the same one).
+    # Matched after Vehicles.normalize, so accents never matter ("marrón").
     COLOR_SYNONYMS = {
       en: { "gray" => "grey", "silvery" => "silver", "tan" => "beige", "cream" => "beige",
-            "burgundy" => "red", "navy" => "blue", "violet" => "purple", "golden" => "gold" },
-      es: { "blanca" => "white", "negra" => "black", "roja" => "red", "amarilla" => "yellow",
-            "dorada" => "gold", "morada" => "purple", "plateado" => "silver", "plateada" => "silver",
-            "plata metalizado" => "silver", "granate" => "red", "burdeos" => "red", "azul marino" => "blue",
-            "violeta" => "purple", "lila" => "purple", "crema" => "beige", "otra" => "other",
-            "gris plata" => "silver", "marron" => "brown", "cafe" => "brown" }
+            "burgundy" => "red", "navy" => "blue" },
+      es: { "blanca" => "white", "negra" => "black", "plateado" => "silver", "plateada" => "silver",
+            "gris" => "grey", "dorada" => "gold", "amarilla" => "yellow", "morada" => "purple",
+            "violeta" => "purple", "granate" => "red", "azul marino" => "blue", "crema" => "beige",
+            "otra" => "other" }
     }.freeze
 
     KINDS = {
@@ -50,11 +48,11 @@ module Vehicles
     }.freeze
 
     BODY_TYPES = {
-      en: { "hatchback" => "Hatchback", "sedan" => "Sedan", "wagon" => "Estate", "suv" => "SUV",
-            "mpv" => "MPV", "coupe" => "Coupé", "convertible" => "Convertible", "roadster" => "Roadster",
+      en: { "hatchback" => "Hatchback", "sedan" => "Sedan", "wagon" => "Wagon", "suv" => "SUV",
+            "mpv" => "MPV", "coupe" => "Coupe", "convertible" => "Convertible", "roadster" => "Roadster",
             "pickup" => "Pickup", "van" => "Van" },
-      es: { "hatchback" => "Hatchback", "sedan" => "Sedán", "wagon" => "Familiar", "suv" => "SUV",
-            "mpv" => "Monovolumen", "coupe" => "Coupé", "convertible" => "Descapotable",
+      es: { "hatchback" => "Compacto", "sedan" => "Berlina", "wagon" => "Familiar", "suv" => "SUV",
+            "mpv" => "Monovolumen", "coupe" => "Cupé", "convertible" => "Descapotable",
             "roadster" => "Roadster", "pickup" => "Pick-up", "van" => "Furgoneta" }
     }.freeze
 
@@ -81,8 +79,11 @@ module Vehicles
   # (`Vehicles.colors`, `Vehicles.color`, `Vehicles.kind_label`, …).
   module LabelOptions
     # The canonical color palette, frequency-ordered. => [Vehicles::Color, ...]
-    def colors
-      Colors::ALL
+    # With `locale:`, each Color's `name` is the label in that locale.
+    def colors(locale: nil)
+      return Colors::ALL if locale.nil? || Labels.locale(locale) == :en
+
+      Colors::ALL.map { |c| Color.new(c.slug, c.label(locale), c.hex) }
     end
 
     # [[label, slug], ...] for a Rails `select`, in palette order. The slug
@@ -96,7 +97,8 @@ module Vehicles
     # Resolve a color by slug, or by name in any supported language
     # (forgiving: case, diacritics, synonyms — "gray"→grey, "navy"→blue,
     # "Rojo"→red, "marrón"→brown, "plateada"→silver). A Vehicles::Color, or nil.
-    def color(query)
+    # `locale:` is accepted for parity with the SDKs; every locale's names are read anyway.
+    def color(query, locale: nil)
       q = normalize(query)
       return nil if q.empty?
 

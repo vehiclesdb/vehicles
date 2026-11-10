@@ -91,8 +91,9 @@ module Vehicles
     # dataset release renames the record (it lists the old id in former_ids).
     attr_reader :id
 
-    # Years this nameplate shows up in official registrations, as a Range
-    # (e.g. 1998..2026), or nil when the dataset does not publish them.
+    # Years this nameplate shows up in official registrations, as
+    # `{ first: 1998, last: 2026 }` (the SDKs' shape), or nil when the dataset
+    # does not publish them.
     # A HINT for ordering or pre-filling a year picker — never a validation
     # bound: an import, a late registration or a register that starts in 2015
     # all fall outside it legitimately. Not `years` (production years).
@@ -179,7 +180,7 @@ module Vehicles
         global_decile: global_decile, rarity: rarity,
         availability: availability, regions: regions, aliases: aliases, forms: forms,
         former_ids: former_ids, country_ranks: country_ranks, mass_decile: mass_decile,
-        registration_years: registration_years && [registration_years.first, registration_years.last] }
+        registration_years: registration_years }
     end
 
     # Value-object equality by canonical id (since 0.9.2). Until 0.9.1 it
@@ -252,7 +253,7 @@ module Vehicles
     def registration_years_of(attrs)
       years = attrs["registration_years"]
       first, last = years.is_a?(Hash) ? years.values_at("first", "last") : Array(years).first(2)
-      first.is_a?(Integer) && last.is_a?(Integer) && first <= last ? (first..last) : nil
+      first.is_a?(Integer) && last.is_a?(Integer) && first <= last ? { first: first, last: last }.freeze : nil
     end
 
     # The flat `mass_decile` key, or the nested `popularity.mass_decile` some

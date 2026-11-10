@@ -20,16 +20,16 @@ module Vehicles
   def self.model: (untyped make_name, untyped model_name, ?fuzzy: bool, ?kind: Symbol?, ?kinds: Array[Symbol]?) -> Model?
   def self.match_model: (untyped make_name, untyped model_name, ?kind: Symbol?, ?kinds: Array[Symbol]?) -> ModelMatch?
   def self.identify: (untyped text, ?kind: Symbol?, ?kinds: Array[Symbol]?) -> ModelMatch?
-  def self.by_id: (untyped id, ?follow: bool) -> Model?
+  def self.by_id: (untyped id, ?follow: bool, ?kinds: Array[Symbol]?) -> Model?
   def self.successor: (untyped id) -> String?
   def self.live?: (untyped id) -> bool
   def self.search: (untyped query) -> Array[Model]
   def self.make_options: (?kind: Symbol?, ?region: Symbol?, ?country: untyped) -> Array[[String, String]]
   def self.model_options: (untyped make, ?kind: Symbol?, ?body_type: Symbol?, ?country: untyped) -> Array[[String, String]]
-  def self.catalog: (?kind: Symbol?, ?region: Symbol?, ?country: untyped) -> Hash[String, Array[String]]
+  def self.catalog: (?kind: Symbol?, ?region: Symbol?, ?country: untyped, ?kinds: Array[Symbol]?) -> Hash[String, Array[String]]
 
-  def self.colors: () -> Array[Color]
-  def self.color: (untyped query) -> Color?
+  def self.colors: (?locale: untyped) -> Array[Color]
+  def self.color: (untyped query, ?locale: untyped) -> Color?
   def self.color_options: (?locale: untyped) -> Array[[String, String]]
   def self.kind_label: (untyped kind, ?locale: untyped) -> String?
   def self.kind_options: (?locale: untyped, ?kinds: Array[Symbol]) -> Array[[String, String]]
@@ -161,7 +161,7 @@ module Vehicles
     attr_reader forms: Array[String]
     attr_reader id: String
     attr_reader former_ids: Array[String]
-    attr_reader registration_years: Range[Integer]?
+    attr_reader registration_years: { first: Integer, last: Integer }?
     def full_name: () -> String
     def to_s: () -> String
     def slug: () -> String

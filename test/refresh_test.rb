@@ -316,6 +316,40 @@ module Vehicles
       assert_equal bundled, Vehicles.data_version
     end
 
+    # Astra r2: the in-memory dataset counts as "what we have".
+    def test_a_release_older_than_the_data_in_memory_is_refused
+      Vehicles.configure { |c| c.reload_check_interval = 0 }
+      File.write(@cache, MULTIBYTE_PAYLOAD) # 9999.02.0 adopted…
+
+      assert_equal "9999.02.0", Vehicles.data_version
+      File.delete(@cache) # …then the file disappears; memory keeps 9999.02.0
+      serve(PAYLOAD) # a stale CDN announces 9999.01.0
+
+      assert_equal(%i[rejected older], Vehicles.refresh.then { |r| [r.status, r.reason] })
+    end
+
+    # Astra r2: the floor is re-checked under the lock against the newest file.
+    def test_the_floor_is_rechecked_against_a_release_promoted_meanwhile
+      Vehicles.configure { |c| c.refresh_min_ratio = 0.9 }
+      many = (1..30).map { |i| { "name" => "M#{i}", "slug" => "m#{i}", "kind" => "car", "availability" => ["es"] } }
+      big = [{ "name" => "Testmark", "slug" => "testmark", "kinds" => ["car"], "models" => many }]
+      File.write(@cache, self.class.payload("9999.01.0", big)) # promoted by "another worker"
+      small = JSON.parse(PAYLOAD).merge("version" => "9999.02.0")
+
+      result = Refresher.write(JSON.generate(small), DataSource.version("9999.02.0"), small)
+
+      assert_equal %i[rejected below_floor], [result.status, result.reason]
+    end
+
+    # Astra r2: what is parsed is checked, not only the header read earlier.
+    def test_a_file_swapped_after_its_header_was_read_is_checked_again
+      File.write(@cache, PAYLOAD)
+      DataSource.header(@cache) # header cached for this stamp…
+      File.write(@cache, self.class.payload("9999.01.0", schema: 3)) # …same size, new schema
+
+      assert_raises(DataSource::Error) { DataSource.build(@cache) }
+    end
+
     def test_a_parseable_file_without_makes_never_replaces_the_data
       Vehicles.configure { |c| c.reload_check_interval = 0 }
       File.write(@cache, PAYLOAD)

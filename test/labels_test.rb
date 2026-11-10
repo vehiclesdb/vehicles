@@ -29,6 +29,13 @@ module Vehicles
       assert_nil Vehicles.color("rojizo")
     end
 
+    def test_colors_in_a_locale
+      assert_equal "Blanco", Vehicles.colors(locale: :es).first.name
+      assert_equal Vehicles.colors, Vehicles.colors(locale: :es) # same slugs = equal
+      assert_same Colors::ALL, Vehicles.colors(locale: :en)
+      assert_equal "red", Vehicles.color("rojo", locale: :es).slug
+    end
+
     def test_every_color_has_every_locale
       Labels::LOCALES.each do |locale|
         assert_equal Colors::ALL.map(&:slug).sort, Labels::COLORS[locale].keys.sort
@@ -49,6 +56,9 @@ module Vehicles
         assert(Vehicles.body_type_options(locale: locale).all? { |label, _| label })
       end
       assert_equal "Familiar", Vehicles.body_type_label(:wagon, locale: :es)
+      assert_equal(%w[Compacto Berlina Cupé], %i[hatchback sedan coupe].map do |t|
+        Vehicles.body_type_label(t, locale: :es)
+      end)
       assert_equal "Monovolumen", Vehicles.body_type_label("mpv", locale: :es)
     end
 

@@ -35,11 +35,11 @@ module Vehicles
 
     # A detail string when some kind or (kind, country) slice of the candidate
     # is below refresh_min_ratio of the data in use; nil when all hold.
-    def below_floor(data)
+    def below_floor(data, dataset = Vehicles.dataset)
       ratio = Vehicles.configuration.refresh_min_ratio
       return nil if ratio.nil?
 
-      current = Vehicles.dataset.all_models.map { |m| [m.kind.to_s, m.availability] }
+      current = dataset.all_models.map { |m| [m.kind.to_s, m.availability] }
       before = bucket_counts(current)
       after = bucket_counts(raw_models(data))
       before.each do |bucket, count|

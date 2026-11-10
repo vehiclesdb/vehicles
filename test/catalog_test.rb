@@ -74,6 +74,15 @@ module Vehicles
       assert_empty Vehicles.catalog(kind: :car, country: :zz)
     end
 
+    def test_catalog_takes_kinds
+      both = Vehicles.catalog(kinds: %i[car van], country: :es)
+
+      assert_includes both["Volkswagen"], "Caddy"
+      assert_equal both["Volkswagen"], both["Volkswagen"].uniq
+      assert_empty Vehicles.catalog(kinds: [])
+      assert_equal Vehicles.catalog(kind: :car, country: :es), Vehicles.catalog(kinds: [:car], country: :es)
+    end
+
     def test_catalog_is_json_ready
       json = Vehicles.catalog.to_json
       round_tripped = JSON.parse(json)

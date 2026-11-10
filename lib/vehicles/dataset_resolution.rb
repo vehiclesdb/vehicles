@@ -21,8 +21,10 @@ module Vehicles
     end
 
     # Records ("make/model" slugs, any make) NAMED this (normalized).
-    def records_named(key)
-      resolution_index[:name][key] || []
+    # `kinds` (a list, or nil for any) limits which records count.
+    def records_named(key, kinds = nil)
+      (resolution_index[:name][key] || []).select { |m| KindRule.allows?(kinds, m) }
+                                          .map { |m| "#{m.make_slug}/#{m.model_slug}" }.uniq
     end
 
     # The `via` step for a make reached through something other than its own
@@ -78,7 +80,7 @@ module Vehicles
         key = Vehicles.normalize(a)
         (idx[:alias][key] ||= []) << model unless key.empty?
       end
-      (idx[:name][Vehicles.normalize(model.name)] ||= []) << record
+      (idx[:name][Vehicles.normalize(model.name)] ||= []) << model
     end
   end
 end

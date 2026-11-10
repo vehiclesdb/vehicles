@@ -41,6 +41,21 @@ module Vehicles
       assert Vehicles.live?(retired.id)
     end
 
+    def test_by_id_takes_kinds
+      daily = "bus/iveco/daily"
+
+      assert_nil Vehicles.by_id(daily, kinds: [:car])
+      assert_equal daily, Vehicles.by_id(daily, kinds: %i[bus van])&.id
+    end
+
+    def test_registration_years_shape
+      model = Model.new({ "name" => "X", "slug" => "x", "registration_years" => { "first" => 1998, "last" => 2026 } },
+                        make: "M", make_slug: "m")
+
+      assert_equal({ first: 1998, last: 2026 }, model.registration_years)
+      assert_nil Vehicles.find("vw golf").registration_years # not published before 2026.11.3
+    end
+
     def test_unknown_ids
       assert_nil Vehicles.by_id("car/nope/nope")
       assert_nil Vehicles.successor("car/nope/nope")
@@ -63,6 +78,16 @@ module Vehicles
         assert_equal "car/newco/roadster", Vehicles.by_id("car/oldco/roadster")&.id  # same model slug, new make
         assert_equal "car/newco/roadster", Vehicles.by_id("car/oldco/speedster")&.id # former id
         assert_includes Vehicles.match_model("Oldco", "Roadster").via, "former_make_slug:oldco→newco"
+      end
+    end
+
+    # Astra r2: a record outside `kinds:` cannot veto a whole-text alias.
+    def test_an_excluded_kind_does_not_veto_a_whole_text_alias
+      car = { "name" => "Arrow", "slug" => "arrow", "kind" => "car", "aliases" => ["Rocket"] }
+      bike = { "name" => "Rocket", "slug" => "rocket", "kind" => "motorcycle" }
+      with_dataset({ "Testa" => [car], "Moto" => [bike] }) do
+        assert_nil Vehicles.identify("rocket") # the motorcycle NAMED Rocket vetoes the car's alias
+        assert_equal "car/testa/arrow", Vehicles.identify("rocket", kinds: [:car])&.model&.id
       end
     end
 

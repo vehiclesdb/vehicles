@@ -328,10 +328,14 @@ module Vehicles
     #   Vehicles.catalog(kind: :car)                # => every car, worldwide
     # Pass `kind:` for a picker: without it a nameplate sold as a car and a
     # van appears twice.
-    def catalog(kind: nil, region: nil, country: nil)
-      dataset.makes(kind: kind, region: region || configuration.region, country: country).to_h do |make|
-        [make.name, make.models(kind: kind, region: region || configuration.region, country: country).map(&:name)]
-      end
+    # `kinds:` allows several kinds (a car-and-van picker); `[]` is empty.
+    def catalog(kind: nil, region: nil, country: nil, kinds: nil)
+      scope = KindRule.scope(kind, kinds)
+      region ||= configuration.region
+      dataset.makes(kind: kind, region: region, country: country).filter_map do |make|
+        names = make.models(region: region, country: country).select { |m| KindRule.allows?(scope, m) }.map(&:name)
+        [make.name, names.uniq] unless names.empty?
+      end.to_h
     end
 
     # --- provider resolution (hosted enrichment, optional) -------------------
