@@ -25,6 +25,16 @@ module Vehicles
       resolution_index[:name][key] || []
     end
 
+    # The `via` step for a make reached through something other than its own
+    # name or slug: a retired make slug (`former_make_slug:old→new`,
+    # RESOLUTION.md) or an alias (`make_alias:key→slug`).
+    def make_step(make, key)
+      old = key.tr(" ", "-")
+      return "former_make_slug:#{old}→#{make.slug}" if make_by_former_slug(old).equal?(make)
+
+      "make_alias:#{key}→#{make.slug}"
+    end
+
     # The live Model a retired id now answers to (Vehicles.by_id), or nil:
     #   1. the record that lists the id in `former_ids` (one record; its kind
     #      variant of the id's kind, else the collision rule);

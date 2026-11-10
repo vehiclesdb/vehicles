@@ -46,7 +46,7 @@ module Vehicles
     end
 
     # The one kind-collision rule (0.9.2; Vehicles::KindRule): lowest
-    # mass_decile, then van > car > truck > bus > moped > motorcycle. Every
+    # mass_decile, then van > car > bus > truck > moped > motorcycle. Every
     # Land Cruiser record is decile 1, so the van answers; the car is one
     # `kind:` away.
     def test_the_collision_rule_picks_when_a_name_is_several_kinds
@@ -70,7 +70,7 @@ module Vehicles
 
     def test_kinds_is_a_hard_filter
       assert_nil Vehicles.model("Iveco", "Daily", kinds: %i[car])
-      assert_equal :truck, Vehicles.model("Iveco", "Daily", kinds: %i[truck bus]).kind
+      assert_equal :bus, Vehicles.model("Iveco", "Daily", kinds: %i[truck bus]).kind # bus before truck
       assert_nil Vehicles.model("Iveco", "Daily", kind: :van, kinds: %i[truck])
     end
   end

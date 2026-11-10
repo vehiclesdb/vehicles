@@ -20,6 +20,8 @@ module Vehicles
   #   - a file that cannot be read or parsed never replaces the dataset in
   #     memory: the process keeps serving what it has.
   module DataSource
+    class Error < StandardError; end
+
     # Dataset `schema_version`s this gem reads. A payload or cache with any
     # other schema is never loaded or promoted.
     SCHEMA_VERSIONS = [2].freeze
@@ -116,8 +118,10 @@ module Vehicles
 
       path = active_path
       stamp = stamp(path)
-      # Unchanged, or the very file that already failed to load: keep serving.
-      if snap && ((snap.path == path && snap.stamp == stamp) || @unloadable == [path, stamp])
+      # Unchanged, the very file that already failed to load, or older than
+      # what is in memory (a cache deleted or replaced by an older/unreadable
+      # file): keep serving. Only `reload!` goes back to older data.
+      if snap && ((snap.path == path && snap.stamp == stamp) || @unloadable == [path, stamp] || older?(path, snap))
         snap.checked_at = now
         return snap.dataset
       end
@@ -125,8 +129,24 @@ module Vehicles
       load_snapshot(path, stamp, now, snap)
     end
 
+    def older?(path, snap)
+      candidate = header(path)[:version]
+      current = version(snap.dataset.version)
+      current && (candidate.nil? || candidate < current)
+    end
+
+    # Parse and fully build a dataset file, or raise: a file that parses but
+    # is not a whole dataset (no makes, a malformed model) must fail HERE,
+    # not later inside a request.
+    def build(path)
+      raw = JSON.parse(File.read(path))
+      raise Error, "#{path}: no makes" unless raw.is_a?(Hash) && raw["makes"].is_a?(Array) && raw["makes"].any?
+
+      Dataset.new(raw).tap(&:all_models)
+    end
+
     def load_snapshot(path, stamp, now, previous)
-      dataset = Dataset.new(JSON.parse(File.read(path)))
+      dataset = build(path)
       if previous && previous.dataset.version != dataset.version
         Vehicles.logger&.info("[vehicles] dataset #{previous.dataset.version} → #{dataset.version} (#{path})")
       end

@@ -9,15 +9,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.9.2] - 2026-11-10
 
+Everything below the plates fixes comes from dogfooding the gem in a production Rails app (CarHey) and making each workaround it had to write a general feature.
+
+### Changed (behaviour)
+- **One kind-collision rule, shared by every VehiclesDB surface** (`Vehicles::KindRule`; vehiclesdb RESOLUTION.md §3). When one nameplate is several records (Iveco "Daily" is a van, a truck and a bus) and no kind is given, `Vehicles.model`, `Make#model`, `match_model` and `identify` pick the lowest `mass_decile`, then van → car → bus → truck → moped → motorcycle, then the id. Until 0.9.1 the gem preferred the car (else file order) while the SDKs used another tie-break, so the stored id depended on the door a user came through. Backtested on register counts, the rule picks the most-registered kind in 87% of collision groups (car-first: 43%). Pass `kind:` to keep a kind.
+- **`Model#==`, `eql?` and `hash` compare the canonical id**, not the composite slug: the car and the van of one nameplate are no longer equal (they used to collapse in sets, `uniq` and hash keys).
+- `Vehicles.refresh!` keeps returning true/false, but now true means "the app has the latest release" (written, or already current), and it refuses releases it used to accept (see Safe refresh).
+- `Model#image(year:)` sends `year` to the API instead of silently dropping it; the API answers `422 unsupported_filter` until year-accurate renders ship, so `image(year:)` is nil and `images_result` says why.
+- A refreshed cache older than the gem's bundled data, or in a schema the gem does not read, is no longer served.
+- `Model#to_h` gains `id`, `model_slug`, `forms`, `registration_years`; `ModelMatch#to_h` gains `id` and `confident`.
+
+### Added
+- **Safe refresh.** `Vehicles.refresh` returns a `Vehicles::RefreshResult` (`status` :updated/:current/:rejected/:failed, `reason`, `version`, `previous_version`, `message`; never raises). It reads the release manifest first (`config.manifest_url`, derived from `data_url`): an unsupported schema or an older version is refused and the same version downloads nothing. The payload is fetched from the announced release (jsDelivr `@latest` pinned to it), must carry that version and schema, match the manifest's per-kind model counts and its sha256 when published, keep every kind and (kind, country) slice at or above `config.refresh_min_ratio` (0.9) of the data in use, and pass the optional `config.refresh_guard`. Written atomically.
+- **Every process adopts a new dataset on its own**: at most every `config.reload_check_interval` seconds (default 5) a call stats the file and reloads when it changed — no restart, no executor hook. A corrupt file never replaces the dataset in memory. `config.cache_dir` (or `VEHICLES_CACHE_DIR`) puts the cache on a shared volume, so one refresh reaches every container. README: "Staying current" has the multi-container recipe.
+- **Canonical ids**: `Model#id` (`"car/volkswagen/golf"`), `Vehicles.by_id(id, follow: true)` (follows `former_ids`; a split id answers nil), `Vehicles.successor(id)` (the id to store now), `Vehicles.live?(id)`. Make `former_slugs` are read when the dataset publishes them (`Make#former_slugs`, `Vehicles.make("old-slug")`, `by_id` across a make rename); a no-op until then.
+- **`kinds:`** on `Vehicles.model`, `match_model`, `identify` and `Make#model`: a hard filter on every rung, ids included (`identify("bus/iveco/daily", kinds: [:car])` → nil). `kind:` keeps scoping the name rungs and never overrides an explicit id.
+- **`ModelMatch#confident?`**: an answer from a curated rung (exact, former_id, fold, alias, form, cleaned), never fuzzy or ambiguous — the recommended threshold for writing a match back without asking.
+- **Per-country catalog**: `country:` on `Vehicles.catalog`, `makes`, `models`, `make_options` and `model_options` (models with official evidence there, in that country's own order). `top_models(limit: nil)` returns every match.
+- **Labels in English and Spanish**: `Vehicles.color_options(locale: :es)`, `Color#label(:es)`, `Vehicles.kind_label` / `kind_options`, `Vehicles.body_type_label` / `body_type_options`. `Vehicles.color` resolves Spanish input ("Rojo", "marrón", "plateada", "granate").
+- **Hosted errors are no longer silent**: `Model#images_result` returns a `Vehicles::HostedResult` (`reason`, `status`, the API's own `error` code, `url(size)`); `config.on_hosted_error` and a warn log line fire for 401/402/403/429/5xx/timeouts (never for a missing render). Image payloads are cached (`config.image_cache`, in-process by default; `image_cache_ttl` 1 day capped by the payload's `expires_at`, `image_miss_ttl` 10 min for 404s; errors never cached). `exact_color: true` answers nil instead of another color's render and remembers the palette so an unrendered color costs no request. ActiveSupport notifications `request.vehicles` / `refresh.vehicles` when present.
+- `Model#registration_years`: the first..last year in official registrations when the dataset publishes it (nil until then). A hint, never a validation bound; `Model#years` docs now say plainly that production years are not published yet.
+- Plates: `Match#reason` (`:ok`, `:unverifiable`, `:excluded_letters`, `:bad_shape`, `:empty`, `:unknown_jurisdiction` — the API's codes), `Match#excluded_letters`, `Match#passenger?` and `Series#passenger?` (issued to passenger-carrying vehicles; trailer and tractor series are not).
+- Validators take `kind:`, `kinds:` and `country:` (`vehicle_make: { kind: :car, country: :es }`).
+- `Plates::Match#near_misses`: the series whose shape a plate has but whose issuing alphabet it breaks ("1234 ABC" → `es-national-2000`: Spain issues no vowels, Ñ or Q). Empty whenever the plate hits a strict series. Lets a form explain the rejection. `Series#matching` and `Series#recall_lenient_regexp` back it, and `Series#letters` (the issued letter set, when the dataset enumerates one) tells a form whether the alphabet is what failed.
+
 ### Fixed
+- The hosted client follows a former id's `301` (same origin only, so the key never leaves the host): images no longer vanish around a rename or a gem/API version skew.
+- `Vehicles.regions` follows the dataset in effect (it was memoized once per process).
+- Docs: the "car catalog is tens of KB" claim (it is ~63 KB worldwide, ~14 KB for one country), `Model::KINDS` ("all :car"), and the initializer's "EU market" text.
 - **`Plates::Series#strict?` now reads the dataset's `matching:` key** (PRD-PLATES §2.7, normative) instead of inferring strictness from a `regex_strict` twin being present. The spec forbids that inference: most strict series need no twin because their `regex` already is the issuing grammar. 668 strict series were answering `strict? == false` before, among them Portugal's whole national range (AA-00-AA) and the Spanish CD/CC/OI/TA, military and police series. `Match#strict?` follows. Found by dogfooding: 2 of CarHey's 3 Portuguese cars validated as "recall-only".
 - `Match#formatted` / `Series#format_serial` no longer invent a split when the series' regex can split a serial more than one way (`Series#ambiguous_split?`): "CD12345" and "CD123456" come back as stored instead of "CD-1234-5" / the representative "CD-123-456". This runs before the display-pattern walk; 22 series with variable-width groups (ES diplomatic, personalised and special-index plates) are affected.
 - `Plates.template_series` (what `Plates.render` draws) prefers strict hits over recall-only ones: a Spanish "CD-123-456" is drawn as the diplomatic series, not as the 1900–1971 numeric catch-all it also fits.
 
-### Added
-- `Plates::Match#near_misses`: the series whose shape a plate has but whose issuing alphabet it breaks ("1234 ABC" → `es-national-2000`: Spain issues no vowels, Ñ or Q). Empty whenever the plate hits a strict series. Lets a form explain the rejection. `Series#matching` and `Series#recall_lenient_regexp` back it, and `Series#letters` (the issued letter set, when the dataset enumerates one) tells a form whether the alphabet is what failed.
-
 ### Changed
+- Bundled data refreshed to VehiclesDB v2026.11.2 (and its 87-case conformance file): restyled names such as "León", "XCeed", "ProCeed".
 - Bundled plates corpus refreshed to vehiclesdb `db0ec0a`: adds Egypt, Nigeria and Türkiye (127 jurisdictions, 1,409 series) and the Andorra and Austria verification corrections.
 
 ## [0.9.1] - 2026-11-09

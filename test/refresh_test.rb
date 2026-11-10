@@ -223,6 +223,14 @@ module Vehicles
       assert_predicate Vehicles.refresh, :updated?
     end
 
+    def test_published_bytes_are_verified
+      bad = JSON.parse(manifest("9999.01.0"))
+      bad["dist_files"] = { "dist/vehicles.json" => { "bytes" => PAYLOAD.bytesize + 1 } }
+      serve(PAYLOAD, manifest: JSON.generate(bad))
+
+      assert_equal :checksum_mismatch, Vehicles.refresh.reason
+    end
+
     # A release that lost most of a country's cars must not empty that
     # country's pickers: the default floor compares every kind and every
     # (kind, country) slice with the data in use.
@@ -298,9 +306,44 @@ module Vehicles
       File.rename("#{@cache}.tmp", @cache)
 
       assert_equal "9999.02.0", Vehicles.data_version
+      # Never back to older data on its own: a deleted (or older, or broken)
+      # cache keeps the newer dataset in memory until an explicit reload!.
       File.delete(@cache)
 
+      assert_equal "9999.02.0", Vehicles.data_version
+      Vehicles.reload!
+
       assert_equal bundled, Vehicles.data_version
+    end
+
+    def test_a_parseable_file_without_makes_never_replaces_the_data
+      Vehicles.configure { |c| c.reload_check_interval = 0 }
+      File.write(@cache, PAYLOAD)
+
+      assert_equal "9999.01.0", Vehicles.data_version
+      File.write(@cache, JSON.generate("version" => "9999.05.0", "schema_version" => 2, "makes" => []))
+
+      assert_equal ["Testmark"], Vehicles.makes
+    end
+
+    def test_a_model_that_does_not_build_is_refused
+      broken = JSON.parse(PAYLOAD)
+      broken["makes"][0]["models"][0]["regions"] = 7
+      serve(JSON.generate(broken))
+
+      assert_equal :invalid_payload, Vehicles.refresh.reason
+      refute_path_exists @cache
+    end
+
+    def test_a_refresh_finished_after_a_newer_one_does_not_downgrade
+      serve(MULTIBYTE_PAYLOAD, manifest: manifest("9999.02.0"))
+
+      assert_predicate Vehicles.refresh, :updated?
+      # A slower worker that started on 9999.01.0 reaches its write now.
+      result = Refresher.write(PAYLOAD, DataSource.version("9999.01.0"))
+
+      assert_equal %i[rejected older], [result.status, result.reason]
+      assert_equal "9999.02.0", Vehicles.data_version
     end
 
     def test_the_check_is_throttled
@@ -345,7 +388,7 @@ module Vehicles
 
     def manifest(version, schema: 2, cars: 1, sha256: nil)
       m = { "version" => version, "dist_schema_version" => schema, "kinds" => { "car" => { "models" => cars } } }
-      m["files"] = { "dist/vehicles.json" => { "sha256" => sha256 } } if sha256
+      m["dist_files"] = { "dist/vehicles.json" => { "sha256" => sha256 } } if sha256
       JSON.generate(m)
     end
 

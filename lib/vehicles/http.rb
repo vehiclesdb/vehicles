@@ -74,6 +74,35 @@ module Vehicles
       Response.new(status: nil, body: nil, error: :network, uri: uri)
     end
 
+    # The body of a public GET for the dataset refresh (jsDelivr): any
+    # redirect is followed (no credentials travel), a longer timeout
+    # (`refresh_timeout`), nil on any non-2xx. Labelled UTF-8.
+    DOWNLOAD_REDIRECTS = 3
+
+    def download(url, timeout, redirects_left = DOWNLOAD_REDIRECTS)
+      require "net/http"
+      require "uri"
+
+      uri = URI(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = uri.scheme == "https"
+      http.open_timeout = timeout
+      http.read_timeout = timeout
+
+      response = http.get(uri.request_uri, "Accept" => "application/json")
+      case response
+      when Net::HTTPSuccess
+        # Net::HTTP hands back an ASCII-8BIT body (e.g. after gzip decompression);
+        # our datasets are UTF-8 JSON, so label it correctly. Otherwise downstream
+        # writes/parses can transcode-raise under Encoding.default_internal = UTF-8.
+        response.body&.dup&.force_encoding(Encoding::UTF_8)
+      when Net::HTTPRedirection
+        return nil if redirects_left <= 0
+
+        download(URI.join(url, response["location"]).to_s, timeout, redirects_left - 1)
+      end
+    end
+
     def redirect_target(uri, response)
       return nil if response.location.to_s.empty?
 

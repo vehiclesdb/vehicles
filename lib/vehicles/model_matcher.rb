@@ -241,7 +241,7 @@ module Vehicles
       key = Vehicles.normalize(make_query)
       if (make = ds.find_make(make_query, fuzzy: false))
         own = key.empty? || key == Vehicles.normalize(make.name) || key == Vehicles.normalize(make.slug)
-        return [make, own ? [] : ["make_alias:#{key}→#{make.slug}"], false]
+        return [make, own ? [] : [ds.make_step(make, key)], false]
       end
       make = fuzzy ? ds.find_make(make_query, fuzzy: true) : nil
       make ? [make, ["make_typo:#{key}→#{make.slug}"], true] : [nil, [], false]

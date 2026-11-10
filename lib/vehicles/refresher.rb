@@ -16,8 +16,8 @@ module Vehicles
   #   2. the payload is fetched from that exact release (jsDelivr `@latest`
   #      is pinned to the announced version, so the two files cannot come
   #      from different releases), parses, carries that version and schema,
-  #      and matches the manifest's per-kind model counts and its sha256
-  #      when the manifest publishes one;
+  #      and matches the manifest's per-kind model counts and its
+  #      `dist_files` sha256/bytes when the manifest publishes them;
   #   3. no kind, and no (kind, country) slice, shrinks below
   #      `config.refresh_min_ratio` (default 0.9) of the data in use: a
   #      release that lost Spain's cars cannot empty a Spanish picker;
@@ -26,8 +26,6 @@ module Vehicles
   # directory). A failure at any step leaves the current data untouched.
   # Never raises; returns a Vehicles::RefreshResult.
   module Refresher
-    MAX_REDIRECTS = 3
-
     module_function
 
     def refresh
@@ -127,10 +125,21 @@ module Vehicles
       problem = ReleaseChecks.below_floor(data)
       return result(:rejected, :below_floor, version, detail: problem) if problem
 
+      candidate = materialize(data)
+      return result(:rejected, :invalid_payload, version, detail: "models") unless candidate
+
       guard = Vehicles.configuration.refresh_guard
-      return result(:rejected, :guard, version) if guard && !guard.call(Dataset.new(data), Vehicles.dataset)
+      return result(:rejected, :guard, version) if guard && !guard.call(candidate, Vehicles.dataset)
 
       write(body, version)
+    end
+
+    # Every model built once, so a malformed record fails the refresh instead
+    # of a later request. nil when it does not build.
+    def materialize(data)
+      Dataset.new(data).tap(&:all_models)
+    rescue StandardError
+      nil
     end
 
     # nil when the candidate is newer than what we have; otherwise the result.
@@ -145,7 +154,16 @@ module Vehicles
       path = Vehicles.configuration.cache_path.to_s
       return result(:failed, :write_failed, version, detail: "no cache_path") if path.empty?
 
-      write_atomic(path, body)
+      promoted = with_lock(path) do
+        # Another process may have promoted a release meanwhile: re-check.
+        verdict = compare(version, baseline_version)
+        next verdict if verdict
+
+        write_atomic(path, body)
+        nil
+      end
+      return promoted if promoted
+
       Vehicles.reload!
       result(:updated, nil, version)
     rescue SystemCallError, IOError => e
@@ -193,27 +211,17 @@ module Vehicles
       nil
     end
 
-    def fetch(url, timeout, redirects_left = MAX_REDIRECTS)
-      require "net/http"
-      require "uri"
+    # The dataset download (public, no key): Vehicles::HTTP.download.
+    def fetch(url, timeout) = HTTP.download(url, timeout)
 
-      uri = URI(url)
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = uri.scheme == "https"
-      http.open_timeout = timeout
-      http.read_timeout = timeout
-
-      response = http.get(uri.request_uri, "Accept" => "application/json")
-      case response
-      when Net::HTTPSuccess
-        # Net::HTTP hands back an ASCII-8BIT body (e.g. after gzip decompression);
-        # our datasets are UTF-8 JSON, so label it correctly. Otherwise downstream
-        # writes/parses can transcode-raise under Encoding.default_internal = UTF-8.
-        response.body&.dup&.force_encoding(Encoding::UTF_8)
-      when Net::HTTPRedirection
-        return nil if redirects_left <= 0
-
-        fetch(URI.join(url, response["location"]).to_s, timeout, redirects_left - 1)
+    # An exclusive lock next to the cache file, so two refreshes (two
+    # workers, two containers on one volume) never interleave check + write.
+    def with_lock(path)
+      require "fileutils"
+      FileUtils.mkdir_p(File.dirname(path))
+      File.open("#{path}.lock", File::RDWR | File::CREAT, 0o644) do |lock|
+        lock.flock(File::LOCK_EX)
+        yield
       end
     end
 

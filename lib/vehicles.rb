@@ -324,7 +324,7 @@ module Vehicles
     # order. That is the picker list a one-country app wants — Spain's cars are
     # ~140 makes / ~1,300 models, ~14 KB of JSON — where the whole global car
     # catalog is ~330 makes / ~6,000 models (~63 KB).
-    #   Vehicles.catalog(kind: :car, country: :es)  # => { "Abarth" => ["500", "595", ...], ... }
+    #   Vehicles.catalog(kind: :car, country: :es)["SEAT"]  # => ["Ibiza", "Arona", "León", ...]
     #   Vehicles.catalog(kind: :car)                # => every car, worldwide
     # Pass `kind:` for a picker: without it a nameplate sold as a car and a
     # van appears twice.

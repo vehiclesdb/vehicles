@@ -10,6 +10,7 @@ module Vehicles
   class IdsTest < TestCase
     def test_model_id_is_kind_make_model
       assert_equal "car/volkswagen/golf", Vehicles.find("vw golf").id
+      assert_predicate Vehicles.find("vw golf").id, :frozen?
       assert_equal "car/volkswagen/golf", Vehicles.find("vw golf").to_h[:id]
     end
 
@@ -61,6 +62,7 @@ module Vehicles
         assert_equal "Newco", Vehicles.make("oldco", fuzzy: false).name
         assert_equal "car/newco/roadster", Vehicles.by_id("car/oldco/roadster")&.id  # same model slug, new make
         assert_equal "car/newco/roadster", Vehicles.by_id("car/oldco/speedster")&.id # former id
+        assert_includes Vehicles.match_model("Oldco", "Roadster").via, "former_make_slug:oldco→newco"
       end
     end
 

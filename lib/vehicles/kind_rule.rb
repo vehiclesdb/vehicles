@@ -9,15 +9,18 @@ module Vehicles
   # several kinds — Iveco "Daily" is a van, a truck and a bus. Not ambiguity:
   # when the caller gave no kind, the answer is the record with
   #   1. the lowest `mass_decile` (unranked last),
-  #   2. then the kind order PRECEDENCE,
+  #   2. then the kind order PRECEDENCE (any other kind after these, by
+  #      name),
   #   3. then the canonical id.
+  # Only among the candidates a rung itself selected: a hit is never widened
+  # to sibling kinds that did not match.
   # Backtested on register counts, that picks the kind most registered in 87%
   # of collision groups (the old "car wins" picked it in 43%).
   #
   # `kind:` (one kind) scopes the name rungs; `kinds:` (a list) is a hard
-  # filter everywhere, ids included.
+  # filter everywhere, ids included (`kinds: []` allows nothing).
   module KindRule
-    PRECEDENCE = %i[van car truck bus moped motorcycle].freeze
+    PRECEDENCE = %i[van car bus truck moped motorcycle].freeze
 
     module_function
 

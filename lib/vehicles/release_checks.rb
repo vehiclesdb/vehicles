@@ -17,8 +17,9 @@ module Vehicles
       return [:version_mismatch, "#{data["version"]} ≠ #{manifest["version"]}"] if
         data["version"] != manifest["version"]
 
-      sha = manifest.dig("files", dist_key, "sha256")
-      return [:checksum_mismatch, dist_key] if sha && Digest::SHA256.hexdigest(body) != sha
+      file = manifest.dig("dist_files", dist_key) || {}
+      return [:checksum_mismatch, "#{dist_key} bytes"] if file["bytes"].is_a?(Integer) && body.bytesize != file["bytes"]
+      return [:checksum_mismatch, dist_key] if file["sha256"] && Digest::SHA256.hexdigest(body) != file["sha256"]
 
       expected = manifest["kinds"]
       return nil unless expected.is_a?(Hash)

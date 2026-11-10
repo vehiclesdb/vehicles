@@ -33,7 +33,7 @@ module Vehicles
     #   optional body_type/global_decile/availability/regions/aliases/forms/former_ids)
     # @param make [String] the parent make's display name
     # @param make_slug [String] the parent make's slug (for the composite slug)
-    def initialize(attrs, make:, make_slug:)
+    def initialize(attrs, make:, make_slug:) # rubocop:disable Metrics/AbcSize -- one line per published field
       @make       = make
       @make_slug  = make_slug
       @name       = attrs["name"]
@@ -81,7 +81,7 @@ module Vehicles
       # Not production or model years: grey imports and late registrations
       # widen it, and a register's coverage starts when its data does.
       @registration_years = registration_years_of(attrs)
-      @id = "#{@kind}/#{make_slug}/#{@model_slug}"
+      @id = id_of(make_slug)
       freeze
     end
 
@@ -246,6 +246,8 @@ module Vehicles
     end
 
     private
+
+    def id_of(make_slug) = "#{@kind}/#{make_slug}/#{@model_slug}".freeze
 
     def registration_years_of(attrs)
       years = attrs["registration_years"]

@@ -193,7 +193,9 @@ module Vehicles
 
       loose = of_kind(idx[:name_squeezed][query.delete(" ")], kind)
       return [nil, nil] if loose.empty?
-      return [loose, :spacing] if loose.map { |m| idx[:normalized][m] }.uniq.one?
+      # One NAMEPLATE (model slug) in several kinds is a kind collision, not
+      # ambiguity, even when a release styles the kinds' names differently.
+      return [loose, :spacing] if loose.map(&:model_slug).uniq.one?
 
       [loose, :ambiguous]
     end
