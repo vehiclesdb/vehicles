@@ -115,10 +115,15 @@ module Vehicles
       def format_serial(serial)
         return nil if serial.nil?
 
+        # A serial whose groups the series' own regex can split more than one
+        # way is returned as stored, before anything else: the bare serial
+        # cannot say which split was issued ("CD123456" is CD-123-456 or
+        # CD-12-3456; the dataset calls CD-999-999 representative), and a
+        # display pattern of one shape must not decide it.
+        return serial.dup.freeze if ambiguous_split?(serial)
+
         # The display pattern is authoritative when the serial fills it
-        # exactly — it knows splits the regex cannot (CC-999-999 over
-        # `\d+[- ]\d+` is ambiguous to a greedy match, unambiguous to the
-        # pattern).
+        # exactly and the regex has only one reading of it.
         slots = display_pattern&.each_char&.count { |ch| ![ "-", " ", "·", "." ].include?(ch) }
         if slots && serial.length == slots
           idx = 0
@@ -138,8 +143,7 @@ module Vehicles
         # (ES provincial: "M1234LA" is M-1234-LA, which the fixed-slot walk
         # sliced into "M1-234L-A").
         if issued_regexp && (m = issued_regexp.match(serial)) &&
-            m.captures.size == issued_separators.size + 1 &&
-            @issued_lazy_regexp&.match(serial)&.captures == m.captures
+            m.captures.size == issued_separators.size + 1
           return m.captures.each_with_index
                   .map { |part, i| i.zero? ? part : "#{issued_separators[i - 1]}#{part}" }
                   .join.freeze
@@ -298,6 +302,14 @@ module Vehicles
           end
         end
         out.gsub(REDUNDANT_CHARACTER_CLASS_REPEAT) { "#{Regexp.last_match(1)}+" }
+      end
+
+      # True when the greedy and lazy readings of the segmented regex split
+      # this serial differently.
+      def ambiguous_split?(serial)
+        greedy = issued_regexp&.match(serial) or return false
+        lazy = @issued_lazy_regexp&.match(serial) or return false
+        greedy.captures != lazy.captures
       end
 
       # A regex segment with its quantifiers made lazy (+ *, ?, {m,n}), for

@@ -114,6 +114,7 @@ module Vehicles
       # Variable-width groups: "CD12345" is CD-123-45 or CD-1234-5; the bare
       # serial cannot say which, so it comes back as stored.
       assert_equal "CD12345", Vehicles.plate("CD12345", jurisdiction: :es).formatted
+      assert_equal "CD123456", Vehicles.plate("CD-12-3456", jurisdiction: :es).formatted # fills CD-999-999, still ambiguous
       assert_equal "M-1234-AB", Vehicles.plate("M1234AB", jurisdiction: :es).formatted
       assert_equal "BI-1234-C", Vehicles.plate("BI1234C", jurisdiction: :es).formatted
       assert_equal "M-123456", Vehicles.plate("M123456", jurisdiction: :es).formatted
