@@ -53,7 +53,14 @@ module Vehicles
                         make: "M", make_slug: "m")
 
       assert_equal({ first: 1998, last: 2026 }, model.registration_years)
-      assert_nil Vehicles.find("vw golf").registration_years # not published before 2026.11.3
+      # Published since data 2026.11.3 (first-registration years, fi/nl).
+      assert_equal({ first: 1936, last: 2026 }, Vehicles.model("Fiat", "500", kind: :car).registration_years)
+    end
+
+    # The bundled data publishes make former_slugs since 2026.11.3.
+    def test_bundled_make_former_slugs
+      assert_equal "Alpine", Vehicles.make("renault-alpine")&.name
+      assert_equal "car/alpine/a110", Vehicles.by_id("car/renault-alpine/a110")&.id
     end
 
     def test_unknown_ids

@@ -405,7 +405,7 @@ key — and shows the release your server runs:
 
 ```ruby
 # app/helpers/vehicles_helper.rb
-# Built once per data release (Spain's cars: ~300 KB of JSON, ~50 KB gzipped).
+# Built once per data release (Spain's cars: ~360 KB of JSON, ~57 KB gzipped).
 def vehicles_dataset_json(**scope)
   Rails.cache.fetch(["vehicles/dataset_slice", Vehicles.data_version, scope]) do
     Vehicles.dataset_slice(**scope).to_json
