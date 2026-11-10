@@ -8,13 +8,17 @@
 #     class: VehiclesRefreshJob
 #     schedule: every day at 3am
 #
-# It's safe to run anytime: it never raises, and a failed/partial download leaves
-# your current data untouched (the gem keeps serving the cache, or the bundled
-# snapshot if there's no cache yet).
+# Safe to run anytime and from ONE place: it reads the release manifest first
+# (nothing is downloaded when you are current), never downgrades, never writes
+# a release your gem version cannot read or one that lost a chunk of your data,
+# and never raises. Every process (web workers, other containers sharing
+# `config.cache_dir`) picks the new file up on its own within a few seconds.
 class VehiclesRefreshJob < ApplicationJob
   queue_as :default
 
   def perform
-    Vehicles.refresh!
+    # Vehicles.refresh! (true/false) works too; the result says why.
+    result = Vehicles.refresh
+    Rails.logger.warn("[vehicles] #{result.message}") unless result.ok?
   end
 end

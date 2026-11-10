@@ -38,7 +38,7 @@ if defined?(Rails::Generators::TestCase)
 
         assert_file "app/jobs/vehicles_refresh_job.rb" do |content|
           assert_match(/class VehiclesRefreshJob < ApplicationJob/, content)
-          assert_match(/Vehicles\.refresh!/, content)
+          assert_match(/Vehicles\.refresh\b/, content)
         end
       end
     end

@@ -71,6 +71,21 @@ module Vehicles
         matching != "recall-only"
       end
 
+      # Vehicle categories that carry people (dataset `categories`
+      # vocabulary). A series issued only to trailers, semitrailers,
+      # caravans, tractors, machines or trucks plates nothing a passenger
+      # rides in.
+      PASSENGER_CATEGORIES = %w[car van bus coach motorhome motorcycle moped scooter quadricycle tricycle
+                                ambulance].freeze
+
+      # Is this series issued to at least one passenger-carrying vehicle
+      # category? (es-national-2000: yes; es-trailer-1999 and the
+      # es-special-vehicles-1999 tractor plates: no.) Series without
+      # categories answer true: unknown is not "no".
+      def passenger?
+        categories.empty? || categories.intersect?(PASSENGER_CATEGORIES)
+      end
+
       # period_evidence values on which the recorded START is not (or not
       # provenly) the series' birth — an instrument/consolidation date, an
       # upper bound, or an unverified secondary (the dataset's own honesty

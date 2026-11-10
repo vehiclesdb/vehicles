@@ -72,6 +72,50 @@ module Vehicles
       assert_nil result
     end
 
+    def test_the_result_says_why_with_the_apis_own_code
+      result = nil
+      serve(402, %({"error":"insufficient_credits","balance":0})) { result = @leon.images_result }
+
+      assert_equal [:payment_required, 402, "insufficient_credits"], [result.reason, result.status, result.error]
+      assert_equal "/api/v1/vehicles/car/seat/leon/images", result.path
+    end
+
+    def test_a_timeout_is_a_reason
+      Vehicles.configuration.api_timeout = 0.3
+      held = []
+      thread = Thread.new { held << @server.accept }
+      result = @leon.images_result
+
+      assert_equal :timeout, result.reason
+    ensure
+      thread&.join(1)
+      held&.each(&:close)
+    end
+
+    # A dataset release renamed the record: the API answers 301 to the
+    # successor's images URL (query kept). Until 0.9.1 the gem dropped it.
+    def test_a_former_id_redirect_is_followed_with_the_key
+      port = @server.addr[1]
+      requests = serve_each(
+        [301, %({"error":"moved_permanently"}),
+         { "Location" => "http://127.0.0.1:#{port}/api/v1/vehicles/car/seat/leon-new/images?color=white" }],
+        [200, IMAGES_JSON]
+      ) { @url = @leon.image(color: "white") }
+
+      assert_equal "https://cdn.example/leon-white-md.webp", @url
+      assert_equal "GET /api/v1/vehicles/car/seat/leon-new/images?color=white HTTP/1.1", requests[1][:line]
+      assert_equal "Bearer secret", requests[1][:headers]["authorization"]
+    end
+
+    def test_a_redirect_to_another_host_is_not_followed
+      requests = serve_each(
+        [301, "{}", { "Location" => "https://evil.example/steal" }]
+      ) { @result = @leon.images_result }
+
+      assert_equal 1, requests.size
+      assert_equal [:invalid_response, 301], [@result.reason, @result.status]
+    end
+
     def test_a_200_that_is_not_json_is_nil
       result = :unset
       serve(200, "<html>maintenance</html>", "text/html") { result = @leon.images }
@@ -125,6 +169,29 @@ module Vehicles
     )
 
     private
+
+    # Answer one request per [status, body, headers] in order; returns them.
+    def serve_each(*answers)
+      captured = []
+      thread = Thread.new do
+        answers.each do |status, body, headers|
+          client = @server.accept
+          request = { line: client.gets.to_s.chomp, headers: {} }
+          while (header = client.gets.to_s.chomp) != ""
+            name, value = header.split(": ", 2)
+            request[:headers][name.downcase] = value
+          end
+          captured << request
+          extra = (headers || {}).map { |k, v| "#{k}: #{v}\r\n" }.join
+          client.write "HTTP/1.1 #{status} X\r\nContent-Type: application/json\r\n#{extra}" \
+                       "Content-Length: #{body.bytesize}\r\nConnection: close\r\n\r\n#{body}"
+          client.close
+        end
+      end
+      yield
+      thread.join(5)
+      captured
+    end
 
     # Answer exactly one request with `status`/`body` while the block runs;
     # returns the request as received ({ line:, headers: }).

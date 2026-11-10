@@ -155,7 +155,24 @@ It tries, strongest first, and stops at the first rung that answers:
 - **No guessing from prefixes.** "C3 Aircr" is not "C3" (it's the C3 Aircross); only a curated form can say so.
 - **Ids stay exact.** Slug-, id- and path-shaped input (`"golf-gti"`, `"car/volkswagen/golf"`, symbols) only takes the exact rungs.
 
-`make.model(...)` and the `vehicle_model` validator stay strict — a form or a typo is not a valid model name to store. `kind:` works as in `model` (the car is preferred without it).
+`make.model(...)` and the `vehicle_model` validator stay strict — a form or a typo is not a valid model name to store.
+
+**Safe to write back without asking?** `confident?` is the recommended auto-apply threshold: an answer (not ambiguous) from a curated rung — the id, a former id, the name, a published alias, a curated form, or one of those after `:cleaned`. Never `:fuzzy`: a typo correction is a guess to *show* the user ("did you mean Touareg?"), not to store silently.
+
+```ruby
+m = Vehicles.match_model(row.make, row.model, kind: :car)
+row.update!(make: m.model.make, model: m.model.name, vehiclesdb_id: m.model.id) if m&.confident?
+```
+
+**Kinds.** One nameplate can be several records (Iveco's Daily is a van, a truck and a bus). That is not ambiguity: without a kind, every VehiclesDB surface (gem, API, SDKs, widget) applies the same rule — the record with the lowest `mass_decile`, then van → car → bus → truck → moped → motorcycle, then the id — so "Iveco Daily" is the van everywhere (`Vehicles::KindRule`; until 0.9.1 the gem preferred the car). Pass `kind:` to choose one, or `kinds:` to allow only some: a record outside `kinds:` never answers, on any rung, ids included.
+
+```ruby
+Vehicles.model("Iveco", "Daily")                     # => the van
+Vehicles.model("Iveco", "Daily", kind: :bus)          # => the bus
+Vehicles.match_model("Iveco", "Daily", kinds: [:car]) # => nil (there is no car Daily)
+Vehicles.identify("bus/iveco/daily", kinds: [:car])   # => nil (an id outside the scope too)
+Vehicles.identify("bus/iveco/daily", kind: :car).model # => the bus: `kind:` never overrides an explicit id
+```
 
 One free-text string instead of a pair? `identify` splits off the make (the longest leading run that is a make) and runs the same ladder. It also takes canonical ids (`:exact`, 1.0), ids a record has replaced (`:former_id`, 0.98), and a whole string that is exactly one model's published alias (`:alias`, 0.90). Apart from those, nothing resolves without a make:
 
@@ -180,13 +197,14 @@ Every `Vehicles::Model` reads like English and serializes cleanly:
 
 ```ruby
 car = Vehicles.find("seat leon")
+car.id          # => "car/seat/leon"   ← the canonical id: store this
 car.make        # => "SEAT"
-car.name        # => "Leon"
-car.full_name   # => "SEAT Leon"
+car.name        # => "León"
+car.full_name   # => "SEAT León"
 car.slug        # => "seat-leon"
-car.to_h        # => { make: "SEAT", model: "Leon", slug: "seat-leon",
+car.to_h        # => { id: "car/seat/leon", make: "SEAT", model: "León", slug: "seat-leon",
                 #      kind: :car, body_type: :hatchback, global_decile: 2,
-                #      availability: ["es", "fi", "gb", ...] }
+                #      availability: ["es", "fi", "gb", ...], ... }
 ```
 
 ## Kinds & body types
@@ -220,6 +238,15 @@ Vehicles.models("Toyota", body_type: :suv)   # => ["RAV4", "C-HR", "Yaris Cross"
 Vehicles.makes(kind: :car)                    # => makes that build cars
 Vehicles.makes(kind: :motorcycle)             # => makes that build bikes
 Vehicles.search("golf").select(&:hatchback?)
+```
+
+Labels for a kind or body type `<select>` ship in English and Spanish (you store the symbol):
+
+```ruby
+Vehicles.kind_options(locale: :es)          # => [["Autobús", "bus"], ["Camión", "truck"], ["Ciclomotor", "moped"], ["Coche", "car"], ...]
+Vehicles.kind_label(:van, locale: :es)      # => "Furgoneta"
+Vehicles.body_type_label(:wagon, locale: :es) # => "Familiar"
+Vehicles.body_type_options(locale: :es)     # => [["Compacto", "hatchback"], ["Berlina", "sedan"], ...]
 ```
 
 > [!NOTE]
@@ -290,11 +317,16 @@ Vehicles.color("navy")          # forgiving: synonyms, case, diacritics
 Vehicles.color("navy").slug     # => "blue"   ← the stable value you store
 Vehicles.color("navy").hex      # => "#27408B" (representative swatch)
 
-Vehicles.color_options          # => [["White", "white"], ["Black", "black"], ...]
+Vehicles.color_options               # => [["White", "white"], ["Black", "black"], ...]
+Vehicles.color_options(locale: :es)  # => [["Blanco", "white"], ["Negro", "black"], ["Gris", "grey"], ...]
+Vehicles.color("red").label(:es)     # => "Rojo"
+Vehicles.color("Marrón").slug        # => "brown"  — Spanish input resolves too ("rojo", "plateada", "granate")
+Vehicles.colors(locale: :es).first   # => #<Vehicles::Color white "Blanco" #F4F4F4>
 ```
 
-Names are English — store the **slug** and localize the label in your app (the
-slug is also what maps to image color-variants down the line).
+Store the **slug** (it is also what maps to the image color variants); labels
+ship in English and Spanish (`locale: "es-MX"` folds to `:es`; other locales
+fall back to English).
 
 ## Rails dropdowns
 
@@ -310,17 +342,25 @@ Vehicles.model_options("audi")
 
 ### Dependent make → model picker
 
-The whole dataset is small, so the simplest, snappiest way to wire a dependent
-picker is **client-side**: embed [`Vehicles.catalog`](#the-full-ruby-api) once and
-switch the model list with no request at all — **no route, no controller, no
-fetch.**
+Scope the picker to what your app serves and embed
+[`Vehicles.catalog`](#the-full-ruby-api) once: the model list switches with no
+request at all — **no route, no controller, no fetch.** For a one-country app,
+`country:` keeps it to the models with official evidence there, in that
+country's own popularity order (Spain's cars: ~140 makes, ~1,300 models, ~14 KB
+of JSON; the whole worldwide car catalog is ~63 KB):
+
+```ruby
+# app/helpers/vehicles_helper.rb
+PICKER = { kind: :car, country: :es }.freeze
+def vehicle_catalog = Vehicles.catalog(**PICKER)
+```
 
 ```erb
 <div data-controller="vehicle-picker"
-     data-vehicle-picker-catalog-value="<%= Vehicles.catalog.to_json %>">
-  <%= form.select :make,  Vehicles.makes,             { include_blank: "Make" },
+     data-vehicle-picker-catalog-value="<%= vehicle_catalog.to_json %>">
+  <%= form.select :make,  vehicle_catalog.keys,                    { include_blank: "Make" },
         data: { vehicle_picker_target: "make", action: "change->vehicle-picker#makeChanged" } %>
-  <%= form.select :model, Vehicles.models(@car&.make), { include_blank: "Model" },
+  <%= form.select :model, vehicle_catalog.fetch(@car&.make.to_s, []), { include_blank: "Model" },
         data: { vehicle_picker_target: "model" } %>
 </div>
 ```
@@ -346,7 +386,11 @@ export default class extends Controller {
 
 That's the whole picker — the gem ships the data, you keep your markup and ~12
 lines of JS. (Storing slugs instead of names? Swap the selects for
-`make_options` / `model_options` and key the catalog by slug.)
+`make_options` / `model_options` and key the catalog by slug.) The same scope
+also works on every list helper: `Vehicles.makes(kind: :car, country: :es)`,
+`Vehicles.models("SEAT", kind: :car, country: :es)`, `make_options` /
+`model_options(country:)`. Country evidence means *presence* in official data,
+not an exhaustive list of what is legal there — keep an "Other" option.
 
 > [!TIP]
 > Prefer a server round-trip (huge/remote dataset, or you'd rather not embed it)?
@@ -372,6 +416,13 @@ Car.new(make: "Tesler",     model: "Model 3").valid?   # => false
 ```
 
 They're forgiving the same way the lookups are (aliases, case, slugs), and they never raise on blank/garbage input — they just add an error.
+
+Scope them like your picker, so a value the picker never offered (a truck, a model never seen in your market) fails too:
+
+```ruby
+validates :make,  vehicle_make:  { kind: :car, country: :es }
+validates :model, vehicle_model: { make: :make, kind: :car, country: :es }   # kinds: [:car, :van] also works
+```
 
 ### An "Other / not in the list" escape hatch
 
@@ -424,16 +475,51 @@ specs/images) are *properties of that make+model* owned by the dataset — look
 them up via the gem, don't duplicate them per row (they'd just drift). So the
 schema is small and stable:
 
-| Column   | Type      | Store                                   | Example       |
-|----------|-----------|-----------------------------------------|---------------|
-| `make`   | `string`  | display name                            | `"Volkswagen"`|
-| `model`  | `string`  | display name                            | `"Golf"`      |
-| `year`   | `integer` | the year                                | `2022`        |
-| `color`  | `string`  | a canonical color **slug**              | `"blue"`      |
+| Column          | Type      | Store                                   | Example                 |
+|-----------------|-----------|-----------------------------------------|-------------------------|
+| `make`          | `string`  | display name                            | `"Volkswagen"`          |
+| `model`         | `string`  | display name                            | `"Golf"`                |
+| `vehiclesdb_id` | `string`  | the canonical **id** (`Model#id`), nullable | `"car/volkswagen/golf"` |
+| `year`          | `integer` | the year                                | `2022`                  |
+| `color`         | `string`  | a canonical color **slug**              | `"blue"`                |
 
-Everything else (`kind`, `body_type`, production years, images, …) is derived:
-`Vehicles.model(record.make, record.model)`. No `kind`/`body_type` columns, no
+Everything else (`kind`, `body_type`, images, …) is derived from the id:
+`Vehicles.by_id(record.vehiclesdb_id)`. No `kind`/`body_type` columns, no
 migration to add new metadata later — it lands in the dataset, not your schema.
+
+### Store the id
+
+Names are for people; the **id** (`"car/volkswagen/golf"` — kind/make/model) is
+what every VehiclesDB surface agrees on: the API, the JS/Python SDKs and the
+widget take the same string, and it survives dataset releases. When a release
+renames or merges a record, the new record lists the old id in `former_ids`, so a
+stored id never dead-ends:
+
+```ruby
+car = Vehicles.model(params[:make], params[:model], kind: :car)
+record.vehiclesdb_id = car&.id                      # nil for "Other" / unknown pairs
+
+Vehicles.by_id("car/volkswagen/golf")               # => #<Vehicles::Model "Volkswagen Golf">
+Vehicles.by_id(old_id)                              # => the record that replaced it (follow: true)
+Vehicles.by_id(old_id, follow: false)               # => nil
+Vehicles.live?(old_id)                              # => false
+Vehicles.successor(old_id)                          # => the id to store now ("car/…/…")
+```
+
+After each data refresh, migrate stored ids in one pass:
+
+```ruby
+Car.where.not(vehiclesdb_id: nil).find_each do |car|
+  now = Vehicles.successor(car.vehiclesdb_id)
+  next if now.nil? || now == car.vehiclesdb_id
+  model = Vehicles.by_id(now)
+  car.update!(vehiclesdb_id: now, make: model.make, model: model.name)
+end
+```
+
+Two records are equal when their ids are (`==`, `eql?`, `hash`): the van and the
+bus of one nameplate are different records. A make that is renamed or merged
+is followed too once the dataset publishes its `former_slugs`.
 
 **Store the display name.** The simplest, most readable thing to persist is the
 name itself (`"Volkswagen"`, `"Golf"`). Populate the selects with the plain
@@ -471,10 +557,17 @@ car&.suv?                                           # => false
 ```
 
 It reads what people actually type: case, accents and spacing don't matter
-(`"XCeed"` is Kia's `"X Ceed"`, `"A 5"` is `"A5"`), BMW's Spanish/Italian
+(`"X Ceed"` is Kia's `"XCeed"`, `"A 5"` is `"A5"`), BMW's Spanish/Italian
 `"Serie 3"` is the `"3 Series"`, and a name that exists as several kinds
-(Toyota's Land Cruiser: car, van, truck, bus) answers with the car unless you
-pass `kind:` — `Vehicles.model("Toyota", "Land Cruiser", kind: :bus)`.
+(Iveco's Daily: van, truck, bus) follows the [one kind rule](#matching-stored-make--model-pairs)
+unless you pass `kind:` — a car-only app passes `kind: :car` everywhere.
+
+**Year pickers.** `Model#registration_years` is a *hint* — `{ first:, last: }`, the first and last
+year the nameplate shows up in official registrations, when the dataset
+publishes it (nil until then) — good for ordering or pre-filling a year
+`<select>`, never a validation bound (imports and late registrations fall
+outside it legitimately). It is not production years: `Model#years` stays nil
+until VehiclesDB publishes those.
 
 **Only accept the kinds you support.** Filter every list/lookup by `kind:` so
 the picker only ever offers vehicles your app handles — and widening later (when
@@ -486,9 +579,9 @@ Vehicles.makes(kind: :car)                 # makes that build cars
 Vehicles.models("Toyota", kind: :car)      # ...their cars only
 ```
 
-No migration, no seed task, no API key — the data is bundled and read from
-memory. The whole integration is the markup above plus a 3-line endpoint for the
-dependent model list (see [Rails dropdowns](#rails-dropdowns)).
+No seed task, no API key — the data is bundled and read from memory. The
+whole integration is the markup above plus the embedded catalog (see
+[Rails dropdowns](#rails-dropdowns)).
 
 ## Country & region awareness
 
@@ -530,6 +623,28 @@ m.valid?                                   # => false
 m.near_misses.map(&:id)                    # => ["es-national-2000"]
 m.jurisdiction.charset["excluded_letters"] # => ["A", "E", "I", "O", "U", "Ñ", "Q"]
 ```
+
+One reason code per answer, for the error message (the hosted API answers the same codes):
+
+```ruby
+Vehicles.plate("1234 BCD", jurisdiction: :es).reason            # => :ok
+Vehicles.plate("1234 ABC", jurisdiction: :es).reason            # => :excluded_letters
+Vehicles.plate("1234 ABC", jurisdiction: :es).excluded_letters  # => ["A"]
+Vehicles.plate("12345", jurisdiction: :es).reason               # => :bad_shape
+# also :unverifiable (only a recall-only series has the shape), :empty, :unknown_jurisdiction
+```
+
+Moving people (ride sharing, rentals)? `passenger?` says whether a strictly valid
+plate belongs to a series issued to passenger-carrying vehicles — a trailer
+(`R-1234-BCD`) or tractor plate (`E-1234-BCD`) is valid but not that:
+
+```ruby
+Vehicles.plate("1234 BCD", jurisdiction: :es).passenger?     # => true
+Vehicles.plate("R-1234-BCD", jurisdiction: :es).passenger?   # => false (reason is still :ok)
+Vehicles.plates(:es).series.reject(&:passenger?).map(&:klass) # => ["agricultural", "trailer"]
+```
+
+A plate is personal data: the matcher is local, and nothing here sends it anywhere.
 
 ```ruby
 Vehicles.plates              # => every jurisdiction
@@ -584,10 +699,40 @@ car.images(color: "red")         # the full payload: every variant + dimensions,
 # color slugs are the gem's own canon — Vehicles.colors — so a stored
 # dropdown value maps 1:1 to the rendered imagery.
 
-# Enrichment — the wired-up seam; ships next. nil until then, same objects.
-car.years                        # => 1974..2024            production years
-car.segment                      # => :hatchback / :hot_hatch   editorial segment
+# Enrichment — the wired-up seam. nil today: the API does not serve these yet.
+car.years                        # production years (nil until published)
+car.segment                      # editorial segment (nil until published)
 ```
+
+**Images in a Rails app.** Every served image is billed, so the gem caches
+whole payloads (in-process by default; share them with `Rails.cache`) and never
+raises. `image` answers nil on any failure; when you need to know **why**, ask
+`images_result`:
+
+```ruby
+Vehicles.configure do |config|
+  config.image_cache     = Rails.cache   # a hit is kept a day (capped by the payload's expiry), a 404 ten minutes
+  config.on_hosted_error = ->(result) { Rails.error.report(result.to_error, handled: true) }
+end
+
+car = Vehicles.by_id(record.vehiclesdb_id)
+car.image(color: record.color, exact_color: true)  # nil instead of another color's render
+r = car.images_result(color: "red")
+r.ok?      # => false
+r.reason   # => :payment_required   (:no_api_key :not_found :unauthorized :rate_limited
+           #     :invalid_request :server_error :timeout :network :color_not_rendered …)
+r.error    # => "insufficient_credits"  (the API's own code, verbatim)
+```
+
+- `on_hosted_error` (and a warn log line) fires for a bad key, an empty wallet,
+  rate limiting, server errors and timeouts — never for a plain "no render yet".
+- A record a dataset release renamed answers with a 301 to its successor; the gem
+  follows it (same host only, so your key never leaves it).
+- `year:` is sent to the API, which answers `422 unsupported_filter` until
+  year-accurate renders ship (`image` → nil, `reason: :invalid_request`); until
+  0.9.1 the gem silently dropped it.
+- With `exact_color: true` a model's known palette is remembered, so a color it
+  is not rendered in costs no request at all.
 
 Under the hood this is a simple **provider** model: a `LocalProvider` (the bundled data) is always available, and a `HostedProvider` activates only when an API key is configured. Calls prefer the hosted data when it's there and **fall back to the local data otherwise — never raising, never blocking** your request:
 
@@ -608,18 +753,19 @@ Vehicles.configure do |config|
   config.region    = :eu                          # default region for queries
   config.api_key   = ENV["VEHICLESDB_API_KEY"]    # optional hosted VehiclesDB data
   config.aliases   = { "Chevy" => "Chevrolet" }   # add your own make aliases
-  config.use_cache = true                         # prefer a refreshed dataset over the bundled one
+  config.use_cache = true                         # serve a refreshed dataset when it is usable
+  config.cache_dir = Rails.root.join("storage", "vehicles") # a shared volume for multi-container deploys
+  config.image_cache = Rails.cache                # hosted image payloads, shared across processes
 end
 ```
 
 ## Staying current (optional)
 
 The bundled snapshot works offline forever — but vehicle data changes (new
-makes, fixes), and you shouldn't have to ship a gem upgrade to every app just to
-get them. So `vehicles` can **refresh** from the published
-[dataset](https://github.com/vehiclesdb/vehiclesdb) into a local file cache;
-loads prefer the cache over the bundled copy. Data fixes reach your app **without
-a gem bump.**
+makes, fixes, renamed records), and you shouldn't have to ship a gem upgrade to
+every app just to get them. So `vehicles` can **refresh** from the published
+[dataset](https://github.com/vehiclesdb/vehiclesdb) into a file cache. Data
+fixes reach your app **without a gem bump.**
 
 `rails g vehicles:install` drops a `VehiclesRefreshJob` — schedule it (daily is
 plenty), e.g. with solid_queue:
@@ -631,16 +777,58 @@ vehicles_refresh:
   schedule: every day at 3am
 ```
 
-Or refresh manually:
+Or refresh by hand:
 
 ```ruby
-Vehicles.refresh!     # pull latest -> cache; true/false, never raises
-Vehicles.data_version # => the version now in effect (cached, or bundled)
+result = Vehicles.refresh     # never raises
+result.status                 # => :updated | :current | :rejected | :failed
+result.message                # => "dataset 2026.11.2 → 2026.12.0"
+Vehicles.refresh!             # the same, as true/false (true when updated or already current)
+Vehicles.data_version         # => the version now in effect (cached, or bundled)
 ```
 
-It's safe by design: a failed/partial download never replaces good data, and the
-gem keeps serving the cache (or the bundled snapshot) no matter what. Want it
-fully offline/deterministic? `config.use_cache = false`.
+**Safe by construction.** A release is written only when all of these hold;
+otherwise your current data stays untouched and `result.reason` says why:
+
+1. The release **manifest** (a few KB, read first) announces a dataset schema
+   this gem reads and a version **newer** than the newest data you already have.
+   Same version → nothing is downloaded. Older → refused: never a downgrade.
+2. The payload is fetched **from that exact release**, parses, carries that
+   version and schema, and matches the manifest's per-kind model counts (and
+   its checksum, when the manifest publishes one).
+3. No kind, and no kind-in-a-country (e.g. Spain's cars), shrinks below
+   `config.refresh_min_ratio` (0.9) of the data in use — a broken release can
+   never empty your pickers.
+4. Your own `config.refresh_guard`, if set, accepts it:
+   `->(new_data, current) { … }` with two `Vehicles::Dataset`s.
+
+It is written atomically (temp file + rename). And the file a process serves is
+chosen just as carefully: a refreshed cache is used only while it is **not older
+than the gem's bundled data** and in a schema the gem reads — upgrading the gem
+always wins over an older download.
+
+**Every process picks it up on its own.** Each process re-checks the file at
+most every `config.reload_check_interval` seconds (default 5; one `File.stat`)
+and switches to a new one — no restart, no hook. A file that is corrupt or
+half-written never replaces the dataset in memory.
+
+**Deploying web and jobs as separate containers** (Kamal, Docker Compose,
+Kubernetes)? Give them one shared volume and point the gem at it, so the job's
+refresh reaches the web containers:
+
+```ruby
+# config/initializers/vehicles.rb — or set VEHICLES_CACHE_DIR in both containers
+Vehicles.configure { |c| c.cache_dir = Rails.root.join("storage", "vehicles") }
+```
+
+```yaml
+# config/deploy.yml (Kamal): web and job already share the storage volume
+volumes:
+  - "myapp_storage:/rails/storage"
+```
+
+Run the refresh in ONE place (the job container); every container serves the
+result. Want it fully offline/deterministic instead? `config.use_cache = false`.
 
 ## The full Ruby API
 
@@ -648,8 +836,10 @@ fully offline/deterministic? `config.use_cache = false`.
 # Lists (strings — drop straight into a form)
 Vehicles.makes                          # => [String]
 Vehicles.makes(kind: :car, region: :eu)
+Vehicles.makes(kind: :car, country: :es) # only makes evidenced in that country
 Vehicles.models("Audi")                 # => [String]
 Vehicles.models("Audi", body_type: :suv)
+Vehicles.models("SEAT", kind: :car, country: :es) # in Spain's popularity order
 
 # Option pairs (for Rails `select`)
 Vehicles.make_options                   # => [[label, value]]
@@ -657,14 +847,23 @@ Vehicles.model_options("Audi")          # => [[label, value]]
 
 # Whole make => [models] map (embed once for a client-side dependent picker)
 Vehicles.catalog(kind: :car)            # => { "Audi" => ["A3", ...], ... }
+Vehicles.catalog(kind: :car, country: :es) # one country's picker list
 
 # Objects
 Vehicles.make("Audi")                   # => Vehicles::Make | nil
 Vehicles.find("audi a3")                # => Vehicles::Model | nil  (one free-text string)
 Vehicles.model("Audi", "A3")            # => Vehicles::Model | nil  (a stored make+model pair)
-Vehicles.model("Toyota", "Land Cruiser", kind: :bus)  # pick a kind (default: the car)
+Vehicles.model("Iveco", "Daily", kind: :bus)  # pick a kind (default: the one kind rule)
+Vehicles.model("Iveco", "Daily", kinds: [:car, :van]) # allow only some kinds
 Vehicles.match_model("VW", "Tuareg")    # => Vehicles::ModelMatch | nil  (model, rung, confidence, via, candidates)
+Vehicles.match_model("VW", "Golf").confident? # => true: safe to auto-apply
 Vehicles.identify("vw tuareg")          # => Vehicles::ModelMatch | nil  (one free-text string)
+
+# Canonical ids
+Vehicles.by_id("car/volkswagen/golf")   # => Vehicles::Model | nil  (follows former ids)
+Vehicles.by_id(id, follow: false)       # exact only
+Vehicles.successor(id)                  # => the id to store now | nil
+Vehicles.live?(id)                      # => true when the id names a current record
 Vehicles.search("a3")                   # => [Vehicles::Model]
 
 # Popularity & availability (open data, measured from official registers)
@@ -681,21 +880,30 @@ model.aliases  model.forms                     # published alternate names; cura
 model.kind     model.body_type                 model.suv?    model.coupe?   # …predicates
 model.global_decile   model.popular?           # 1 = top 10% worldwide; nil-safe
 model.availability    model.available_in?(:nl) model.two_wheeler?
-model.years    model.segment  model.image(year:, color:)     # ← hosted VehiclesDB API
+model.id       model.former_ids                # "car/volkswagen/golf"; ids this record replaced
+model.registration_years                       # { first: 1998, last: 2026 } hint, or nil (never a validation bound)
+model.years    model.segment                   # production years / segment: nil until published
+model.image(color:, size:, exact_color:)  model.images(color:)  model.images_result(color:)  # ← hosted API
 
 # Colors (canonical palette)
 Vehicles.colors                         # => [Vehicles::Color]
 Vehicles.color("navy")                  # => Vehicles::Color | nil (forgiving)
-Vehicles.color_options                  # => [[name, slug]]  (for select)
-color.slug     color.name     color.hex
+Vehicles.color_options(locale: :es)     # => [[label, slug]]  (for select; :en default)
+color.slug     color.name     color.hex     color.label(:es)
+Vehicles.kind_options(locale: :es)      Vehicles.kind_label(:van, locale: :es)
+Vehicles.body_type_options(locale: :es) Vehicles.body_type_label(:wagon, locale: :es)
+
+# Plates
+Vehicles.plate("1234 BCD", jurisdiction: :es)  # => Plates::Match: valid? strict? reason passenger? suggestion
 
 # Meta
 Vehicles.data_version                   # => "2026.07.0"   (version in effect: cached or bundled)
 Vehicles.region                         # => :global
 
 # Refresh (optional — keep data current without a gem upgrade)
-Vehicles.refresh!                       # pull latest published data -> cache; true/false, never raises
-Vehicles.reload!                        # drop the in-memory dataset (reload from disk)
+Vehicles.refresh                        # => Vehicles::RefreshResult (status, reason, message); never raises
+Vehicles.refresh!                       # the same as true/false
+Vehicles.reload!                        # drop the in-memory dataset now (processes also re-check on their own)
 ```
 
 ## Where the data comes from
@@ -740,9 +948,7 @@ availability, plus the MCP server. On the way:
 - 🌍 More **countries** (Switzerland next; the dataset grows monthly)
 - 📅 Production **years** in the local data
 - 🧬 **Generations & variants** layers (the schema already reserves them)
-- 🖼️ Model **images** (via VehiclesDB)
 - 🏷️ **Segments** (supercar, city car, hot hatch) and richer metadata
-- 🔎 A mountable **autocomplete endpoint** so the dependent-dropdown recipe becomes one line
 
 Want one of these sooner? Open an issue.
 

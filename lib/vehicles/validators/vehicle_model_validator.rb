@@ -13,6 +13,12 @@
 #
 # Pass `allow_other: true` to accept the "Other / not in the list" escape hatch
 # (see `Vehicles.other?`) — pair it with `Vehicles.model_options(include_other:)`.
+#
+# Scope it like your picker (0.9.2):
+#   validates :model, vehicle_model: { make: :make, kind: :car, country: :es }
+# `kind:` / `kinds:` — only records of those kinds count; `country:` — the
+# record must have evidence in that country (opt-in: presence, not
+# exhaustive eligibility).
 class VehicleModelValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     return if value.blank?
@@ -22,11 +28,21 @@ class VehicleModelValidator < ActiveModel::EachValidator
     make_value = record.respond_to?(make_attribute) ? record.public_send(make_attribute) : nil
     make = Vehicles.make(make_value, fuzzy: false) # exact, same rule as the make validator
     return if make.nil? # unknown make -> defer to the make validator
-    return if make.model(value)
+    return if in_scope?(make, value)
 
     record.errors.add(attribute, options[:message] || "is not a recognized #{make.name} model")
   rescue StandardError => e
     Vehicles.logger&.error("[vehicles] vehicle_model validation error: #{e.message}")
     record.errors.add(attribute, options[:message] || "is not a recognized vehicle model")
+  end
+
+  private
+
+  def in_scope?(make, value)
+    scope = Vehicles::KindRule.scope(options[:kind], options[:kinds])
+    country = options[:country]
+    return !make.model(value, kinds: scope).nil? if country.nil?
+
+    (scope || make.kinds).any? { |k| make.model(value, kind: k)&.available_in?(country) }
   end
 end

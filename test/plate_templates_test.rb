@@ -7,7 +7,7 @@ module Vehicles
   # The template client over a REAL socket: exactly what goes on the wire
   # (and what never does: the registration, the API key), caching, and nil
   # on every failure. A local HTTP server plays VehiclesDB.
-  class PlateTemplatesTest < TestCase # rubocop:disable Metrics/ClassLength -- one wire contract, one file
+  class PlateTemplatesTest < TestCase
     FIXTURES = File.expand_path("fixtures/plate_templates", __dir__)
     SPAIN = File.read(File.join(FIXTURES, "es-national-2000.svg"), encoding: "UTF-8")
 

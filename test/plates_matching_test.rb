@@ -120,5 +120,34 @@ module Vehicles
       assert_equal "BI-1234-C", Vehicles.plate("BI1234C", jurisdiction: :es).formatted
       assert_equal "M-123456", Vehicles.plate("M123456", jurisdiction: :es).formatted
     end
+
+    # 0.9.2: one reason code per answer (the API emits the same strings), and
+    # passenger eligibility per series — what CarHey derived by hand.
+    def test_reason_says_why
+      {
+        "1234 BCD" => :ok, "M-1234-AB" => :ok, "1234 ABC" => :excluded_letters,
+        "12345" => :bad_shape, "---" => :empty
+      }.each { |plate, reason| assert_equal reason, Vehicles.plate(plate, jurisdiction: :es).reason, plate }
+      assert_equal :unknown_jurisdiction, Vehicles.plate("1234 BCD", jurisdiction: :zz).reason
+      assert_equal %w[A], Vehicles.plate("1234 ABC", jurisdiction: :es).excluded_letters
+    end
+
+    def test_a_recall_only_hit_is_unverifiable
+      match = Vehicles.plate("XX1234", jurisdiction: :es)
+
+      assert_predicate match, :valid?
+      assert_equal :unverifiable, match.reason
+    end
+
+    def test_passenger_eligibility_per_series
+      assert_predicate Vehicles.plate("1234 BCD", jurisdiction: :es), :passenger?
+      refute_predicate Vehicles.plate("R-1234-BCD", jurisdiction: :es), :passenger? # trailer
+      refute_predicate Vehicles.plate("E-1234-BCD", jurisdiction: :es), :passenger? # tractor/machine
+      assert_equal :ok, Vehicles.plate("R-1234-BCD", jurisdiction: :es).reason      # valid, just not passenger
+      refute_predicate Vehicles.plate("1234 ABC", jurisdiction: :es), :passenger?
+      trailer = Vehicles.plates(:es).series.find { |s| s.klass == "trailer" }
+
+      refute_predicate trailer, :passenger?
+    end
   end
 end

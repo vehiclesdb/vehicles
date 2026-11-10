@@ -21,11 +21,47 @@ module Vehicles
     end
 
     # Records ("make/model" slugs, any make) NAMED this (normalized).
-    def records_named(key)
-      resolution_index[:name][key] || []
+    # `kinds` (a list, or nil for any) limits which records count.
+    def records_named(key, kinds = nil)
+      (resolution_index[:name][key] || []).select { |m| KindRule.allows?(kinds, m) }
+                                          .map { |m| "#{m.make_slug}/#{m.model_slug}" }.uniq
+    end
+
+    # The `via` step for a make reached through something other than its own
+    # name or slug: a retired make slug (`former_make_slug:old→new`,
+    # RESOLUTION.md) or an alias (`make_alias:key→slug`).
+    def make_step(make, key)
+      old = key.tr(" ", "-")
+      return "former_make_slug:#{old}→#{make.slug}" if make_by_former_slug(old).equal?(make)
+
+      "make_alias:#{key}→#{make.slug}"
+    end
+
+    # The live Model a retired id now answers to (Vehicles.by_id), or nil:
+    #   1. the record that lists the id in `former_ids` (one record; its kind
+    #      variant of the id's kind, else the collision rule);
+    #   2. failing that, the make's new slug (make `former_slugs`): the same
+    #      model slug under it, exactly or through ITS former ids.
+    def successor_of(id)
+      found = absorbed(id)
+      return found if found
+
+      kind, make_slug, model_slug = id.to_s.split("/", 3)
+      return nil unless model_slug && (make = make_by_former_slug(make_slug))
+
+      moved = "#{kind}/#{make.slug}/#{model_slug}"
+      models_by_id(moved).first || absorbed(moved)
     end
 
     private
+
+    def absorbed(id)
+      hits = models_by_former_id(id)
+      return nil if hits.empty? || hits.map { |m| [m.make_slug, m.model_slug] }.uniq.size > 1
+
+      kind = id.to_s.split("/", 2).first
+      hits.find { |m| m.kind.to_s == kind } || KindRule.pick(hits)
+    end
 
     # Built once on first use; arrays keep dataset order.
     def resolution_index
@@ -44,7 +80,7 @@ module Vehicles
         key = Vehicles.normalize(a)
         (idx[:alias][key] ||= []) << model unless key.empty?
       end
-      (idx[:name][Vehicles.normalize(model.name)] ||= []) << record
+      (idx[:name][Vehicles.normalize(model.name)] ||= []) << model
     end
   end
 end

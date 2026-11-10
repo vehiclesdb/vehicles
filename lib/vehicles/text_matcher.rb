@@ -21,24 +21,33 @@ module Vehicles
 
     module_function
 
-    def identify(text, kind: nil)
+    # `kind:` scopes the NAME rungs and only prefers a variant on the id
+    # rungs (an id is explicit: "bus/iveco/daily" with kind: :car is still
+    # that bus). `kinds:` is a hard constraint on EVERY rung: a record of
+    # another kind never answers, so the result is nil when it is the only
+    # answer (RESOLUTION.md §3, lanes B/C 2026-11-10).
+    def identify(text, kind: nil, kinds: nil)
       raw = text.to_s.strip
       return nil if raw.empty?
 
-      hint = ModelMatcher.kind_hint(kind)
+      hint = KindRule.via(kind, kinds)
+      allowed = KindRule.symbols(kinds)
       ds = Vehicles.dataset
-      by_id(ds.models_by_id(raw), :exact, kind, hint + ["exact:#{raw}"]) ||
-        by_id(ds.models_by_former_id(raw), :former_id, kind, hint + ["former_id:#{raw}"]) ||
-        by_make(ds, text, kind, hint)
+      by_id(scoped(ds.models_by_id(raw), allowed), :exact, kind, hint + ["exact:#{raw}"]) ||
+        by_id(scoped(ds.models_by_former_id(raw), allowed), :former_id, kind, hint + ["former_id:#{raw}"]) ||
+        by_make(ds, text, KindRule.scope(kind, kinds), hint)
     end
 
+    def scoped(hits, allowed) = hits.select { |m| KindRule.allows?(allowed, m) }
+
     # Rungs 1–2: ids are explicit, so `kind:` only chooses among kind
-    # variants of the same record. Two different records → ambiguous.
+    # variants of the same record (else the collision rule, KindRule.pick).
+    # Two different records → ambiguous.
     def by_id(hits, rung, kind, via)
       return nil if hits.empty?
       return ModelMatcher.ambiguous(hits, rung, via) unless hits.map { |m| record(m) }.uniq.one?
 
-      model = (kind && hits.find { |m| m.kind == kind.to_sym }) || hits.find(&:car?) || hits.first
+      model = (kind && hits.find { |m| m.kind == kind.to_s.to_sym }) || KindRule.pick(hits)
       ModelMatcher.build(model, hits, [rung], via)
     end
 
@@ -89,14 +98,14 @@ module Vehicles
     # 2026-07-27; RESOLUTION.md rung 6 says "no OTHER record").
     def whole_text_alias(dataset, query, kind, hint)
       hits = dataset.models_by_alias(query)
-      hits = hits.select { |m| m.kind == kind.to_sym } if kind
+      hits = scoped(hits, KindRule.symbols(kind))
       return nil if hits.empty?
-      return nil if (dataset.records_named(query) - hits.map { |m| record(m) }).any?
+      return nil if (dataset.records_named(query, KindRule.symbols(kind)) - hits.map { |m| record(m) }).any?
 
       via = hint + ["alias:#{query}"]
       return ModelMatcher.ambiguous(hits, :alias, via) unless hits.map { |m| record(m) }.uniq.one?
 
-      model = hits.find(&:car?) || hits.first
+      model = KindRule.pick(hits)
       ModelMatcher.build(model, hits, [:alias], [*via[0...-1], "#{via.last}→#{record(model)}"],
                          confidence: WHOLE_TEXT_ALIAS)
     end

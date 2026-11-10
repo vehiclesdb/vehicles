@@ -46,9 +46,23 @@ module Vehicles
       model.nil?
     end
 
+    # Rungs that rest on curated data: safe to apply WITHOUT asking a human.
+    CONFIDENT_RUNGS = %i[exact former_id fold alias form cleaned].freeze
+
+    # Safe to auto-apply (e.g. canonicalize a stored make/model, or pre-fill a
+    # form without asking): an answer (not ambiguous) reached through curated
+    # data — the id, a former id, the name, a published alias, a curated
+    # registry form, or one of those after peeling an echoed make or a "new"
+    # filler. Not :fuzzy: a typo correction is a guess ("Clase" → "Classe")
+    # to SHOW the user ("did you mean…"), never to write silently.
+    # Equivalent to `!ambiguous? && confidence >= 0.9`.
+    def confident?
+      !ambiguous? && CONFIDENT_RUNGS.include?(rung)
+    end
+
     def to_h
-      { model: model&.to_h, method: rung.to_s, confidence: confidence, via: via,
-        candidates: candidates.map(&:to_h), ambiguous: ambiguous? }
+      { model: model&.to_h, id: model&.id, method: rung.to_s, confidence: confidence, via: via,
+        candidates: candidates.map(&:to_h), ambiguous: ambiguous?, confident: confident? }
     end
 
     def ==(other)

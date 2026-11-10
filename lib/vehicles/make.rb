@@ -17,13 +17,17 @@ module Vehicles
     # (normalized key => models in dataset order); see #build_lookup_index.
     TABLES = %i[name name_squeezed slug alias alias_squeezed alias_raw form form_squeezed].freeze
 
-    attr_reader :name, :slug, :aliases, :kinds
+    attr_reader :name, :slug, :aliases, :kinds, :former_slugs
 
     def initialize(attrs)
       @name    = attrs["name"]
       @slug    = attrs["slug"]
       @aliases = Array(attrs["aliases"]).freeze
       @kinds   = Array(attrs["kinds"]).map(&:to_sym).freeze
+      # Slugs this make was published under before a rename or merge
+      # (dataset key `former_slugs`, when the dataset publishes it; [] until
+      # then). Vehicles.make and Vehicles.by_id follow them.
+      @former_slugs = Array(attrs["former_slugs"]).map(&:to_s).freeze
       @raw_models = attrs["models"] || []
     end
 
@@ -35,14 +39,13 @@ module Vehicles
     #   models(kind: :car, region: :eu)          # European cars only
     #   models(rarity: :common)                  # just the well-known ones
     #   models(max_decile: 3)                     # top-30% by popularity
-    def models(kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil)
+    def models(kind: nil, body_type: nil, region: nil, rarity: nil, max_decile: nil, country: nil)
       list = (@models ||= @raw_models.map { |m| Model.new(m, make: name, make_slug: slug) }.freeze)
       list = list.select { |m| m.kind == kind.to_sym }             if kind
       list = list.select { |m| m.body_type == body_type.to_sym }   if body_type
       list = list.select { |m| m.available_in_region?(region) }    if region
-      list = list.select { |m| m.rarity == rarity.to_sym }         if rarity
-      list = list.select { |m| m.global_decile && m.global_decile <= max_decile } if max_decile
-      list
+      list = by_popularity(list, rarity, max_decile)
+      country ? by_country(list, country) : list
     end
 
     # Continents this make is evidenced in (union of its models' regions).
@@ -54,6 +57,11 @@ module Vehicles
     # Is this make evidenced on the given continent? (:eu/:na/:as/:sa/:oc/:af)
     def in_region?(region)
       continents.include?(region.to_sym)
+    end
+
+    # Does any of its models (of `kind`) have evidence in this country?
+    def available_in?(country, kind: nil)
+      models(kind: kind).any? { |m| m.available_in?(country) }
     end
 
     # Model display names — what you drop into a dropdown. => ["A3", "A4", ...]
@@ -73,13 +81,15 @@ module Vehicles
     # vehicle_model validator relies on this). Fuzzy/partial matching lives in
     # `Vehicles.search`.
     #
-    # Some names exist as several kinds (Toyota "Land Cruiser" is a car, a
-    # van, a truck and a bus). Without `kind:` the car wins — it's what people
-    # mean — and pass `kind:` to pick another:
-    #   toyota.model("Land Cruiser")              # => the car
-    #   toyota.model("Land Cruiser", kind: :bus)  # => the bus
-    def model(query, kind: nil)
-      matches, how = strict_lookup(Vehicles.normalize(query), kind: kind)
+    # Some names exist as several kinds (Iveco "Daily" is a van, a truck and
+    # a bus). Without a kind the one collision rule decides (Vehicles::KindRule;
+    # until 0.9.1 the car always won). Pass `kind:` to pick
+    # one, or `kinds:` to allow only some:
+    #   iveco.model("Daily")              # => the van
+    #   iveco.model("Daily", kind: :bus)  # => the bus
+    #   iveco.model("Daily", kinds: %i[car]) # => nil (no car Daily)
+    def model(query, kind: nil, kinds: nil)
+      matches, how = strict_lookup(Vehicles.normalize(query), kind: KindRule.scope(kind, kinds))
       matches && how != :ambiguous ? pick(matches) : nil
     end
 
@@ -140,9 +150,9 @@ module Vehicles
       idx[:name].key?(key) || idx[:alias].key?(key) || idx[:slug].key?(key)
     end
 
-    # Car first, like #model: it is what people mean by a bare name.
+    # One record among kind variants of a nameplate: Vehicles::KindRule.
     def pick(matches)
-      matches.find(&:car?) || matches.first
+      KindRule.pick(matches)
     end
 
     def to_h
@@ -183,19 +193,35 @@ module Vehicles
 
       loose = of_kind(idx[:name_squeezed][query.delete(" ")], kind)
       return [nil, nil] if loose.empty?
-      return [loose, :spacing] if loose.map { |m| idx[:normalized][m] }.uniq.one?
+      # One NAMEPLATE (model slug) in several kinds is a kind collision, not
+      # ambiguity, even when a release styles the kinds' names differently.
+      return [loose, :spacing] if loose.map(&:model_slug).uniq.one?
 
       [loose, :ambiguous]
     end
 
+    # `kind` is nil (any), one kind, or a list of allowed kinds.
     def of_kind(list, kind)
       list ||= []
-      kind ? list.select { |m| m.kind == kind.to_sym } : list
+      allowed = KindRule.symbols(kind)
+      allowed ? list.select { |m| allowed.include?(m.kind) } : list
     end
 
-    # Union of two index hits, deduplicated by IDENTITY (Model#== compares
-    # slugs, so a car and a van of the same nameplate are "equal") and put
-    # back in dataset order.
+    def by_popularity(list, rarity, max_decile)
+      list = list.select { |m| m.rarity == rarity.to_sym } if rarity
+      list = list.select { |m| m.global_decile && m.global_decile <= max_decile } if max_decile
+      list
+    end
+
+    # A country's own ranking first (Model#rank_in), then the make's order.
+    def by_country(list, country)
+      c = country.to_s.downcase
+      list.select { |m| m.availability.include?(c) }
+          .each_with_index.sort_by { |m, i| [m.rank_in(c) ? 0 : 1, m.rank_in(c) || 0, i] }.map(&:first)
+    end
+
+    # Union of two index hits, deduplicated by identity and put back in
+    # dataset order.
     def in_order(first, second)
       return first || [] unless second
       return second unless first

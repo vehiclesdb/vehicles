@@ -11,8 +11,10 @@ module Vehicles
   #   car.body_type   # => :hatchback
   #   car.suv?        # => false
   class Model
-    # Vehicle kinds (RDW `voertuigsoort`). Today the bundled data is all :car;
-    # the shape already supports the rest for when those packs land.
+    # Vehicle kinds the predicates know (`car?`, `van?`, …). The data itself
+    # publishes car, motorcycle, moped, van, truck and bus (Vehicles.kinds);
+    # pickup/trailer/quad/trike are kept so existing predicate calls answer
+    # false instead of raising.
     KINDS = %i[car motorcycle van truck pickup trailer bus moped quad trike].freeze
 
     # Body types — the sub-classification within a kind. For cars these are the
@@ -31,7 +33,7 @@ module Vehicles
     #   optional body_type/global_decile/availability/regions/aliases/forms/former_ids)
     # @param make [String] the parent make's display name
     # @param make_slug [String] the parent make's slug (for the composite slug)
-    def initialize(attrs, make:, make_slug:)
+    def initialize(attrs, make:, make_slug:) # rubocop:disable Metrics/AbcSize -- one line per published field
       @make       = make
       @make_slug  = make_slug
       @name       = attrs["name"]
@@ -74,8 +76,28 @@ module Vehicles
       # dataset 2026.10.1 (pipeline#255, ruling R3); nil on older snapshots
       # (including the bundled 2026.10.0) and for unranked records.
       @mass_decile = mass_decile_of(attrs)
+      # The first and last year this nameplate appears in official
+      # REGISTRATION data (dataset key `registration_years`), when published.
+      # Not production or model years: grey imports and late registrations
+      # widen it, and a register's coverage starts when its data does.
+      @registration_years = registration_years_of(attrs)
+      @id = id_of(make_slug)
       freeze
     end
+
+    # The canonical VehiclesDB id, "car/volkswagen/golf" (RESOLUTION.md §1):
+    # what to STORE. The same string the API, the SDKs and the widget use, and
+    # what Vehicles.by_id / Vehicles.identify read back — including after a
+    # dataset release renames the record (it lists the old id in former_ids).
+    attr_reader :id
+
+    # Years this nameplate shows up in official registrations, as
+    # `{ first: 1998, last: 2026 }` (the SDKs' shape), or nil when the dataset
+    # does not publish them.
+    # A HINT for ordering or pre-filling a year picker — never a validation
+    # bound: an import, a late registration or a register that starts in 2015
+    # all fall outside it legitimately. Not `years` (production years).
+    attr_reader :registration_years
 
     # "Volkswagen Golf" — the natural label for a model on its own.
     def full_name
@@ -154,20 +176,24 @@ module Vehicles
     def rare?    = rarity == :rare
 
     def to_h
-      { make: make, model: name, slug: slug, kind: kind, body_type: body_type,
+      { id: id, make: make, model: name, slug: slug, model_slug: model_slug, kind: kind, body_type: body_type,
         global_decile: global_decile, rarity: rarity,
-        availability: availability, regions: regions, aliases: aliases,
-        former_ids: former_ids, country_ranks: country_ranks, mass_decile: mass_decile }
+        availability: availability, regions: regions, aliases: aliases, forms: forms,
+        former_ids: former_ids, country_ranks: country_ranks, mass_decile: mass_decile,
+        registration_years: registration_years }
     end
 
-    # Value-object equality — two models with the same slug are equal.
+    # Value-object equality by canonical id (since 0.9.2). Until 0.9.1 it
+    # compared the composite slug, so the car and the van of one nameplate
+    # (Iveco Daily, Toyota Land Cruiser) were "equal" and collapsed in sets,
+    # `uniq` and hash keys.
     def ==(other)
-      other.is_a?(Model) && other.slug == slug
+      other.is_a?(Model) && other.id == id
     end
     alias eql? ==
 
     def hash
-      slug.hash
+      id.hash
     end
 
     def inspect
@@ -180,7 +206,10 @@ module Vehicles
     # They NEVER raise — a missing/slow API just yields nil and your view renders
     # a placeholder. See Vehicles::Providers.
 
-    # Production years as a Range, e.g. 1974..2024. nil without hosted data.
+    # Production years as a Range, e.g. 1974..2024. Honest status: neither
+    # the bundled data nor the hosted API publishes production years yet, so
+    # this answers nil today (the seam lights up when the API serves them).
+    # For a year-picker hint, see `registration_years`.
     def years
       Vehicles.resolve(:years, self)
     end
@@ -192,22 +221,40 @@ module Vehicles
 
     # One rendered image URL, ready for an <img src>. `size` picks the
     # variant (:sm/:md/:lg), `color` a palette slug (Vehicles.colors); an
-    # un-rendered color falls back honestly server-side rather than erroring.
-    # `year` is accepted for forward-compatibility but not yet served.
-    # nil without hosted data — always render a placeholder path.
-    def image(year: nil, color: nil, size: :md)
-      Vehicles.resolve(:image, self, year: year, color: color, size: size)
+    # un-rendered color falls back honestly server-side (another color is
+    # served) unless `exact_color: true`, which answers nil instead. `year`
+    # is sent to the API, which rejects it until year-accurate renders ship
+    # (→ nil; `images_result` says :invalid_request "unsupported_filter").
+    # nil without hosted data or on any failure — always render a
+    # placeholder path, and ask `images_result` when you need to know why.
+    def image(year: nil, color: nil, size: :md, exact_color: false)
+      Vehicles.resolve(:image, self, year: year, color: color, size: size, exact_color: exact_color)
     end
 
     # The full hosted images payload — every variant with dimensions, the
     # rendered palette for this model, served-vs-requested color, provenance.
     # Reach for this when one URL isn't enough (srcset, color pickers,
     # caching whole responses). nil without hosted data.
-    def images(color: nil)
-      Vehicles.resolve(:images, self, color: color)
+    def images(color: nil, year: nil, exact_color: false)
+      Vehicles.resolve(:images, self, color: color, year: year, exact_color: exact_color)
+    end
+
+    # The same call as `images`, answering a Vehicles::HostedResult that says
+    # WHY when there is no image (no key, 401/402/429, not rendered, timeout…).
+    # Cached like `images`; never raises.
+    def images_result(color: nil, year: nil, exact_color: false)
+      Providers::HostedProvider.images_result(self, color: color, year: year, exact_color: exact_color)
     end
 
     private
+
+    def id_of(make_slug) = "#{@kind}/#{make_slug}/#{@model_slug}".freeze
+
+    def registration_years_of(attrs)
+      years = attrs["registration_years"]
+      first, last = years.is_a?(Hash) ? years.values_at("first", "last") : Array(years).first(2)
+      first.is_a?(Integer) && last.is_a?(Integer) && first <= last ? { first: first, last: last }.freeze : nil
+    end
 
     # The flat `mass_decile` key, or the nested `popularity.mass_decile` some
     # projections use.

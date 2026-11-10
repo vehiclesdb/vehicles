@@ -38,7 +38,7 @@ module Vehicles
     # carry nothing personal, so a long TTL is safe; the server re-renders
     # them only when VehiclesDB's plate art changes.
     attr_writer :plate_template_cache
-    attr_accessor :plate_template_ttl
+    attr_accessor :plate_template_ttl, :image_cache_ttl, :image_miss_ttl
 
     def plate_template_cache
       @plate_template_cache ||= Plates::TemplateCache.new
@@ -64,9 +64,35 @@ module Vehicles
     # VehiclesDB data repo via jsDelivr's CDN (always-latest release tag).
     attr_accessor :data_url
 
+    # The release manifest `refresh` reads FIRST (version, schema, per-kind
+    # counts, checksum when published): a few KB that decide whether the
+    # 8 MB payload is worth downloading at all. Derived from `data_url`
+    # (".../dist/vehicles.json" → ".../manifest.json") until you set it; set
+    # nil for a self-hosted payload that has no manifest.
+    attr_writer :manifest_url
+
+    def manifest_url
+      return @manifest_url unless @manifest_url == :derived
+
+      url = data_url.to_s
+      url.match?(%r{/dist/[^/]+\.json\z}) ? url.sub(%r{/dist/[^/]+\.json\z}, "/manifest.json") : nil
+    end
+
     # Where a refreshed dataset is cached on disk. Defaults to the app's cache dir
-    # (Rails) or the system temp dir. The refresh writes here; loads prefer it.
+    # (Rails) or the system temp dir — or to $VEHICLES_CACHE_DIR when set. The
+    # refresh writes here; every process serves it when it is usable (see
+    # Vehicles::DataSource). Several containers (web + jobs) share ONE refresh
+    # by pointing this at a shared volume: `config.cache_dir = "/rails/storage/vehicles"`.
     attr_accessor :cache_path
+
+    # Directory form of `cache_path` (the file is <dir>/vehicles.json).
+    def cache_dir=(dir)
+      @cache_path = File.join(dir.to_s, "vehicles.json")
+    end
+
+    def cache_dir
+      File.dirname(cache_path.to_s)
+    end
 
     # Prefer a refreshed (cached) dataset over the bundled one when present.
     # Set false to always use the bundled snapshot (fully offline/deterministic).
@@ -74,6 +100,48 @@ module Vehicles
 
     # Network timeout (seconds) for a refresh download.
     attr_accessor :refresh_timeout
+
+    # How often (seconds) a process checks whether the dataset file changed
+    # (one File.stat), so a refresh made by ANY process or container reaches
+    # it without a restart. nil = never (only `Vehicles.reload!`).
+    attr_accessor :reload_check_interval
+
+    # A release is refused when any kind, or any (kind, country) slice with at
+    # least 25 models, would shrink below this share of the data in use.
+    # nil disables the check.
+    attr_accessor :refresh_min_ratio
+
+    # Optional last word on a release: ->(candidate, current) { … } with two
+    # Vehicles::Dataset objects; falsy refuses it. Runs after every built-in
+    # check, e.g. "Spain's cars must not shrink":
+    #   config.refresh_guard = ->(new, old) {
+    #     new.top_models(kind: :car, country: :es, limit: nil).size >=
+    #       old.top_models(kind: :car, country: :es, limit: nil).size
+    #   }
+    attr_accessor :refresh_guard
+
+    # --- hosted API (optional) -----------------------------------------------
+
+    # Called with a Vehicles::HostedResult whenever a hosted call fails
+    # (401/402/403/429, 5xx, timeout, network…; not for a plain "no image"
+    # 404). Use it to report to your error tracker. Never allowed to raise
+    # into your page: its own errors are swallowed.
+    #   config.on_hosted_error = ->(r) { Rails.error.report(r.to_error, handled: true) }
+    attr_accessor :on_hosted_error
+
+    # Image payloads are cached so a page view does not pay per render: any
+    # store with read(key) / write(key, value, expires_in:) (Rails.cache
+    # shares it across processes). In-process by default; false disables.
+    # A hit is kept `image_cache_ttl` seconds (capped by the payload's
+    # `expires_at` when the API sends one), a definitive miss (404)
+    # `image_miss_ttl`. Errors (401/402/429/timeouts) are never cached.
+    attr_writer :image_cache
+
+    def image_cache
+      return nil if @image_cache == false
+
+      @image_cache ||= Plates::TemplateCache.new
+    end
 
     def initialize
       @region          = nil # no continent filter by default (global dataset)
@@ -86,6 +154,13 @@ module Vehicles
       @cache_path      = default_cache_path
       @use_cache       = true
       @refresh_timeout = 5
+      @manifest_url    = :derived
+      @reload_check_interval = 5
+      @refresh_min_ratio = 0.9
+      @refresh_guard   = nil
+      @on_hosted_error = nil
+      @image_cache_ttl = 86_400 # a day; variant URLs live ~30 days
+      @image_miss_ttl  = 600
       @plate_template_ttl = 86_400 # a day, the server's own shared-cache lifetime
     end
 
@@ -98,9 +173,13 @@ module Vehicles
 
     private
 
-    # tmp/cache/vehicles under a Rails app, else a stable spot in the system temp
+    # $VEHICLES_CACHE_DIR when set (a shared volume), else tmp/cache/vehicles
+    # under a Rails app, else a stable spot in the system temp
     # dir. Refreshable data, so a cache-style location is appropriate.
     def default_cache_path
+      shared = ENV["VEHICLES_CACHE_DIR"].to_s
+      return File.join(shared, "vehicles.json") unless shared.empty?
+
       base =
         if defined?(Rails) && Rails.respond_to?(:root) && Rails.root
           Rails.root.join("tmp", "cache", "vehicles")
