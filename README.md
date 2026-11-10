@@ -392,6 +392,69 @@ also works on every list helper: `Vehicles.makes(kind: :car, country: :es)`,
 `model_options(country:)`. Country evidence means *presence* in official data,
 not an exhaustive list of what is legal there — keep an "Other" option.
 
+### The make-model-dropdown widget, fed by your server
+
+The [make-model-dropdown](https://github.com/vehiclesdb/make-model-dropdown)
+widget (0.4.1+) does the picker for you: search, kept stored values, the
+canonical id. `Vehicles.dataset_slice` takes the same scope as `catalog` and
+returns the records behind the names, in the shape of the published
+`dist/vehicles.json`, so the widget resolves stored values (aliases, curated
+forms, former ids) and writes ids exactly as it would with the whole release.
+Embed it and the page makes **no request** for vehicle data — no CDN, no API
+key — and shows the release your server runs:
+
+```ruby
+# app/helpers/vehicles_helper.rb
+# Built once per data release (Spain's cars: ~300 KB of JSON, ~50 KB gzipped).
+def vehicles_dataset_json(**scope)
+  Rails.cache.fetch(["vehicles/dataset_slice", Vehicles.data_version, scope]) do
+    Vehicles.dataset_slice(**scope).to_json
+  end
+end
+```
+
+```erb
+<script type="application/json" id="vehicles-data"><%= json_escape(vehicles_dataset_json(kind: :car, country: :es)).html_safe %></script>
+
+<div data-controller="vehicle-picker">
+  <%= form.select :make,  [@car.make].compact,  {}, data: { vehicle_picker_target: "make" } %>
+  <%= form.select :model, [@car.model].compact, {}, data: { vehicle_picker_target: "model" } %>
+  <%= form.hidden_field :vehiclesdb_id, data: { vehicle_picker_target: "id" } %>
+</div>
+```
+
+```js
+// app/javascript/controllers/vehicle_picker_controller.js
+import { Controller } from "@hotwired/stimulus"
+import VehiclesDropdown from "make-model-dropdown"
+
+export default class extends Controller {
+  static targets = ["make", "model", "id"]
+
+  connect() {
+    const data = JSON.parse(document.getElementById("vehicles-data").textContent)
+    this.dropdown = VehiclesDropdown.attach({
+      data, kind: "car", country: "es", locale: "es", values: "name",
+      make: this.makeTarget, model: this.modelTarget, idInput: this.idTarget
+    })
+  }
+
+  disconnect() { this.dropdown.destroy() }
+}
+```
+
+Give the widget the same `kind`/`country` you sliced by. What the slice
+keeps: each make's `name`, `slug`, `kinds`, `aliases`, `former_slugs`; each
+model's `name`, `slug`, `kind`, `aliases`, `forms`, `former_ids`,
+`global_decile`, `mass_decile`, `availability`, `country_ranks` and
+`registration_years`, plus the release's `version`, `schema_version`,
+`license` and `attribution`. It leaves out `regions` and `body_type`, and with
+`country:` it keeps only that country in `availability` and `country_ranks`
+(every record in the slice is evidenced there; the other countries are most of
+the bytes). The ids are not stored: they are `kind/make-slug/model-slug`, as
+everywhere. The JS and Python SDKs read a slice too (dataset mode, when it is
+what they load as `dist/vehicles.json`).
+
 > [!TIP]
 > Prefer a server round-trip (huge/remote dataset, or you'd rather not embed it)?
 > It's a three-line endpoint — `render json: Vehicles.models(params[:make])` — and
@@ -848,6 +911,7 @@ Vehicles.model_options("Audi")          # => [[label, value]]
 # Whole make => [models] map (embed once for a client-side dependent picker)
 Vehicles.catalog(kind: :car)            # => { "Audi" => ["A3", ...], ... }
 Vehicles.catalog(kind: :car, country: :es) # one country's picker list
+Vehicles.dataset_slice(kind: :car, country: :es) # the same scope as dist/vehicles.json records (widget `data`)
 
 # Objects
 Vehicles.make("Audi")                   # => Vehicles::Make | nil
