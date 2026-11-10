@@ -48,6 +48,11 @@ module Vehicles
         segments, separators = self.class.segment_separators(@regex_strict || @regex)
         @issued_separators = (separators || []).freeze
         @issued_regexp = segments && compile("\\A(#{segments.join(')(')})\\z")
+        # The same segmentation with every quantifier lazy. When the greedy
+        # and lazy readings of a serial split it differently, the groups are
+        # not recoverable from the bare serial ("CD12345" is CD-123-45 or
+        # CD-1234-5): format_serial must not pick one.
+        @issued_lazy_regexp = segments && compile("\\A(#{segments.map { |seg| self.class.lazy(seg) }.join(')(')})\\z")
         freeze
       end
 
@@ -133,7 +138,8 @@ module Vehicles
         # (ES provincial: "M1234LA" is M-1234-LA, which the fixed-slot walk
         # sliced into "M1-234L-A").
         if issued_regexp && (m = issued_regexp.match(serial)) &&
-            m.captures.size == issued_separators.size + 1
+            m.captures.size == issued_separators.size + 1 &&
+            @issued_lazy_regexp&.match(serial)&.captures == m.captures
           return m.captures.each_with_index
                   .map { |part, i| i.zero? ? part : "#{issued_separators[i - 1]}#{part}" }
                   .join.freeze
@@ -292,6 +298,32 @@ module Vehicles
           end
         end
         out.gsub(REDUNDANT_CHARACTER_CLASS_REPEAT) { "#{Regexp.last_match(1)}+" }
+      end
+
+      # A regex segment with its quantifiers made lazy (+ *, ?, {m,n}), for
+      # the ambiguity check in format_serial. Escapes and character classes
+      # are copied untouched.
+      def self.lazy(src)
+        out = +""
+        chars = src.chars
+        i = 0
+        while i < chars.size
+          ch = chars[i]
+          if ch == "\\"
+            out << ch << chars[i + 1].to_s
+            i += 2
+          elsif ch == "["
+            closing = i + 1
+            closing += 1 while closing < chars.size && chars[closing] != "]"
+            out << chars[i..closing].join
+            i = closing + 1
+          else
+            out << ch
+            out << "?" if [ "+", "*", "}" ].include?(ch) && chars[i + 1] != "?"
+            i += 1
+          end
+        end
+        out
       end
 
       def inspect = %(#<Vehicles::Plates::Series #{id} "#{pattern}">)

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - **`Plates::Series#strict?` now reads the dataset's `matching:` key** (PRD-PLATES §2.7, normative) instead of inferring strictness from a `regex_strict` twin being present. The spec forbids that inference: most strict series need no twin because their `regex` already is the issuing grammar. 668 strict series were answering `strict? == false` before, among them Portugal's whole national range (AA-00-AA) and the Spanish CD/CC/OI/TA, military and police series. `Match#strict?` follows. Found by dogfooding: 2 of CarHey's 3 Portuguese cars validated as "recall-only".
+- `Match#formatted` / `Series#format_serial` no longer invent a split when variable-width groups make it ambiguous: "CD12345" (CD-123-45 or CD-1234-5?) comes back as stored instead of "CD-1234-5".
 - `Plates.template_series` (what `Plates.render` draws) prefers strict hits over recall-only ones: a Spanish "CD-123-456" is drawn as the diplomatic series, not as the 1900–1971 numeric catch-all it also fits.
 
 ### Added

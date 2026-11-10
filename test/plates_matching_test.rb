@@ -109,5 +109,14 @@ module Vehicles
 
       assert_equal %w[B C D F G H J K L M N P R S T V W X Y Z], national.letters
     end
+
+    def test_formatted_never_invents_an_ambiguous_split
+      # Variable-width groups: "CD12345" is CD-123-45 or CD-1234-5; the bare
+      # serial cannot say which, so it comes back as stored.
+      assert_equal "CD12345", Vehicles.plate("CD12345", jurisdiction: :es).formatted
+      assert_equal "M-1234-AB", Vehicles.plate("M1234AB", jurisdiction: :es).formatted
+      assert_equal "BI-1234-C", Vehicles.plate("BI1234C", jurisdiction: :es).formatted
+      assert_equal "M-123456", Vehicles.plate("M123456", jurisdiction: :es).formatted
+    end
   end
 end
