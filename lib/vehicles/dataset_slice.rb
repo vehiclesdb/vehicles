@@ -16,7 +16,7 @@ module Vehicles
   # `regions` (a rollup of availability) and `body_type`. With `country:`,
   # `availability` and `country_ranks` keep only that country: every record
   # in the slice is evidenced there, and the other countries' entries are
-  # most of the weight. Spain's cars: ~300 KB of JSON, ~50 KB gzipped.
+  # most of the weight. Spain's cars (data 2026.11.3): ~360 KB of JSON, ~57 KB gzipped.
   module DatasetSlice
     # Model keys copied as published, in dist order. The two per-country keys
     # are projected separately.
@@ -76,12 +76,12 @@ module Vehicles
     # dataset mode read. Embed it in the page and the widget resolves stored
     # values and canonical ids with no request to a CDN or the API.
     #   Vehicles.dataset_slice(kind: :car, country: :es)
-    #   # => { "version" => "2026.11.2", "schema_version" => 2, "kinds" => ["car"],
+    #   # => { "version" => "2026.11.3", "schema_version" => 2, "kinds" => ["car"],
     #   #      "license" => "CC-BY-4.0", "attribution" => {...},
     #   #      "makes" => [{ "name" => "SEAT", "slug" => "seat", "kinds" => ["car"],
     #   #                    "models" => [{ "name" => "Ibiza", "slug" => "ibiza", "kind" => "car", ... }] }] }
     # With `country:`, each record's `availability` and `country_ranks` keep
-    # only that country (Spain's cars: ~300 KB of JSON, ~50 KB gzipped).
+    # only that country (Spain's cars: ~360 KB of JSON, ~57 KB gzipped).
     # `regions` and `body_type` are left out. See Vehicles::DatasetSlice.
     def dataset_slice(kind: nil, region: nil, country: nil, kinds: nil)
       DatasetSlice.build(dataset, kind: kind, kinds: kinds, region: region || configuration.region, country: country)
