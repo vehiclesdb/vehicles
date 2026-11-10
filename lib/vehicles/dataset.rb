@@ -61,6 +61,12 @@ module Vehicles
           @exact[a.downcase] ||= make
         end
       end
+      index_former_slugs
+    end
+
+    # The make that now carries a retired make slug ("mg-roewe" → MG), or nil.
+    def make_by_former_slug(slug)
+      @by_former_slug[slug.to_s]
     end
 
     # All makes, optionally filtered by kind and/or continent. `region:` is a
@@ -69,10 +75,11 @@ module Vehicles
     # this?"; on today's global snapshot both readings return European makes
     # for `region: :eu`, so existing callers are unaffected.) An unmapped
     # continent honestly returns [].
-    def makes(kind: nil, region: nil)
+    def makes(kind: nil, region: nil, country: nil)
       list = @makes
       list = list.select { |m| m.kinds.include?(kind.to_sym) } if kind
       list = list.select { |m| m.in_region?(region) }          if region
+      list = list.select { |m| m.available_in?(country, kind: kind) } if country
       list
     end
 
@@ -152,6 +159,11 @@ module Vehicles
       @all_models ||= @makes.flat_map(&:models).freeze
     end
 
+    # Continent codes present in the snapshot. => [:af, :as, :eu, ...]
+    def regions
+      @regions ||= all_models.flat_map(&:regions).uniq.sort.freeze
+    end
+
     # Every kind present in the snapshot. => [:bus, :car, :moped, ...]
     def kinds
       @kinds ||= @makes.flat_map(&:kinds).uniq.sort.freeze
@@ -178,6 +190,7 @@ module Vehicles
     # chosen decile only breaks ties among models ranked equally there.
     #   top_models(kind: :car, by: :mass_decile, limit: 10)
     #   top_models(kind: :motorcycle, region: :as, limit: 10)  # by continent
+    # `limit: nil` returns every match.
     def top_models(kind: nil, country: nil, region: nil, limit: 20, by: :global_decile)
       raise ArgumentError, "by: must be :global_decile or :mass_decile" unless RANKINGS.include?(by)
 
@@ -186,13 +199,16 @@ module Vehicles
       list = list.select { |m| m.kind == kind.to_sym } if kind
       list = list.select { |m| m.availability.include?(c) } if c
       list = list.select { |m| m.available_in_region?(region) } if region
-      list.sort_by do |m|
-        rank = c && m.rank_in(c)
-        [rank ? 0 : 1, rank || 0, m.public_send(by), -m.availability.size, m.name]
-      end.first(limit)
+      sorted = list.sort_by { |m| popularity_key(m, c, by) }
+      limit ? sorted.first(limit) : sorted
     end
 
     RANKINGS = %i[global_decile mass_decile].freeze
+
+    def popularity_key(model, country, by)
+      rank = country && model.rank_in(country)
+      [rank ? 0 : 1, rank || 0, model.public_send(by), -model.availability.size, model.name]
+    end
 
     # Every model matching optional kind/region/rarity filters, ranked by
     # popularity. The "give me a sensible slice" entry point.
@@ -213,6 +229,18 @@ module Vehicles
     end
 
     private
+
+    # Former make slugs (a renamed or merged make) answer last: a current
+    # name, slug or alias always wins over a retired slug.
+    def index_former_slugs
+      @by_former_slug = {}
+      @makes.each do |make|
+        make.former_slugs.each do |old|
+          @by_former_slug[old] ||= make
+          index(old, make)
+        end
+      end
+    end
 
     def index(key, make)
       @index[Vehicles.normalize(key)] ||= make

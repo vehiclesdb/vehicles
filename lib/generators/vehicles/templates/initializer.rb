@@ -6,16 +6,21 @@
 # dataset, so it works with zero configuration. Uncomment what you need.
 
 Vehicles.configure do |config|
-  # Default region for queries. Today the bundled data covers the EU market;
-  # :us / :gb / :au / :nz / :ca packs are on the roadmap (the API is already
-  # region-aware, so adding them won't change your code).
+  # Optional default CONTINENT filter (:eu/:na/:as/:sa/:oc/:af). The bundled
+  # data is global; nil (the default) means every market. For one COUNTRY,
+  # pass `country:` where you build pickers: Vehicles.catalog(kind: :car, country: :es).
   # config.region = :eu
 
-  # Optional: a VehiclesDB API key unlocks hosted enrichment — production years,
-  # model images (year- and color-accurate), and market segments — on the same
-  # Vehicles::Model objects you already use. Without a key, everything still
-  # works on the bundled data; those richer fields just return nil.
+  # Optional: a VehiclesDB API key unlocks rendered model images
+  # (`model.image(color: "red")`) on the same Vehicles::Model objects you already
+  # use. Without a key, everything still works on the bundled data; images are nil.
   # config.api_key = ENV["VEHICLESDB_API_KEY"]
+  #
+  # Image payloads are cached (in-process by default); share them across
+  # processes with Rails.cache. Hosted failures (bad key, out of credits, rate
+  # limited, timeouts) are never raised: report them here.
+  # config.image_cache = Rails.cache
+  # config.on_hosted_error = ->(result) { Rails.error.report(result.to_error, handled: true) }
 
   # Optional: your own make aliases, merged over the built-ins. Matched
   # forgivingly (case/diacritics-insensitive).
@@ -30,11 +35,15 @@ Vehicles.configure do |config|
 
   # --- Data refresh (optional) ----------------------------------------------
   # The gem works offline with its bundled snapshot. To get data fixes and new
-  # makes WITHOUT upgrading the gem, schedule VehiclesRefreshJob (see app/jobs)
-  # — it pulls the latest published dataset into a local cache, which loads
-  # prefer over the bundled copy. Defaults below are sensible; override if needed.
+  # makes WITHOUT upgrading the gem, schedule VehiclesRefreshJob (see app/jobs).
+  # It writes a checked release to `cache_path`; every process serves it once
+  # it is newer than the bundled data, re-checking the file every few seconds.
   #
-  # config.data_url   = "https://cdn.jsdelivr.net/gh/vehiclesdb/vehiclesdb@latest/dist/vehicles.json"
-  # config.cache_path = Rails.root.join("tmp", "cache", "vehicles", "vehicles.json")
+  # Web and jobs in separate containers (Kamal, Docker)? Point both at ONE
+  # shared volume so a refresh run by the job container reaches the web one:
+  # config.cache_dir = Rails.root.join("storage", "vehicles")  # or ENV VEHICLES_CACHE_DIR
+  #
   # config.use_cache  = true   # set false to always use the bundled snapshot (fully offline/deterministic)
+  # config.refresh_min_ratio = 0.9  # refuse a release that shrinks a kind or a country below 90%
+  # config.refresh_guard = ->(new_data, current) { true } # your own last check (Vehicles::Dataset objects)
 end

@@ -33,8 +33,25 @@ module Vehicles
       validates :model, vehicle_model: { make: :make, allow_other: true }
     end
 
+    # Scoped like a Spain-only car picker (0.9.2).
+    class SpanishCar
+      include ActiveModel::Model
+
+      attr_accessor :make, :model
+
+      validates :make, vehicle_make: { kind: :car, country: :es }
+      validates :model, vehicle_model: { make: :make, kind: :car, country: :es }
+    end
+
     def setup
       skip "ActiveModel not available" unless defined?(ActiveModel::EachValidator)
+    end
+
+    def test_kind_and_country_scope_the_validators
+      assert_predicate SpanishCar.new(make: "SEAT", model: "Ibiza"), :valid?
+      refute_predicate SpanishCar.new(make: "Perodua", model: "Myvi"), :valid?  # no Perodua car in Spain
+      refute_predicate SpanishCar.new(make: "Iveco", model: "Stralis"), :valid? # trucks only
+      assert_predicate Car.new(make: "Perodua", model: "Myvi"), :valid?         # unscoped: still fine
     end
 
     def test_valid_make_and_model

@@ -43,7 +43,7 @@ module Vehicles
     def check(kase)
       got = resolve(kase)
       label = "#{kase["entry"]} #{(kase["input"] || [kase["make"], kase["model"]]).inspect} " \
-              "kind=#{kase["kind"].inspect} #{kase["note"]}".strip
+              "kind=#{kase["kind"].inspect} kinds=#{kase["kinds"].inspect} #{kase["note"]}".strip
 
       assert_outcome(kase["expect"], got, label)
       return unless kase["method"] && got
@@ -54,8 +54,8 @@ module Vehicles
     def resolve(kase)
       kind = kase["kind"]&.to_sym
       case kase["entry"]
-      when "pair" then Vehicles.match_model(kase["make"], kase["model"], kind: kind)
-      when "text" then Vehicles.identify(kase["input"], kind: kind)
+      when "pair" then Vehicles.match_model(kase["make"], kase["model"], kind: kind, kinds: kase["kinds"])
+      when "text" then Vehicles.identify(kase["input"], kind: kind, kinds: kase["kinds"])
 
       else flunk "unknown entry #{kase["entry"].inspect}"
       end

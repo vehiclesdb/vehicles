@@ -11,11 +11,16 @@ module Vehicles
       attr_reader :id, :klass, :categories, :period, :period_evidence,
         :pattern, :display_pattern, :regex, :regex_strict, :design,
         :variants, :sources, :notes, :validation_regexp, :lenient_regexp,
-        :issued_regexp, :issued_separators
+        :issued_regexp, :issued_separators, :matching, :recall_lenient_regexp,
+        :letters
 
       def initialize(entry)
         @id           = entry["id"]
         @klass        = entry["class"] || "standard"
+        # PRD-PLATES §2.7 (normative): a series says whether a regex hit is a
+        # validity claim (`strict`) or only a shape hit (`recall-only`).
+        # Absent => strict, the spec's backward-compatible default.
+        @matching     = entry["matching"] || "strict"
         @categories   = Array(entry["categories"]).freeze
         @period       = (entry["period"] || {}).freeze
         @period_evidence = entry["period_evidence"]
@@ -25,6 +30,11 @@ module Vehicles
         @display_pattern = @pattern&.gsub(/\\(.)/) { $1 }
         @regex        = entry.dig("format", "regex")
         @regex_strict = entry.dig("format", "regex_strict")
+        # The letters this series issues, when the dataset enumerates them
+        # (es-national-2000: the 20 consonants). Nil when it does not; a few
+        # series carry prose there ("A-Z, no exclusions published"), not a set.
+        letters       = entry.dig("format", "charset", "letters")
+        @letters      = letters.is_a?(Array) ? letters.map(&:to_s).freeze : nil
         @design       = (entry["design"] || {}).freeze
         @variants     = Array(entry["variants"]).freeze
         @sources      = Array(entry["sources"]).freeze
@@ -32,18 +42,48 @@ module Vehicles
         # Compiled eagerly — the object is frozen, so no lazy memoization.
         @validation_regexp = compile(@regex_strict || @regex)
         @lenient_regexp    = compile(self.class.strip_separators(@regex_strict || @regex))
+        # The series' SHAPE without its issuing alphabet, only where the two
+        # differ (a `regex_strict` exists): what Match#near_misses tests.
+        @recall_lenient_regexp = @regex_strict && compile(self.class.strip_separators(@regex))
         segments, separators = self.class.segment_separators(@regex_strict || @regex)
         @issued_separators = (separators || []).freeze
         @issued_regexp = segments && compile("\\A(#{segments.join(')(')})\\z")
+        # The same segmentation with every quantifier lazy. When the greedy
+        # and lazy readings of a serial split it differently, the groups are
+        # not recoverable from the bare serial ("CD12345" is CD-123-45 or
+        # CD-1234-5): format_serial must not pick one.
+        @issued_lazy_regexp = segments && compile("\\A(#{segments.map { |seg| self.class.lazy(seg) }.join(')(')})\\z")
         freeze
       end
 
-      # A strict-validated series has an authority-alphabet regex twin; a
+      # A strict series' regex hit is a validity claim for that series; a
       # recall-only series (export/dark-blue catch-alls that accept any
-      # current shape) matches loosely by design. Consumers validating user
-      # input should weight strict hits above recall-only ones — Match does.
+      # current shape, the ES 1900-1971 numeric era) matches loosely by
+      # design. Read from the dataset's `matching:` key, never inferred from
+      # `regex_strict` being present: PRD-PLATES §2.7 forbids that inference
+      # because most strict series need no strict twin (their `regex` already
+      # IS the issuing grammar — Portugal's AA-00-AA, the Spanish CD/CC/OI/TA
+      # series). Until 0.9.2 the gem inferred it, so 668 strict series
+      # (Portugal's whole national range among them) answered "not strict".
+      # Consumers validating user input should weight strict hits above
+      # recall-only ones — Match does.
       def strict?
-        !regex_strict.nil?
+        matching != "recall-only"
+      end
+
+      # Vehicle categories that carry people (dataset `categories`
+      # vocabulary). A series issued only to trailers, semitrailers,
+      # caravans, tractors, machines or trucks plates nothing a passenger
+      # rides in.
+      PASSENGER_CATEGORIES = %w[car van bus coach motorhome motorcycle moped scooter quadricycle tricycle
+                                ambulance].freeze
+
+      # Is this series issued to at least one passenger-carrying vehicle
+      # category? (es-national-2000: yes; es-trailer-1999 and the
+      # es-special-vehicles-1999 tractor plates: no.) Series without
+      # categories answer true: unknown is not "no".
+      def passenger?
+        categories.empty? || categories.intersect?(PASSENGER_CATEGORIES)
       end
 
       # period_evidence values on which the recorded START is not (or not
@@ -90,10 +130,15 @@ module Vehicles
       def format_serial(serial)
         return nil if serial.nil?
 
+        # A serial whose groups the series' own regex can split more than one
+        # way is returned as stored, before anything else: the bare serial
+        # cannot say which split was issued ("CD123456" is CD-123-456 or
+        # CD-12-3456; the dataset calls CD-999-999 representative), and a
+        # display pattern of one shape must not decide it.
+        return serial.dup.freeze if ambiguous_split?(serial)
+
         # The display pattern is authoritative when the serial fills it
-        # exactly — it knows splits the regex cannot (CC-999-999 over
-        # `\d+[- ]\d+` is ambiguous to a greedy match, unambiguous to the
-        # pattern).
+        # exactly and the regex has only one reading of it.
         slots = display_pattern&.each_char&.count { |ch| ![ "-", " ", "·", "." ].include?(ch) }
         if slots && serial.length == slots
           idx = 0
@@ -272,6 +317,40 @@ module Vehicles
           end
         end
         out.gsub(REDUNDANT_CHARACTER_CLASS_REPEAT) { "#{Regexp.last_match(1)}+" }
+      end
+
+      # True when the greedy and lazy readings of the segmented regex split
+      # this serial differently.
+      def ambiguous_split?(serial)
+        greedy = issued_regexp&.match(serial) or return false
+        lazy = @issued_lazy_regexp&.match(serial) or return false
+        greedy.captures != lazy.captures
+      end
+
+      # A regex segment with its quantifiers made lazy (+ *, ?, {m,n}), for
+      # the ambiguity check in format_serial. Escapes and character classes
+      # are copied untouched.
+      def self.lazy(src)
+        out = +""
+        chars = src.chars
+        i = 0
+        while i < chars.size
+          ch = chars[i]
+          if ch == "\\"
+            out << ch << chars[i + 1].to_s
+            i += 2
+          elsif ch == "["
+            closing = i + 1
+            closing += 1 while closing < chars.size && chars[closing] != "]"
+            out << chars[i..closing].join
+            i = closing + 1
+          else
+            out << ch
+            out << "?" if [ "+", "*", "}" ].include?(ch) && chars[i + 1] != "?"
+            i += 1
+          end
+        end
+        out
       end
 
       def inspect = %(#<Vehicles::Plates::Series #{id} "#{pattern}">)

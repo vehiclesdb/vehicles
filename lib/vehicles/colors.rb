@@ -24,18 +24,22 @@ module Vehicles
       Color.new("other",  "Other",  "#9AA0A6")
     ].freeze
 
-    # Accept a few common spellings/synonyms so lookups are forgiving like the
-    # rest of the gem (normalized keys → canonical slug).
-    SYNONYMS = {
-      "gray" => "grey",
-      "silvery" => "silver",
-      "tan" => "beige",
-      "cream" => "beige",
-      "burgundy" => "red",
-      "navy" => "blue"
-    }.freeze
+    # English spellings/synonyms (normalized keys → canonical slug). Every
+    # locale's synonyms live in Labels::COLOR_SYNONYMS.
+    SYNONYMS = Labels::COLOR_SYNONYMS[:en]
 
     BY_SLUG = ALL.to_h { |c| [c.slug, c] }.freeze
     BY_NAME = ALL.to_h { |c| [Vehicles.normalize(c.name), c] }.freeze
+
+    # Every normalized label and synonym in every locale → Color, so "Rojo",
+    # "gris", "marrón", "plateada" and "navy" all resolve (Vehicles.color).
+    LOOKUP = begin
+      table = {}
+      Labels::LOCALES.each do |locale|
+        Labels::COLORS[locale].each { |slug, label| table[Vehicles.normalize(label)] ||= BY_SLUG[slug] }
+        Labels::COLOR_SYNONYMS[locale].each { |key, slug| table[Vehicles.normalize(key)] ||= BY_SLUG[slug] }
+      end
+      table.freeze
+    end
   end
 end

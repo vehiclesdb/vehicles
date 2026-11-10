@@ -67,15 +67,20 @@ module Vehicles
       canon = typed.gsub(SEPARATORS, "")
       return Match.new(input: input.to_s, jurisdiction: juris, canon: canon, hits: []) if juris.nil? || canon.empty?
 
-      hits = juris.series.filter_map do |series|
-        next nil unless series.validation_regexp
+      hits = []
+      near_misses = []
+      juris.series.each do |series|
+        next unless series.validation_regexp
 
         exact = series.validation_regexp.match?(typed)
-        lenient = exact || series.lenient_regexp&.match?(canon)
-        Match::Hit.new(series: series, exact: exact) if lenient
+        if exact || series.lenient_regexp&.match?(canon)
+          hits << Match::Hit.new(series: series, exact: exact)
+        elsif series.recall_lenient_regexp&.match?(canon)
+          near_misses << series
+        end
       end
 
-      Match.new(input: input.to_s, jurisdiction: juris, canon: canon, hits: hits)
+      Match.new(input: input.to_s, jurisdiction: juris, canon: canon, hits: hits, near_misses: near_misses)
     end
 
     # The answer to "is this a plate, and which series issues it?".
@@ -84,12 +89,17 @@ module Vehicles
         def exact? = exact
       end
 
-      attr_reader :input, :jurisdiction, :canon, :hits
+      attr_reader :input, :jurisdiction, :canon, :hits, :near_misses
 
-      def initialize(input:, jurisdiction:, canon:, hits:)
+      def initialize(input:, jurisdiction:, canon:, hits:, near_misses: [])
         @input = input
         @jurisdiction = jurisdiction
         @canon = canon
+        # Series whose SHAPE the plate has but whose issuing ALPHABET it
+        # breaks: "1234 ABC" is the Spanish 2000 shape with vowels Spain never
+        # issues. Lets a form say WHY ("no vowels, Ñ or Q") instead of only
+        # "not a plate". Empty whenever the plate hits a strict series.
+        @near_misses = (hits.any? { |h| h.series.strict? } ? [] : near_misses).freeze
         # Exact hits outrank lenient ones, strict-validated series outrank
         # recall-only catch-alls; series order (standard first) breaks ties.
         @hits = hits.sort_by { |h| [ h.exact? ? 0 : 1, h.series.strict? ? 0 : 1 ] }.freeze
@@ -116,6 +126,42 @@ module Vehicles
       # Only when the user's punctuation was off: the "did you mean" string.
       def suggestion
         formatted if valid? && !exact?
+      end
+
+      # WHY the plate is (not) valid, as one Symbol — the same codes the
+      # VehiclesDB API answers (as strings):
+      #   :ok                   a strict series issues it (the authority's real alphabet)
+      #   :unverifiable         only a recall-only series has the shape (an era
+      #                         or catch-all whose alphabet is not published)
+      #   :excluded_letters     a series has this shape but never issues these
+      #                         letters ("1234 ABC": Spain issues no vowels, Ñ or Q)
+      #   :bad_shape            no series has this shape
+      #   :empty                nothing but separators was typed
+      #   :unknown_jurisdiction no plate data for that code
+      # Validity only: whether a passenger vehicle may carry it is `passenger?`.
+      def reason
+        return :unknown_jurisdiction if jurisdiction.nil?
+        return :empty if canon.empty?
+        return :ok if strict?
+        return :unverifiable if valid?
+
+        excluded_letters.empty? ? :bad_shape : :excluded_letters
+      end
+
+      # The letters of the plate that a near-miss series (same shape, an
+      # enumerated alphabet) never issues, e.g. ["A", "E"] for "1234 ABE" in
+      # Spain. [] when that is not why it failed.
+      def excluded_letters
+        letters = canon.scan(/[[:alpha:]]/).uniq
+        near_misses.select(&:letters).flat_map { |series| letters - series.letters }.uniq.sort
+      end
+
+      # Does a STRICT hit come from a series issued to passenger-carrying
+      # vehicles (Series#passenger?)? false for a valid trailer or tractor
+      # plate, and for anything not strictly valid. For apps that move
+      # people (ride sharing, rentals).
+      def passenger?
+        hits.any? { |hit| hit.series.strict? && hit.series.passenger? }
       end
     end
   end

@@ -86,7 +86,11 @@ module Vehicles
 
         assert_match lenient_recall, canon,
           "#{series.id}: lenient regex rejects its own pattern's sample"
-        assert_equal sample, series.format_serial(canon),
+        # A series whose regex can split the sample more than one way
+        # (variable-width groups: ES diplomatic, personalised plates) returns
+        # it as stored rather than invent a split.
+        expected = series.ambiguous_split?(canon) ? canon : sample
+        assert_equal expected, series.format_serial(canon),
           "#{series.id}: format_serial doesn't reconstruct the patterned form"
       end
     end
