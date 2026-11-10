@@ -4,8 +4,8 @@
 (the gem projection) at a release tag:
 
 - **Source**: https://github.com/vehiclesdb/vehiclesdb `dist/vehicles.json`
-- **Tag**: `v2026.11.4` (commit `642001f8bf46a2c216f106088613495c92d8c674`), dataset version `2026.11.4`
-- **country_ranks**: 16118 model(s) carried it natively; 0 merged from
+- **Tag**: `v2026.11.6` (commit `7b2b37f41e676ad42cdc0b1dfed1460670f1595b`), dataset version `2026.11.6`
+- **country_ranks**: 16223 model(s) carried it natively; 0 merged from
   the same tag's `catalog/<kind>/models.json` `popularity.by_country[cc].rank`
 - **License**: CC-BY 4.0 (see the data repo's LICENSE + ATTRIBUTION.md)
 
