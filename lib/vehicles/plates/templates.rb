@@ -79,13 +79,17 @@ module Vehicles
       nil
     end
 
-    # The one series a match's plate is drawn as: the only standard-class
-    # series among the hits, else the only hit. Nil when it is ambiguous.
+    # The one series a match's plate is drawn as. Strict hits outrank
+    # recall-only ones (a Spanish "CD-123-456" is the diplomatic series, not
+    # the 1900-1971 numeric catch-all it also fits); among them, the only
+    # standard-class series, else the only hit. Nil when it is ambiguous.
     def template_series(found)
-      standard = found.series.select { |series| series.klass == "standard" }
+      strict = found.series.select(&:strict?)
+      candidates = strict.empty? ? found.series : strict
+      standard = candidates.select { |series| series.klass == "standard" }
       return standard.first if standard.one?
 
-      found.series.first if found.series.one?
+      candidates.first if candidates.one?
     end
 
     def fetch_template(code, series, shape, region)

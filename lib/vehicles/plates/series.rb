@@ -11,11 +11,16 @@ module Vehicles
       attr_reader :id, :klass, :categories, :period, :period_evidence,
         :pattern, :display_pattern, :regex, :regex_strict, :design,
         :variants, :sources, :notes, :validation_regexp, :lenient_regexp,
-        :issued_regexp, :issued_separators
+        :issued_regexp, :issued_separators, :matching, :recall_lenient_regexp,
+        :letters
 
       def initialize(entry)
         @id           = entry["id"]
         @klass        = entry["class"] || "standard"
+        # PRD-PLATES §2.7 (normative): a series says whether a regex hit is a
+        # validity claim (`strict`) or only a shape hit (`recall-only`).
+        # Absent => strict, the spec's backward-compatible default.
+        @matching     = entry["matching"] || "strict"
         @categories   = Array(entry["categories"]).freeze
         @period       = (entry["period"] || {}).freeze
         @period_evidence = entry["period_evidence"]
@@ -25,6 +30,11 @@ module Vehicles
         @display_pattern = @pattern&.gsub(/\\(.)/) { $1 }
         @regex        = entry.dig("format", "regex")
         @regex_strict = entry.dig("format", "regex_strict")
+        # The letters this series issues, when the dataset enumerates them
+        # (es-national-2000: the 20 consonants). Nil when it does not; a few
+        # series carry prose there ("A-Z, no exclusions published"), not a set.
+        letters       = entry.dig("format", "charset", "letters")
+        @letters      = letters.is_a?(Array) ? letters.map(&:to_s).freeze : nil
         @design       = (entry["design"] || {}).freeze
         @variants     = Array(entry["variants"]).freeze
         @sources      = Array(entry["sources"]).freeze
@@ -32,18 +42,28 @@ module Vehicles
         # Compiled eagerly — the object is frozen, so no lazy memoization.
         @validation_regexp = compile(@regex_strict || @regex)
         @lenient_regexp    = compile(self.class.strip_separators(@regex_strict || @regex))
+        # The series' SHAPE without its issuing alphabet, only where the two
+        # differ (a `regex_strict` exists): what Match#near_misses tests.
+        @recall_lenient_regexp = @regex_strict && compile(self.class.strip_separators(@regex))
         segments, separators = self.class.segment_separators(@regex_strict || @regex)
         @issued_separators = (separators || []).freeze
         @issued_regexp = segments && compile("\\A(#{segments.join(')(')})\\z")
         freeze
       end
 
-      # A strict-validated series has an authority-alphabet regex twin; a
+      # A strict series' regex hit is a validity claim for that series; a
       # recall-only series (export/dark-blue catch-alls that accept any
-      # current shape) matches loosely by design. Consumers validating user
-      # input should weight strict hits above recall-only ones — Match does.
+      # current shape, the ES 1900-1971 numeric era) matches loosely by
+      # design. Read from the dataset's `matching:` key, never inferred from
+      # `regex_strict` being present: PRD-PLATES §2.7 forbids that inference
+      # because most strict series need no strict twin (their `regex` already
+      # IS the issuing grammar — Portugal's AA-00-AA, the Spanish CD/CC/OI/TA
+      # series). Until 0.9.2 the gem inferred it, so 668 strict series
+      # (Portugal's whole national range among them) answered "not strict".
+      # Consumers validating user input should weight strict hits above
+      # recall-only ones — Match does.
       def strict?
-        !regex_strict.nil?
+        matching != "recall-only"
       end
 
       # period_evidence values on which the recorded START is not (or not

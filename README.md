@@ -520,11 +520,20 @@ Vehicles.plate("12gbbd", jurisdiction: :nl).suggestion  # => "12-GB-BD"  (did yo
 Vehicles.plate("12-AB-CD", jurisdiction: :nl).strict?   # => false — vowels aren't issued
 ```
 
-Matching is **two-tier**: exact as-issued first, then a separator-forgiving tier — `"1234XYZ"`, `"1234 xyz"` and `"1234-XYZ"` all resolve to the same serial, with `suggestion` giving the formatting the plate actually wears. Leniency forgives punctuation, **never the alphabet**: the strict regexes encode what the authority really issues (the Dutch vowel purge, the Spanish consonant-triplet rule…). `Match#strict?` separates authority-alphabet hits from recall-only catch-alls (export plates accept any current shape, by law).
+Matching is **two-tier**: exact as-issued first, then a separator-forgiving tier — `"1234XYZ"`, `"1234 xyz"` and `"1234-XYZ"` all resolve to the same serial, with `suggestion` giving the formatting the plate actually wears. Leniency forgives punctuation, **never the alphabet**: the strict regexes encode what the authority really issues (the Dutch vowel purge, the Spanish consonant-triplet rule…). `Match#strict?` separates validity claims from shape hits: it is true when a hit comes from a series the dataset marks `matching: strict` (PRD-PLATES §2.7), and false for recall-only catch-alls (export plates accept any current shape, by law; Spain's 1900–1971 numeric era is one wide union). Validate user input with `strict?`.
+
+When a plate has a series' shape but breaks its alphabet, `near_misses` names that series, so a form can say why:
+
+```ruby
+m = Vehicles.plate("1234 ABC", jurisdiction: :es)
+m.valid?                                   # => false
+m.near_misses.map(&:id)                    # => ["es-national-2000"]
+m.jurisdiction.charset["excluded_letters"] # => ["A", "E", "I", "O", "U", "Ñ", "Q"]
+```
 
 ```ruby
 Vehicles.plates              # => every jurisdiction
-Vehicles.plates(:es).series  # => 18 series: formats, periods, sourced designs
+Vehicles.plates(:es).series  # => 19 series: formats, periods, sourced designs
 ```
 
 Pilot coverage (gate L0): 🇳🇱 🇪🇸 🇩🇪 + US-Florida, 73 series, corpus-proven in NL. Same posture as everything else here: bundled, offline, forgiving in, honest out.

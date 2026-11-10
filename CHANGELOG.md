@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.2] - 2026-11-10
+
+### Fixed
+- **`Plates::Series#strict?` now reads the dataset's `matching:` key** (PRD-PLATES §2.7, normative) instead of inferring strictness from a `regex_strict` twin being present. The spec forbids that inference: most strict series need no twin because their `regex` already is the issuing grammar. 668 strict series were answering `strict? == false` before, among them Portugal's whole national range (AA-00-AA) and the Spanish CD/CC/OI/TA, military and police series. `Match#strict?` follows. Found by dogfooding: 2 of CarHey's 3 Portuguese cars validated as "recall-only".
+- `Plates.template_series` (what `Plates.render` draws) prefers strict hits over recall-only ones: a Spanish "CD-123-456" is drawn as the diplomatic series, not as the 1900–1971 numeric catch-all it also fits.
+
+### Added
+- `Plates::Match#near_misses`: the series whose shape a plate has but whose issuing alphabet it breaks ("1234 ABC" → `es-national-2000`: Spain issues no vowels, Ñ or Q). Empty whenever the plate hits a strict series. Lets a form explain the rejection. `Series#matching` and `Series#recall_lenient_regexp` back it, and `Series#letters` (the issued letter set, when the dataset enumerates one) tells a form whether the alphabet is what failed.
+
+### Changed
+- Bundled plates corpus refreshed to vehiclesdb `db0ec0a`: adds Egypt, Nigeria and Türkiye (127 jurisdictions, 1,409 series) and the Andorra and Austria verification corrections.
+
 ## [0.9.1] - 2026-11-09
 
 ### Changed
