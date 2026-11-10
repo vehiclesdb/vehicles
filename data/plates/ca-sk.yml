@@ -1,4 +1,4 @@
-# plates/ca-sk.yml — Saskatchewan (PRD-PLATES gate L3, Canada west).
+# plates/ca-sk.yml — Saskatchewan (the plates spec gate L3, Canada west).
 #
 # ── THE HONEST HEADLINE: THIS IS THE THINNEST FILE IN THE CANADA-WEST GROUP,
 #    AND THE REASON IS INFRASTRUCTURE, NOT SASKATCHEWAN.
@@ -52,7 +52,7 @@
 #
 # ── PERIOD DISCIPLINE, STATED UP FRONT ─────────────────────────────────────
 # Every serial-format claim below is graded `secondary-wikipedia` under the
-# PRD-PLATES § 4 Wikipedia row's tagging condition. None of them is traced to a
+# the plates spec § 4 Wikipedia row's tagging condition. None of them is traced to a
 # Saskatchewan instrument or to SGI, because neither was reachable. A verifier
 # with working access to publications.saskatchewan.ca should treat every such
 # grade as an open item; they are enumerated in the dossier.
@@ -96,7 +96,7 @@ artwork_risk:
     is a CROWN INSURANCE CORPORATION with commercial operations, as British
     Columbia's is, which makes the "edict of government" argument weaker for
     SGI's own materials than for a statute.
-  emblem_rule: "PRD-PLATES § 3 placeholder default applies to the wheat device reported at the centre of the standard base."
+  emblem_rule: "The plates spec § 3 placeholder default applies to the wheat device reported at the centre of the standard base."
   sources:
     - "https://www.saskatchewan.ca/government/news-and-media/2004/june/28/saskatchewan-moves-to-a-single-plate-on-june-30th  # the province's own publication of the plate regime"
 
@@ -126,7 +126,7 @@ common:
   separator_note: >-
     The Saskatchewan serial is universally rendered as two groups of three with
     a printed gap (`123 ABC`). No Saskatchewan source states a separator glyph.
-    Under PRD-PLATES § 2.8 the position is spelled with the sanctioned
+    Under the plates spec § 2.8 the position is spelled with the sanctioned
     separator-only class, and `pattern` shows the canonical printed space.
   dimensions_note: >-
     NEGATIVE FINDING. No dimension is sourced. The reported 12 x 6 in /
@@ -182,7 +182,7 @@ series:
       beginning "early 2009" with the SAME arrangement, which on inspection is
       an ALPHABET change and not a format change (see common.alphabet_note) —
       so it is recorded as a charset fact inside this series rather than minted
-      as a second series, on the PRD-PLATES § 2.3 test (own series iff format OR
+      as a second series, on the plates spec § 2.3 test (own series iff format OR
       design OR period differs; a charset widening inside one arrangement is
       none of the three).
       THE STRONGEST THING IN THIS RECORD IS NOT THE FORMAT. It is the display
@@ -193,7 +193,7 @@ series:
       its replacement cycle, arrived at eleven years earlier by a different
       route.
     sources:
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Saskatchewan  # FINDING AID (PRD-PLATES §4 Wikipedia row): 123 ABC reported from May 1998, the 2009 alphabet widening, the green-on-white wheat design, 'Land of Living Skies', aluminium; accessed 2026-08-02"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Saskatchewan  # FINDING AID (the plates spec §4 Wikipedia row): 123 ABC reported from May 1998, the 2009 alphabet widening, the green-on-white wheat design, 'Land of Living Skies', aluminium; accessed 2026-08-02"
       - "https://www.saskatchewan.ca/government/news-and-media/2004/june/28/saskatchewan-moves-to-a-single-plate-on-june-30th  # the single-plate regime this series is issued under"
 
   - id: ca-sk-standard-1977

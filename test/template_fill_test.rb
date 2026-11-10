@@ -6,7 +6,7 @@ require "open3"
 module Vehicles
   # The filler against templates VehiclesDB really serves
   # (test/fixtures/plate_templates: GET /plates/:code/:series_id/template.svg,
-  # saved from vehiclesdb-web 4ab9d646). Ported from vehiclesdb-web's
+  # saved from the VehiclesDB web app 4ab9d646). Ported from the web app's
   # test/models/plates/template_fill_test.rb.
   class TemplateFillTest < TestCase
     FIXTURES = File.expand_path("fixtures/plate_templates", __dir__)

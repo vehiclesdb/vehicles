@@ -11,7 +11,7 @@ Vehicles.configure do |config|
   # pass `country:` where you build pickers: Vehicles.catalog(kind: :car, country: :es).
   # config.region = :eu
 
-  # Optional: a VehiclesDB API key unlocks rendered model images
+  # Optional: a VehiclesDB API key unlocks studio model images
   # (`model.image(color: "red")`) on the same Vehicles::Model objects you already
   # use. Without a key, everything still works on the bundled data; images are nil.
   # config.api_key = ENV["VEHICLESDB_API_KEY"]

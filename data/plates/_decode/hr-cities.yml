@@ -81,7 +81,7 @@ period_note: >-
   period, so the 1990s code set is not asserted here.
 
 # ---------------------------------------------------------------------------
-# THE DIACRITIC PROBLEM — a PRD-PLATES §2.6 finding, recorded, not folded away.
+# THE DIACRITIC PROBLEM — a the plates spec §2.6 finding, recorded, not folded away.
 # ---------------------------------------------------------------------------
 diacritics:
   affected_codes: ["ČK", "KŽ", "PŽ", "ŠI", "VŽ", "ŽU"]
@@ -91,7 +91,7 @@ diacritics:
     it as A-Z 0-9), so no `format.pattern` or `format.regex` in plates/hr.yml
     can spell them: the area-code position is written `[A-Z]{2}` there and is
     therefore NARROWER than the issuing grammar for these six areas. Per
-    PRD-PLATES §2.7 that is still `matching: strict` — narrower is strict — but
+    the plates spec §2.7 that is still `matching: strict` — narrower is strict — but
     a consumer matching a photographed Croatian plate MUST either ASCII-fold the
     input or widen the class itself. Extending the serial alphabet is a schema
     amendment (§2.6), not a data entry, and is NOT attempted here.
@@ -110,7 +110,7 @@ diacritics:
 
 # ---------------------------------------------------------------------------
 # What moved between the 2008 annex and the 2017 annex, from diffing the two
-# primaries. Recorded because decode tables rot (PRD-PLATES §9) and because it
+# primaries. Recorded because decode tables rot (the plates spec §9) and because it
 # shows the annex is maintained at the MUNICIPALITY level, not the code level.
 # ---------------------------------------------------------------------------
 changed_2008_2017:

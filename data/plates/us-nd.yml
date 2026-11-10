@@ -1,4 +1,4 @@
-# plates/us-nd.yml — North Dakota (PRD-PLATES gate L2, group midwest-b).
+# plates/us-nd.yml — North Dakota (the plates spec gate L2, group midwest-b).
 #
 # NORTH DAKOTA IS THE BEST-SOURCED STATE IN THIS GROUP, and it is worth saying
 # why: NDDOT publishes, on its own license-plate page, a prose specification of
@@ -16,7 +16,7 @@
 # be "of a distinguishing color" and named none. So `us-nd-blackout` is the only
 # series in this group whose hexes are `hex_basis: statute`.
 #
-# SOURCING RULE APPLIED HERE (PRD-PLATES §4): edicts of government are public
+# SOURCING RULE APPLIED HERE (the plates spec §4): edicts of government are public
 # domain at every level, so every content, display, reflectorization and class
 # claim below cites the North Dakota Century Code. The NDDOT page is cited only
 # for what the Code does not carry: the current base design, its introduction
@@ -29,7 +29,7 @@ binding: vehicle
 statute_edition: "North Dakota Century Code Title 39, Chapter 39-04 (Motor Vehicles — Registration), chapter text as published by the North Dakota Legislative Branch at ndlegis.gov and fetched for this pass"
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched
@@ -54,13 +54,13 @@ artwork_risk:
     specifications are freely usable EVEN IF the Badlands/bison artwork is not. This
     is the cleanest legal path the dossier identifies and this file walks it.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies to the BISON, the BADLANDS scene and
+    the plates spec §3's placeholder default applies to the BISON, the BADLANDS scene and
     the THREE WHEAT STALKS. These are pictorial artwork described by NDDOT in prose,
     not drawn in any statutory instrument, so nothing about them is cleared. Render
     `emblem: {present: true, rendered: placeholder}`. State-seal misuse statutes are a
     protection regime independent of copyright and are unresearched for North Dakota.
   sources:
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): read to establish that North Dakota has NO section in the survey — a negative result, recorded as such"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): read to establish that North Dakota has NO section in the survey — a negative result, recorded as such"
     - "https://www.dot.nd.gov/motor-vehicle/license-plates  # NDDOT's own description of the artwork whose status is unresearched"
 
 # ---------------------------------------------------------------------------
@@ -231,7 +231,7 @@ series:
     notes: >-
       BLACKOUT PLATES. Two things make this series worth its own entry rather than a
       colour sub-entry on the standard series. First, the colours differ AND they are
-      legislated, so under PRD-PLATES §2.3 the design difference is its own series and
+      legislated, so under the plates spec §2.3 the design difference is its own series and
       the values are sourced to an edict. Second, the eligibility rule is a genuine
       restriction — a truck over 20,000 lb registered gross weight cannot have one — so
       the series scopes narrower than its jurisdiction default, which is exactly the
@@ -364,7 +364,7 @@ series:
       us-fl-manufacturer carries.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. No individual designs.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. No individual designs.
   # =========================================================================
   - id: us-nd-specialty-index
     class: specialty
@@ -378,7 +378,7 @@ series:
       regex_statutory: '\A[A-Z0-9](?: ?[A-Z0-9])*\z'
       charset: { notes: "specialty plates carry ordinary serials on an alternative design; the § 39-04-12(1) grammar applies unchanged, and many North Dakota specialty series are additionally available personalized under § 39-04-10.3" }
     design:
-      note: "one design per authorised program; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised program; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_statutory: 18
@@ -399,7 +399,7 @@ series:
         NDDOT publishes no specialty-plate count and no consolidated catalogue was
         located, so no agency figure exists to reconcile against the statutory count. The
         discrepancy between 'authorising sections' and 'designs offered' is recorded, not
-        resolved (PRD-PLATES §5.3 — disagreements are recorded, never averaged).
+        resolved (the plates spec §5.3 — disagreements are recorded, never averaged).
       official_list_url: "https://www.dot.nd.gov/motor-vehicle/license-plates"
       organization_program: "§ 39-04-10.13 is the open-ended door: a public or nonprofit organization may have a number plate authorised, which is the mechanism by which the catalogue grows without further legislation"
     region_encoding: none
@@ -408,7 +408,7 @@ series:
       - "https://www.dot.nd.gov/motor-vehicle/license-plates  # NDDOT's license-plate index page — the official entry point; publishes no count and no consolidated specialty catalogue"
     notes: >-
       THE SPECIALTY PROGRAM INDEX — one entry standing for the whole program, which is
-      what PRD-PLATES §2.5 asks for at this gate. North Dakota is the cleanest counting
+      what the plates spec §2.5 asks for at this gate. North Dakota is the cleanest counting
       case in group midwest-b because its programs are created by NUMBERED STATUTORY
       SECTIONS rather than by departmental discretion, so the index can be counted from an
       edict of government instead of from a marketing page. The honest caveat is recorded

@@ -1,4 +1,4 @@
-# plates/us-mo.yml — Missouri (PRD-PLATES gate L2, group midwest-b).
+# plates/us-mo.yml — Missouri (the plates spec gate L2, group midwest-b).
 #
 # MISSOURI LEGISLATES ITS SLOGAN AND DELEGATES ITS SERIAL — the opposite split
 # from Kansas next door. RSMo 301.130.1 fixes, in statute, that every set of
@@ -29,7 +29,7 @@ binding: vehicle
 statute_edition: "Missouri Revised Statutes Chapter 301 (Registration and Licensing of Motor Vehicles), § 301.130 as published by the Revisor of Statutes at revisor.mo.gov, effective 28 August 2018 (the section carries 12 histories)"
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4. Missouri is one of
+# artwork_risk — required per jurisdiction by the plates spec §4. Missouri is one of
 # only two states in group midwest-b for which ANY evidence exists.
 # ---------------------------------------------------------------------------
 artwork_risk:
@@ -40,7 +40,7 @@ artwork_risk:
     read for this pass glosses Missouri as 'Some Missouri departments and commissions may
     hold copyright in their works', citing RSMo 630.095 for the proposition that
     'executive departments may hold copyright for works for hire'.
-    THAT GLOSS OVERSTATES THE STATUTE, and chasing it to the primary is what PRD-PLATES §4
+    THAT GLOSS OVERSTATES THE STATUTE, and chasing it to the primary is what the plates spec §4
     requires: RSMo 630.095 sits in CHAPTER 630, which is the DEPARTMENT OF MENTAL HEALTH,
     and reads 'Copyrights and trademarks by department. — The department may copyright or
     obtain a trademark for any instructional, training and informational audio-visual
@@ -54,7 +54,7 @@ artwork_risk:
     made no contrary declaration. Treat plate ARTWORK as protected; treat the statute as
     free.
   folklore_corrected: >-
-    RECORDED AS A DEBUNKING, per PRD-PLATES §9's folklore discipline: the secondary
+    RECORDED AS A DEBUNKING, per the plates spec §9's folklore discipline: the secondary
     summary that 'executive departments may hold copyright' in Missouri is not what the
     cited section says. Anyone extending it to the Department of Revenue would be relying
     on an encyclopedia's paraphrase of a mental-health-department housekeeping provision.
@@ -66,7 +66,7 @@ artwork_risk:
     class list and the mounting heights are all affirmatively clean regardless of
     Missouri's posture on artwork.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies to the current Missouri base graphic and
+    the plates spec §3's placeholder default applies to the current Missouri base graphic and
     to every collegiate and organizational emblem in the catalogue. The collegiate and
     organizational marks carry an ADDITIONAL layer beyond state copyright: they are
     third-party university and charity marks, plausibly trademarked and licensed to the
@@ -75,7 +75,7 @@ artwork_risk:
     Missouri state-seal misuse statutes are unresearched.
   sources:
     - "https://revisor.mo.gov/main/OneSection.aspx?section=630.095  # RSMo 630.095, fetched and read: 'Copyrights and trademarks by department' — a Department of Mental Health provision covering instructional, training and informational materials. The primary that corrects the secondary gloss"
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): the Missouri section, whose paraphrase of RSMo 630.095 was chased to the primary above and found to overstate it. Also cites RSMo 8.007 (State Capitol Commission)"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): the Missouri section, whose paraphrase of RSMo 630.095 was chased to the primary above and found to overstate it. Also cites RSMo 8.007 (State Capitol Commission)"
 
 us_standards:
   no_federal_mandate: true
@@ -163,7 +163,7 @@ series:
         for members of the National Guard will have the "NATIONAL GUARD" wording in
         preference to the words "SHOW-ME STATE".' Those two displacements are broken out as
         their own series below, because a mandated legend difference is a design difference
-        under PRD-PLATES §2.3.
+        under the plates spec §2.3.
       expiration_display: "RSMo 301.130.1: the plate bears 'the month and year in which the registration shall expire' — Missouri prints the expiry on the PLATE, not only on a sticker"
       material_and_finish: "RSMo 301.130.1: 'The plates shall also contain fully reflective material with a common color scheme and design for each type of license plate issued pursuant to this chapter.'"
       aesthetic_requirement: >-
@@ -208,7 +208,7 @@ series:
 
   # =========================================================================
   # THE TWO STATUTORY LEGEND DISPLACEMENTS. RSMo 301.130.1 names both in one
-  # sentence, so each is its own series under PRD-PLATES §2.3.
+  # sentence, so each is its own series under the plates spec §2.3.
   # =========================================================================
   - id: us-mo-disabled-veteran
     class: standard
@@ -232,7 +232,7 @@ series:
       - "https://revisor.mo.gov/main/OneSection.aspx?section=301.130  # RSMo 301.130.1: the DISABLED VETERAN legend displacing SHOW-ME STATE for qualified disabled veterans"
     notes: >-
       DISABLED VETERAN PLATES. Its own series rather than a variant because the statute
-      mandates a legend difference in terms, which PRD-PLATES §2.3 treats as a design
+      mandates a legend difference in terms, which the plates spec §2.3 treats as a design
       difference and therefore a series. CLASS CAVEAT: recorded as `standard` because
       _meta/classes.yml has no veteran or disability class and this is an ordinary
       registration with a mandated legend, not a separate issuance regime — the same
@@ -300,7 +300,7 @@ series:
       therefore not recorded.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. Count and links only.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. Count and links only.
   # =========================================================================
   - id: us-mo-specialty-index
     class: specialty
@@ -314,7 +314,7 @@ series:
       charset: { max_characters: 6, notes: "the six-character frame is uniform across the whole catalogue — specialty designs carry ordinary serials inside the same frame as the standard series" }
       pattern_note: "REPRESENTATIVE SHAPE ONLY; the index stands for 156 non-standard designs whose arrangements are not individually stated"
     design:
-      note: "one design per authorised program; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised program; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official_total: 163
@@ -331,7 +331,7 @@ series:
         specialty-plate count anywhere this pass could reach, so there is no agency FIGURE
         to reconcile the enumeration against — the number above is what the agency's system
         contained when read, not what the agency says it offers. Recorded as such rather
-        than promoted to an official figure (PRD-PLATES §5.3).
+        than promoted to an official figure (the plates spec §5.3).
       official_list_url: "https://dor.mo.gov/motor-vehicle/plates/personalized-specialty.html"
       official_preview_url: "https://dor.mo.gov/motor-vehicle/plates/personalized-specialty.html#preview"
       preview_data_url: "https://dor.mo.gov/js/platescript.js"
@@ -348,7 +348,7 @@ series:
       - "https://dor.mo.gov/motor-vehicle/plates/personalized-specialty.html  # the DOR's Personalized and Specialty License Plates page, which the preview tool and its four design categories sit behind"
     notes: >-
       THE SPECIALTY PROGRAM INDEX — one entry standing for the whole program, per
-      PRD-PLATES §2.5, with no individual designs. Missouri's index is unusual in this
+      the plates spec §2.5, with no individual designs. Missouri's index is unusual in this
       group for being derived from a MACHINE-READABLE agency catalogue rather than from a
       brochure or a statutory enumeration, which makes the count reproducible and the
       per-design character limits sourced. The honest weakness, recorded in

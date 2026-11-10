@@ -21,7 +21,7 @@
 #      avoir de lien avec le domicile du titulaire du certificat
 #      d'immatriculation." A SIV plate DOES NOT DECODE. Reading region off a
 #      modern French plate is the single most expensive mistake a plate-parse
-#      API can make, and PRD-PLATES §2.4 already names it ("France's SIV
+#      API can make, and the plates spec §2.4 already names it ("France's SIV
 #      département band is OWNER-CHOSEN, not geographic ... the decode table
 #      must say so or the parse API will lie"). It says so.
 #
@@ -42,7 +42,7 @@
 # 96 metropolitan départements including Corse-du-Sud (2A) and Haute-Corse (2B),
 # plus the five overseas départements 971-974 and 976. Fetched 2026-08-02.
 #
-# PERIOD DISCIPLINE (PRD-PLATES §2.4 — decode tables rot). This is the list in
+# PERIOD DISCIPLINE (the plates spec §2.4 — decode tables rot). This is the list in
 # force TODAY. Historic FNI codes that are NOT in it are NOT invented here:
 #   * 20 = Corse before the 1976 split into 2A/2B;
 #   * 75 covering the whole former Seine before the 1968 Île-de-France

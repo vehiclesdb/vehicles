@@ -1,4 +1,4 @@
-# plates/us-mt.yml — Montana (PRD-PLATES gate L2, northwest group).
+# plates/us-mt.yml — Montana (the plates spec gate L2, northwest group).
 #
 # MONTANA IS THE BEST-SOURCED US STATE IN THIS GROUP, AND IT IS NOT CLOSE.
 # MCA 61-3-332 is a single section that legislates, in terms: the plate
@@ -15,7 +15,7 @@
 # frozen in law ever since and now wildly out of date (Silver Bow/Butte was
 # Montana's largest county in 1930 and is nowhere near it today). A Montana
 # plate therefore encodes a NINETY-YEAR-OLD CENSUS RANKING, which is precisely
-# the kind of decode fact PRD-PLATES §2.4 exists to carry. The table below is
+# the kind of decode fact the plates spec §2.4 exists to carry. The table below is
 # quoted from the statute, not from a collector site. NOTE THE FOLKLORE LINE
 # CAREFULLY: the statute states the ASSIGNMENT; it does not state the
 # RATIONALE. "Ordered by 1930 population" is commonly repeated and is recorded
@@ -44,14 +44,14 @@ statute_edition: >-
   oversight; see research_notes.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4/§7.1.
+# artwork_risk — required per jurisdiction by the plates spec §4/§7.1.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: split-standard-unresearched-specialty-adverse
   basis: >-
     MONTANA SPLITS, AND THE SPLIT IS SOURCED FROM STATUTE RATHER THAN INFERRED.
     (1) THE STANDARD BASE — UNRESEARCHED. Montana appears NOWHERE in the
-    standing per-state copyright survey PRD-PLATES §4 works from, no
+    standing per-state copyright survey the plates spec §4 works from, no
     {{PD-MTGov}} tag exists on Wikimedia Commons, and no copyright notice was
     found anywhere on mt.gov as fetched. So the default applies: a US state's
     works are copyrighted unless that state says otherwise, and Montana has
@@ -73,7 +73,7 @@ artwork_risk:
     contracts out of liability for them. No clearer legislative admission that
     plate artwork is privately owned was found in any state in this group.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies. Two Montana-specific notes.
+    the plates spec §3's placeholder default applies. Two Montana-specific notes.
     First, the STATE-OUTLINE BORDER required by MCA 61-3-332(4)(a) is a
     geographic outline — a fact, not an authored work — and is the single most
     likely emblem-slot upgrade candidate in this group, but it is not upgraded
@@ -164,7 +164,7 @@ series:
       separator_note: >-
         MCA 61-3-332(5) requires "a separation mark" and DOES NOT NAME A
         GLYPH. That is a genuine gap in the authority's own text, and
-        PRD-PLATES §2.8 sanctions exactly this case: the separator position is
+        the plates spec §2.8 sanctions exactly this case: the separator position is
         spelled as the separator-only class `[- ]`, never as a bare literal,
         so a consumer deriving a separator-free twin can detect the position
         mechanically. `pattern` shows the canonical printed form with a
@@ -176,7 +176,7 @@ series:
       tier_note: >-
         `regex_strict` bounds the leading group to the 56 county numbers MCA
         61-3-332(7) actually assigns — the authority's own alphabet for that
-        position, which is what PRD-PLATES §2.7 reserves the strict twin for.
+        position, which is what the plates spec §2.7 reserves the strict twin for.
         `regex` is the current issued arrangement (county number, separation
         mark, four or five numerals, one trailing letter). `regex_statutory`
         is the outer statutory bound: a county number, a separation mark, and
@@ -316,7 +316,7 @@ series:
       - "https://mca.legmt.gov/bills/mca/title_0610/chapter_0030/part_0030/section_0320/0610-0030-0030-0320.html  # MCA 61-3-332: (1) separate standard series and the dealer-distinguishability rule; (3)(a)(i) the 1989-or-later design floor; (3)(a)(ii) the 5-year and 10-year replacement clocks; (3)(a)(iii) number retention; (3)(b)-(d) the replacement exemptions; (4)(a) metal, reflectorized, the MONTANA wordmark and the state-outline border; (4)(b)-(d) the two statutory plate sizes; (5) the serial grammar, county-number prefix, separation mark and equal-height rule; (6) the exempt-plate markings; (7) the 56-row county table; (8) special series replace the county number with a distinguishing design"
       - "https://mca.legmt.gov/bills/mca/title_0610/chapter_0030/part_0030/section_0310/0610-0030-0030-0310.html  # MCA 61-3-331: county-treasurer assignment of the distinctive number, and two plates or one"
       - "https://www.aamva.org/getmedia/646bcc8a-219b-47d8-b5cd-726240473163/License-Plate-Standard-Edition-3_September-2025-Update.pdf  # AAMVA Ed.3 §1.1 — the 7-to-10-year recommendation Montana legislated BELOW"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Montana  # LOCATOR ONLY (PRD-PLATES §4): the reported current colourway, the buffalo-skull separator device, and the reported per-era serial arrangements. None is asserted as sourced here."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Montana  # LOCATOR ONLY (the plates spec §4): the reported current colourway, the buffalo-skull separator device, and the reported per-era serial arrangements. None is asserted as sourced here."
     notes: >-
       MONTANA STANDARD ISSUE. `period.start: 1989` IS A REAL STATUTORY CLAIM,
       not an instrument-edition upper bound: MCA 61-3-332(3)(a)(i) provides
@@ -357,7 +357,7 @@ series:
           the county-number rule, so a Montana motorcycle plate carries NO
           county prefix — the opposite of what a reader would infer from the
           passenger plate, and the opposite of what secondary sources report.
-          MAJORITY IS NOT AUTHORITY (PRD-PLATES §5.3): the encyclopedia record
+          MAJORITY IS NOT AUTHORITY (the plates spec §5.3): the encyclopedia record
           shows county-prefixed motorcycle serials, the statute exempts them,
           and the statute governs. Beyond the exemption the statute states
           only that a distinctive number "must begin with a number one or with
@@ -482,10 +482,10 @@ series:
       numbering origin, the numbering scope (per county), the prohibition on a
       year number, and the replacement trigger (physical condition only).
       Distinct from us-mt-standard in format, legend, region encoding and
-      replacement rule — four independent grounds under PRD-PLATES §2.3.
+      replacement rule — four independent grounds under the plates spec §2.3.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5.
   # =========================================================================
   - id: us-mt-specialty-index
     class: specialty
@@ -576,7 +576,7 @@ series:
       - "https://mca.legmt.gov/bills/mca/title_0610/chapter_0030/part_0030/section_0320/0610-0030-0030-0320.html  # MCA 61-3-332(8): each special plate series is separately numbered and the county number is replaced by a series-distinguishing design"
     notes: >-
       THE MONTANA SPECIALTY INDEX — one entry standing for four statutory
-      tiers, which is what PRD-PLATES §2.5 asks for at this gate. Three things
+      tiers, which is what the plates spec §2.5 asks for at this gate. Three things
       worth carrying forward. First, the count is not merely unpublished; MCA
       61-3-474(4) makes the list a RECORDS-REQUEST artefact by design, so the
       honest index value is "unstated and request-only" with the statute

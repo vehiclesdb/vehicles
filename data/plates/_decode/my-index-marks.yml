@@ -33,7 +33,7 @@
 #          Called once per code, 2026-08-03 00:47:43 to 00:49:21 (+08).
 #          28 of 32 returned a reading.
 # The second endpoint is the closest thing Malaysia has to the registry
-# corpora PRD-PLATES §5.2 uses elsewhere: it is the authority stating, on the
+# corpora the plates spec §5.2 uses elsewhere: it is the authority stating, on the
 # record and to the minute, what it is issuing. Those readings are the evidence
 # behind BOTH standard series in plates/my.yml and are reproduced per row as
 # `observed_2026_08_03`.
@@ -52,7 +52,7 @@
 # each colliding pair — so Sibu, Sri Aman and Limbang, which are real Sarawak
 # divisions with real plates on the road, have no row in the live list at all.
 # Both captures are recorded below and neither is silently preferred
-# (PRD-PLATES §5.3: record disagreements, never average them). The practical
+# (the plates spec §5.3: record disagreements, never average them). The practical
 # reading is that the JPJ code is a QUERY KEY for a counter, not a bijection
 # with a place, and a decode consumer must treat the mapping as MANY-TO-ONE in
 # both directions.
@@ -133,7 +133,7 @@ areas:
     codes:
       - { code: SA, area: "Kota Kinabalu (West Coast)", observed_2026_08_03: "SJT 4199", form: prefix, evidence: agency-api, note: "queried as SA, issuing SJ-series — the drift is explicit here" }
       - { code: SB, area: Beaufort, observed_2026_08_03: "SB 1644 L", form: suffix, evidence: agency-api }
-      - { code: SD, area: "Lahat Datu", observed_2026_08_03: "SPA 3076", form: prefix, evidence: agency-api, note: "JPJ spells it 'Lahat Datu'; the town is conventionally Lahad Datu. The authority's spelling is kept, per PRD-PLATES §5.3." }
+      - { code: SD, area: "Lahat Datu", observed_2026_08_03: "SPA 3076", form: prefix, evidence: agency-api, note: "JPJ spells it 'Lahat Datu'; the town is conventionally Lahad Datu. The authority's spelling is kept, per the plates spec §5.3." }
       - { code: SK, area: Kudat, observed_2026_08_03: "SK 4097 H", form: suffix, evidence: agency-api }
       - { code: SM, area: Sandakan, observed_2026_08_03: null, form: unknown, evidence: agency-api, note: "one of TWO codes JPJ maps to Sandakan; see the disagreement note in the header" }
       - { code: SS, area: Sandakan, observed_2026_08_03: "SMW 5063", form: prefix, evidence: agency-api, note: "queried as SS, issuing SM-series" }
@@ -210,7 +210,7 @@ diplomatic_dc:
   gap: >-
     THE COUNTRY-CODE TABLE IS NOT ON THIS PAGE and was not located anywhere.
     The number group above is the RANK group; the sending state's code is a
-    separate printed group whose allocation is unsourced. PRD-PLATES puts
+    separate printed group whose allocation is unsourced. The plates spec puts
     diplomatic decode tables at L4 and this one is deliberately left there
     rather than guessed.
 

@@ -1,4 +1,4 @@
-# plates/us-ca.yml — California (PRD-PLATES gate L2, group: pacific).
+# plates/us-ca.yml — California (the plates spec gate L2, group: pacific).
 #
 # WHY CALIFORNIA IS THE DEEPEST US FILE IN THIS WAVE, and what makes it
 # different from the Florida pilot: Florida's plate FACTS live in the STATUTE
@@ -35,7 +35,7 @@
 # obtained (recorded gap). The 1980 START of the format it replaced IS
 # agency-primary (Appendix 1E).
 #
-# REGEX FORM (PRD-PLATES §2.6): printed form throughout. California prints its
+# REGEX FORM (the plates spec §2.6): printed form throughout. California prints its
 # passenger serial with no separator at all, so no separator appears in any
 # regex here except in the personalized/temporary entries where the DMV's own
 # examples show none either.
@@ -52,7 +52,7 @@ statute_edition: >-
   "Copyright (c) 2026 State of California").
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4/§7.1.
+# artwork_risk — required per jurisdiction by the plates spec §4/§7.1.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: public-domain-favourable-narrower-than-florida
@@ -74,7 +74,7 @@ artwork_risk:
     analysis, but it IS an assertion by the issuing agency and a verifier
     should see it rather than discover it. The tension is not resolved here.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies to (a) the red "California"
+    the plates spec §3's placeholder default applies to (a) the red "California"
     SCRIPT WORDMARK, which is the plate's whole graphic identity and is a
     specific lettering artwork rather than a fact, and (b) the Great Seal of
     California where it appears on exempt/legislative plates. US doctrine that
@@ -192,7 +192,7 @@ series:
         underlying citation chain is Wikipedia -> a San Jose Police Department
         training PDF, which is not the issuing authority. It is deliberately
         NOT written into `regex_strict`, because `regex_strict` is reserved for
-        the AUTHORITY's own alphabet (PRD-PLATES §2.7) and this is not it.
+        the AUTHORITY's own alphabet (the plates spec §2.7) and this is not it.
         Recorded as a gap for the verifier to chase to a DMV instrument.
     design:
       plate: { w: 12, h: 6, unit: in, w_mm: 304.8, h_mm: 152.4 }
@@ -251,7 +251,7 @@ series:
       - "https://www.dmv.ca.gov/portal/handbook/vehicle-industry-registration-procedures-manual-2/special-plates/personalized-configurations-mandatory-refusal/  # VIRPM 21.180: the 144 three-letter strings 'deleted from the regular series license plate configuration'; the restricted letter/number combination table naming the automobile, commercial, CA Exempt, DP and DV configurations"
       - "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=VEH&sectionNum=4851  # § 4851: the entire statutory design rule — registration number + 'California' or 'Cal.' + year or validation device. No character cap, no colour, no legend."
       - "https://www.dmv.ca.gov/portal/vehicle-registration/license-plates-decals-and-placards/license-plates/  # DMV: plate dimensions 12x6 in (auto/commercial/trailer), 7x4 in (motorcycle, pre-1970 8x5), 7x4 in (identification, pre-1981 8x5); 'Generally, license plates remain with the vehicle they were issued to.'"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_California  # LOCATOR ONLY (PRD-PLATES §4): the March 2026 flip to 123ABC1 after 9ZZZ999, the 2011 dmv.ca.gov legend, the I/O/Q middle-letter rule, Folsom manufacture. None is asserted as sourced here."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_California  # LOCATOR ONLY (the plates spec §4): the March 2026 flip to 123ABC1 after 9ZZZ999, the 2011 dmv.ca.gov legend, the I/O/Q middle-letter rule, Folsom manufacture. None is asserted as sourced here."
     notes: >-
       CALIFORNIA'S CURRENT STANDARD SERIES. PERIOD CAVEAT: `start: 2026` is the
       year of the instruments read (the live VIRPM and the 2026 Vehicle Code)
@@ -311,7 +311,7 @@ series:
         "SESQUICENTENNIAL - 150 YEARS" legend; 2001 legend removed; 2011
         "dmv.ca.gov" legend added. A future pass with a DMV instrument for any
         of those boundaries should split this series and alias this id under
-        the PRD-QUALITY I-5/I-6 contract.
+        the quality spec I-5/I-6 contract.
       emblem: { present: false }
       graphic: { present: true, rendered: placeholder }
       rear_differs: false
@@ -328,7 +328,7 @@ series:
       is LOCATOR-GRADE (reported March 2026 on exhaustion at 9ZZZ999) and is
       recorded as 2026 because the successor series is demonstrably in issue in
       2026; a verifier should replace it with a DMV instrument or downgrade it.
-      DISAGREEMENT RECORDED, NOT AVERAGED (PRD-PLATES §5.3): VIRPM Appendix 1E
+      DISAGREEMENT RECORDED, NOT AVERAGED (the plates spec §5.3): VIRPM Appendix 1E
       dates the blue-and-yellow base "1970-1980", Wikipedia dates it from 1969,
       and VC § 5004.3 — a statute — describes the blue/yellow appearance as
       that of plates "issued by the department from 1969 to 1986, inclusive".
@@ -379,7 +379,7 @@ series:
       rear_differs: false
       reproduction_note: "LOCATOR ONLY: the reissued plates use a modern reflective black coating rather than the original dull black paint, and the narrower character dies of the 7-character era rather than the wider 6-character dies of the originals. A collector-visible difference; recorded because a render should not claim to reproduce the 1963 artefact."
     program_threshold: "VC § 5004.3: the department must collect 'not less than 7,500 paid applications for any one of the particular plates' before issuing it, and had 'until January 1, 2015, to receive the required number of applications', with refunds if the threshold was missed."
-    program_outcome: "LOCATOR ONLY: only the 1960s black-with-yellow design reached 7,500 before the deadline; the 1950s yellow-with-black and 1970s blue-with-yellow designs did not, and are authorised but never issued. Recorded because an authorised-but-dead design is exactly the trap PRD-PLATES §2.5 warns about — the statute lists three, the road carries one."
+    program_outcome: "LOCATOR ONLY: only the 1960s black-with-yellow design reached 7,500 before the deadline; the 1950s yellow-with-black and 1970s blue-with-yellow designs did not, and are authorised but never issued. Recorded because an authorised-but-dead design is exactly the trap the plates spec §2.5 warns about — the statute lists three, the road carries one."
     region_encoding: none
     sources:
       - "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=VEH&sectionNum=5004.3  # § 5004.3: the three legacy designs with their colours and their reference periods (1956-1962, 1965-1968, 1969-1986), the 7,500 paid-application threshold, the 1 January 2015 deadline and the refund rule"
@@ -628,7 +628,7 @@ series:
       - "https://www.dmv.ca.gov/portal/file/vr-manual-appendix-1e/  # VIRPM Appendix 1E .0110: the commercial series history — 1963-1969 A00000-Z99999 or 00000A-99999Z on the black base; 1970-1980 00000A-99999Z on the blue base; 1975-1980 also 1A00001-3Z99999"
     notes: >-
       COMMERCIAL PLATES. CLASS CAVEAT: recorded as `standard` because
-      _meta/classes.yml has no `commercial` value and the PRD's `standard`
+      _meta/classes.yml has no `commercial` value and the spec's `standard`
       definition ("the default series issued to private road vehicles") fits
       awkwardly. The same caveat Florida records for its Wrecker plate. The
       value of this entry is that its format is AGENCY-SOURCED — a US
@@ -822,7 +822,7 @@ series:
       explain why a 2018 California car has no plate in a photograph.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. Count and official
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. Count and official
   # links only; no individual designs.
   # =========================================================================
   - id: us-ca-specialty-index
@@ -848,7 +848,7 @@ series:
         the left and sharp character contrast. That is directly renderable
         layout data, from the Legislature rather than from an agency.
       emblem: { present: true, rendered: placeholder }
-      note: "One design per authorised programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here."
+      note: "One design per authorised programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here."
     program_index:
       count_official: null
       count_official_note: >-
@@ -880,7 +880,7 @@ series:
       - "https://www.dmv.ca.gov/portal/handbook/vehicle-industry-registration-procedures-manual-2/special-plates/  # VIRPM Chapter 21: 56 sub-sections, the deeper official index"
     notes: >-
       THE CALIFORNIA SPECIALTY PROGRAM INDEX — one entry standing for the whole
-      programme, which is what PRD-PLATES §2.5 asks for at this gate. Two
+      programme, which is what the plates spec §2.5 asks for at this gate. Two
       things to carry forward. First, VC § 5060 is the best specialty-plate
       GEOMETRY source found anywhere in the US wave: a legislature that
       specifies a 2 x 3 inch design space and a 5/8 inch message strip is

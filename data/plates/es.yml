@@ -1,4 +1,4 @@
-# plates/es.yml — Spain (PRD-PLATES gate L0 pilot; PROVINCIAL-HISTORY REDATE
+# plates/es.yml — Spain (the plates spec gate L0 pilot; PROVINCIAL-HISTORY REDATE
 # PASS, 2026-08-02, to the L1 evidence standard).
 #
 # EVERY format, colour and letter-exclusion claim for the CURRENT series comes
@@ -22,7 +22,7 @@
 #     including the modern additions (decorative geometric designs permitted;
 #     ISO/IEC 30116:2016 OCR quality).
 #
-# This settles the "Spanish 2000 cutover" that PRD-PLATES §5.3 flags as a
+# This settles the "Spanish 2000 cutover" that the plates spec §5.3 flags as a
 # folklore-prone boundary: the instrument is dated, published and its entry
 # into force is stated by BOE itself as 17-09-2000. No averaging required.
 #
@@ -162,7 +162,7 @@ series:
         note: >-
           THE REAR PLATE ONLY is blue with white matte characters, for taxis and for
           hire-with-driver vehicles of up to nine seats. The front plate stays
-          white/black. Same serial, same period, so a sub-entry per PRD-PLATES §2.3
+          white/black. Same serial, same period, so a sub-entry per the plates spec §2.3
           — but note this is a genuine front/rear ASYMMETRY, not a colour-only
           swap, and secondary sources routinely get it wrong by colouring both.
         sources:
@@ -295,7 +295,7 @@ series:
       2822/1998 instrument window) with the honest caveat that no 1971 primary was
       secured; the primary is now secured and the period is corrected. The id
       stays `es-provincial` (not `es-provincial-1971`) under the id contract
-      (PRD-QUALITY I-5/I-6): amend, never rename. Plates already issued remain
+      (the quality spec I-5/I-6): amend, never rename. Plates already issued remain
       valid indefinitely and are re-issued on request; RGV Art. 27.2 lets an owner
       swap a provincial plate for a national one on a change of province.
       REMAINING GAPS at point of use: (1) the instruments that switched GE->GI,
@@ -364,7 +364,7 @@ series:
       This era's lists differ per instrument (1907, 1918, 1926, 1934 art. 232,
       1971 art. 233): three-letter codes until at latest 1926, no Gran
       Canaria/Tenerife split in 1907, Sahara SH in the 1971 list. Historical
-      decode rows are L4 work (PRD-PLATES §7) — recorded gap.
+      decode rows are L4 work (the plates spec §7) — recorded gap.
     sources:
       - "https://www.boe.es/datos/pdfs/BOE/1900/263/A01141-01142.pdf  # RD 17-09-1900 (Gaceta de Madrid 263, 20-09-1900, pp. 1141-1142), 'Reglamento para el servicio de coches automóviles por las carreteras': per-province authorization + 'En el Gobierno civil de cada provincia habrá un registro general de este servicio' (art. 6); vehicle inscriptions required but NO plate format prescribed. Accessed 2026-08-02"
       - "https://www.boe.es/gazeta/dias/1907/06/09/pdfs/GMD-1907-160.pdf  # RO 24-05-1907 (Gaceta 160, 09-06-1907): THE FIRST PLATE FORMAT — concl. 3.ª two plates, 'la contraseña de la provincia, y á continuación y separado por un guión el número de orden de la licencia', black on white; concl. 5.ª the first contraseña list (1-3 letters); concl. 6.ª dimensions. Its preamble states pre-1907 display was non-uniform ('exige uniformar el criterio'). Accessed 2026-08-02"
@@ -634,7 +634,7 @@ series:
       TEMPORARY PERMIT FOR COMPANIES, UNREGISTERED VEHICLES — prefix S. This is
       Spain's functional dealer/trade plate. Its own series and not a variant of the
       V plate below, because the statute assigns a DIFFERENT PREFIX LETTER, which is
-      a format difference (PRD-PLATES §2.3). CLASS CAVEAT: recorded as `dealer`
+      a format difference (the plates spec §2.3). CLASS CAVEAT: recorded as `dealer`
       because it is bound to a business rather than a vehicle; the statutory name is
       "permiso temporal para empresas".
 
@@ -705,7 +705,7 @@ series:
       CUERPO DIPLOMÁTICO — red ground, white characters. The mission-prefix DECODE
       TABLE is not authored: Anexo XVIII states the ASSIGNMENT RULE (alphabetical
       order of the Foreign Ministry's official diplomatic list) but not the resulting
-      codes, and that list was not fetched in this pass. PRD-PLATES puts diplomatic
+      codes, and that list was not fetched in this pass. The plates spec puts diplomatic
       decode tables at gate L4; this entry carries the mechanism so the table can be
       hung off it later without an id change.
 
@@ -858,7 +858,7 @@ series:
       - "https://www.boe.es/buscar/pdf/1999/BOE-A-1999-1826-consolidado.pdf  # Anexo XVIII II.B: MF, MMA and PME contraseñas"
     notes: >-
       CENTRAL GOVERNMENT FLEETS. PERIOD-ROT WARNING for the decode discipline
-      PRD-PLATES §9 calls out: MF (Ministerio de Fomento) and MMA (Ministerio de
+      the plates spec §9 calls out: MF (Ministerio de Fomento) and MMA (Ministerio de
       Medio Ambiente) name ministries that have since been reorganised and renamed,
       yet the consolidated Anexo XVIII still lists them. The codes are current law;
       the ministry names behind them are not current fact. Recorded as-enacted.

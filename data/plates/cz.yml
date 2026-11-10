@@ -1,4 +1,4 @@
-# plates/cz.yml — Czechia (PRD-PLATES gate L1, wave 2).
+# plates/cz.yml — Czechia (the plates spec gate L1, wave 2).
 #
 # EVERY format, colour, dimension and class claim below is read from the
 # OFFICIAL Sbírka zákonů PDFs on aplikace.mv.gov.cz — the Ministry of the
@@ -62,7 +62,7 @@
 #    bicycle carrier "je mezi třetím a čtvrtým místem určeným pro znak umístěn
 #    speciální znak". An ASTERISK occupies the sticker-well position on that one
 #    plate type. It is not in the serial alphabet and not an emitted separator
-#    (PRD-PLATES §2.6), so it appears NOWHERE in a pattern or a regex here; it
+#    (the plates spec §2.6), so it appears NOWHERE in a pattern or a regex here; it
 #    is carried as prose on the cz-standard-2004 variant and is flagged as a
 #    `never_separator` candidate for plates/_meta/separators.yml. Note it sits
 #    BETWEEN groups, in the gap, so it is a separator-position glyph and not an
@@ -86,7 +86,7 @@
 #     amended). See plates/sk.yml.
 # Neither file silently duplicates the other and neither drops the era. The
 # alternative — a single shared `cs-` jurisdiction file — was rejected because
-# PRD-PLATES §2.1 keys files on ISO 3166-1 and CS is a withdrawn code with no
+# the plates spec §2.1 keys files on ISO 3166-1 and CS is a withdrawn code with no
 # current authority to cite; recording the era twice, with each successor's own
 # terminating instrument, keeps every claim attached to a live primary.
 #
@@ -250,7 +250,7 @@ common:
       registrační značky formou prolisování", with the paper one-trip plate the
       only printed exception ("formou vytištění").
     licence: >-
-      PRD-PLATES §6 applies unchanged: derive glyphs from the published
+      the plates spec §6 applies unchanged: derive glyphs from the published
       geometry, never from a third-party TTF. No Czech public-domain-of-statutes
       provision was researched in this pass (the German §5(1) UrhG argument was
       not tested against Czech law) — recorded gap, and one more reason to
@@ -339,7 +339,7 @@ series:
           plus any digit. `regex_statutory` is the outer bound of § 24 odst. 2 —
           five to eight characters printed as three, the gap, and two to five —
           and it is genuinely wider than what is issued, which is exactly the
-          us-fl situation PRD-PLATES §2.7 describes. The statute's further
+          us-fl situation the plates spec §2.7 describes. The statute's further
           requirement of "nejméně 1 písmeno a nejméně 1 číslice" cannot be
           expressed without a lookahead spanning the separator position, which
           §2.8 forbids, so it is recorded here in words and not in the regex.
@@ -393,7 +393,7 @@ series:
         note: >-
           Motorcycles carry the SAME mark on a 200 x 160 two-line plate with one
           sticker well instead of two (§ 29 odst. 1 písm. d), odst. 5). A
-          size-only variant, hence a sub-entry per PRD-PLATES §2.3; recorded
+          size-only variant, hence a sub-entry per the plates spec §2.3; recorded
           with a class so class-keyed queries reach it.
         sources:
           - "https://aplikace.mv.gov.cz/sbirka-zakonu/ViewFile.aspx?type=z&id=27609  # § 29 odst. 1 písm. d), odst. 5. Accessed 2026-08-02"
@@ -418,7 +418,7 @@ series:
           určeným pro znak umístěn speciální znak."; § 27 odst. 5: "Pro speciální
           znaky se použije znak *." The serial is the towing vehicle's own mark;
           an ASTERISK replaces the sticker gap. Because * is neither in the
-          serial alphabet nor an emitted separator (PRD-PLATES §2.6), the
+          serial alphabet nor an emitted separator (the plates spec §2.6), the
           `pattern` above prints the ordinary space and the asterisk is recorded
           HERE, in prose. It sits BETWEEN character groups, so it is a
           separator-position glyph and a candidate for the `never_separator`
@@ -646,7 +646,7 @@ series:
           PREFIX GOES WITH WHICH CLASS IS A RECORDED GAP; the OVAL supplementary
           plate (common.supplementary_plates) does gloss its own three letters
           (CD = Corps diplomatique, CC = Corps consulaire, HC = Consuls
-          honoraires) and that is a different plate. PRD-PLATES puts diplomatic
+          honoraires) and that is a different plate. The plates spec puts diplomatic
           decode tables at L4 and none is authored here.
       separator_note: "the § 27 odst. 2 sticker gap after position 3, as on every single-row Czech plate"
     design:
@@ -1167,7 +1167,7 @@ series:
     notes: >-
       THE YELLOW PLATE. Czechia colour-codes agricultural and works machinery
       rather than serialising it separately — the mark is an ordinary one and
-      only the ground is different, which under PRD-PLATES §2.3 would make it a
+      only the ground is different, which under the plates spec §2.3 would make it a
       sub-entry were the CLASS not different; it is recorded as its own series
       because the class is the point. A SCOPE CHANGE, dated: under vyhláška
       243/2001 Sb. the yellow plate covered all "zvláštní motorová vozidla" plus

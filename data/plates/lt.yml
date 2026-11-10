@@ -1,4 +1,4 @@
-# plates/lt.yml — Lithuania (PRD-PLATES gate L1, EU/EEA wave 2). DRAFT for
+# plates/lt.yml — Lithuania (the plates spec gate L1, EU/EEA wave 2). DRAFT for
 # verification: researched by an Opus L1 researcher, never applied directly.
 #
 # THE LITHUANIAN SOURCE POSITION, STATED HONESTLY UP FRONT
@@ -61,7 +61,7 @@
 #     which the authority and the secondary sources alike render solid
 #     ("T06868", "H02401", "P28737").
 # Both choices are RECORDED INFERENCES, flagged per series, and both are made
-# safe by PRD-PLATES §2.6: a separator-forgiving consumer collapses the two
+# safe by the plates spec §2.6: a separator-forgiving consumer collapses the two
 # printed forms to one canonical serial either way.
 jurisdiction: lt
 authority:
@@ -103,7 +103,7 @@ common:
       Regitra's general-use page gives format 5 as 185 x 210 mm; its
       diplomatic page gives the same slot as 182 x 210 mm. A 3 mm disagreement
       between two pages of the same authority is RECORDED, not averaged
-      (PRD-PLATES §5.3). Neither figure is traceable to an instrument here.
+      (the plates spec §5.3). Neither figure is traceable to an instrument here.
     source: "https://www.regitra.lt/en/services/state-number-plates/types-of-vehicle-registration-number-license-plates/of-general-use/"
   colours:
     hex_basis_note: >-
@@ -176,7 +176,7 @@ region_encoding_gap:
     accounts identify DIFFERENT POSITIONS in the mark. No Lithuanian
     instrument, and no Regitra page, was reached that settles it. Shipping a
     positional decode table while unsure WHICH POSITION it decodes would be the
-    precise failure PRD-PLATES §2.4 warns about — a decode table that makes the
+    precise failure the plates spec §2.4 warns about — a decode table that makes the
     parse API lie — so none is shipped, in either position.
   also_unresolved: >-
     Even taking the county reading at face value, the scheme is described as
@@ -197,7 +197,7 @@ out_of_scope:
       followed by 777, three identical letters with a low serial, and other
       premium patterns — in four priced groups. These are ORDINARY general-use
       marks in the ordinary general-use format, distinguished only by
-      desirability and price. Under PRD-PLATES §2.3 that is neither a format nor
+      desirability and price. Under the plates spec §2.3 that is neither a format nor
       a design nor a period difference, so it is not a series; a consumer that
       needs it wants a price list, not a plate record.
     source: "https://www.regitra.lt/en/services/state-number-plates/types-of-vehicle-registration-number-license-plates/exclusive/"
@@ -218,7 +218,7 @@ out_of_scope:
       that are being carried" — a repeater plate for a rear-mounted bicycle
       rack. It duplicates the towing vehicle's existing mark rather than
       carrying one of its own, so it has no serial grammar of its own, and under
-      PRD-PLATES §2.7 it would in any case be a `recall-only` echo of whatever
+      the plates spec §2.7 it would in any case be a `recall-only` echo of whatever
       series the car belongs to. Not authored.
     source: "https://www.regitra.lt/en/services/state-number-plates/types-of-vehicle-registration-number-license-plates/"
 
@@ -286,7 +286,7 @@ series:
         RECORDED INFERENCE. Regitra states the composition but not the printed
         separator. A gap between the letter and digit groups is shown in the
         authority's own plate imagery on the 520 x 110 blank, and is spelled
-        here as a space per PRD-PLATES §2.6 rule 2. On the 300 x 150 blank the
+        here as a space per the plates spec §2.6 rule 2. On the 300 x 150 blank the
         mark is very likely set on two rows with no separator at all; a
         forgiving consumer collapses both forms to one serial.
     design:
@@ -297,7 +297,7 @@ series:
       foreground: "#000000"
       border: { color: "#000000", note: "Regitra: the edging, letters and numbers are black" }
       band: { side: left, color: "#003399", content: eu-stars+LT, hex_basis: observed }
-      emblem: { present: true, rendered: placeholder, content: "Vytis, the coat of arms of Lithuania, between the blue band and the letters on format 1; above the EU symbol on the band on the other formats", note: "PRD-PLATES §3 emblem rule: rendered as a neutral placeholder unless the artwork's licence is affirmatively clean" }
+      emblem: { present: true, rendered: placeholder, content: "Vytis, the coat of arms of Lithuania, between the blue band and the letters on format 1; above the EU symbol on the band on the other formats", note: "The plates spec §3 emblem rule: rendered as a neutral placeholder unless the artwork's licence is affirmatively clean" }
       rear_differs: false
     region_encoding: none
     sources:
@@ -548,7 +548,7 @@ series:
           THE EARLIER YELLOW TAXI PLATE. Regitra states that the white standard
           described above was approved from 3 April 2018 and that yellow plates
           issued earlier remain valid and "don't have to be changed". Recorded
-          as a colour-only variant per PRD-PLATES §2.3 rather than as its own
+          as a colour-only variant per the plates spec §2.3 rather than as its own
           series, because the mark and the blanks are unchanged — only the
           ground colour differs. Its own start is the series start, 13 July 2006.
         sources:
@@ -818,7 +818,7 @@ series:
         The third digit's four values are enumerated by the authority and are
         encoded nowhere else in this file; they are recorded here rather than as
         a decode table because a four-row enumeration is a `charset` fact, not a
-        table (PRD-PLATES §2.4 puts small mappings inline by design). The
+        table (the plates spec §2.4 puts small mappings inline by design). The
         MISSION-CODE mapping — which country is 01, which is 14 — is NOT
         published by Regitra and is NOT shipped; see notes.
       separator_note: >-

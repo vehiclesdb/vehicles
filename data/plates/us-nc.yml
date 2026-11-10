@@ -1,4 +1,4 @@
-# plates/us-nc.yml — North Carolina (PRD-PLATES gate L2, group southeast-a).
+# plates/us-nc.yml — North Carolina (the plates spec gate L2, group southeast-a).
 #
 # THE NORTH CAROLINA FINDING: THE STANDARD PLATE IS A CHOICE OF THREE, AND THE
 # CHOICE IS IN THE STATUTE. N.C. Gen. Stat. § 20-63(b) gives the owner of a
@@ -16,7 +16,7 @@
 # STANDARD SERIES, not one, and they are not variants of each other — they run
 # in DISJOINT SERIAL BLOCKS, which means the plate string itself tells you
 # which design you are looking at. That is a genuinely useful parse signal and
-# it is modelled as three series under PRD-PLATES §2.3 (own series iff format
+# it is modelled as three series under the plates spec §2.3 (own series iff format
 # OR design OR period differs — here design and period both differ).
 #
 # SOURCING PATH DISCLOSURE, REQUIRED BY HONESTY: the North Carolina General
@@ -40,7 +40,7 @@ binding: vehicle
 statute_edition: "North Carolina General Statutes, Chapter 20 (Motor Vehicles), Article 3 — §§ 20-63 and 20-79.1 as reproduced by codes.findlaw.com and read 2026-08-01; ncleg.gov itself was unreachable (403)"
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: public-domain-favourable
@@ -77,7 +77,7 @@ artwork_risk:
     evidence that nobody has written the tag. Recorded so that a later reader
     does not mistake a missing template for an adverse finding.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default still applies to the Wright Flyer
+    the plates spec §3's placeholder default still applies to the Wright Flyer
     graphic, the quill-pen graphic and the national-flag motif until each is
     affirmatively cleared per-emblem. Even under a favourable copyright
     posture, STATE SEALS AND EMBLEMS carry protection independent of copyright
@@ -199,7 +199,7 @@ series:
     sources:
       - "https://codes.findlaw.com/nc/chapter-20-motor-vehicles/nc-gen-st-sect-20-63.html  # § 20-63(b) [via FindLaw; ncleg.gov 403]: the three-design election and the verbatim First in Flight description (words at top, Wright Brothers biplane over Kitty Hawk Beach); (a) one plate; (c) 100-foot daylight legibility"
       - "https://www.ncdot.gov/dmv/title-registration/license-plates/Pages/default.aspx  # NCDMV names 'First in Flight' as one of three standard designs available for private passenger and private hauler vehicles and states what it commemorates (the Wright Brothers' first powered flight at Kitty Hawk, 1903)"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_North_Carolina  # LOCATOR ONLY (PRD-PLATES §4): the October 2009 blue-serial start, the December 2010 AAA-1001 block reset, the second-letter A-M allocation rule, the red-to-blue legibility reversion, the updated '8' glyph, and the OBX/Dare County series. None asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_North_Carolina  # LOCATOR ONLY (the plates spec §4): the October 2009 blue-serial start, the December 2010 AAA-1001 block reset, the second-letter A-M allocation rule, the red-to-blue legibility reversion, the updated '8' glyph, and the OBX/Dare County series. None asserted as sourced."
     notes: >-
       NORTH CAROLINA FIRST IN FLIGHT — the default of the three statutory
       designs and the oldest continuously issued. It is also one of the five
@@ -210,7 +210,7 @@ series:
       lineage is L4 historical depth and is deliberately not modelled at this
       gate. All three current designs share one format and one allocation rule
       and differ only in artwork and serial block — which is exactly why they
-      are three series and not one with variants: PRD-PLATES §2.3 makes design
+      are three series and not one with variants: The plates spec §2.3 makes design
       difference sufficient.
 
   - id: us-nc-standard-first-in-freedom
@@ -322,7 +322,7 @@ series:
       plate: { w: 12, h: 6, unit: in, dimension_evidence: convention-not-sourced }
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: observed }
       foreground: "#C8102E"
-      colour_note: "RED serial on reflective white with the light blue Wright Flyer graphic. The red was abandoned in October 2009 after complaints that it was too hard to read at distance — the design difference from the current base is exactly one colour, which under PRD-PLATES §2.3 is enough to make it its own series."
+      colour_note: "RED serial on reflective white with the light blue Wright Flyer graphic. The red was abandoned in October 2009 after complaints that it was too hard to read at distance — the design difference from the current base is exactly one colour, which under the plates spec §2.3 is enough to make it its own series."
       legend_top: "First in Flight"
       graphic: { present: true, rendered: placeholder, description: "Wright Brothers biplane flying over Kitty Hawk Beach, per § 20-63(b)" }
       emblem: { present: true, rendered: placeholder }
@@ -497,7 +497,7 @@ series:
           own words: "You can use numbers and some special characters,
           including the question mark (?), ampersand (&), dollar sign ($) and
           the 'at' symbol (@)." None of ?, &, $ or @ is in the dataset's serial
-          alphabet and none is a separator, so under PRD-PLATES §2.6 this is a
+          alphabet and none is a separator, so under the plates spec §2.6 this is a
           SCHEMA AMENDMENT — a `never_separator` entry with its source — and
           not something a data file may decide alone. `matching: strict` is
           still the correct value because the regex is NARROWER than what North
@@ -541,7 +541,7 @@ series:
       NORTH CAROLINA PERSONALIZED, AND THE STRONGEST SCHEMA FINDING OF GROUP
       SOUTHEAST-A. Two of five states — North Carolina here with ? & $ @, and
       Virginia with the ampersand — officially publish permission to print a
-      non-alphanumeric glyph INSIDE a serial. PRD-PLATES §2.6 anticipated this
+      non-alphanumeric glyph INSIDE a serial. The plates spec §2.6 anticipated this
       exact case and prescribed the remedy: "A jurisdiction that prints a glyph
       inside a serial is a schema amendment, not a data entry. If one lands, it
       goes to _meta/separators.yml's `never_separator` list with its source, and
@@ -551,7 +551,7 @@ series:
       and points the opposite way from every OCR heuristic in the field.
 
   # =========================================================================
-  # SPECIALTY — PROGRAM INDEX ONLY (PRD-PLATES §2.5).
+  # SPECIALTY — PROGRAM INDEX ONLY (the plates spec §2.5).
   # =========================================================================
   - id: us-nc-specialty-index
     class: specialty
@@ -566,7 +566,7 @@ series:
     design:
       plate: { unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: "more than 100"
@@ -591,7 +591,7 @@ series:
       - "https://www.ncdot.gov/dmv/title-registration/license-plates/Pages/default.aspx  # NCDMV: 'more than 100 causes and interest groups'; the limited-production/out-of-stock model; the membership and award verification gating; the establishment process; and the death-transfer restrictions"
     notes: >-
       THE NORTH CAROLINA SPECIALTY PROGRAM INDEX — one entry standing for the
-      whole programme, per PRD-PLATES §2.5. The count is NCDMV's own "more than
+      whole programme, per the plates spec §2.5. The count is NCDMV's own "more than
       100" and is recorded as an agency estimate, not a count: unlike Virginia,
       North Carolina does not expose a faceted search that would reconcile a
       total. What North Carolina gives instead, and no other state in this group

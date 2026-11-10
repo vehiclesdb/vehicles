@@ -1,4 +1,4 @@
-# plates/us-md.yml — Maryland (PRD-PLATES gate L2, mid-Atlantic group).
+# plates/us-md.yml — Maryland (the plates spec gate L2, mid-Atlantic group).
 #
 # MARYLAND IS THE BEST-LEGISLATED PLATE IN THIS GROUP. Where New York delegates
 # everything and Pennsylvania delegates almost everything, Md. Code, Transp.
@@ -26,7 +26,7 @@
 # ACCESS NOTE, STATED UP FRONT: mva.maryland.gov returned HTTP 403 to every
 # request in this pass, including with a browser user agent. Everything below
 # therefore comes from the MARYLAND GENERAL ASSEMBLY'S OWN STATUTE SERVICE — the
-# better source under PRD-PLATES §4 anyway (edicts of government beat brochures)
+# better source under the plates spec §4 anyway (edicts of government beat brochures)
 # — and the agency-only facts, above all the specialty-plate catalogue, are
 # recorded as gaps rather than sourced from elsewhere.
 #
@@ -39,7 +39,7 @@ binding: vehicle
 statute_edition: "Annotated Code of Maryland, Transportation Article, Title 13 (Vehicle Laws - Certificates of Title and Registration of Vehicles), as served by mgaleg.maryland.gov and read 2026-08-02."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched
@@ -70,7 +70,7 @@ artwork_risk:
     FLAG — the Calvert and Crossland quarterings — which is not a decorative
     graphic but the state's heraldic device. State flags and seals carry
     protection INDEPENDENT of copyright under misuse statutes, exactly as
-    PRD-PLATES §4.5 flags, and that question is unresearched here as it is
+    the plates spec §4.5 flags, and that question is unresearched here as it is
     everywhere. A neutral placeholder in the flag slot is the only defensible
     v1 render.
   photograph_caution: "Standard §4 reading: Commons photographs carry the photographer's licence on the photograph and say nothing about the design. No Maryland image was fetched in this pass — MVA refused every request."
@@ -218,7 +218,7 @@ series:
     sources:
       - "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gtr&section=13-410&enactments=false  # § 13-410(b) the plate must display the registration number and the name of Maryland; the number 'may consist of letters, numerals, or both'; (c) the county sticker; (d) the five-year service life"
       - "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gtr&section=13-411&enactments=false  # § 13-411 display: front and rear for this class of vehicle"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Maryland  # LOCATOR ONLY (PRD-PLATES §4): 'Maryland Proud' from 26 September 2016, 1AB2345 from 8CN0000 to 1HA3202 (7 March 2026), black embossed serial on reflective white with the state flag screened in the bottom half and 'Maryland' screened in red at the top"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Maryland  # LOCATOR ONLY (the plates spec §4): 'Maryland Proud' from 26 September 2016, 1AB2345 from 8CN0000 to 1HA3202 (7 March 2026), black embossed serial on reflective white with the state flag screened in the bottom half and 'Maryland' screened in red at the top"
     notes: >-
       MARYLAND PROUD (2016-) — THE CURRENT STANDARD ISSUE. The statute is strong
       and the DESIGN HISTORY is weak, and the file says so: everything about the
@@ -456,7 +456,7 @@ series:
       the owner, the opposite of Delaware's tradeable low numbers.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. Statute only; the
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. Statute only; the
   # agency catalogue was unreachable.
   # =========================================================================
   - id: us-md-specialty-index
@@ -482,7 +482,7 @@ series:
           reveal the exceptions is behind the 403.
     design:
       background: { finish: retroreflective }
-      note: "one design per approved organisation; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per approved organisation; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: null

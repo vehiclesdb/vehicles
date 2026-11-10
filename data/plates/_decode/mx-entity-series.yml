@@ -376,5 +376,5 @@ verification:
     Apéndice C also carries per-entity allocations for autobuses, remolques,
     convertidores, motocicletas (three grammars), demostración, ecológicos,
     ambulancias, bomberos, protección civil and escoltas. They are sourced at
-    exactly the same quality and are omitted for scope (PRD-PLATES §2.5).
+    exactly the same quality and are omitted for scope (the plates spec §2.5).
     Extending this file needs no new sourcing, only transcription.

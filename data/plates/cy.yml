@@ -1,4 +1,4 @@
-# plates/cy.yml — Republic of Cyprus (PRD-PLATES gate L1, wave 2).
+# plates/cy.yml — Republic of Cyprus (the plates spec gate L1, wave 2).
 #
 # ============================================================================
 # WHAT THIS FILE COVERS, AND WHAT IT DOES NOT — READ FIRST
@@ -272,7 +272,7 @@ not_representable:
         following an old-form Greek flag; no instrument located.
       * «ΔΟΚΙΜΗ» dealer legend — Δ U+0394. See dealer_plates below, where the
         larger finding is that this legend is not in the instrument at all.
-    Per PRD-PLATES §2.6 a jurisdiction printing a glyph the serial alphabet
+    Per the plates spec §2.6 a jurisdiction printing a glyph the serial alphabet
     lacks is a SCHEMA AMENDMENT, not a data entry. Transliterating ΚΔ to "KD"
     would fabricate a string no Cypriot plate shows. Reported, not authored.
 
@@ -409,9 +409,9 @@ series:
           squarish 8), so the secondary claim is substantively defensible, but
           the citable fact is "the letterforms reproduced in the Annex to
           Κ.Δ.Π. 71/2013", not a typeface name. This is the same posture
-          PRD-PLATES §6 records for the UK, Germany and Spain: statutory
+          the plates spec §6 records for the UK, Germany and Spain: statutory
           drawing, not licensable font.
-        license: "statutory drawing — PRD-PLATES §6: derive glyphs from the specimens, never from a third-party TTF"
+        license: "statutory drawing — the plates spec §6: derive glyphs from the specimens, never from a third-party TTF"
       mounting: { note: "Μέρος ΙΙ παρ. 3: vertical, tilt not exceeding 5 degrees (30/15 degree tolerances in specified cases), lower edge at least 0.30 m above the ground" }
       rear_differs: false
       rear_differs_note: >-
@@ -505,7 +505,7 @@ series:
         match here says "this string has a shape Cyprus has issued and the
         vehicle MAY be eligible for a black plate" — it is emphatically not a
         claim that the plate is black. This is the nl-export case in
-        PRD-PLATES §2.7, and it is why no regex_strict exists.
+        the plates spec §2.7, and it is why no regex_strict exists.
     design:
       background: { color: "#000000", finish: non-retroreflective, hex_basis: observed }
       foreground: "#FFFFFF"
@@ -642,7 +642,7 @@ series:
       overlaps cy-standard-1990's start for the ordinary reason that a
       Registrar's change of practice is not a dated event. PRE-1956 CYPRUS IS
       NOT MODELLED — colonial-era registration is L4 historical depth under
-      PRD-PLATES §7 and no source was consulted.
+      the plates spec §7 and no source was consulted.
 
   # =========================================================================
   # DIPLOMATIC — green in law 1973-2013, then silently dropped.

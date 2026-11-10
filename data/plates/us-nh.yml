@@ -1,4 +1,4 @@
-# plates/us-nh.yml — New Hampshire (PRD-PLATES gate L2, northeast group).
+# plates/us-nh.yml — New Hampshire (the plates spec gate L2, northeast group).
 #
 # NEW HAMPSHIRE'S STATUTE DOES ONE THING AND DOES IT ABSOLUTELY: it mandates the
 # SLOGAN by name and delegates everything else. RSA 261:75(II), verbatim: "The
@@ -33,7 +33,7 @@ statute_edition: >-
   RSA 261:75 read this pass, source line ending "2002, 165:6, eff. July 1, 2002".
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched
@@ -140,7 +140,7 @@ series:
     region_encoding: none
     sources:
       - "https://www.gencourt.state.nh.us/rsa/html/XXI/261/261-75.htm  # RSA 261:75(II): the 'Live Free or Die' mandate for passenger plates, and the delegation of number, location, material and design to the director; (I) the department's issuance duty, the $4.00 fee and the effective-period designation"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Hampshire  # LOCATOR ONLY (PRD-PLATES §4): the January 1999 base with the Old Man of the Mountain and Cannon Mountain, the three concurrent numeric arrangements, the DESCENDING six-digit sequence, the current 123 4567 range to 553 8164 as of 17 January 2025, and the graphic-position shift by format"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Hampshire  # LOCATOR ONLY (the plates spec §4): the January 1999 base with the Old Man of the Mountain and Cannon Mountain, the three concurrent numeric arrangements, the DESCENDING six-digit sequence, the current 123 4567 range to 553 8164 as of 17 January 2025, and the graphic-position shift by format"
       - "https://www.licenseplates.cc/NH  # enthusiast corroboration, cited because used: the reported serial high-water mark. No text or image copied"
     notes: >-
       NEW HAMPSHIRE STANDARD ISSUE. The base is dated 1999 and the DESIGN has not
@@ -167,7 +167,7 @@ series:
       pattern: "LLL 999"
       regex: '\A[A-Z]{3} ?\d{3}\z'
       charset: { notes: "reported AAA 001 to approximately DEX 500. The immediately preceding arrangement, on the 1987 base, was a plain six-digit 123456 running 1 to 999999" }
-      separator_note: "printed with a hyphen in secondary depictions (ABC-123); spelled U+0020 here, and either reading is inside the emitted set (PRD-PLATES §2.6) — recorded because the two are not interchangeable to a strict matcher"
+      separator_note: "printed with a hyphen in secondary depictions (ABC-123); spelled U+0020 here, and either reading is inside the emitted set (the plates spec §2.6) — recorded because the two are not interchangeable to a strict matcher"
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: observed }
@@ -319,7 +319,7 @@ series:
       structural gap.
 
   # =========================================================================
-  # SPECIALTY — PROGRAM INDEX ONLY (PRD-PLATES §2.5). New Hampshire's program
+  # SPECIALTY — PROGRAM INDEX ONLY (the plates spec §2.5). New Hampshire's program
   # is a plate with a hole in it, and that is genuinely novel.
   # =========================================================================
   - id: us-nh-specialty-index
@@ -335,7 +335,7 @@ series:
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
-      note: "the Decal Plate 'resembles a regular New Hampshire passenger license plate' but carries a BLANK 3-inch by 3-inch SQUARE on the left side. The plate itself is one design; the variation lives in a separately purchased adhesive decal. No individual decal design is described here (PRD-PLATES §2.5)."
+      note: "the Decal Plate 'resembles a regular New Hampshire passenger license plate' but carries a BLANK 3-inch by 3-inch SQUARE on the left side. The plate itself is one design; the variation lives in a separately purchased adhesive decal. No individual decal design is described here (the plates spec §2.5)."
       emblem: { present: true, rendered: placeholder, description: "Old Man of the Mountain at right on the decal plate — the graphic moves right to clear the decal square" }
     program_index:
       model: >-
@@ -370,7 +370,7 @@ series:
         artefact than any other specialty count in this group except Connecticut's
         statute-derived one.
       veteran_decals: "RSA 261-C additionally authorises Veteran Decal Plates with a distinguishing veteran design in the same 3x3 square, sold by the NH Office of Veteran Services rather than by a charity. Branch decals cover Army, Navy, Air Force, Marine Corps, Coast Guard and SPACE FORCE — an issuing agency that has already added the newest US service branch. Medal-of-valor decals cover Medal of Honor, Distinguished Service Cross, Navy Cross, Air Force Cross, Silver Star and Bronze Star, each pre-qualified; Gold Star family decals run under RSA 261-C:3-a."
-      other_specialty_series: "Separately from the decal program New Hampshire issues a CONSERVATION plate (the 'moose plate') from 1999, with a stacked 'C/H' marker beside the serial and five reported serial arrangements (C/H1234X, C/H123X4, C/H12X34, C/H1X234, C/HX1234). It is NOT given a series here: five width variants with no primary and a stacked marker of contested serial status is precisely the shape that produces a wrong regex, and PRD-PLATES §2.5 does not require it. Recorded as the file's largest deliberate omission."
+      other_specialty_series: "Separately from the decal program New Hampshire issues a CONSERVATION plate (the 'moose plate') from 1999, with a stacked 'C/H' marker beside the serial and five reported serial arrangements (C/H1234X, C/H123X4, C/H12X34, C/H1X234, C/HX1234). It is NOT given a series here: five width variants with no primary and a stacked marker of contested serial status is precisely the shape that produces a wrong regex, and the plates spec §2.5 does not require it. Recorded as the file's largest deliberate omission."
       fees: "$15 per year for a Decal Plate on top of town and state registration fees; $40 more for a Decal Vanity Plate; an $8.00 plate manufacturing fee in the first year only (DMV's own figures)."
       official_list_url: "https://www.dmv.nh.gov/vehicles-boats-or-titles/vehicle-registrations/decal-plates"
     region_encoding: none
@@ -382,7 +382,7 @@ series:
       THE NEW HAMPSHIRE SPECIALTY INDEX. `period_evidence: statutory-date`
       because the DMV cites RSA 261-B and a specific commencement date, 3 July
       2017, in its own words — the only specialty index in this group with a
-      dated statutory start. THE STRUCTURAL LESSON, which belongs in the PRD's
+      dated statutory start. THE STRUCTURAL LESSON, which belongs in the spec's
       §2.5 discussion and not just in this file: the "specialty programs" concept
       assumes one design per program, and New Hampshire breaks that assumption by
       separating the PLATE (state, one design, one serial space) from the DECAL

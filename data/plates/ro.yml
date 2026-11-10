@@ -1,4 +1,4 @@
-# plates/ro.yml — Romania (PRD-PLATES gate L1, wave 2).
+# plates/ro.yml — Romania (the plates spec gate L1, wave 2).
 #
 # WHAT IS PRIMARY HERE AND WHAT IS NOT.
 #
@@ -33,7 +33,7 @@
 #    23 of the Regulament prescribes "numărul de ordine, format din cifre arabe"
 #    and fixes NO NUMBER OF DIGITS. That is why Bucharest could lengthen its
 #    order number from two digits to three without any amendment, and it is why
-#    every standard series here carries a `regex_statutory` (PRD-PLATES §2.7)
+#    every standard series here carries a `regex_statutory` (the plates spec §2.7)
 #    that is genuinely wider than its `regex`: the issued grammar is two digits
 #    for counties and three for the capital, but the LEGAL bound is any number of
 #    Arabic numerals. Romania is the cleanest example of that tier in the dataset
@@ -56,14 +56,14 @@
 #    145e and DIN 74069 — building to them is fine, their text is not
 #    redistributable, and in this pass neither was purchased or read. They are
 #    the reason every colour and every millimetre below is `secondary-wikipedia`
-#    with `hex_basis: observed`. This is the same posture PRD-PLATES §4 records
+#    with `hex_basis: observed`. This is the same posture the plates spec §4 records
 #    for SAE J686: NAMED, UNPINNED, never quoted.
 #
 # 5. ROMANIA'S EU BAND HAS A HARD DATE AND A SOFT ONE. Accession was 1 January
 #    2007, which is a treaty date and not in doubt. That the twelve-star band
 #    REPLACED the Romanian tricolour band on plates on or about that date is
 #    reported by a secondary and is tagged as such. The design change is modelled
-#    as a series boundary (PRD-PLATES §2.3, the same cut plates/it.yml makes at
+#    as a series boundary (the plates spec §2.3, the same cut plates/it.yml makes at
 #    1999), so each of the two territorial formats appears twice: once with the
 #    national band and once with the EU band.
 jurisdiction: ro
@@ -152,7 +152,7 @@ common:
       the Government. These are reservations INSIDE the ordinary serial space, so
       they are recorded here rather than authored as series: a reserved
       combination changes who holds the plate, not the format or the design, and
-      PRD-PLATES §2.3 makes that a note and not a series.
+      the plates spec §2.3 makes that a note and not a series.
     not_encoded_because: >-
       The three restrictions above do not compose into a single sourced alphabet
       (Q excluded everywhere? only in the letter group? is the leading-I/O rule
@@ -196,14 +196,14 @@ common:
       phosphorescent holograms of the Romanian coat of arms running the length of
       the plate. The SERIAL is not reported to change.
     why_not_a_series: >-
-      A design change of that size WOULD be a series boundary under PRD-PLATES
+      A design change of that size WOULD be a series boundary under the plates spec
       §2.3, and the honest reason it is not authored as one is that the entire
       evidence for it is a single secondary summary with a month and no
       instrument. Authoring `ro-standard-2024` on that basis would put a
       confidently-dated series into the dataset on the weakest evidence in this
       file. It is recorded here instead, and named as the FIRST target for the
       Romanian verifier: find the instrument, and re-cut ro-standard-2007 at its
-      commencement date. The series-id contract (PRD-QUALITY I-5/I-6) makes that
+      commencement date. The series-id contract (the quality spec I-5/I-6) makes that
       re-cut cheap — a new id plus an alias — which is precisely why waiting is
       the cheap option and guessing is not.
     source: "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Romania  # the September 2024 security-feature generation. Accessed 2026-08-02"
@@ -265,7 +265,7 @@ series:
         evidence_tier: secondary-wikipedia
         notes: "see common.alphabet — the reported letter restrictions are recorded there and deliberately not encoded."
       separator_note: >-
-        Both printed gaps are written as optional emitted SPACEs (PRD-PLATES
+        Both printed gaps are written as optional emitted SPACEs (the plates spec
         §2.6). No separator GLYPH is prescribed by art. 23, which names three
         element groups and no punctuation between them.
       progression: >-
@@ -498,7 +498,7 @@ series:
     notes: >-
       THE MOTORCYCLE PLATE — the ordinary county mark on a 240 x 130 mm two-row
       plate. Its own series rather than a variant because the dimensions differ
-      (PRD-PLATES §2.3), and `corroboration-only` because the size is sourced
+      (the plates spec §2.3), and `corroboration-only` because the size is sourced
       while the date is inherited. Romania does not appear to give motorcycles a
       distinct serial grammar, which is worth stating as a negative: unlike Italy,
       whose motorcycle plate had five digits where the car had three-plus-two,
@@ -568,7 +568,7 @@ series:
       stopped with the 1992 reform, but these plates remained VALID UNTIL 2000,
       so Romanian traffic ran both systems side by side for eight years and a
       photograph from the 1990s proves nothing about a vehicle's registration
-      date. Recorded as a period overlap with distinct notes, per PRD-PLATES
+      date. Recorded as a period overlap with distinct notes, per the plates spec
       §2.2, rather than as a clean cut.
 
   # =========================================================================
@@ -682,7 +682,7 @@ series:
           A TWO-PART NUMERIC DECODE: the first three digits are a country code
           identifying the sending state and the last three a rank or sequence
           within the mission, with 101 reported for an ambassador or head of
-          mission. The country-code table is NOT authored — PRD-PLATES puts
+          mission. The country-code table is NOT authored — the plates spec puts
           diplomatic decode tables at gate L4, and plates/fi.yml made the same
           call for the Finnish mission table. Note that this is a MISSION decode,
           not a geographic one, and it does not touch ro-counties.yml.
@@ -697,7 +697,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Romania  # secondary-wikipedia: CD plus six digits in blue, three-digit country code and three-digit rank code, 101 for the head of mission. FORMAT + COLOUR. Accessed 2026-08-02"
     notes: >-
       THE DIPLOMATIC CORPS PLATE. Authored despite an unsourced start date
-      because PRD-PLATES gate L1 names diplomatic among the core classes, and
+      because the plates spec gate L1 names diplomatic among the core classes, and
       because the FORMAT and the DECODE MECHANISM are described well enough to be
       useful; the date is the part this file admits it does not have, in the
       period_note rather than in a footnote. A companion series TC — reported for
@@ -739,7 +739,7 @@ series:
 unmodelled_series:
   evidence_tier: secondary-wikipedia
   source: "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Romania  # every row below. Accessed 2026-08-02"
-  reason_not_modelled: "each lacks a defensible date, a determinate format, or both. PRD-PLATES §5.3 prefers the recorded gap."
+  reason_not_modelled: "each lacks a defensible date, a determinate format, or both. The plates spec §5.3 prefers the recorded gap."
   rows:
     - token: "long-term temporary plate"
       note: >-
@@ -777,7 +777,7 @@ unmodelled_series:
         Reported for public utilities, tractors, agricultural machinery, scooters
         and golf carts, valid only inside the issuing locality, on a yellow
         ground — and, in the source's own words, of NON-STANDARDISED format
-        varying by issuing authority. That is a species PRD-PLATES §2.2 cannot
+        varying by issuing authority. That is a species the plates spec §2.2 cannot
         represent as one series and should not: a format that varies by locality
         is a table of formats, not a format. Recorded as the shape of the problem
         for whoever attempts it.

@@ -1,4 +1,4 @@
-# plates/au-nt.yml — Northern Territory (PRD-PLATES gate L3, Australia).
+# plates/au-nt.yml — Northern Territory (the plates spec gate L3, Australia).
 #
 # THE NORTHERN TERRITORY IS THE JURISDICTION THAT NEVER JOINED THE 1948 SCHEME,
 # and that is the fact that shapes this file. Every other Australian
@@ -14,7 +14,7 @@
 # read via the Internet Archive because the live host returns HTTP 403 to
 # machine clients) gives the issuing rule, the "right to display" doctrine and
 # the confirmation that a "general issue plate" is the default. That is a real
-# authority publication (PRD-PLATES §4) and it is quoted verbatim below.
+# authority publication (the plates spec §4) and it is quoted verbatim below.
 #
 # WHAT IS NOT. THE INSTRUMENT WAS NOT READ IN THIS PASS. legislation.nt.gov.au
 # returned HTTP 404 to every URL form attempted on 2026-08-02 (the portal's
@@ -29,14 +29,14 @@
 #
 # AND THE FORMATS ARE SECONDARY, ALL OF THEM. No NT government page obtained
 # states the general-issue combination. The formats and their dates come from
-# the English Wikipedia article, mined per the Wikipedia Rule (PRD-PLATES §4,
+# the English Wikipedia article, mined per the Wikipedia Rule (the plates spec §4,
 # owner override 2026-08-02): its own citations were chased — the two NT
 # Government newsroom media releases it cites are dead, and archive.today
 # rate-limited the request (HTTP 429) on 2026-08-02 — so every such fact carries
 # `period_evidence: secondary-wikipedia` plus the article URL, which is the
 # reversibility guarantee that rule exists for.
 #
-# THE SEPARATOR IS A DIAMOND AND WE DO NOT WRITE IT (PRD-PLATES §2.6). NT plates
+# THE SEPARATOR IS A DIAMOND AND WE DO NOT WRITE IT (the plates spec §2.6). NT plates
 # print a diamond between groups (CC♦73♦IQ). U+2666 is neither in the serial
 # alphabet nor in the emitted separator set, so patterns spell the gap as an
 # emitted SPACE and regexes accept it optionally; the glyph is recorded as a
@@ -126,7 +126,7 @@ national_context:
     (bigrigs.com.au, dead, archived) that was not fetched and is not asserted.
   sources:
     - "https://www.legislation.qld.gov.au/view/whole/html/inforce/current/sl-2021-0113  # Transport Operations (Road Use Management-Vehicle Registration) Regulation 2021 (Qld) sch 8, fetched 2026-08-02 — the two national heavy-vehicle definitions quoted above"
-    - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Northern_Territory  # secondary (CC BY-SA; facts extracted in our expression per the PRD-PLATES §4 Wikipedia rule, accessed 2026-08-02): the claim that the NT never adopted the three-letter scheme and that its proposed X block went to Western Australia — uncited in the article"
+    - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Northern_Territory  # secondary (CC BY-SA; facts extracted in our expression per the plates spec §4 Wikipedia rule, accessed 2026-08-02): the claim that the NT never adopted the three-letter scheme and that its proposed X block went to Western Australia — uncited in the article"
 
 # ---------------------------------------------------------------------------
 # Plate stock. AND A DISCREPANCY INSIDE THIS WAVE, RECORDED RATHER THAN HIDDEN.
@@ -159,7 +159,7 @@ plate_stock:
     printed_glyph: diamond
     note: >-
       Printed between serial groups. Never written in a pattern or regex here
-      (PRD-PLATES §2.6 emits only "-" and " "); patterns spell the gap as a
+      (the plates spec §2.6 emits only "-" and " "); patterns spell the gap as a
       SPACE. Flagged for the _meta/separators.yml owner with the ACT agency
       sentence quoted in plates/au-act.yml.
 
@@ -220,24 +220,23 @@ series:
     sources:
       - "https://nt.gov.au/driving/registration/number-plates-apply-or-transfer-plates  # Northern Territory Government, read via the Internet Archive 2026-08-02: 'You will be given a general issue plate unless you want to apply for personalised plates' — the agency's confirmation that a general-issue class exists and is the default. NEGATIVE FINDING, recorded: the page never states the combination"
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Northern_Territory  # secondary (accessed 2026-08-02): the Ca-nn-aa format, the 23 October 2009 announcement, the January 2011 unveiling and the June 2011 first issue, and the slogan change. The article cites an NT Government newsroom media release for the 2009 announcement; that URL is DEAD and its archive.today copy returned HTTP 429 on 2026-08-02 — the citation was chased and not reached"
-      - "https://vehiclesdb-pipeline/aux/research/plates-2026-07/plates-research-us-world.md  # this programme's own pinned research appendix, §2.5: an independent capture of the NT's 'Ca·nn·aa' format and 'ochre on white' colours. Corroboration, not a source of record"
     notes: >-
       THE NORTHERN TERRITORY'S FIRST ALPHANUMERIC GENERAL ISSUE, AND A TEXTBOOK
       THREE-DATE ROLLOUT. The secondary source gives three different dates for
       one series and they are all real: ANNOUNCED 23 October 2009 (by an NT
       Government media release), UNVEILED January 2011, AVAILABLE FOR ISSUE June
-      2011. PRD-PLATES §2.2 anticipates exactly this ("rollouts need three
+      2011. The plates spec §2.2 anticipates exactly this ("rollouts need three
       dates ... `period.rollout:` sub-keys when they differ") and the Mercosur
       rollout is its worked example. No rollout sub-keys are written here for
       one reason only: all three dates come from the SAME uncited paragraph, so
       recording them as structured data would dress one weak source as three
       strong ones. `period.start: 2011` is the FIRST-ISSUE year, which is what
-      period.start means (PRD-PLATES §4 instrument-date rule: the year the
+      period.start means (the plates spec §4 instrument-date rule: the year the
       format began), and the announcement year is deliberately not used —
       announcing a format is not issuing it. THE ID IS DELIBERATELY UNDATED
       (`au-nt-standard`, not `au-nt-standard-2011`), as in every other file of
       this wave, because minting a dated id on an uncited boundary builds a
-      dated id on sand (PRD-QUALITY I-5/I-6). VERIFIER TARGET: the NT Government
+      dated id on sand (the quality spec I-5/I-6). VERIFIER TARGET: the NT Government
       newsroom media release of 23 October 2009 ("Territory Growth Brings Change
       to Number Plates") is the document that would turn this whole entry
       primary. It is dead at source; archive.today holds a copy at
@@ -330,7 +329,7 @@ series:
         and the characters were re-centred (reported to have lasted about 2,500
         plates); version 3 from October 2015 on the standard Australian
         motorcycle plate stock, from the A-8900s. Same grammar throughout, so
-        one series with a note rather than three series (PRD-PLATES §2.3: own
+        one series with a note rather than three series (the plates spec §2.3: own
         series iff format OR design OR period differs — these differ in
         FURNITURE, and no source gives clean boundaries).
     region_encoding: none
@@ -403,14 +402,14 @@ series:
           seven-character cap borrowed from ANOTHER jurisdiction's plate-capacity
           rule (the ACT's 372 mm plate "can have up to seven characters"). Hence
           `matching: recall-only`: a match is a shape hit and nothing more
-          (PRD-PLATES §2.7), and a `regex_strict` here would be a contradiction.
+          (the plates spec §2.7), and a `regex_strict` here would be a contradiction.
     design:
       background: { finish: retroreflective }
       note: >-
         Reported colour options, secondary: ochre on white, black on white and
         black on yellow bases, with slogan options "N.T. - OUTBACK AUSTRALIA",
         "N.T. - NATURE TERRITORY" or plain "N.T."; slimline plates from the
-        early 2000s. Individual designs are out of scope (PRD-PLATES §2.5).
+        early 2000s. Individual designs are out of scope (the plates spec §2.5).
     region_encoding: none
     sources:
       - "https://nt.gov.au/driving/registration/number-plates-apply-or-transfer-plates  # Northern Territory Government, read via the Internet Archive 2026-08-02: 'You will be given a general issue plate unless you want to apply for personalised plates'; the section index naming the personalised, club-vehicle and souvenir-plate subpages; the right-to-display lapse rule that governs the combination"
@@ -422,7 +421,7 @@ series:
       `period_evidence: agency-page-in-force`, the weakest honest reading. The
       secondary source puts the scheme's origin in the 1990s; a bare decade is
       not a start year and is deliberately not promoted into `period.start`
-      (PRD-PLATES §9: primary-source-or-marked, and a marked guess is still a
+      (the plates spec §9: primary-source-or-marked, and a marked guess is still a
       guess). `matching: recall-only` follows from the §2.7 test read straight:
       the regex is wider than anything the MVR issues, because what the MVR
       issues is unpublished. VERIFIER TARGET: the four nt.gov.au subpages named

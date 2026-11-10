@@ -1,4 +1,4 @@
-# plates/sm.yml — San Marino (PRD-PLATES gate L1, microstates group).
+# plates/sm.yml — San Marino (the plates spec gate L1, microstates group).
 # DRAFT for verification. All primary text fetched from the Consiglio Grande e
 # Generale law archive (consigliograndeegenerale.sm), 2026-08-02.
 #
@@ -239,7 +239,7 @@ common:
     rule: >-
       The "stemma ufficiale" appears in relief on every ordinary plate, at the
       left. DD 132/2022 art. 2 binds it to the constitutional annex's
-      proportions and Pantones. PRD-PLATES §3's placeholder rule applies: the
+      proportions and Pantones. The plates spec §3's placeholder rule applies: the
       arms are a state emblem with no located clean licence, and the
       constitutional annex was not fetched.
   not_modelled:
@@ -373,7 +373,7 @@ series:
       THE CURRENT ORDINARY SERIES. Same letter+four-digit grammar as 1993, but a
       smaller FRONT plate (300x100 mm), a twentieth letter (U), and RAL 5017
       blue from 1 July 2023. Modelled as its own series because the design
-      changed, per PRD-PLATES §2.3. Overlaps sm-standard-1993 across the
+      changed, per the plates spec §2.3. Overlaps sm-standard-1993 across the
       2022-2023 run-off, which is genuine parallel issuance provided for by the
       decree itself. NOTE the motorcycle and moped series below are NOT split at
       2022, because their plate SIZE did not change — only character metrics and
@@ -455,7 +455,7 @@ series:
       separator_note: >-
         PRINTED WITH DOTS as "R.S.M.". U+002E FULL STOP is in
         _meta/separators.yml's FORGIVING set but not its EMITTED set, so
-        PRD-PLATES §2.6 forbids writing it; the pattern spells "RSM" undotted
+        the plates spec §2.6 forbids writing it; the pattern spells "RSM" undotted
         and a conformant consumer canonicalises a real "R.S.M. 123" to "RSM123",
         which the separator-free twin matches. The same limitation as the Swiss
         mid-height point.
@@ -520,7 +520,7 @@ series:
       Modelled as one continuous series across the 2022 redesign because the
       plate size did not change; the character metrics and the RAL 5017 colour
       are dated design facts inside it. Contrast the car series, which IS split,
-      because its front plate shrank. This is the PRD-PLATES §2.3 test producing
+      because its front plate shrank. This is the plates spec §2.3 test producing
       different answers on the same reform for different vehicle classes.
     sources:
       - "https://www.consigliograndeegenerale.sm/on-line/home/archivio-leggi-decreti-e-regolamenti/documento17021492.html  # Decreto 109/1993 art. 1: 165x165 mm, letter + three digits"
@@ -1002,7 +1002,7 @@ series:
       format_evidence: statutory
       separator_note: >-
         PRINTED WITH DOTS as "M.A.". As with the 1922 RSM series, U+002E is
-        forgiving-but-not-emitted under PRD-PLATES §2.6, so the pattern spells
+        forgiving-but-not-emitted under the plates spec §2.6, so the pattern spells
         "MA" undotted and a conformant consumer canonicalises correctly.
       progression: "Decreto 47/1990 art. 2: numbering adopted from 1010 for macchine agricole"
     design:
@@ -1104,7 +1104,7 @@ series:
           issued in green rather than blue — DD 22/2019 art. 2: "la serie
           alfanumerica speciale scelta ed il bordo perimetrale saranno di colore
           verde." A colour-only variant of the same format and period, so a
-          sub-entry here rather than its own series, per PRD-PLATES §2.3.
+          sub-entry here rather than its own series, per the plates spec §2.3.
     region_encoding: none
     notes: >-
       PERSONALIZED PLATES, from 2003. Priced at EUR 750 initially and EUR 900 a

@@ -1,4 +1,4 @@
-# plates/us-sd.yml — South Dakota (PRD-PLATES gate L2, group midwest-b).
+# plates/us-sd.yml — South Dakota (the plates spec gate L2, group midwest-b).
 #
 # SOUTH DAKOTA LEGISLATED ITS REDESIGN CADENCE, WHICH ALMOST NOBODY DOES. SDCL
 # 32-5-83, in seven words that matter more than their length suggests: the number
@@ -31,7 +31,7 @@ binding: vehicle
 statute_edition: "South Dakota Codified Laws Title 32, Chapter 32-5 (Registration and Taxation of Motor Vehicles), individual sections as served by sdlegislature.gov and fetched for this pass. SDCL 32-5-83 and 32-5-84 carry 2020 amendments (SL 2020, ch 135, §§ 1-2) and 32-5-85 a 2025 amendment (SL 2025, ch 44, § 15), so the design provisions read here are current."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched
@@ -51,7 +51,7 @@ artwork_risk:
     right, so a replica of it on a plate raises questions — about the sculpture, about NPS
     marks, and about the memorial's name — that are entirely independent of whether South
     Dakota claims copyright in its plate design. NONE of those questions was researched.
-    Flagged prominently because it is exactly the kind of layered exposure PRD-PLATES §3's
+    Flagged prominently because it is exactly the kind of layered exposure the plates spec §3's
     placeholder rule exists to sidestep, and because an unwary renderer would treat a
     statutory authorization as a clearance. It is not one.
   edict_carve_out: >-
@@ -60,13 +60,13 @@ artwork_risk:
     ({{PD-US-GovEdict}}), so the seven-year design duty, the two-plate rule, the dealer 77
     and the reflectorization requirement are all affirmatively clean.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies with unusual force here — to the current
+    the plates spec §3's placeholder default applies with unusual force here — to the current
     base graphic, and above all to the Mount Rushmore replica for the reasons above. Render
     `emblem: {present: true, rendered: placeholder}` and do not render Mount Rushmore even
     schematically until the federal-memorial question is researched. South Dakota state-seal
     misuse statutes are unresearched.
   sources:
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): read to establish that South Dakota has NO section in the survey — a negative result, recorded as such"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): read to establish that South Dakota has NO section in the survey — a negative result, recorded as such"
     - "https://sdlegislature.gov/api/Statutes/32-5-88.html  # SDCL 32-5-88, the Mount Rushmore replica authorization — an edict, PD, and the source of the layered non-copyright hazard recorded above"
 
 us_standards:
@@ -207,7 +207,7 @@ series:
         nor a statement that the leading number IS the county rather than some other
         departmental designation. The county-to-number table is therefore NOT published here
         and NOT asserted. It is universally reported in secondary sources; that is precisely
-        why asserting it without a primary would be the kind of laundering PRD-PLATES §4
+        why asserting it without a primary would be the kind of laundering the plates spec §4
         forbids, and why 66 wrong decode rows would be worse than none.
       reserved_values: { "77": "dealer, manufacturer and demonstration plates (SDCL 32-5-89) — statutory" }
       cross_state_note: >-
@@ -266,7 +266,7 @@ series:
         could NOT be pinned the same way in us-ne-dealer. Same fact, two states, and the DSL
         permits it in one and not the other — worth knowing when reading the two files
         together. The separator is written as the sanctioned separator-only class `[- ]`
-        (PRD-PLATES §2.8) because the statute prescribes no glyph and the printed form was
+        (the plates spec §2.8) because the statute prescribes no glyph and the printed form was
         not observed.
     design:
       note: "the dealer plate is prescribed by the department under SDCL 32-5-89; no design property beyond the 77 is stated in the Codified Laws"
@@ -344,7 +344,7 @@ series:
       regex: '\A[A-Z0-9](?: ?[A-Z0-9]){1,6}\z'
       pattern_note: "REPRESENTATIVE SHAPE ONLY; neither SDCL 32-5-123 as summarised by the agency nor the agency page states a serial grammar for tribal plates, so the regex is wide and `matching: recall-only` follows"
     design:
-      note: "one design per participating tribe; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per participating tribe; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
       emblem_caution: >-
         TRIBAL EMBLEMS ARE A DISTINCT IP AND SOVEREIGNTY QUESTION, not a state-copyright one.
@@ -367,11 +367,11 @@ series:
       `specialty`, since _meta/classes.yml has no tribal or sovereign-nation class — the fit
       is poor and is flagged, because a tribal plate is not an 'optional-design program on
       standard serials' in the way a cause plate is. If the vocabulary grows to accommodate
-      sovereign-nation issuance, this series should move; the id contract (PRD-QUALITY I-5)
+      sovereign-nation issuance, this series should move; the id contract (the quality spec I-5)
       keeps that safe. SDCL 32-5-123's own text was not read (gap).
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5.
   # =========================================================================
   - id: us-sd-specialty-index
     class: specialty
@@ -384,7 +384,7 @@ series:
       regex: '\A[A-Z0-9](?: ?[A-Z0-9]){1,6}\z'
       pattern_note: "REPRESENTATIVE SHAPE ONLY; the index stands for programs whose arrangements are not individually stated"
     design:
-      note: "one design per authorised program; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised program; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: null
@@ -418,7 +418,7 @@ series:
       - "https://dor.sd.gov/individuals/motor-vehicle/cars-trucks-vans/personalized-specialty-plates/  # SD DOR: the three-year reissue cycle for conservation specialty plates, the personalized and tribal programs and their statutory hooks"
       - "https://sdlegislature.gov/api/Statutes/32-5-77.html  # SDCL 32-5-77: 'Historical license plates--Application and fee--Permanent plates--Use of vehicle restricted' — the existence and shape of the historic regime, whose text was not read"
     notes: >-
-      THE SPECIALTY PROGRAM INDEX — present as required by PRD-PLATES §2.5, CARRYING NO COUNT.
+      THE SPECIALTY PROGRAM INDEX — present as required by the plates spec §2.5, CARRYING NO COUNT.
       South Dakota joins Kansas and Minnesota as the three states in group midwest-b that
       yielded no specialty figure, in each case because the issuing agency's pages were
       unreachable or absent. The substantive find here is not a number but a CADENCE: South

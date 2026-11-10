@@ -1,4 +1,4 @@
-# plates/ca-nb.yml — New Brunswick, Canada (PRD-PLATES gate L2/L3, Canada east wave).
+# plates/ca-nb.yml — New Brunswick, Canada (the plates spec gate L2/L3, Canada east wave).
 #
 # NEW BRUNSWICK PUTS THE PLATE'S CONTENT IN THE ACT, WHICH ONTARIO AND
 # NEWFOUNDLAND AND LABRADOR DO NOT. Motor Vehicle Act s. 29(2), verbatim: "Every
@@ -47,7 +47,7 @@
 #    Regulation 83-42 under the Act was NOT fetched (see `instrument.fetch_note`)
 #    and is the first place a verifier should look.
 #
-# SEPARATOR NOTE (PRD-PLATES §2.6): a New Brunswick plate prints a gap between
+# SEPARATOR NOTE (the plates spec §2.6): a New Brunswick plate prints a gap between
 # groups, not a glyph. Every `pattern` spells the emitted space and every regex
 # accepts it as optional.
 jurisdiction: ca-nb
@@ -85,7 +85,7 @@ instrument:
     - "https://laws.gnb.ca/en/showfulldoc/cs/M-17  # the official consolidation the archive copy is of; HTTP 403 from this location, see fetch_note"
   licence: >-
     The Motor Vehicle Act is an EDICT OF GOVERNMENT and its text is
-    uncopyrightable (PRD-PLATES §4). Every verbatim quotation in this file is of
+    uncopyrightable (the plates spec §4). Every verbatim quotation in this file is of
     statutory text.
 
 artwork_risk:
@@ -94,9 +94,9 @@ artwork_risk:
     No New Brunswick copyright statement could be read, because no gnb.ca page
     could be reached. The province's posture on plate ARTWORK is therefore
     genuinely unknown rather than assumed favourable or adverse, and is recorded
-    as `unresearched` per PRD-PLATES §7.1's vocabulary.
+    as `unresearched` per the plates spec §7.1's vocabulary.
   emblem_rule: >-
-    PRD-PLATES §3 placeholder default applies with extra force here, since nothing
+    the plates spec §3 placeholder default applies with extra force here, since nothing
     is known. The provincial wordmark (the red galley device with "New" /
     "Nouveau" / "Brunswick" / "CANADA") is rendered `placeholder`; it is a
     government wordmark and is likely to carry trade-mark protection independent
@@ -173,7 +173,7 @@ common:
       this pass states any of it. The reservations are encoded in the passenger
       series' `regex_strict` and nowhere else.
     reserved: { C: commercial, D: dealer, F: farm, H: taxi, L: truck, T: trailer, A: antique }
-    source: "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Brunswick  # TAGGED SECONDARY (PRD-PLATES §4, owner override 2026-08-02), read 2026-08-02: the per-class serial tables and their first-letter reservations"
+    source: "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Brunswick  # TAGGED SECONDARY (the plates spec §4, owner override 2026-08-02), read 2026-08-02: the per-class serial tables and their first-letter reservations"
   dimensions:
     note: >-
       NO NEW BRUNSWICK INSTRUMENT PRESCRIBES A PLATE SIZE. s. 29(3) states a
@@ -193,7 +193,7 @@ classes_not_modelled:
   firefighter_and_specialty:
     exists: true
     mechanism: "The article carries 'Firefighter plates' and a 'Specialty plates' section for New Brunswick; MVA s. 35(2) is again the statutory hook."
-    why_not_modelled: "PRD-PLATES §2.5 excludes the specialty-design catalogue from v1, and no primary describes any of these. Recorded as a gap."
+    why_not_modelled: "The plates spec §2.5 excludes the specialty-design catalogue from v1, and no primary describes any of these. Recorded as a gap."
     sources:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Brunswick  # the specialty and firefighter sections, read 2026-08-02"
   prorated:
@@ -296,7 +296,7 @@ series:
     notes: >-
       ONE SERIES BACK, and cut on DESIGN alone: the format is identical to
       ca-nb-standard-2011 and only the base changed when the slogan and the gold and
-      sky-blue bands were dropped. PRD-PLATES §2.3 makes that its own series and
+      sky-blue bands were dropped. The plates spec §2.3 makes that its own series and
       also means no parse API can tell the two apart from a string. Both boundaries
       are the article's, unfootnoted. The display note is an INFERENCE from the
       dated amendment history and is labelled as one.
@@ -349,7 +349,7 @@ series:
         notes: >-
           The literal L is the class reservation. NOTE THE PATTERN ESCAPE: `L` is
           the human-pattern DSL's own token for "any letter", so a plate that PRINTS
-          an L writes `\L` (PRD-PLATES §2.2, owner ruling 2026-08-02) — the same
+          an L writes `\L` (the plates spec §2.2, owner ruling 2026-08-02) — the same
           collision Québec's heavy-truck prefix causes in plates/ca-qc.yml, and for
           the same reason: two provinces independently chose L for "lourd"/"large".
           Written in single quotes so YAML does not eat the backslash.

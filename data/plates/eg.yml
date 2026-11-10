@@ -1,4 +1,4 @@
-# plates/eg.yml — Egypt (PRD-PLATES gate L5).
+# plates/eg.yml — Egypt (the plates spec gate L5).
 #
 # THE ONE THING TO READ FIRST: **NO EGYPTIAN INSTRUMENT PRINTS THE SERIAL MASK
 # OF THE CURRENT PLATE, AND THAT IS A SOURCED STRUCTURAL CONCLUSION RATHER THAN
@@ -432,7 +432,7 @@ series:
     region_encoding: none
     notes: >-
       Goods transport («نقل»). Egypt treats this as a distinct licence class,
-      but the PRD-PLATES §2.3 vocabulary has no term for a commercial/goods
+      but the plates spec §2.3 vocabulary has no term for a commercial/goods
       class, so — following `in-transport-1989` — the class stays `standard` and
       the distinction rides on `categories:`. AGRICULTURAL TRACTORS AND TRAILERS
       ARE INSIDE THIS CATEGORY under art. 340 ثانيا rather than in a separate
@@ -614,7 +614,7 @@ series:
       Customs and free-zone vehicles — art. 340 رابعا covers «جمرك أجانب»
       (foreigners' customs), «جمرك مصريين» (Egyptians' customs) and «منطقة حرة»
       (free zone). ⚠ A DELIBERATE IMPRECISION, WRITTEN INTO THE ROW RATHER THAN
-      SMOOTHED OVER: the PRD-PLATES §2.3 vocabulary HAS NO `customs` TERM.
+      SMOOTHED OVER: The plates spec §2.3 vocabulary HAS NO `customs` TERM.
       `temporary` is the nearest honest fit — these are duty-unpaid vehicles on
       time-limited authority — but it is not what the instrument calls them, and
       it collides with the genuinely temporary brown series above. The right fix

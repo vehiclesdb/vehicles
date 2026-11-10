@@ -1,6 +1,6 @@
 # plates/_decode/se-diplomatic.yml — Swedish beskickningsskylt country codes.
 #
-# WHY THIS IS A _decode FILE AND NOT AN INLINE TABLE (PRD-PLATES §2.4): 128
+# WHY THIS IS A _decode FILE AND NOT AN INLINE TABLE (the plates spec §2.4): 128
 # rows is past the "small" threshold that put FZV Anlage 2 inline in de.yml,
 # and it is a CLOSED, PRIMARY list — Transportstyrelsen publishes the whole
 # thing, so it qualifies on the other limb of the rule ("a reference … if the

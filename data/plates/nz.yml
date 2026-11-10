@@ -1,4 +1,4 @@
-# plates/nz.yml — New Zealand (PRD-PLATES gate L3).
+# plates/nz.yml — New Zealand (the plates spec gate L3).
 #
 # EVERY format, colour and class claim in this file is read off one of two
 # instruments on legislation.govt.nz, or off a NZ Transport Agency Waka Kotahi
@@ -110,7 +110,7 @@
 #    THEREFORE PRINTS NO SEPARATOR GLYPH AND TREATS INTERNAL SPACING AS
 #    NON-IDENTITY-BEARING: every `pattern` and every regex in this file is
 #    written contiguously, with no emitted separator at all, and a consumer's
-#    separator-forgiving tier (PRD-PLATES § 2.6) is what absorbs a plate that
+#    separator-forgiving tier (the plates spec § 2.6) is what absorbs a plate that
 #    happens to be set with a gap.
 #
 # 4. THE BLACK PLATE OF 1964 IS NOT HISTORY — IT IS A CURRENT LAWFUL FORM.
@@ -135,7 +135,7 @@
 # `format.regex_statutory` carries the outer bound of the CURRENT law — reg
 # 33(1)'s bare six- or five-character cap — which is far wider than anything
 # issued and is the reason `matching: strict` is still correct on the standard
-# series (PRD-PLATES § 2.7: narrower than the statute is still strict).
+# series (the plates spec § 2.7: narrower than the statute is still strict).
 jurisdiction: nz
 authority:
   name: NZ Transport Agency Waka Kotahi (the Registrar of Motor Vehicles under Part 17 of the Land Transport Act 1998)
@@ -377,7 +377,7 @@ common:
       it if you turn the plate to a 15–30-degree angle. This helps to identify if
       a plate is authentic or fake." A RETROREFLECTIVE-SHEETING WATERMARK, not
       printed artwork: it is visible only off-axis, it carries no information,
-      and a renderer must not draw it as a graphic element (PRD-PLATES § 3).
+      and a renderer must not draw it as a graphic element (the plates spec § 3).
     manufacture: >-
       Plates are manufactured under contract, not by the agency. NZTA routes
       duplicate orders to LicenSys ("0800 REMAKE") and personalised sales to
@@ -447,12 +447,12 @@ common:
       though CR marks are attested on New Zealand ministerial cars long before
       2011 (see nz-government-cr notes).
     agency_disagreement: >-
-      RECORDED, NOT AVERAGED (PRD-PLATES § 5.3). NZTA's own history page groups
+      RECORDED, NOT AVERAGED (the plates spec § 5.3). NZTA's own history page groups
       the marks wrongly: "Diplomatic plates – for vehicles owned by embassies,
       consulates and high commissions (DC, DCC, FC and FCC plates) and
       ministerial vehicles (CC, CCC, CR and CROWN plates)." Schedule 4 assigns CC
       and CCC to CONSULAR missions, not to ministers. THE INSTRUMENT IS THE
-      AUTHORITY (PRD-PLATES § 5.3: "MAJORITY IS NOT AUTHORITY; the authority is
+      AUTHORITY (the plates spec § 5.3: "MAJORITY IS NOT AUTHORITY; the authority is
       the authority"), so this file follows Schedule 4 and records the agency
       page's error here.
     source: "https://www.legislation.govt.nz/regulation/public/2011/0079/latest/whole.html  # reg 37 and Schedule 4, all five rows verbatim"
@@ -473,7 +473,7 @@ classes_not_modelled:
       limb (b) — "a letter, number, symbol, or distinguishing mark" — so the
       crown IS the identifier in law. A regex cannot express this and none is
       authored; a renderer must place the emblem and no characters.
-    emblem_risk: "the New Zealand crown device is a vice-regal insignia; PRD-PLATES § 3's neutral-placeholder rule applies and no artwork is claimed clean"
+    emblem_risk: "the New Zealand crown device is a vice-regal insignia; the plates spec § 3's neutral-placeholder rule applies and no artwork is claimed clean"
     sources:
       - "https://www.legislation.govt.nz/regulation/public/2011/0079/latest/whole.html  # Schedule 4 item 1; reg 3 'unique identifier' limb (b); reg 37(2) 'distinguished solely by the symbol'"
   supplementary:
@@ -578,7 +578,7 @@ series:
         33(1)(b), which prescribes nothing but a six-character cap: under it
         "4ZZ99Z" is a perfectly lawful ordinary identifier that this series
         would never issue. A match on `regex` is a real claim about THIS series
-        (PRD-PLATES § 2.7, the us-fl case), which is why `matching` is `strict`.
+        (the plates spec § 2.7, the us-fl case), which is why `matching` is `strict`.
       progression: >-
         NZTA, verbatim: "The new series of three letters and three numbers – from
         AAA104 ongoing to ZZZ999 – offers about 17.6 million possible
@@ -681,7 +681,7 @@ series:
       THE REFLECTORISED TWO-LETTER PLATE — same mark space as nz-standard-1964,
       opposite colours. Cut as its own series and not as a design variant
       because BOTH the period and the design differ, which is exactly the
-      PRD-PLATES § 2.3 test, and because the two colourways are not successive
+      the plates spec § 2.3 test, and because the two colourways are not successive
       states of one specification: reg 33(4) still offers them as live
       alternatives (a) and (b) with no cut-off, so a consumer needs to be able
       to say "black-on-white, two letters, so issued between November 1986 and
@@ -843,7 +843,7 @@ series:
         obvious candidate is reg 33(1)(a)'s five-character cap — but the fullest
         shape this series' own grammar allows, three numerals plus three letters,
         is SIX characters, so the 2011 cap does not contain this series' regex and
-        writing it as `regex_statutory` would have inverted the PRD-PLATES § 2.7
+        writing it as `regex_statutory` would have inverted the plates spec § 2.7
         tier order. The cap post-dates the series' issuance window in any case.
         The correct outer bound is SR 1995/136 cl 2(3)(a)(ii) itself, which
         `regex` already carries.
@@ -953,7 +953,7 @@ series:
       secondary account that a numeral-first trailer shape replaced it that year,
       against an agency page that still calls A111A-Z999Z current — and the agency
       page is visibly stale elsewhere (it also calls the pre-2007 motorcycle range
-      current). Both readings are recorded and neither is averaged (PRD-PLATES
+      current). Both readings are recorded and neither is averaged (the plates spec
       § 5.3). A verifier with access to a current NZTA trailer-series statement
       settles this in one step; until then, treat the end date as the softest
       claim in this file.
@@ -992,12 +992,12 @@ series:
       display: "one plate, rear (reg 39(2))"
     region_encoding: none
     sources:
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Zealand  # SECONDARY, and the ONLY source for this arrangement and its 2024 start; accessed 2026-08-02. Extracted as a FACT under PRD-PLATES § 4's Wikipedia row and tagged `secondary-wikipedia` at point of use; the article's own section carries an 'unsourced section' banner"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Zealand  # SECONDARY, and the ONLY source for this arrangement and its 2024 start; accessed 2026-08-02. Extracted as a FACT under the plates spec § 4's Wikipedia row and tagged `secondary-wikipedia` at point of use; the article's own section carries an 'unsourced section' banner"
       - "https://www.legislation.govt.nz/regulation/public/2011/0079/latest/whole.html  # reg 33(1)(a) the five-character cap, 33(4)(b) the colours, 39(2) the single rear plate — everything about this series EXCEPT its arrangement"
     notes: >-
       THE REPORTED CURRENT TRAILER SHAPE, CARRIED ON A SECONDARY AND FLAGGED IN
       EVERY FIELD THAT MATTERS. It is authored rather than dropped because
-      jurisdiction-completeness (PRD-PLATES § 5.1) asks for the CURRENT series of
+      jurisdiction-completeness (the plates spec § 5.1) asks for the CURRENT series of
       every core class, and because a tagged secondary claim is recoverable in one
       pass while a silent omission is not. Everything here except the arrangement
       and the year is instrument-sourced. The same secondary reports two
@@ -1044,7 +1044,7 @@ series:
         `[A-Z0-9]{1,6}` is reg 34(2)'s cap and nothing narrower exists to state:
         it necessarily contains every ordinary, trade and official identifier in
         New Zealand, so a match means "this string is a shape New Zealand could
-        have issued" and never "this is a personalised plate". PRD-PLATES § 2.7's
+        have issued" and never "this is a personalised plate". The plates spec § 2.7's
         recall-only definition — "a union, a catch-all ... a shape hit and nothing
         more" — describes it exactly. `regex_strict` is forbidden here and none is
         wanted: the Registrar's refusal grounds (reg 34(3): already allocated,
@@ -1074,7 +1074,7 @@ series:
           NZTA states the palette in its own words: personalised plate
           characters "can be: white or silver on a black background; black, red
           or blue on a white background." A colour-only variant of the same
-          format and the same series, hence a sub-entry (PRD-PLATES § 2.3) and
+          format and the same series, hence a sub-entry (the plates spec § 2.3) and
           not a series of its own. Its 2022 launch is a secondary claim and is
           NOT carried as a period.
         evidence: secondary-wikipedia
@@ -1221,7 +1221,7 @@ series:
     notes: >-
       THE HEAVY TRADE PLATE — a distinct series and not a variant, because the
       numeral run is FOUR rather than five and the vertical field carries an extra
-      token, so both the format and the design differ (PRD-PLATES § 2.3). It came
+      token, so both the format and the design differ (the plates spec § 2.3). It came
       into existence with the Road User Charges regime's vocabulary: reg 36(1)(a)
       defines its scope by reference to a "heavy RUC vehicle (within the meaning
       of the Road User Charges Act 2012)", and NZTA translates that into the 3500
@@ -1559,7 +1559,7 @@ series:
 research_notes:
   wikipedia_dependent_claims:
     rule: >-
-      PRD-PLATES § 4's Wikipedia row authorises fact extraction on four
+      the plates spec § 4's Wikipedia row authorises fact extraction on four
       conditions, the first of which is that every Wikipedia-derived fact is
       tagged. Here is the complete enumeration for New Zealand, so that a future
       decision to revisit the override can find every one of them in a single
@@ -1611,7 +1611,7 @@ research_notes:
       NEW ZEALAND IS A VEHICLESDB REGISTRY SOURCE, AND THAT MAKES IT A CORPUS
       CANDIDATE. NZTA publishes Motor Vehicle Register extracts and a
       registrations dashboard as open data; where a licensed extract carries
-      plate strings, the PRD-PLATES § 5.2 corpus test applies exactly as it does
+      plate strings, the plates spec § 5.2 corpus test applies exactly as it does
       to the Dutch kenteken set — the CURRENT series' regexes should jointly
       match ≥ 99.9% of current New Zealand plates. The joint expression to test
       is nz-standard-2001 ∪ nz-standard-1986 ∪ nz-standard-1964 for cars,

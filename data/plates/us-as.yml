@@ -1,4 +1,4 @@
-# plates/us-as.yml — American Samoa (PRD-PLATES gate L2, territories group).
+# plates/us-as.yml — American Samoa (the plates spec gate L2, territories group).
 #
 # AMERICAN SAMOA CARRIES THE MOST CONSEQUENTIAL LEGAL FINDING IN THE ENTIRE US
 # PASS, AND IT IS NOT ABOUT PLATES. The United States Copyright Office states
@@ -19,7 +19,7 @@
 # dimension, class prefixes or specialty programmes. Every claim below is
 # either from those seven sections or is marked as secondary.
 #
-# WHAT IS DELIBERATELY NOT HERE (PRD-PLATES §2.5): individual specialty DESIGNS.
+# WHAT IS DELIBERATELY NOT HERE (the plates spec §2.5): individual specialty DESIGNS.
 jurisdiction: us-as
 authority:
   name: American Samoa Department of Public Safety — Office of Motor Vehicles (the "Commissioner" of A.S.C.A. Title 22)
@@ -40,7 +40,7 @@ authority_url_note: >-
   substituted for the "Treasurer", per the Bar's own amendment note.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4 / §7.1.
+# artwork_risk — required per jurisdiction by the plates spec §4 / §7.1.
 # THIS IS THE STRONGEST POSTURE IN THE US DATASET AND IT DESERVES ITS SPACE.
 # ---------------------------------------------------------------------------
 artwork_risk:
@@ -75,7 +75,7 @@ artwork_risk:
     dataset, ahead of Florida, but do NOT treat it as unconditional. The
     conditions above are real and unresolved. The practical consequence for this
     programme is that American Samoa is the strongest candidate anywhere in the
-    US for an EMBLEM-SLOT UPGRADE under PRD-PLATES §7.1 — where artwork_risk and
+    US for an EMBLEM-SLOT UPGRADE under the plates spec §7.1 — where artwork_risk and
     the _art ledger must both clear, this jurisdiction clears the first test on
     stronger grounds than any state does.
   edicts: >-
@@ -83,7 +83,7 @@ artwork_risk:
     every level ({{PD-US-GovEdict}}), so A.S.C.A. Title 22 is free to use
     regardless of how the territorial-scope question resolves.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default STILL APPLIES for now, and deliberately:
+    the plates spec §3's placeholder default STILL APPLIES for now, and deliberately:
     the favourable copyright position does not touch the separate protection
     regimes for flags and seals, and the caveat above is unresolved. Render
     `emblem: {present: true, rendered: placeholder}` — but flag this jurisdiction
@@ -230,14 +230,14 @@ series:
     validation: "two decals per registration, one for each tag, denominating the registration period (22.1002(c)) — see display_rules"
     previous_base_reported:
       note: >-
-        DELIBERATELY NOT MINTED AS A SERIES, per PRD-PLATES §4's rule that
+        DELIBERATELY NOT MINTED AS A SERIES, per the plates spec §4's rule that
         Wikipedia's era tables are not sourced years. The locator reports a 2011
         changeover to the Fatu Rock base and, before that, "12-YY" year-indexed
         serials 1945-1951, three digits 1952-1966, and four digits from 1967. NO
         PRIMARY establishes any of those boundaries: A.S.C.A. Title 22 is
         format-silent and American Samoa publishes no reachable plate instrument.
         Rather than mint dated ids on folklore boundaries and then alias them
-        (PRD-QUALITY I-5/I-6), the boundaries are recorded here and a dated series
+        (the quality spec I-5/I-6), the boundaries are recorded here and a dated series
         is added when a primary lands.
       reported_boundaries: ["1945-1951 12-YY (year-indexed)", "1952-1966 three digits", "1967-present four digits", "2011-present Fatu Rock base"]
       evidence: locator-only
@@ -320,8 +320,8 @@ series:
       - "https://asbar.org/code-annotated/22-1002-application-for-and-issuance-of-license-fees/  # 22.1002 — the whole statutory content of an American Samoa standard registration: the four preconditions, two decals placed on the tags, the fee schedule ($32.00 motor vehicle plus $12.00 per ton, $32.00 renewal, $2.00 bicycle, $10.00 titles and transfers, $9.00 late penalty), two tags on first registration or after five years' absence, $22.00 tag replacement, and the $7.00 per-fee allocation to a DPS fund for law-enforcement costs and for PRODUCTION of driver licences and vehicle registrations"
       - "https://asbar.org/code-annotated/22-1003-display-of-license/  # 22.1003: front and rear display, 50-foot legibility, illumination"
       - "https://asbar.org/code-annotated/22-1001-motor-vehicle-registration-and-license-required/  # 22.1001: the 'valid registration and vehicle license tags' requirement, and the statute's own vocabulary — American Samoa says TAGS, not plates"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_American_Samoa  # LOCATOR ONLY (PRD-PLATES §4): the four-digit numeric serial from 1967 with range 0001-9999, the 2011 Fatu Rock base, the 'Motu O Fiafiaga' slogan, 12x6 in aluminium, the reported 1977 adoption of the 6x12 standard, and the AC (agriculture) and R (rental) prefixes"
-      - "http://www.worldlicenseplates.com/world/PA_AMSA.html  # CORROBORATION + GAP-FINDER (PRD-PLATES §4): the full reported class/agency prefix table transcribed above as REPORTED data, the plate history from 1927, and the separate non-passenger categories (Cargo, Commercial Bus, Commercial Truck, Government Official, Government 2020 Series, Motorcycle, Public Service Vehicle, Rental Vehicle, Taxi). No licence statement on the site — treated as all rights reserved; facts only, no text or images copied"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_American_Samoa  # LOCATOR ONLY (the plates spec §4): the four-digit numeric serial from 1967 with range 0001-9999, the 2011 Fatu Rock base, the 'Motu O Fiafiaga' slogan, 12x6 in aluminium, the reported 1977 adoption of the 6x12 standard, and the AC (agriculture) and R (rental) prefixes"
+      - "http://www.worldlicenseplates.com/world/PA_AMSA.html  # CORROBORATION + GAP-FINDER (the plates spec §4): the full reported class/agency prefix table transcribed above as REPORTED data, the plate history from 1927, and the separate non-passenger categories (Cargo, Commercial Bus, Commercial Truck, Government Official, Government 2020 Series, Motorcycle, Public Service Vehicle, Rental Vehicle, Taxi). No licence statement on the site — treated as all rights reserved; facts only, no text or images copied"
       - "http://www.plateshack.com/y2k/American_Samoa/asy2k.html  # CORROBORATION: dated photographs establishing multi-year decal stacking on single tags ('August 2019 through August 21', 'January 2017 through January 2023'), which is the practical confirmation of 22.1002(f)'s five-year reissue rule; plus dated taxi, rental, dealer, government and US Congressional-delegate plates"
       - "https://www.aamva.org/getmedia/646bcc8a-219b-47d8-b5cd-726240473163/License-Plate-Standard-Edition-3_September-2025-Update.pdf  # AAMVA Ed.3 geometry and the 75-foot legibility recommendation against which American Samoa's statutory 50 feet is compared"
     notes: >-
@@ -447,7 +447,7 @@ series:
     notes: >-
       AMERICAN SAMOA DEALER TAGS. THE WEAKEST-EVIDENCED SERIES IN THIS FILE and
       flagged as such: one photograph, one source, no prefix reported, no statute.
-      It is minted rather than dropped only because PRD-PLATES §7's L2 scope names
+      It is minted rather than dropped only because the plates spec §7's L2 scope names
       dealer as a core class to spec where the jurisdiction separately serialises
       it, and a cited placeholder with `matching: recall-only` is more useful to a
       consumer than silence. A verifier should treat this entry as the first thing

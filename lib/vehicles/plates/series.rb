@@ -17,7 +17,7 @@ module Vehicles
       def initialize(entry)
         @id           = entry["id"]
         @klass        = entry["class"] || "standard"
-        # PRD-PLATES §2.7 (normative): a series says whether a regex hit is a
+        # the plates spec §2.7 (normative): a series says whether a regex hit is a
         # validity claim (`strict`) or only a shape hit (`recall-only`).
         # Absent => strict, the spec's backward-compatible default.
         @matching     = entry["matching"] || "strict"
@@ -60,7 +60,7 @@ module Vehicles
       # recall-only series (export/dark-blue catch-alls that accept any
       # current shape, the ES 1900-1971 numeric era) matches loosely by
       # design. Read from the dataset's `matching:` key, never inferred from
-      # `regex_strict` being present: PRD-PLATES §2.7 forbids that inference
+      # `regex_strict` being present: The plates spec §2.7 forbids that inference
       # because most strict series need no strict twin (their `regex` already
       # IS the issuing grammar — Portugal's AA-00-AA, the Spanish CD/CC/OI/TA
       # series). Until 0.9.2 the gem inferred it, so 668 strict series

@@ -1,4 +1,4 @@
-# plates/kr.yml — Republic of Korea (PRD-PLATES gate L3).
+# plates/kr.yml — Republic of Korea (the plates spec gate L3).
 #
 # EVERY dimension, colour, layout, class-code range and use-syllable claim in
 # this file comes from ONE instrument and its annexes: 「자동차 등록번호판 등의
@@ -46,7 +46,7 @@
 # a rental car (허). It is emphatically NOT a separator and no consumer may
 # delete it.
 #
-# PRD-PLATES §2.6 fixes the dataset's serial alphabet at A-Z and 0-9 and says in
+# the plates spec §2.6 fixes the dataset's serial alphabet at A-Z and 0-9 and says in
 # terms that a jurisdiction printing a glyph inside a serial "is a schema
 # amendment, not a data entry". Korea is that jurisdiction. Until the amendment
 # lands, this file draws the line exactly where §2.5/§2.6 and the Japan note in
@@ -57,7 +57,7 @@
 #     in printed order, with the hangul element ELIDED. For 123가4568 the
 #     skeleton is 1234568 and the pattern is "9999999".
 #   * `format.hangul_field` (this file's local extension, the `fields[]`
-#     composition PRD-PLATES §2.2 anticipates for Japan) carries the elided
+#     composition the plates spec §2.2 anticipates for Japan) carries the elided
 #     element: its position, its script, its width in millimetres, its closed
 #     value set and a pointer into plates/_decode/kr-use-syllables.yml.
 #   * `matching: strict` is nonetheless correct on these series, and the reason
@@ -138,7 +138,7 @@
 #    in the dossier; the year is asserted, the day is not.
 #
 # ---------------------------------------------------------------------------
-# WHAT IS DELIBERATELY NOT IN THIS FILE (PRD-PLATES §2.5)
+# WHAT IS DELIBERATELY NOT IN THIS FILE (the plates spec §2.5)
 # ---------------------------------------------------------------------------
 #   * Military plates. Korean armed-forces registration is a Ministry of
 #     National Defense system outside 「자동차관리법」 and outside this notice;
@@ -383,7 +383,7 @@ series:
         hex_basis: cmyk-naive
         cmyk_spec: "Annex 2-2 item 5: 디자인 배경 basic ground 밝은색 C40 M4 Y0 K0 / 중간색 C96 M90 Y0 K1 / 어두운색 C100 M97 Y22 K29; 국가축약문자 KOR same three, KOR outline C9 M7 Y7 K0; 숫자 및 한글 C73 M67 Y65 K80"
         note: "The band is a blue gradient, not a flat colour; the hex is a naive CMYK conversion of the mid tone and is for rendering only. This is Korea's equivalent of the EU band and it is NOT an EU band: it carries the national taegeuk and the ISO country abbreviation KOR."
-      emblem: { present: true, rendered: placeholder, note: "the taegeuk in the band is a national symbol; PRD-PLATES §3 placeholder rule applies until its licence posture is affirmatively cleared" }
+      emblem: { present: true, rendered: placeholder, note: "the taegeuk in the band is a national symbol; the plates spec §3 placeholder rule applies until its licence posture is affirmatively cleared" }
       hologram: { present: true, note: "Annex 2-2 item 4 (홀로그램 패턴) — a 25 mm grid of holographic security marks across the plate face" }
       rear_differs: false
     region_encoding: none
@@ -1083,7 +1083,7 @@ series:
           quasi-diplomatic (준외), quasi-consular (준영), international-
           organisation (국기) and other-diplomatic (협정, 대표) plates likewise.
           Same format, same colours, same period — a WORD-only variant, so a
-          sub-entry per PRD-PLATES §2.3 rather than six near-identical series.
+          sub-entry per the plates spec §2.3 rather than six near-identical series.
           The full seven-word list with its Korean category names is in
           plates/_decode/kr-use-syllables.yml under `diplomatic`.
         sources:

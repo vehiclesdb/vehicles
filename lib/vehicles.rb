@@ -242,7 +242,7 @@ module Vehicles
     #   Vehicles.identify("bus/iveco/daily", kinds: [:car])  # => nil
     def identify(text, kind: nil, kinds: nil) = TextMatcher.identify(text, kind: kind, kinds: kinds)
 
-    # License plates (the bundled PRD-PLATES dataset). No argument: every
+    # License plates (the bundled plates dataset). No argument: every
     # jurisdiction. With a code: that jurisdiction (or nil — forgiving).
     #   Vehicles.plates          # => [#<Jurisdiction nl …>, …]
     #   Vehicles.plates(:nl)     # => the Netherlands entry (33 series)

@@ -1,4 +1,4 @@
-# plates/us-mp.yml — Commonwealth of the Northern Mariana Islands (PRD-PLATES L2).
+# plates/us-mp.yml — Commonwealth of the Northern Mariana Islands (the plates spec L2).
 #
 # THE CNMI'S VEHICLE CODE IS REACHABLE AND WELL-STRUCTURED: Title 9 of the
 # Commonwealth Code, Division 2 ("Registration and Licenses"), served
@@ -16,7 +16,7 @@
 # standard plate is the kind of thing that only happens if you read the statute
 # rather than the brochure.
 #
-# WHAT IS DELIBERATELY NOT HERE (PRD-PLATES §2.5): individual specialty DESIGNS.
+# WHAT IS DELIBERATELY NOT HERE (the plates spec §2.5): individual specialty DESIGNS.
 jurisdiction: us-mp
 authority:
   name: CNMI Bureau of Motor Vehicles, Department of Public Safety
@@ -37,7 +37,7 @@ authority_url_note: >-
   file. Recorded as a dead end, not papered over.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4 / §7.1.
+# artwork_risk — required per jurisdiction by the plates spec §4 / §7.1.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched-presumed-protected
@@ -62,7 +62,7 @@ artwork_risk:
     ({{PD-US-GovEdict}}), so 9 CMC — the source of every factual claim in this
     file, including the HAFA ADAI legend — is unambiguously free to use.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies to the CNMI flag, the latte stone
+    the plates spec §3's placeholder default applies to the CNMI flag, the latte stone
     and the Commonwealth seal. Render `emblem: {present: true, rendered:
     placeholder}`. The HAFA ADAI legend is TEXT, is stated in an edict, and is a
     fact rather than artwork — it may be set in a substitute typeface without
@@ -177,7 +177,7 @@ series:
         while "reflective white" maps to #FFFFFF without invention, "dark blue"
         does not map to any particular hex — assigning one would be manufacturing a
         colour value out of an adjective. The foreground is therefore left absent
-        with its description recorded, per PRD-PLATES §9's folklore discipline.
+        with its description recorded, per the plates spec §9's folklore discipline.
       foreground_description: "dark blue, embossed on the older base and surface-printed on the current one (locator-grade)"
       legend_top: "COMMONWEALTH OF THE NORTHERN MARIANA ISLANDS"
       legend_slogan: "HAFA ADAI"
@@ -201,7 +201,7 @@ series:
       - "https://cnmilaw.org/pdf/cmc_section/T9/2106.pdf  # § 2106: the plate shows the registration number AND YEAR; front and rear at the factory-designated position; legible at 50 feet; no unofficial plates. Plus the PL 14-18 (July 12, 2004) legislative findings recording that BMV already issued TWO plates before 2004"
       - "https://cnmilaw.org/pdf/cmc_section/T9/2116.pdf  # § 2116(c)(1): 'Below the line HAFA ADAI...' — the statutory confirmation of the standard plate's slogan line; and § 2116(c) 'the same standard size and shape as regular passenger vehicle license plates'"
       - "https://cnmilaw.org/pdf/cmc_section/T9/2101.pdf  # § 2101: the registration application, the lawful-ownership and FMVSS-compliance evidence, and the § 2101(d) requirement that liability insurance expire in the same month as the registration"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Northern_Mariana_Islands  # LOCATOR ONLY (PRD-PLATES §4): the ABC 123 arrangement since 1989, the reported 1989-2005 and 2005-present base generations and their serial blocks, the dark-blue-on-reflective-white description, the embossed-to-surface-printed change, and the mounting-hole arrangement"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Northern_Mariana_Islands  # LOCATOR ONLY (the plates spec §4): the ABC 123 arrangement since 1989, the reported 1989-2005 and 2005-present base generations and their serial blocks, the dark-blue-on-reflective-white description, the embossed-to-surface-printed change, and the mounting-hole arrangement"
       - "http://www.plateshack.com/y2k/Northern_Marianas/cnmiy2k.html  # CORROBORATION ONLY: dated photographs of CNMI plates with July 2025, March 2020, June 2013, March 2009, 2005, 2004, 2000 and 1999 expirations, which is how the per-month validation practice was confirmed. No licence statement; no image or text copied"
       - "http://www.worldlicenseplates.com/world/PA_NMAR.html  # CORROBORATION + GAP-FINDER: an independent CNMI page noting historical variants — plates 'with 19 embossed after the registration', the embossed 19 removed for five-digit registrations, and one plate 'Originally a government plate, repurposed and reissued as general issue DUE TO SHORTAGE'. The shortage note is the useful one: it is direct evidence that CNMI government and general serial namespaces are not hermetically separated"
     notes: >-
@@ -212,7 +212,7 @@ series:
       figure is left in the locator where it belongs. The reported 2005 base change
       is NOT minted as a boundary — it is a surface-printing-versus-embossing change
       with no format consequence and no primary behind it, exactly the kind of
-      folklore boundary PRD-PLATES §9 warns against dating. THE ENTRY'S REAL VALUE
+      folklore boundary the plates spec §9 warns against dating. THE ENTRY'S REAL VALUE
       is the HAFA ADAI legend sourced to an edict, and the worldlicenseplates
       shortage finding, which tells any future decode effort that CNMI government
       plates have at least once been recycled into general issue.
@@ -254,7 +254,7 @@ series:
       text as compiled therefore appears to have lost the year-number exemption and
       inverted the distinguishing-mark duty. This is flagged as a probable
       compilation or drafting defect and is NOT relied upon in either direction;
-      PRD-PLATES §5.3 says record disagreements rather than average them, and the
+      the plates spec §5.3 says record disagreements rather than average them, and the
       same discipline applies to a text that disagrees with itself.
     region_encoding: none
     sources:
@@ -324,7 +324,7 @@ series:
       - "https://cnmilaw.org/pdf/cmc_section/T9/2116.pdf  # § 2116 (PL 14-16 § 3; (d) amended PL 18-22 § 2, Oct. 8 2013; (g)-(h) enacted PL 19-26 § 2, Dec. 14 2015; amended PL 20-37 § 2, Jan. 18 2018; (a) and (b)(1) amended PL 24-23 § 2, Mar. 11 2026): the veteran/disabled-veteran definitions and proofs, the HAFA ADAI-relative layout, the two ink colours, the branch-code-plus-sequence serial with its three worked examples, the accessibility symbol, the 25%/100% fee rules, the multi-vehicle and non-transferability rules, and the survivor memorial provision"
     notes: >-
       CNMI VETERAN AND DISABLED VETERAN PLATES. SPECCED SEPARATELY FROM THE
-      SPECIALTY INDEX, and deliberately so: PRD-PLATES §2.5 excludes individual
+      SPECIALTY INDEX, and deliberately so: The plates spec §2.5 excludes individual
       specialty DESIGNS from L2, but this series carries a FORMAT — a real,
       statutory, alpha-numeric grammar with worked examples — and a format is
       exactly what the dataset exists to hold. PERIOD CAVEAT, STATED PLAINLY:
@@ -336,7 +336,7 @@ series:
       civilian plate recognising prior service.
 
   # =========================================================================
-  # SPECIALTY — INDEX ONLY, per PRD-PLATES §2.5.
+  # SPECIALTY — INDEX ONLY, per the plates spec §2.5.
   # =========================================================================
   - id: us-mp-specialty-index
     class: specialty
@@ -350,7 +350,7 @@ series:
       charset: { notes: "the one CNMI specialty grammar that IS stated — the veteran branch-code format — is specced at us-mp-veteran; nothing is stated for the rest" }
       pattern_note: "illustrative only — this is an INDEX entry, not a spec"
     design:
-      plate: { note: "one design per programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here" }
+      plate: { note: "one design per programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here" }
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_statutory: 3
@@ -392,7 +392,7 @@ series:
       - "https://col.guamcourts.gov/sites/default/files/16gc007_0.pdf  # Guam 16 GCA § 7120.3, cited as the evident source text for the CNMI gold-star provision — the common-ancestry finding recorded above"
     notes: >-
       THE SPECIALTY PROGRAM INDEX — one entry standing for the whole programme, per
-      PRD-PLATES §2.5. TWO THINGS WORTH CARRYING FORWARD. First, THREE PROGRAMMES
+      the plates spec §2.5. TWO THINGS WORTH CARRYING FORWARD. First, THREE PROGRAMMES
       IS THE WHOLE STATUTORY CATALOGUE, which makes the CNMI the cleanest specialty
       index in the dataset and a useful counterexample to the assumption that every
       US jurisdiction runs a sprawling optional-plate market. Second, THE

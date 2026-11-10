@@ -32,7 +32,7 @@
 #    the DIGIT BLOCK ALWAYS FOLLOWS THE CODE. In "B12ABC" the character after B
 #    is a digit, so the code is one letter; in "BC12ABC" it is a letter, so the
 #    code is two. The rule is mechanical and total, and it survives separator
-#    stripping (PRD-PLATES §2.6), which is exactly when a decoder needs it most.
+#    stripping (the plates spec §2.6), which is exactly when a decoder needs it most.
 #
 # 3. THESE ARE NOT THE PRE-1992 CODES. The communist-era system used a different
 #    territorial letter set built on the administrative regions of the day — the

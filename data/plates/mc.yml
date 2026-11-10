@@ -1,4 +1,4 @@
-# plates/mc.yml — Monaco (PRD-PLATES gate L1, microstates group).
+# plates/mc.yml — Monaco (the plates spec gate L1, microstates group).
 # DRAFT for verification. All primary text fetched from legimonaco.mc and the
 # Journal de Monaco archive, 2026-08-02.
 #
@@ -235,7 +235,7 @@ common:
       routière in its own right — ratified 6 June 1978, in force for Monaco
       6 June 1979. Art. 37.1 requires a distinguishing sign on the rear; Annexe
       3.1 makes it one to three Latin capitals, black on a white ellipse; and
-      Annexe 3.3 is the provision PRD-PLATES §4 flags — "Le signe distinctif ne
+      Annexe 3.3 is the provision the plates spec §4 flags — "Le signe distinctif ne
       doit pas être incorporé dans le numéro d'immatriculation, ni apposé de
       façon telle qu'il puisse créer une confusion avec ce dernier ou nuire à sa
       lisibilité."
@@ -300,7 +300,7 @@ common:
       The "écusson fuselé rouge et blanc" — the lozengy red-and-white shield of
       the Grimaldi arms — is on the front plate and on the estampille. On the
       princely série spéciale, "les armoiries princières remplacent l'écusson
-      rouge et blanc et l'estampille". PRD-PLATES §3's placeholder rule applies;
+      rouge et blanc et l'estampille". The plates spec §3's placeholder rule applies;
       no clean licence route to the Grimaldi arms was located.
   not_modelled:
     - "NO POLICE SERIES EXISTS IN THE LAW. Art. 6 lists ME (Ministère d'État) and CN (Conseil National) and no Sûreté Publique series at all. The commonly-repeated 'SP + two digits' for police motorcycles has no primary basis located and is NOT modelled — a searched-for negative, not an oversight."
@@ -970,7 +970,7 @@ series:
       plate: { w: 455, h: 85, unit: mm, note: "the adhesive band for cars — 'longueur : 45,5 cm ; largeur : 8,5 cm'. THE ONLY OVERALL DIMENSION IN THE WHOLE INSTRUMENT, because a band is not a deposited model." }
       plate_variants:
         - { w: 205, h: 100, unit: mm, note: "motorcycles — 'longueur : 20,5 cm ; largeur : 10 cm'" }
-      font: { name: "Swiss721 BT", note: "NAMED IN THE INSTRUMENT — the only typeface named anywhere in the microstates group, and a licensing question PRD-PLATES §6 must answer before any render uses it. Swiss721 is a Bitstream commercial font; the render layer uses the schematic fallback." }
+      font: { name: "Swiss721 BT", note: "NAMED IN THE INSTRUMENT — the only typeface named anywhere in the microstates group, and a licensing question the plates spec §6 must answer before any render uses it. Swiss721 is a Bitstream commercial font; the render layer uses the schematic fallback." }
       band: { side: none }
       emblem: { present: false }
       rear_differs: false

@@ -1,4 +1,4 @@
-# plates/us-ky.yml — Kentucky (PRD-PLATES gate L2, group southeast-b).
+# plates/us-ky.yml — Kentucky (the plates spec gate L2, group southeast-b).
 #
 # KENTUCKY IS THE ONLY STATE IN THIS GROUP WHOSE PRIMARY LAW WAS ACTUALLY
 # OBTAINED, and the difference is visible on every line below. The Legislative
@@ -9,7 +9,7 @@
 # Tennessee in this group are documented from departmental instruments with the
 # statutory layer marked as a gap, Kentucky's design rule, display rule, historic
 # regime and personalized regime are all quoted from the statute itself, which is
-# a PD edict of government and the top of the PRD-PLATES §4 hierarchy.
+# a PD edict of government and the top of the plates spec §4 hierarchy.
 #
 # THE FINDING WORTH READING THE FILE FOR: Kentucky offers exactly the same pair of
 # standard options as Tennessee — a plain plate and an "In God We Trust" plate,
@@ -19,7 +19,7 @@
 # policy, opposite consequence for a parse API, and the two files should be read
 # together.
 #
-# REGEX FORM (PRD-PLATES §2.6): the current Kentucky serial is printed WITHOUT a
+# REGEX FORM (the plates spec §2.6): the current Kentucky serial is printed WITHOUT a
 # separator — the base was redesigned in 2020 so that, in a locator's words, the
 # "serial is not separated in middle, as with past designs". The regexes below
 # therefore spell no separator in the standard series, and spell an optional one
@@ -43,13 +43,13 @@ statute_ip_note: >-
   regulation pages carry "Copyright © 2024 Kentucky Legislative Research
   Commission - All rights reserved". That notice cannot reach the statutory text
   itself — edicts of government are uncopyrightable at every level of US law, which
-  is exactly why PRD-PLATES §4 tells us to prefer the statute over the brochure —
+  is exactly why the plates spec §4 tells us to prefer the statute over the brochure —
   but it is a real, fetched, affirmative copyright assertion by a Kentucky state
   body over the material it publishes, and it is carried into `artwork_risk` below
   as the only direct Kentucky IP evidence obtained.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched-leaning-asserted
@@ -74,7 +74,7 @@ artwork_risk:
     the wordmark — are the only exposure, and they are the ones §3 renders as
     placeholders anyway.
   emblem_rule: >-
-    PRD-PLATES §3 placeholder default applies. The "state icon screened on the left"
+    the plates spec §3 placeholder default applies. The "state icon screened on the left"
     of the current base renders as `emblem: {present: true, rendered: placeholder}`.
     Note that KRS 186.240(1)(d) prescribes the plate's TEXTUAL content in detail —
     identifier, jurisdiction indication, optional slogans, county, optional religious
@@ -272,7 +272,7 @@ series:
     sources:
       - "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=58177  # KRS 186.240(1)(d) effective July 15, 2026: the registration identifier, the jurisdiction indication, the cabinet's slogan discretion ('Bluegrass State' / 'United We Stand, Divided We Fall'), the county requirement for noncommercial standard plates, and the registrant's In God We Trust discretion; (2)-(3) the reflectorization mandate, the fifty-cent fee, the non-reverting program fund and the cabinet's discretionary replacement schedule"
       - "https://drive.ky.gov/Vehicles/Pages/License-Plates.aspx  # KYTC: 'Standard-issue passenger plates (Bluegrass State and In God We Trust)'; the July 19, 2023 elimination of I, Q and U and the statement that this matches the visibility rules ALREADY IN PLACE FOR STANDARD PLATES"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Kentucky  # LOCATOR ONLY (PRD-PLATES §4): the September 2020 base start, the flat digital printing, the white/light-blue gradient and dark blue serial, the state icon at left, the county sticker, the unseparated serial, the ABC123 then A1B234 arrangements with their reported ranges, Roederer Correctional Complex manufacture, and the 1927 first-county-name claim. None asserted as sourced"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Kentucky  # LOCATOR ONLY (the plates spec §4): the September 2020 base start, the flat digital printing, the white/light-blue gradient and dark blue serial, the state icon at left, the county sticker, the unseparated serial, the ABC123 then A1B234 arrangements with their reported ranges, Roederer Correctional Complex manufacture, and the 1927 first-county-name claim. None asserted as sourced"
     notes: >-
       KENTUCKY STANDARD ISSUE, CURRENT BASE. THE ALPHABET IS BETTER SOURCED THAN THE
       DATE, which is the reverse of the usual US situation and is worth saying out
@@ -281,7 +281,7 @@ series:
       September 21, 2020 and no KYTC or gubernatorial announcement of the base was
       located. A verifier should look for the 2020 announcement; if the true date
       moves within 2020 the id survives unchanged, and if it moves out of 2020 the id
-      becomes a former-id alias under the PRD-QUALITY I-5/I-6 contract.
+      becomes a former-id alias under the quality spec I-5/I-6 contract.
       WHY ONE SERIES ACROSS TWO ARRANGEMENTS: ABC123 ran until the three-letter space
       neared exhaustion around CBZ999 and A1B234 took over in August 2021 on the same
       base with the same design and the same alphabet. That is a counter rolling over,
@@ -336,7 +336,7 @@ series:
       - "https://drive.ky.gov/Vehicles/Pages/License-Plates.aspx  # KYTC lists 'Bluegrass State and In God We Trust' as the two standard-issue passenger plates, both personalizable"
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Kentucky  # LOCATOR ONLY: the option has run since January 2011 on the prior base and since September 2020 on this one; serials 'Taken from standard allocation'; the lowered county-sticker box; no-cost"
     notes: >-
-      THE KENTUCKY IN GOD WE TRUST OPTION. Its own series under PRD-PLATES §2.3 on the
+      THE KENTUCKY IN GOD WE TRUST OPTION. Its own series under the plates spec §2.3 on the
       DESIGN test alone — the format is identical and the period is identical, but the
       plate carries a legend the other does not, and a §2.3 variant becomes its own
       series if format OR design OR period differs.
@@ -522,7 +522,7 @@ series:
           carries a `regex_strict` — the only other one in this group besides its
           standard-plate siblings.
       separator_note: >-
-        A SANCTIONED SEPARATOR-ONLY CLASS (PRD-PLATES §2.8), and here it is sourced
+        A SANCTIONED SEPARATOR-ONLY CLASS (the plates spec §2.8), and here it is sourced
         rather than inferred. The cabinet says the requested combination may include "a
         space or dash" ON TOP OF the six characters, so the separator is genuinely
         optional, genuinely either glyph, and genuinely not part of the six-character
@@ -692,7 +692,7 @@ series:
       regulates plate ADMINISTRATION exhaustively and plate TYPOGRAPHY not at all.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5.
   # =========================================================================
   - id: us-ky-specialty-index
     class: specialty

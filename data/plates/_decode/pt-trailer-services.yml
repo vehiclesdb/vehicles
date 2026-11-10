@@ -23,7 +23,7 @@
 # gazette printed. From the 2006 instrument's entry into force the operative
 # code is VI; VS is on the road on every trailer plated between 2005 and 2006
 # and on every earlier one issued under the same code. A parse API must accept
-# BOTH — which is exactly the "decode tables rot" hazard PRD-PLATES §9 names,
+# BOTH — which is exactly the "decode tables rot" hazard the plates spec §9 names,
 # caught here inside a single fourteen-month window.
 #
 # WHAT THIS TABLE IS NOT: it is not a district-code table for cars. There has

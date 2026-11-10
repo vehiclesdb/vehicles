@@ -1,11 +1,11 @@
-# plates/us-ny.yml — New York (PRD-PLATES gate L2, mid-Atlantic group).
+# plates/us-ny.yml — New York (the plates spec gate L2, mid-Atlantic group).
 #
 # WHY NEW YORK IS THE HARD ARTWORK CASE. The US/world dossier flags NY as
 # ADVERSE: courts have held works of the State of New York generally subject to
 # copyright (County of Suffolk v. First American Real Estate Solutions, 261 F.3d
 # 179 (2d Cir. 2001)), there is no {{PD-NYGov}} tag on Commons, and the current
 # Excelsior base is the most graphically loaded standard plate in this group —
-# Niagara Falls and the New York City skyline across the bottom. Under PRD-PLATES
+# Niagara Falls and the New York City skyline across the bottom. Under the plates spec
 # §3 the emblem/graphic slot renders as a NEUTRAL PLACEHOLDER here, and unlike
 # Florida there is no favourable state posture to revisit it against. See
 # `artwork_risk`.
@@ -39,7 +39,7 @@ binding: vehicle
 statute_edition: "New York Consolidated Laws, Vehicle and Traffic Law (VAT), as served by nysenate.gov and read 2026-08-02. No point-in-time edition marker is exposed by that service, so the read date is the edition marker."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: adverse
@@ -57,7 +57,7 @@ artwork_risk:
   evidence_grade: >-
     HONEST LIMIT: the County of Suffolk opinion itself was NOT FETCHED in this
     pass — it was located through the Wikipedia survey of subnational copyright
-    status, which is a LOCATOR under PRD-PLATES §4 and not an authority. The
+    status, which is a LOCATOR under the plates spec §4 and not an authority. The
     CITATION is recorded so a verifier can pull the opinion (an edict of
     government, public domain, and freely quotable once obtained). The posture
     conclusion should be re-derived from the opinion before any render decision
@@ -66,7 +66,7 @@ artwork_risk:
     RENDER PLACEHOLDER, and unlike Florida do not expect to revisit it. The
     Excelsior base carries a photographic-derived Niagara Falls image and a New
     York City skyline; the Empire Gold base carries none. Both are
-    `graphic: {present: true, rendered: placeholder}`. PRD-PLATES §4.5's own
+    `graphic: {present: true, rendered: placeholder}`. The plates spec §4.5's own
     risk ladder puts "exact reproduction of the state's graphic" at the top of
     the risk column in NY specifically.
   photograph_caution: >-
@@ -117,7 +117,7 @@ display_rules:
     - "https://www.nysenate.gov/legislation/laws/VAT/401  # § 401(3)(a) distinctive number, TWO number plates, reflectorized material to the commissioner's specifications, the $25 reflectorized-set fee; (3)(b) re-assignment of the distinctive number on surrender"
 
 # ---------------------------------------------------------------------------
-# A SCHEMA STRESSOR NEW YORK CREATES ALL BY ITSELF (PRD-PLATES §2.6 rule 3).
+# A SCHEMA STRESSOR NEW YORK CREATES ALL BY ITSELF (the plates spec §2.6 rule 3).
 # ---------------------------------------------------------------------------
 serial_alphabet_finding:
   headline: "New York lets a GRAPHIC be a character inside the serial."
@@ -127,7 +127,7 @@ serial_alphabet_finding:
     counted toward the eight-character allowance, and 'your plate combination
     cannot begin or end with the state image. It must have at least one
     character on each side of it.' That is a glyph INSIDE a serial, which
-    PRD-PLATES §2.6 rule 3 says is a SCHEMA AMENDMENT, not a data entry. It is
+    the plates spec §2.6 rule 3 says is a SCHEMA AMENDMENT, not a data entry. It is
     NOT encoded anywhere in this file: `_meta/separators.yml` declares the
     serial alphabet as A-Z and 0-9 and nothing else, and there is no sanctioned
     way to spell a state-outline glyph in a pattern or a regex.
@@ -173,7 +173,7 @@ series:
         the Vehicle and Traffic Law states none. `format_evidence` is therefore
         `secondary-locator-unverified` and a verifier must re-derive the
         arrangement before this series carries a five-nines claim. The hyphen is
-        optional in the regex because it is a printed separator (PRD-PLATES
+        optional in the regex because it is a printed separator (the plates spec
         §2.6): the canonical separator-free twin is derived, not shipped.
       stacked_characters_note: "AAMVA treats stacked characters as part of the official number, at most two stacked. New York does not stack on the passenger base."
     design:
@@ -203,7 +203,7 @@ series:
       - "https://dmv.ny.gov/plates  # NYSDMV: 'DMV now offers Excelsior license plates featuring New York State landmarks' — the official evidence that this design is the current offering (agency-page-in-force)"
       - "https://www.nysenate.gov/legislation/laws/VAT/401  # § 401(3)(a): the distinctive number, two plates, reflectorized material to the commissioner's specifications — the whole of New York's statutory design law"
       - "https://www.nysenate.gov/legislation/laws/VAT/402  # § 402(2): the marked-contrast rule, which is why the hexes below are `observed` and not `spec`"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_York  # LOCATOR ONLY (PRD-PLATES §4): the June 2020 introduction, the ABC-1234 arrangement and the KAA-1000 start. None of the three is asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_York  # LOCATOR ONLY (the plates spec §4): the June 2020 introduction, the ABC-1234 arrangement and the KAA-1000 start. None of the three is asserted as sourced."
     notes: >-
       EXCELSIOR — THE CURRENT NEW YORK STANDARD ISSUE. `start: 2020` is
       `secondary-locator-unverified`: the June 2020 rollout is reported by
@@ -270,7 +270,7 @@ series:
           the letter positions — the lookalike exclusions AAMVA-style systems
           make. This is the only New York charset restriction reported anywhere
           and it is LOCATOR-GRADE; it is expressed as `regex_strict` precisely
-          because PRD-PLATES §2.7 forbids `regex` from carrying charset
+          because the plates spec §2.7 forbids `regex` from carrying charset
           restrictions (the round-trip against `pattern` would fail).
     design:
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: observed }
@@ -401,7 +401,7 @@ series:
       `secondary-locator-unverified` almost everywhere else in us-ny. Note the
       threshold is ROLLING (25 years before the CURRENT calendar year), so the
       eligibility boundary moves without any instrument changing — the audit
-      case PRD-PLATES §9 warns about.
+      case the plates spec §9 warns about.
 
   - id: us-ny-historic-motorcycle
     class: historic
@@ -425,7 +425,7 @@ series:
     notes: >-
       HISTORICAL MOTORCYCLE. Its own series rather than a variant because the
       literal token in the serial differs (HM, not HX) — a FORMAT difference, which
-      PRD-PLATES §2.3 makes the test for a separate series.
+      the plates spec §2.3 makes the test for a separate series.
 
   - id: us-ny-vintage
     class: historic
@@ -446,7 +446,7 @@ series:
           some year between 1901 and roughly 2001, across a century of unrecorded
           arrangements.
       pattern_note: >-
-        `matching: recall-only` (PRD-PLATES §2.7), and it is the textbook case
+        `matching: recall-only` (the plates spec §2.7), and it is the textbook case
         alongside `nl-export`: the regex is a deliberate CATCH-ALL over every
         New York arrangement, so a match says only 'this string has a shape New
         York has issued' and is emphatically NOT a claim that the string is a
@@ -515,7 +515,7 @@ series:
       is the most consequential schema result of the mid-Atlantic pass.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. Count and links only.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. Count and links only.
   # =========================================================================
   - id: us-ny-specialty-index
     class: specialty
@@ -530,7 +530,7 @@ series:
       charset: { notes: "custom picture plates carry ORDINARY serials on an alternative design; when personalised they are capped at SIX characters rather than eight (NYSDMV), which is the one place a New York specialty plate's grammar differs from the standard series." }
     design:
       background: { finish: retroreflective }
-      note: "one design per approved organisation or cause; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per approved organisation or cause; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: 206
@@ -548,7 +548,7 @@ series:
       - "https://www.nysenate.gov/legislation/laws/VAT/404  # § 404: the permissive special-plate authority, the eight-character cap and the service charge"
     notes: >-
       THE SPECIALTY PROGRAM INDEX — one entry standing for the whole programme,
-      which is what PRD-PLATES §2.5 asks for at this gate. New York's count is
+      which is what the plates spec §2.5 asks for at this gate. New York's count is
       the CLEANEST in the mid-Atlantic group because the agency publishes a
       machine-readable result count (206) rather than a rounded claim: contrast
       Florida's contested 'over 100' (agency) versus 'over 120' (locator). No
@@ -558,7 +558,7 @@ series:
 # ---------------------------------------------------------------------------
 # CLASSES NEW YORK ISSUES THAT ARE DELIBERATELY NOT MODELLED AS SERIES.
 # A series needs a format. Where no format was obtained, a recorded gap beats
-# an invented pattern (PRD-PLATES §5.3: record disagreements, never average).
+# an invented pattern (the plates spec §5.3: record disagreements, never average).
 # ---------------------------------------------------------------------------
 unmodelled_classes:
   temporary: >-

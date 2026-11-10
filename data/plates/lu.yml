@@ -1,4 +1,4 @@
-# plates/lu.yml — Luxembourg (PRD-PLATES gate L1, EU/EEA wave 2).
+# plates/lu.yml — Luxembourg (the plates spec gate L1, EU/EEA wave 2).
 #
 # ONE INSTRUMENT, READ END TO END, CARRIES THIS ENTIRE FILE. Every format,
 # every colour, every dimension, every special series, every historic design
@@ -163,7 +163,7 @@ series:
         to a cahier des charges approved by the minister, which is NOT published
         in the Memorial and was not reached. That delegation is the reason the
         separator position is spelled as the sanctioned separator-only class
-        `[- ]` (PRD-PLATES §2.8) rather than as a literal: the gap is real, the
+        `[- ]` (the plates spec §2.8) rather than as a literal: the gap is real, the
         glyph is unlegislated.
     design:
       plate: { w: 520, h: 110, unit: mm, thickness: [1, 1.5] }
@@ -249,7 +249,7 @@ series:
       background: { color: "#F9B700", finish: retroreflective, hex_basis: observed }
       foreground: "#000000"
       band: { side: left, color: "#003399", hex_basis: observed, content: eu-stars+L }
-      note: "no design of its own — a personalised number is printed on the ordinary plate. It is a SERIES here rather than a sub-entry because its number grammar and its binding both differ (PRD-PLATES §2.3)."
+      note: "no design of its own — a personalised number is printed on the ordinary plate. It is a SERIES here rather than a sub-entry because its number grammar and its binding both differ (the plates spec §2.3)."
     region_encoding: none
     sources:
       - "https://data.legilux.public.lu/eli/etat/leg/rgd/2003/06/17/n2/jo/fr/pdf  # RGD 17-06-2003 art. 8 (the three series a personalised number may come from, the waiting list, transfer between the holder's vehicles, the 36-month reservation, inheritance at first degree, and the fees of 50 EUR on first grant / 24 EUR on transfer) and art. 9 §2 (the five renunciation outcomes). Accessed 2026-08-02"
@@ -530,7 +530,7 @@ series:
       institutional geography of Luxembourg City, written into a plate
       regulation. THE DECODE TABLE IS A GAP: the instrument states the
       MECHANISM (first group = the body) and publishes no codes, and no
-      Ministry of Foreign Affairs list was reached. PRD-PLATES puts diplomatic
+      Ministry of Foreign Affairs list was reached. The plates spec puts diplomatic
       decode tables at gate L4; this entry carries the mechanism so a table can
       be hung off it later without an id change.
 

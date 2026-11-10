@@ -1,4 +1,4 @@
-# Bundled plates dataset (PRD-PLATES, full corpus)
+# Bundled plates dataset (full corpus)
 
 Copy of `plates/` from the public data repo (EXCLUDING `_art/`),
 refreshed on gem releases:

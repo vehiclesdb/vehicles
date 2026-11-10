@@ -1,4 +1,4 @@
-# plates/se.yml — Sweden (PRD-PLATES gate L1).
+# plates/se.yml — Sweden (the plates spec gate L1).
 #
 # EVERY format, colour, dimension and class claim here comes from one of four
 # primary layers, and each series says which:
@@ -98,7 +98,7 @@
 #
 # SEPARATOR POLICY: the printed gap between letter group and digit group is a
 # GAP, not a glyph — TSFS 2015:63 6 kap. 4 § says only "tre bokstäver till
-# vänster och tre siffror till höger". Per PRD-PLATES §2.6 that gap is written
+# vänster och tre siffror till höger". Per the plates spec §2.6 that gap is written
 # as the emitted SPACE in `pattern` and as an optional " ?" in every regex.
 #
 # REGEX POLICY: `format.regex` is the lint-round-trippable regex over the full
@@ -110,7 +110,7 @@
 # dimensions, colours, the black frame and the left/right and top/bottom
 # arrangement of the character groups, and nothing else — no named font, no
 # character height, no stroke width, and no statutory Schriftmuster of the
-# German or Spanish kind. Per PRD-PLATES §6 the render layer therefore has no
+# German or Spanish kind. Per the plates spec §6 the render layer therefore has no
 # licensable font to clear and no drawing to derive from either; the schematic
 # fallback applies and the gap is recorded.
 jurisdiction: se
@@ -297,7 +297,7 @@ series:
       separator_note: >-
         The gap between letter group and digit group is a printed GAP with no
         glyph (TSFS 2015:63 6 kap. 4 §: "tre bokstäver till vänster och tre
-        siffror till höger"). Written as the emitted SPACE per PRD-PLATES §2.6.
+        siffror till höger"). Written as the emitted SPACE per the plates spec §2.6.
     design:
       plate: { w: 520, h: 110, unit: mm }
       plate_variants:
@@ -325,7 +325,7 @@ series:
       - "https://www.transportstyrelsen.se/TSFS/TSFS%202015_63k.pdf  # 6 kap. 2-5 §: the four plate shapes, which vehicle gets which, the layout and colours, the EU mark; accessed 2026-08-02"
     notes: >-
       THE SWEDISH STANDARD PLATE, first shape. PERIOD DISAGREEMENT, RECORDED
-      RATHER THAN AVERAGED (PRD-PLATES §5.3): Transportstyrelsen says "1972"
+      RATHER THAN AVERAGED (the plates spec §5.3): Transportstyrelsen says "1972"
       twice in its own words (2017-02-17: "Dagens system för registreringsnummer
       med tre bokstäver och tre siffror har funnits sedan 1972"; 2019-01-16:
       "Senaste gången registreringsnumren ändrades var 1972"), and the
@@ -419,7 +419,7 @@ series:
 
   # =========================================================================
   # MOTORCYCLE AND MOPED KLASS I — the two-row 170x150 plate. Same numbers,
-  # different plate, so a series of its own (PRD-PLATES §2.3 design limb).
+  # different plate, so a series of its own (the plates spec §2.3 design limb).
   # =========================================================================
   - id: se-motorcycle
     class: motorcycle
@@ -461,7 +461,7 @@ series:
     notes: >-
       MOTORCYCLES AND MOPED KLASS I share ONE plate and one number system, so
       they are one series with two categories rather than two series: the
-      PRD-PLATES §2.3 test (own series iff format OR design OR period differs)
+      the plates spec §2.3 test (own series iff format OR design OR period differs)
       separates nothing between them. period.start follows the standard series
       because the NUMBER is the same national number; the 170x150 plate itself
       is younger — Transportstyrelsen announced the reduction on 2013-05-08 and
@@ -639,7 +639,7 @@ series:
         släpslädar eller terrängsläp, bokstäverna 'LS'." Time-limited licences
         additionally carry the expiry date stamped into the plate. Neither can
         be expressed in a single `pattern` string — the same schema pressure
-        PRD-PLATES §2.2 records for Japan.
+        the plates spec §2.2 records for Japan.
     design:
       plate: { w: 520, h: 110, unit: mm }
       plate_variants:
@@ -736,7 +736,7 @@ series:
     region_encoding: "plates/_decode/se-diplomatic.yml"
     region_encoding_note: >-
       128 landskoder + 10 kategorikoder, both closed and primary. Held in a
-      _decode file rather than inline (PRD-PLATES §2.4) because 138 rows is well
+      _decode file rather than inline (the plates spec §2.4) because 138 rows is well
       past de.yml's Anlage-2 inline threshold.
     sources:
       - "https://www.transportstyrelsen.se/TSFS/TSFS%202015_63k.pdf  # 12 kap. 1 a § (definitions of landskod and kategorikod, added by TSFS 2025:33), 12 kap. 2 § (six characters, black on light blue reflective, black frame), 12 kap. 3 § (the 2+3+1 composition, one-row and two-row); 6 kap. 6 § (no EU mark, no VIN marking); accessed 2026-08-02"
@@ -882,7 +882,7 @@ series:
           "Du får använda alla bokstäver i svenska alfabetet, A-Ö" — so Å, Ä and
           Ö ARE issued on personal plates, and they are OUTSIDE this dataset's
           serial alphabet (_meta/separators.yml: "ABCDEFGHIJKLMNOPQRSTUVWXYZ
-          0123456789" and nothing else). Per PRD-PLATES §2.6 that is "a schema
+          0123456789" and nothing else). Per the plates spec §2.6 that is "a schema
           amendment, not a data entry": the regexes here are therefore
           deliberately NARROWER than the issuing grammar in that one respect,
           which §2.7 confirms is still `strict`. A Swedish personal plate reading
@@ -897,7 +897,7 @@ series:
           "Det får finnas mellanrum mellan tecknen under förutsättning att
           teckenkombinationen inklusive mellanrum ryms på skylten. Ett mellanrum
           tar samma plats på skylten som ett tecken." So a space COUNTS toward
-          the 2-7 budget. It is still an emitted separator per PRD-PLATES §2.6
+          the 2-7 budget. It is still an emitted separator per the plates spec §2.6
           and is written as a bare literal inside an alternation, never inside a
           mixed character class (§2.8).
         forbidden_shapes: >-
@@ -961,7 +961,7 @@ series:
       admits Å, Ä and Ö, which this dataset's serial alphabet cannot spell; it
       treats O/0 and I/1 as THE SAME CHARACTER for allocation, which no regex
       can express; and it counts a SPACE as a character position while
-      PRD-PLATES §2.6 classifies space as a separator a lenient consumer may
+      the plates spec §2.6 classifies space as a separator a lenient consumer may
       delete — a consumer deriving a separator-free twin of this regex is
       therefore doing something semantically different here than everywhere
       else in the dataset. The character budget also grew: 2-6 under the 1988
@@ -1038,7 +1038,7 @@ series:
     categories: [car, van, truck, bus, motorcycle, trailer, machine]
     period: { start: 2009 }
     period_evidence: instrument-in-force
-    # RECALL-ONLY (PRD-PLATES §2.7): militärtrafikförordningen states the
+    # RECALL-ONLY (the plates spec §2.7): militärtrafikförordningen states the
     # COLOURS and that the number is rendered in "gula siffror", and delegates
     # everything else — length, grouping, any leading letters — to Försvars-
     # makten's own föreskrifter, which were not reached in this pass. A 1-6

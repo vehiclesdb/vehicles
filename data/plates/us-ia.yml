@@ -1,4 +1,4 @@
-# plates/us-ia.yml — Iowa (PRD-PLATES gate L2, group midwest-b).
+# plates/us-ia.yml — Iowa (the plates spec gate L2, group midwest-b).
 #
 # IOWA PUTS THE COUNTY ON EVERY PLATE, BY STATUTE, AND IT IS NOT A CODE. Iowa
 # Code § 321.166(2): "Every registration plate issued by the county treasurer
@@ -30,7 +30,7 @@ binding: vehicle
 statute_edition: "Iowa Code 2026, Chapter 321 (Motor Vehicles and Law of the Road), §§ 321.34 and 321.166 as published by the Iowa Legislature; and Iowa Administrative Code 761 ch. 401 (Special Registration Plates), whose rule 401.3 carries [ARC 8937C, IAB 2/19/25, effective 3/26/25]"
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched
@@ -52,7 +52,7 @@ artwork_risk:
     ({{PD-US-GovEdict}}), so nearly the whole factual layer of this file is affirmatively
     clean regardless of Iowa's posture on artwork.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies to the current Iowa base graphic and to
+    the plates spec §3's placeholder default applies to the current Iowa base graphic and to
     the 'processed emblem' and 'organization decal' that § 321.166(9) provides space for
     on special plates. The organization decals carry an ADDITIONAL layer: § 321.34(13)
     decals are designed by nonprofit organizations and approved by the department, so they
@@ -61,7 +61,7 @@ artwork_risk:
     `emblem: {present: true, rendered: placeholder}`. Iowa state-seal misuse statutes are
     unresearched.
   sources:
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): read to establish that Iowa has NO section in the survey — a negative result, recorded as such"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): read to establish that Iowa has NO section in the survey — a negative result, recorded as such"
     - "https://www.legis.iowa.gov/docs/code/321.166.pdf  # Iowa Code § 321.166, the statutory plate specification itself — an edict of government, PD"
 
 us_standards:
@@ -238,7 +238,7 @@ series:
       - "https://www.legis.iowa.gov/docs/code/321.166.pdf  # Iowa Code § 321.166(6): the mandatory 'DV' prefix on disabled-veteran plates issued under § 321.105, and the optional persons-with-disabilities parking sticker under § 321L.2"
     notes: >-
       DISABLED VETERAN PLATES. Its own series because the statute mandates a FORMAT
-      difference — a literal prefix inside the plate number — which under PRD-PLATES §2.3 is
+      difference — a literal prefix inside the plate number — which under the plates spec §2.3 is
       a series-making difference of a stronger kind than a mere legend change. CLASS
       CAVEAT: recorded as `standard`, since _meta/classes.yml has no veteran or disability
       class and this is an ordinary registration carrying a mandated prefix. Iowa's
@@ -353,7 +353,7 @@ series:
       wrote the colours into law and the other wrote only a permission.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. Counted from the statute.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. Counted from the statute.
   # =========================================================================
   - id: us-ia-specialty-index
     class: specialty
@@ -378,7 +378,7 @@ series:
         standard plate plus an emblem slot — which is why the emblem-plate character ceiling
         exists and why most Iowa specialty designs are not free-form.
       exempt_from_consistency: ["gold star", "medal of honor", "collegiate", "fire fighter", "natural resources", "blackout", "flying our colors"]
-      note: "one design per authorised program; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised program; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_statutory: 30
@@ -403,7 +403,7 @@ series:
         count includes subsections that are not really specialty designs at all (permanent
         plates, sample plates). No Iowa DOT figure exists to reconcile against, because the
         Iowa DOT site returned HTTP 403 on every request in this pass. Recorded, not
-        averaged (PRD-PLATES §5.3).
+        averaged (the plates spec §5.3).
       organization_decal_program: >-
         § 321.34(13) with Iowa Admin. Code r. 761-401.4: a nonprofit organization meeting the
         § 321.34(13)'a'/'b' criteria applies on Form 411346 for approval of a decal DESIGN,
@@ -428,7 +428,7 @@ series:
       - "https://www.legis.iowa.gov/docs/iac/chapter/761.401.pdf  # Iowa Admin. Code 761 ch. 401: r. 401.3 the two-character floor and five-character emblem-plate ceiling; r. 401.4 the nonprofit decal approval process, Form 411346, the 60-day decision and revocation; r. 401.5 personalized plate ordering, rejection and prohibition rules"
     notes: >-
       THE SPECIALTY PROGRAM INDEX — one entry standing for the whole program, per
-      PRD-PLATES §2.5, with no individual designs. Iowa counts cleanly from the statute the
+      the plates spec §2.5, with no individual designs. Iowa counts cleanly from the statute the
       way North Dakota does, and carries the same honest caveat in sharper form: the
       open-ended § 321.34(13) decal program means the DESIGN count is unbounded from the
       Code alone, while several counted subsections are not designs at all. The genuinely

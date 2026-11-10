@@ -1,4 +1,4 @@
-# plates/ca-mb.yml — Manitoba (PRD-PLATES gate L3, Canada west).
+# plates/ca-mb.yml — Manitoba (the plates spec gate L3, Canada west).
 #
 # ── THE FIND: A 1997 GOVERNMENT NEWS RELEASE THAT DATES TWO SERIES AT ONCE.
 #
@@ -132,7 +132,7 @@ artwork_risk:
     organization's application. The artwork on Manitoba's specialty plates is
     thus statutorily mandated in SUBJECT and contracted in EXECUTION.
   emblem_rule: >-
-    PRD-PLATES § 3 placeholder default applies to every graphic: the reported
+    the plates spec § 3 placeholder default applies to every graphic: the reported
     bison device and maple leaf on the standard base, and all three statutory
     specialty graphics. Render `{present: true, rendered: placeholder}`.
   sources:
@@ -194,7 +194,7 @@ series:
       distribution_window_start: "1997-08-01"
       distribution_window_end: "1998-07-31"
       note: >-
-        PRD-PLATES § 2.2's `period.rollout` case, met by a primary source. The
+        the plates spec § 2.2's `period.rollout` case, met by a primary source. The
         1997 release gives three distinct dates rather than one: plates begin
         appearing in June 1997, the first renewal notices are mailed
         17 June 1997, and every registered owner receives plates at their
@@ -236,7 +236,7 @@ series:
       than minted as a series — the § 2.3 test again.
     sources:
       - "https://news.gov.mb.ca/news/index.html?item=22982&posted=1997-06-13  # first issue June 1997, the Aug 1997-July 1998 rollout window, the trees/water/wheat imagery, the reflectorized coating, the two-plate return"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Manitoba  # FINDING AID (PRD-PLATES §4 Wikipedia row): the ABC 123 arrangement, the I/O/Q exclusion, the reported 2012 refresh, 'Friendly Manitoba'; accessed 2026-08-02"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Manitoba  # FINDING AID (the plates spec §4 Wikipedia row): the ABC 123 arrangement, the I/O/Q exclusion, the reported 2012 refresh, 'Friendly Manitoba'; accessed 2026-08-02"
       - "https://web2.gov.mb.ca/laws/statutes/ccsm/d104.php  # s. 60(1): the design, colour and material are the registrar's"
 
   - id: ca-mb-standard-1983

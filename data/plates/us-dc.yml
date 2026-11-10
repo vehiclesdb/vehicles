@@ -1,4 +1,4 @@
-# plates/us-dc.yml — District of Columbia (PRD-PLATES gate L2, mid-Atlantic group).
+# plates/us-dc.yml — District of Columbia (the plates spec gate L2, mid-Atlantic group).
 #
 # THE DISTRICT IS THE ONLY JURISDICTION IN THE UNITED STATES WHOSE STANDARD
 # PLATE LEGEND IS A POLITICAL DEMAND, AND THE DEMAND IS IN THE STATUTE.
@@ -22,7 +22,7 @@
 # licence what you do not own. The Commons tag and the District's own statement
 # cannot both be right, and the District's own statement is the better authority
 # about the District. See `artwork_risk`; this is recorded as a folklore
-# correction, exactly as PRD-PLATES §4 asks.
+# correction, exactly as the plates spec §4 asks.
 #
 # period_evidence / format_evidence vocabularies as in us-ny.yml.
 jurisdiction: us-dc
@@ -33,7 +33,7 @@ binding: vehicle
 statute_edition: "Code of the District of Columbia, Title 50, Chapter 15, as served by code.dccouncil.gov and read 2026-08-02. DCMR Title 18 § 422 ('Display of Identification Tags', effective 11 August 2017) was identified in the DC Register index but its TEXT was not retrieved — the register serves rule metadata and puts the text behind a per-notice viewer. Recorded gap."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: asserted-but-openly-licensed
@@ -61,7 +61,7 @@ artwork_risk:
     17 U.S.C. § 101 defines a 'work of the United States Government' as one
     prepared by an officer or employee OF THE UNITED STATES GOVERNMENT, and the
     District government is a municipal government created by Congress, not a
-    federal agency. RECORDED AS A FOLKLORE CORRECTION per PRD-PLATES §4's
+    federal agency. RECORDED AS A FOLKLORE CORRECTION per the plates spec §4's
     standing treatment of circular and unsupported claims. Anyone relying on
     {{PD-DC}} for a DC plate design should stop.
   practical_effect: >-
@@ -185,7 +185,7 @@ series:
     sources:
       - "https://code.dccouncil.gov/us/dc/council/code/sections/50-1501.02  # § 50-1501.02(f)(3) the Mayor designs the tags; (f-1) the mandated 'End Taxation Without Representation' phrase, its four carve-outs, and the individual opt-out to an alternate design"
       - "https://dmv.dc.gov/service/dmv-vehicle-tags  # DC DMV: two tags front and rear — the agency-page-in-force evidence for the display regime"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Washington,_D.C.  # LOCATOR ONLY (PRD-PLATES §4): August 2017 base, 'WASHINGTON, DC' at top with 'END TAXATION WITHOUT REPRESENTATION' at bottom, AB-1234 from FN-4000, blue on reflective white"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Washington,_D.C.  # LOCATOR ONLY (the plates spec §4): August 2017 base, 'WASHINGTON, DC' at top with 'END TAXATION WITHOUT REPRESENTATION' at bottom, AB-1234 from FN-4000, blue on reflective white"
     notes: >-
       END TAXATION WITHOUT REPRESENTATION (2017-) — THE CURRENT DISTRICT
       STANDARD ISSUE, and the only standard-issue plate in the United States
@@ -526,7 +526,7 @@ series:
       agency service pages, and should be the first place a US pass looks.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5.
   # =========================================================================
   - id: us-dc-specialty-index
     class: specialty
@@ -541,7 +541,7 @@ series:
       charset: { notes: "specialty tags carry ordinary serials on an alternative design. § 50-1501.02(f-1) excludes 'motor vehicles bearing organization plates' from the mandated phrase, so a District specialty tag is legally free of the political legend." }
     design:
       background: { finish: retroreflective }
-      note: "one design per approved programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per approved programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: 13

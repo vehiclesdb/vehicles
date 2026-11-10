@@ -1,4 +1,4 @@
-# plates/us-wv.yml — West Virginia (PRD-PLATES gate L2, group southeast-a).
+# plates/us-wv.yml — West Virginia (the plates spec gate L2, group southeast-a).
 #
 # THE WEST VIRGINIA FINDING: WV Code §17A-3-14 WAS GUTTED, AND THE GUTTING IS
 # THE STORY. The section's own heading still promises "Registration plates
@@ -9,7 +9,7 @@
 # plate per vehicle, a registration number "in a configuration determined by
 # the commissioner", reflectorized material, and legibility at 100 feet. A
 # researcher reading only the heading would expect a colour table; the body
-# has none. Recorded here because it is exactly the trap PRD-PLATES §5.3 warns
+# has none. Recorded here because it is exactly the trap the plates spec §5.3 warns
 # about, and because it means every WEST VIRGINIA FORMAT AND COLOUR CLAIM IS
 # NON-STATUTORY BY CONSTRUCTION.
 #
@@ -29,7 +29,7 @@ binding: vehicle
 statute_edition: "West Virginia Code, Chapter 17A (Motor Vehicle Administration, Registration, Certificate of Title, and Antitheft Provisions), Article 3 — as served by code.wvlegislature.gov and read 2026-08-01"
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched
@@ -56,7 +56,7 @@ artwork_risk:
     Virginia's state-seal misuse law, which would bind the STATE SEAL
     independently of any copyright answer.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies with extra force here, because
+    the plates spec §3's placeholder default applies with extra force here, because
     the posture is unknown rather than merely adverse. The current base carries
     a gold-on-dark-blue "West Virginia" bar and, on the 2023 design, a STATE
     OUTLINE used as the serial separator — a state-shape graphic sitting
@@ -156,7 +156,7 @@ series:
           cosmetic OCR problem in West Virginia, it is a semantic one — "O12
           345A" expires in October and "012 345A" is not a valid plate at all.
       progression: "not published; the series letter and the block allocation for this base were not obtained (recorded gap)"
-      separator_note: "the gap between the two three-character groups is spelled as an optional space because the plate prints a gap there; on this base the physical separator is reported to be a STATE-OUTLINE graphic rather than a printed glyph, which under PRD-PLATES §2.6 is a design element (design.emblem), never a serial character and never something a consumer may strip as punctuation"
+      separator_note: "the gap between the two three-character groups is spelled as an optional space because the plate prints a gap there; on this base the physical separator is reported to be a STATE-OUTLINE graphic rather than a printed glyph, which under the plates spec §2.6 is a design element (design.emblem), never a serial character and never something a consumer may strip as punctuation"
     design:
       plate: { w: 12, h: 6, unit: in, dimension_evidence: convention-not-sourced }
       plate_dimension_note: "no West Virginia dimension is sourced — §17A-3-14 states none. 12 x 6 in is the North American convention (AAMVA -> SAE J686, voluntary), recorded as convention and not as a West Virginia claim."
@@ -189,7 +189,7 @@ series:
     sources:
       - "https://code.wvlegislature.gov/17A-3-14/  # §17A-3-14(a): one plate, registration number 'consisting of a combination of letters, numerals, symbols, or characters in a configuration determined by the commissioner' — the statutory basis for there being no statutory format; (b)(1) reflectorized; (b)(2) 100-foot legibility"
       - "https://transportation.wv.gov/DMV/Vehicle-Services/Pages/Classifications.aspx  # WV DMV: Class A = passenger cars and trucks of 10,000 lb or less, the class this base serves"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_West_Virginia  # LOCATOR ONLY (PRD-PLATES §4): the July 2023 start, the state-outline separator, the gold-on-blue top bar, the serial arrangement, and the month-code system reported as continuing 'today'. None asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_West_Virginia  # LOCATOR ONLY (the plates spec §4): the July 2023 start, the state-outline separator, the gold-on-blue top bar, the serial arrangement, and the month-code system reported as continuing 'today'. None asserted as sourced."
     notes: >-
       WEST VIRGINIA CURRENT STANDARD ISSUE (CLASS A). Everything structural
       here — one plate, commissioner-set configuration, reflectorization,
@@ -200,7 +200,7 @@ series:
       because putting it somewhere prominent is what will get it verified. The
       series id is dated 2023 to the reported base change; if that date falls,
       the id keeps its append-only guarantee and gains a former-id alias under
-      the PRD-QUALITY I-5/I-6 contract.
+      the quality spec I-5/I-6 contract.
 
   # =========================================================================
   # ONE SERIES BACK.
@@ -220,7 +220,7 @@ series:
         notes: >-
           THREE ARRANGEMENTS, ONE BASE — and the regex is their union, which is
           still `strict` because the union is exactly what West Virginia issued
-          on this base and no wider (PRD-PLATES §2.7: narrower or equal is
+          on this base and no wider (the plates spec §2.7: narrower or equal is
           strict; only a DELIBERATELY over-broad regex is recall-only). The
           three reported arrangements, after the leading month character: one
           letter plus four digits; two letters plus three digits; one digit,
@@ -411,7 +411,7 @@ series:
     design:
       plate: { unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: null

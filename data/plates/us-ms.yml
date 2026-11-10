@@ -1,4 +1,4 @@
-# plates/us-ms.yml — Mississippi (PRD-PLATES gate L2, group southeast-b).
+# plates/us-ms.yml — Mississippi (the plates spec gate L2, group southeast-b).
 #
 # WHY MISSISSIPPI IS THE MOST PERIOD-DISCIPLINED STATE IN THIS GROUP, and maybe
 # in the dataset: Mississippi does not have a redesign HABIT, it has a redesign
@@ -10,7 +10,7 @@
 # window itself. That is a genuinely rare artefact and it is the spine of this
 # file.
 #
-# SOURCING RULE APPLIED HERE, AND ITS LIMIT: PRD-PLATES §4 prefers the statute
+# SOURCING RULE APPLIED HERE, AND ITS LIMIT: The plates spec §4 prefers the statute
 # over the agency page. The Mississippi Code of 1972 is published exclusively
 # through a LexisNexis portal that serves a JavaScript shell, and Justia,
 # FindLaw and Casetext all refuse a plain fetch (403/410). But Mississippi's DOR
@@ -35,7 +35,7 @@ statute_edition: >-
   the administering agency's own current quotation.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: asserted-weak
@@ -63,7 +63,7 @@ artwork_risk:
     design raises the separate question of what was assigned and on what terms.
     Unresearched, and flagged rather than waved through.
   emblem_rule: >-
-    PRD-PLATES §3 placeholder default applies. Two emblems are in scope and they
+    the plates spec §3 placeholder default applies. Two emblems are in scope and they
     are different problems. The MAGNOLIA BLOSSOM on the current base renders as
     `emblem: {present: true, rendered: placeholder}`. The STATE SEAL on the
     2019-2023 base is worse: state seals carry protection INDEPENDENT of copyright
@@ -220,7 +220,7 @@ series:
     sources:
       - "https://www.dor.ms.gov/motor-vehicle/available-license-plates  # Mississippi DOR: the '2024-2029 Series' label on the Standard Passenger Vehicle License Plate; the verbatim quotation of Miss. Code Ann. § 27-19-31(1) and its five-year tag, License Tag Commission approval and exclusion list; the '2024 Standard Passenger Plate' design image"
       - "https://www.aamva.org/getmedia/646bcc8a-219b-47d8-b5cd-726240473163/License-Plate-Standard-Edition-3_September-2025-Update.pdf  # AAMVA Ed.3 §1.1, the 7-to-10-year range Mississippi's legislated five years sits below"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Mississippi  # LOCATOR ONLY (PRD-PLATES §4): January 2024 start, the ABC 123 arrangement, the magnolia-on-blue-circle separator, embossed dark blue on white, 12x6 in aluminium, Waldale manufacture, county-name legend embossed at bottom, block-by-county issuance, and the designer attribution. None asserted as sourced"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Mississippi  # LOCATOR ONLY (the plates spec §4): January 2024 start, the ABC 123 arrangement, the magnolia-on-blue-circle separator, embossed dark blue on white, 12x6 in aluminium, Waldale manufacture, county-name legend embossed at bottom, block-by-county issuance, and the designer attribution. None asserted as sourced"
     notes: >-
       MISSISSIPPI STANDARD ISSUE, 2024-2029 SERIES. THE PERIOD IS THE STRONGEST
       CLAIM IN THIS ENTRY, which inverts the usual shape of a US plate record and is
@@ -252,7 +252,7 @@ series:
         second — which means a Mississippi serial's SHAPE alone distinguishes a
         blackout plate from a standard one. That is a free discriminator for a parse
         API and it is why this is its own series rather than a colour variant: under
-        PRD-PLATES §2.3 a variant becomes its own series if format OR design OR
+        the plates spec §2.3 a variant becomes its own series if format OR design OR
         period differs, and here both format and design differ.
     design:
       plate: { w: 12, h: 6, unit: in }
@@ -274,7 +274,7 @@ series:
       rather than resolves: a locator dates the blackout option's introduction to July
       2022, while the DOR labels the plate now in issue as 2024-2029. Both can be
       true — an option introduced in 2022 on the previous base and re-cut onto the
-      2024 base — and PRD-PLATES §5.3 forbids averaging them. The 2024 start is taken
+      2024 base — and the plates spec §5.3 forbids averaging them. The 2024 start is taken
       because it is the agency's own label for the plate the agency is issuing; the
       2022 introduction is recorded here and nowhere else.
 
@@ -363,7 +363,7 @@ series:
       dimensions.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5.
   # =========================================================================
   - id: us-ms-specialty-index
     class: specialty

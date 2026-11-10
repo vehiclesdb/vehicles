@@ -37,12 +37,12 @@
 # instrument states a reason, and none is claimed here. What IS a sourced fact is
 # the omission itself, which is why every set below is written out in full.
 #
-# SCRIPT AND CODEPOINTS (PRD-PLATES §4, the identity-is-form rule). The hiragana
+# SCRIPT AND CODEPOINTS (the plates spec §4, the identity-is-form rule). The hiragana
 # are recorded in the instrument's own characters. The Roman letters are
 # recorded TWICE: `chars` carries the instrument's FULL-WIDTH forms exactly as
 # e-Gov publishes them (Ａ = U+FF21, not U+0041), and `ascii` carries the
 # half-width normalisation that plates/jp.yml's regexes are written in, because
-# PRD-PLATES §2.6 confines the dataset's serial alphabet to A-Z and 0-9. The
+# the plates spec §2.6 confines the dataset's serial alphabet to A-Z and 0-9. The
 # plate itself is embossed, not typeset; the width distinction is an artefact of
 # the statute's typography, and recording both is what keeps that honest.
 jurisdiction: jp

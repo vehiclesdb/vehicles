@@ -1,4 +1,4 @@
-# plates/jp.yml — Japan (PRD-PLATES gate L3).
+# plates/jp.yml — Japan (the plates spec gate L3).
 #
 # EVERY format, class, colour and dimension claim in this file is read off one
 # of three instruments, in the original Japanese, from the e-Gov Laws Search
@@ -53,7 +53,7 @@
 # 2. THE ASCII-PROJECTION RULE — how a kanji-and-hiragana plate is modelled
 #    inside a dataset whose serial alphabet is A-Z and 0-9.
 # ---------------------------------------------------------------------------
-# PRD-PLATES §2.6 fixes the serial alphabet at A-Z 0-9 and the emitted
+# the plates spec §2.6 fixes the serial alphabet at A-Z 0-9 and the emitted
 # separators at "-" and " ". A Japanese plate prints kanji and hiragana. The
 # line drawn here, and it is drawn once for the whole file:
 #
@@ -120,7 +120,7 @@
 # the colour and the hiragana are two readings of one fact, which is why
 # commercial issue is modelled as a `variants:` sub-entry on each series rather
 # than as a parallel series: the ASCII projection is identical, only the colour
-# and the use-mark set change (PRD-PLATES §2.3's own test). Second, the closing
+# and the use-mark set change (the plates spec §2.3's own test). Second, the closing
 # words 「国土交通大臣の定めるところによる」 delegate everything else — the
 # illuminated (字光式) plate, the figure plates, the large-plate colours — to a
 # ministerial notice that was NOT pinned in this pass. Every hex below is
@@ -199,7 +199,7 @@ common:
       printed in FULL-WIDTH characters (１ = U+FF11, Ａ = U+FF21); the plate is
       embossed and the dataset's regexes are half-width ASCII, which is the
       §2.6 serial alphabet. Both tables are small and closed, so they are
-      inlined here rather than given a _decode file (PRD-PLATES §2.4).
+      inlined here rather than given a _decode file (the plates spec §2.4).
     registered_rows:
       - range: "１　貨物の運送の用に供する普通自動車"
         codes: "１、１０から１９まで、１００から１９９まで、１０Ａから１９Ｚまで、１Ａ０から１Ｚ９まで及び１ＡＡから１ＺＺまで"
@@ -329,8 +329,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -339,7 +339,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -361,7 +361,7 @@ series:
         「二字以下のアラビア数字」 and 別表第二 lists the two-digit block for this range
         explicitly. period.start is the in-force date of the 1970 Regulations (1
         March 1970) and carries period_evidence: instrument-in-force for exactly
-        the reason PRD-PLATES states — it is a CONSOLIDATION documenting an older
+        the reason the plates spec states — it is a CONSOLIDATION documenting an older
         practice, not the date the practice began. Two-digit codes are universally
         dated to October 1967 (first prefectures) and April 1971 (nationwide) by
         secondary sources; neither was pinned to an instrument in this pass and
@@ -411,8 +411,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       region_encoding_mechanism: >-
         Field 1 is the place-name mark and it resolves through the statutory
@@ -428,7 +428,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -499,8 +499,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -509,7 +509,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -579,8 +579,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -589,7 +589,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -611,7 +611,7 @@ series:
         「二字以下のアラビア数字」 and 別表第二 lists the two-digit block for this range
         explicitly. period.start is the in-force date of the 1970 Regulations (1
         March 1970) and carries period_evidence: instrument-in-force for exactly
-        the reason PRD-PLATES states — it is a CONSOLIDATION documenting an older
+        the reason the plates spec states — it is a CONSOLIDATION documenting an older
         practice, not the date the practice began. Two-digit codes are universally
         dated to October 1967 (first prefectures) and April 1971 (nationwide) by
         secondary sources; neither was pinned to an instrument in this pass and
@@ -661,8 +661,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       region_encoding_mechanism: >-
         Field 1 is the place-name mark and it resolves through the statutory
@@ -678,7 +678,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -749,8 +749,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -759,7 +759,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -829,8 +829,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -839,7 +839,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -861,7 +861,7 @@ series:
         ERA. 自動車登録規則 第十三条第一項第二号 sanctions 「二字以下のアラビア数字」 and 別表第二 lists the
         two-digit block for this range explicitly. period.start is the in-force
         date of the 1970 Regulations (1 March 1970) and carries period_evidence:
-        instrument-in-force for exactly the reason PRD-PLATES states — it is a
+        instrument-in-force for exactly the reason the plates spec states — it is a
         CONSOLIDATION documenting an older practice, not the date the practice
         began. Two-digit codes are universally dated to October 1967 (first
         prefectures) and April 1971 (nationwide) by secondary sources; neither was
@@ -912,8 +912,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       region_encoding_mechanism: >-
         Field 1 is the place-name mark and it resolves through the statutory
@@ -929,7 +929,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -1001,8 +1001,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -1011,7 +1011,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -1081,8 +1081,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -1091,7 +1091,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -1113,7 +1113,7 @@ series:
         CODE ERA. 自動車登録規則 第十三条第一項第二号 sanctions 「二字以下のアラビア数字」 and 別表第二 lists the
         two-digit block for this range explicitly. period.start is the in-force
         date of the 1970 Regulations (1 March 1970) and carries period_evidence:
-        instrument-in-force for exactly the reason PRD-PLATES states — it is a
+        instrument-in-force for exactly the reason the plates spec states — it is a
         CONSOLIDATION documenting an older practice, not the date the practice
         began. Two-digit codes are universally dated to October 1967 (first
         prefectures) and April 1971 (nationwide) by secondary sources; neither was
@@ -1164,8 +1164,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       region_encoding_mechanism: >-
         Field 1 is the place-name mark and it resolves through the statutory
@@ -1181,7 +1181,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -1253,8 +1253,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -1263,7 +1263,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -1333,8 +1333,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -1343,7 +1343,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -1365,7 +1365,7 @@ series:
         CODE ERA. 自動車登録規則 第十三条第一項第二号 sanctions 「二字以下のアラビア数字」 and 別表第二 lists the
         two-digit block for this range explicitly. period.start is the in-force
         date of the 1970 Regulations (1 March 1970) and carries period_evidence:
-        instrument-in-force for exactly the reason PRD-PLATES states — it is a
+        instrument-in-force for exactly the reason the plates spec states — it is a
         CONSOLIDATION documenting an older practice, not the date the practice
         began. Two-digit codes are universally dated to October 1967 (first
         prefectures) and April 1971 (nationwide) by secondary sources; neither was
@@ -1416,8 +1416,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       region_encoding_mechanism: >-
         Field 1 is the place-name mark and it resolves through the statutory
@@ -1433,7 +1433,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -1505,8 +1505,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -1515,7 +1515,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -1585,8 +1585,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -1595,7 +1595,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -1618,7 +1618,7 @@ series:
         CODE ERA. 自動車登録規則 第十三条第一項第二号 sanctions 「二字以下のアラビア数字」 and 別表第二 lists the
         two-digit block for this range explicitly. period.start is the in-force
         date of the 1970 Regulations (1 March 1970) and carries period_evidence:
-        instrument-in-force for exactly the reason PRD-PLATES states — it is a
+        instrument-in-force for exactly the reason the plates spec states — it is a
         CONSOLIDATION documenting an older practice, not the date the practice
         began. Two-digit codes are universally dated to October 1967 (first
         prefectures) and April 1971 (nationwide) by secondary sources; neither was
@@ -1669,8 +1669,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       region_encoding_mechanism: >-
         Field 1 is the place-name mark and it resolves through the statutory
@@ -1686,7 +1686,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -1759,8 +1759,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -1769,7 +1769,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -1820,7 +1820,7 @@ series:
             `format.regex_strict` carries the real statutory grammar with the
             literal leading 9, and a consumer scoring candidates MUST read the
             strict twin here rather than `regex`. VERIFIER DECISION POINT, flagged
-            rather than buried: PRD-PLATES §2.7's test asks whether the regex is
+            rather than buried: The plates spec §2.7's test asks whether the regex is
             wider than what the authority issues, and here it is, which argues for
             `recall-only`; `strict` is recorded instead because the sourced grammar
             IS present in the record as the strict twin, and because plates/nl.yml
@@ -1855,8 +1855,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -1865,7 +1865,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -1888,7 +1888,7 @@ series:
         CLASS CODE ERA. 自動車登録規則 第十三条第一項第二号 sanctions 「二字以下のアラビア数字」 and 別表第二 lists
         the two-digit block for this range explicitly. period.start is the
         in-force date of the 1970 Regulations (1 March 1970) and carries
-        period_evidence: instrument-in-force for exactly the reason PRD-PLATES
+        period_evidence: instrument-in-force for exactly the reason the plates spec
         states — it is a CONSOLIDATION documenting an older practice, not the date
         the practice began. Two-digit codes are universally dated to October 1967
         (first prefectures) and April 1971 (nationwide) by secondary sources;
@@ -1919,7 +1919,7 @@ series:
             `format.regex_strict` carries the real statutory grammar with the
             literal leading 9, and a consumer scoring candidates MUST read the
             strict twin here rather than `regex`. VERIFIER DECISION POINT, flagged
-            rather than buried: PRD-PLATES §2.7's test asks whether the regex is
+            rather than buried: The plates spec §2.7's test asks whether the regex is
             wider than what the authority issues, and here it is, which argues for
             `recall-only`; `strict` is recorded instead because the sourced grammar
             IS present in the record as the strict twin, and because plates/nl.yml
@@ -1954,8 +1954,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       region_encoding_mechanism: >-
         Field 1 is the place-name mark and it resolves through the statutory
@@ -1971,7 +1971,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -2024,7 +2024,7 @@ series:
             `format.regex_strict` carries the real statutory grammar with the
             literal leading 9, and a consumer scoring candidates MUST read the
             strict twin here rather than `regex`. VERIFIER DECISION POINT, flagged
-            rather than buried: PRD-PLATES §2.7's test asks whether the regex is
+            rather than buried: The plates spec §2.7's test asks whether the regex is
             wider than what the authority issues, and here it is, which argues for
             `recall-only`; `strict` is recorded instead because the sourced grammar
             IS present in the record as the strict twin, and because plates/nl.yml
@@ -2059,8 +2059,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -2069,7 +2069,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -2140,8 +2140,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -2150,7 +2150,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -2172,7 +2172,7 @@ series:
         CLASS CODE ERA. 自動車登録規則 第十三条第一項第二号 sanctions 「二字以下のアラビア数字」 and 別表第二 lists
         the two-digit block for this range explicitly. period.start is the
         in-force date of the 1970 Regulations (1 March 1970) and carries
-        period_evidence: instrument-in-force for exactly the reason PRD-PLATES
+        period_evidence: instrument-in-force for exactly the reason the plates spec
         states — it is a CONSOLIDATION documenting an older practice, not the date
         the practice began. Two-digit codes are universally dated to October 1967
         (first prefectures) and April 1971 (nationwide) by secondary sources;
@@ -2223,8 +2223,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       region_encoding_mechanism: >-
         Field 1 is the place-name mark and it resolves through the statutory
@@ -2240,7 +2240,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -2312,8 +2312,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -2322,7 +2322,7 @@ series:
           事業用 (for-hire) issue of the SAME class code and the SAME projected
           format, on the inverted colours Form No. 1 remark (3) prescribes:
           白地に緑文字 for 自家用, 緑地に白文字 for 事業用. It is a sub-entry and not
-          a series because the ASCII projection is identical (PRD-PLATES §2.3:
+          a series because the ASCII projection is identical (the plates spec §2.3:
           "a color-only variant of the same format+period is a sub-entry").
           What changes with the colour is the USE-MARK SET, which is a decode
           fact: 別表第三 group 1 (あいうえかきくけこを) for 事業用 against group 2
@@ -2386,7 +2386,7 @@ series:
         font:
           name: "statutory drawing (no named typeface)"
           statutory_basis: "道路運送車両法施行規則 第四十五条第一項第二号: 検査対象軽自動車の車両番号標 is 第十二号様式."
-          licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+          licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -2394,7 +2394,7 @@ series:
         note: >-
           事業用 (for-hire) kei issue: Form No. 12 remark (3) inverts the colours to
           黒地に黄文字 — yellow characters on black. Same class code, same projected
-          format, so a sub-entry rather than a series (PRD-PLATES §2.3). THE USE-MARK
+          format, so a sub-entry rather than a series (the plates spec §2.3). THE USE-MARK
           SET INVERTS WITH IT, AND IT INVERTS AGAINST THE REGISTERED TABLE: 別表第二の五
           group 1 gives 事業用 kei vehicles り and れ, which are PRIVATE marks on a
           registered plate. Colour is what disambiguates; see
@@ -2457,7 +2457,7 @@ series:
         font:
           name: "statutory drawing (no named typeface)"
           statutory_basis: "道路運送車両法施行規則 第四十五条第一項第二号: 検査対象軽自動車の車両番号標 is 第十二号様式."
-          licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+          licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       region_encoding_mechanism: >-
         Kei numbers use the SAME statutory office table as registered vehicles,
@@ -2470,7 +2470,7 @@ series:
         note: >-
           事業用 (for-hire) kei issue: Form No. 12 remark (3) inverts the colours to
           黒地に黄文字 — yellow characters on black. Same class code, same projected
-          format, so a sub-entry rather than a series (PRD-PLATES §2.3). THE USE-MARK
+          format, so a sub-entry rather than a series (the plates spec §2.3). THE USE-MARK
           SET INVERTS WITH IT, AND IT INVERTS AGAINST THE REGISTERED TABLE: 別表第二の五
           group 1 gives 事業用 kei vehicles り and れ, which are PRIVATE marks on a
           registered plate. Colour is what disambiguates; see
@@ -2531,7 +2531,7 @@ series:
         font:
           name: "statutory drawing (no named typeface)"
           statutory_basis: "道路運送車両法施行規則 第四十五条第一項第二号: 検査対象軽自動車の車両番号標 is 第十二号様式."
-          licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+          licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -2539,7 +2539,7 @@ series:
         note: >-
           事業用 (for-hire) kei issue: Form No. 12 remark (3) inverts the colours to
           黒地に黄文字 — yellow characters on black. Same class code, same projected
-          format, so a sub-entry rather than a series (PRD-PLATES §2.3). THE USE-MARK
+          format, so a sub-entry rather than a series (the plates spec §2.3). THE USE-MARK
           SET INVERTS WITH IT, AND IT INVERTS AGAINST THE REGISTERED TABLE: 別表第二の五
           group 1 gives 事業用 kei vehicles り and れ, which are PRIVATE marks on a
           registered plate. Colour is what disambiguates; see
@@ -2601,7 +2601,7 @@ series:
         font:
           name: "statutory drawing (no named typeface)"
           statutory_basis: "道路運送車両法施行規則 第四十五条第一項第二号: 検査対象軽自動車の車両番号標 is 第十二号様式."
-          licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+          licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -2609,7 +2609,7 @@ series:
         note: >-
           事業用 (for-hire) kei issue: Form No. 12 remark (3) inverts the colours to
           黒地に黄文字 — yellow characters on black. Same class code, same projected
-          format, so a sub-entry rather than a series (PRD-PLATES §2.3). THE USE-MARK
+          format, so a sub-entry rather than a series (the plates spec §2.3). THE USE-MARK
           SET INVERTS WITH IT, AND IT INVERTS AGAINST THE REGISTERED TABLE: 別表第二の五
           group 1 gives 事業用 kei vehicles り and れ, which are PRIVATE marks on a
           registered plate. Colour is what disambiguates; see
@@ -2672,7 +2672,7 @@ series:
         font:
           name: "statutory drawing (no named typeface)"
           statutory_basis: "道路運送車両法施行規則 第四十五条第一項第二号: 検査対象軽自動車の車両番号標 is 第十二号様式."
-          licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+          licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       region_encoding_mechanism: >-
         Kei numbers use the SAME statutory office table as registered vehicles,
@@ -2685,7 +2685,7 @@ series:
         note: >-
           事業用 (for-hire) kei issue: Form No. 12 remark (3) inverts the colours to
           黒地に黄文字 — yellow characters on black. Same class code, same projected
-          format, so a sub-entry rather than a series (PRD-PLATES §2.3). THE USE-MARK
+          format, so a sub-entry rather than a series (the plates spec §2.3). THE USE-MARK
           SET INVERTS WITH IT, AND IT INVERTS AGAINST THE REGISTERED TABLE: 別表第二の五
           group 1 gives 事業用 kei vehicles り and れ, which are PRIVATE marks on a
           registered plate. Colour is what disambiguates; see
@@ -2746,7 +2746,7 @@ series:
         font:
           name: "statutory drawing (no named typeface)"
           statutory_basis: "道路運送車両法施行規則 第四十五条第一項第二号: 検査対象軽自動車の車両番号標 is 第十二号様式."
-          licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+          licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -2754,7 +2754,7 @@ series:
         note: >-
           事業用 (for-hire) kei issue: Form No. 12 remark (3) inverts the colours to
           黒地に黄文字 — yellow characters on black. Same class code, same projected
-          format, so a sub-entry rather than a series (PRD-PLATES §2.3). THE USE-MARK
+          format, so a sub-entry rather than a series (the plates spec §2.3). THE USE-MARK
           SET INVERTS WITH IT, AND IT INVERTS AGAINST THE REGISTERED TABLE: 別表第二の五
           group 1 gives 事業用 kei vehicles り and れ, which are PRIVATE marks on a
           registered plate. Colour is what disambiguates; see
@@ -2816,7 +2816,7 @@ series:
         font:
           name: "statutory drawing (no named typeface)"
           statutory_basis: "道路運送車両法施行規則 第四十五条第一項第二号: 検査対象軽自動車の車両番号標 is 第十二号様式."
-          licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+          licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -2824,7 +2824,7 @@ series:
         note: >-
           事業用 (for-hire) kei issue: Form No. 12 remark (3) inverts the colours to
           黒地に黄文字 — yellow characters on black. Same class code, same projected
-          format, so a sub-entry rather than a series (PRD-PLATES §2.3). THE USE-MARK
+          format, so a sub-entry rather than a series (the plates spec §2.3). THE USE-MARK
           SET INVERTS WITH IT, AND IT INVERTS AGAINST THE REGISTERED TABLE: 別表第二の五
           group 1 gives 事業用 kei vehicles り and れ, which are PRIVATE marks on a
           registered plate. Colour is what disambiguates; see
@@ -2887,7 +2887,7 @@ series:
         font:
           name: "statutory drawing (no named typeface)"
           statutory_basis: "道路運送車両法施行規則 第四十五条第一項第二号: 検査対象軽自動車の車両番号標 is 第十二号様式."
-          licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+          licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       region_encoding_mechanism: >-
         Kei numbers use the SAME statutory office table as registered vehicles,
@@ -2900,7 +2900,7 @@ series:
         note: >-
           事業用 (for-hire) kei issue: Form No. 12 remark (3) inverts the colours to
           黒地に黄文字 — yellow characters on black. Same class code, same projected
-          format, so a sub-entry rather than a series (PRD-PLATES §2.3). THE USE-MARK
+          format, so a sub-entry rather than a series (the plates spec §2.3). THE USE-MARK
           SET INVERTS WITH IT, AND IT INVERTS AGAINST THE REGISTERED TABLE: 別表第二の五
           group 1 gives 事業用 kei vehicles り and れ, which are PRIVATE marks on a
           registered plate. Colour is what disambiguates; see
@@ -2961,7 +2961,7 @@ series:
         font:
           name: "statutory drawing (no named typeface)"
           statutory_basis: "道路運送車両法施行規則 第四十五条第一項第二号: 検査対象軽自動車の車両番号標 is 第十二号様式."
-          licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+          licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       variants:
       - class: taxi
@@ -2969,7 +2969,7 @@ series:
         note: >-
           事業用 (for-hire) kei issue: Form No. 12 remark (3) inverts the colours to
           黒地に黄文字 — yellow characters on black. Same class code, same projected
-          format, so a sub-entry rather than a series (PRD-PLATES §2.3). THE USE-MARK
+          format, so a sub-entry rather than a series (the plates spec §2.3). THE USE-MARK
           SET INVERTS WITH IT, AND IT INVERTS AGAINST THE REGISTERED TABLE: 別表第二の五
           group 1 gives 事業用 kei vehicles り and れ, which are PRIVATE marks on a
           registered plate. Colour is what disambiguates; see
@@ -3036,8 +3036,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       sources:
         - "https://laws.e-gov.go.jp/api/1/lawdata/345M50000800007  # 別表第二: every row's code list begins with the bare single character (１、２、３、４、６、５、７、８、９、０) before the two- and three-character blocks"
@@ -3099,8 +3099,8 @@ series:
             applies instead.
         font:
           name: "statutory drawing (no named typeface)"
-          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (PRD-PLATES §6). No typeface is named anywhere in the instrument."
-          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (PRD-PLATES §6)."
+          statutory_basis: "道路運送車両法施行規則 第十一条: 「自動車登録番号標は、第一号様式による。」 — the glyphs are the drawing in Form No. 1, exactly the British and German posture (the plates spec §6). No typeface is named anywhere in the instrument."
+          licence: "e-Gov Laws Search publishes the instrument and its Form drawings; the drawings are Japanese government works published inside a ministerial ordinance. Cite and build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       sources:
         - "https://laws.e-gov.go.jp/api/1/lawdata/345M50000800007  # 別表第三 group 4: 「日本国籍を有しない者が所有する自家用自動車で、法令の規定により関税又は消費税が免除されているもの及び別に国土交通大臣が指定するもの」 -> ＥＨＫＭＴＹよ"
@@ -3156,7 +3156,7 @@ series:
         font:
           name: "statutory drawing (no named typeface)"
           statutory_basis: "道路運送車両法施行規則 第四十五条第一項第二号: 検査対象軽自動車の車両番号標 is 第十二号様式."
-          licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+          licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       sources:
         - "https://laws.e-gov.go.jp/api/1/lawdata/326M50000800074  # 別表第二の五 group 4: 「日本国籍を有しない者が所有する自家用自動車で、法令の規定により関税又は消費税が免除されているもの。」 -> ＡＢ"
@@ -3200,7 +3200,7 @@ series:
         font:
         name: "statutory drawing (no named typeface)"
         statutory_basis: "道路運送車両法施行規則 第四十五条第一項第三号: 二輪の小型自動車の車両番号標 is 第十三号様式."
-        licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+        licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       region_encoding_mechanism: >-
         Field 1 is the same statutory office mark as every other Japanese
@@ -3226,7 +3226,7 @@ series:
         this regex cannot distinguish a Japanese motorcycle from any other
         jurisdiction's two-plus-two digit mark. The plate's identity is carried
         almost entirely by its GEOMETRY AND BORDER — 230 x 125 mm with a
-        prescribed green border on white — which is exactly the case PRD-PLATES
+        prescribed green border on white — which is exactly the case the plates spec
         §3's render layer exists to serve. matching is `strict` because the regex
         is the sourced grammar of the projected field, not a widened union;
         consumers should nonetheless treat a bare 99-99 hit as weak evidence and
@@ -3265,7 +3265,7 @@ series:
         font:
         name: "statutory drawing (no named typeface)"
         statutory_basis: "道路運送車両法施行規則 第四十五条第一項第三号: 二輪の小型自動車の車両番号標 is 第十三号様式."
-        licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+        licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       sources:
         - "https://laws.e-gov.go.jp/api/1/lawdata/326M50000800074  # 別表第三 group 2: 「（１）　次に掲げる文字 あいうえかきくけこ… （２）　次に掲げる文字をその順序により組み合わせたもの　イ　ＣＬＶ　ロ　（１）に掲げる文字」"
@@ -3318,7 +3318,7 @@ series:
         font:
         name: "statutory drawing (no named typeface)"
         statutory_basis: "道路運送車両法施行規則 第四十五条第一項第三号: 二輪の小型自動車の車両番号標 is 第十三号様式."
-        licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+        licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       sources:
         - "https://laws.e-gov.go.jp/law/326M50000800074  # 第三十六条の十八第一項第二号: the use-mark field for a motorcycle over 250 cc is 「平仮名又はローマ字」 and points at this same 別表第三"
@@ -3365,7 +3365,7 @@ series:
         font:
         name: "statutory drawing (no named typeface)"
         statutory_basis: "道路運送車両法施行規則 第六十三条の二第四項: 検査対象外軽自動車の車両番号標 is 第十四号様式."
-        licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+        licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "plates/_decode/jp-office-marks.yml"
       sources:
         - "https://laws.e-gov.go.jp/law/326M50000800074  # 第六十三条の四第一項: FOUR fields, and uniquely the class code comes FIRST, before the office mark"
@@ -3409,7 +3409,7 @@ series:
         font:
         name: "statutory drawing (no named typeface)"
         statutory_basis: "道路運送車両法施行規則 第二十五条第一項: 臨時運行許可番号標は第三号様式による."
-        licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+        licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "none"
       sources:
         - "https://laws.e-gov.go.jp/law/326AC0000000185  # 第三十四条-第三十六条: 臨時運行の許可 — a municipality or transport office may permit a vehicle without a valid registration to run for a limited period"
@@ -3448,7 +3448,7 @@ series:
         font:
         name: "statutory drawing (no named typeface)"
         statutory_basis: "道路運送車両法施行規則 第二十六条の六第一項: 回送運行許可番号標は第五号様式による."
-        licence: "as Form No. 1 — cite, build to, never redistribute (PRD-PLATES §6)."
+        licence: "as Form No. 1 — cite, build to, never redistribute (the plates spec §6)."
       region_encoding: "none"
       sources:
         - "https://laws.e-gov.go.jp/law/326AC0000000185  # 第三十六条の二: the 回送運行許可 regime — a permit held by a business rather than granted for one journey"
@@ -3512,7 +3512,7 @@ series:
       design:
         background: { color: "#C0C0C0", finish: "梨地 (matte, 'pear-skin')", hex_basis: observed }
         foreground: "#D4AF37"
-        emblem: { present: true, rendered: placeholder, note: "Form No. 1-2 remark (2): 「自動車登録番号標は、梨地に図示の紋様を配し、自動車登録番号は、浮出しとすること。」 — a drawn 紋様 (pattern) is part of the plate. PRD-PLATES §3's placeholder rule applies with unusual force here: the design is imperial insignia and no licence position was researched." }
+        emblem: { present: true, rendered: placeholder, note: "Form No. 1-2 remark (2): 「自動車登録番号標は、梨地に図示の紋様を配し、自動車登録番号は、浮出しとすること。」 — a drawn 紋様 (pattern) is part of the plate. The plates spec §3's placeholder rule applies with unusual force here: the design is imperial insignia and no licence position was researched." }
         rear_differs: false
         characters:
         stroke_width_mm: 4
@@ -3553,7 +3553,7 @@ series:
         background: { color: "#FFFFFF", finish: painted, hex_basis: observed }
         foreground: "#00693E"
         artwork: { monotone: "included in the issue fee", full_colour: "available on a donation of 1,000 yen or more (MLIT)" }
-        emblem: { present: true, rendered: placeholder, note: "The whole point of the plate is its artwork, and PRD-PLATES §3's placeholder rule therefore governs the render: no design is reproduced, and none was licence-researched." }
+        emblem: { present: true, rendered: placeholder, note: "The whole point of the plate is its artwork, and the plates spec §3's placeholder rule therefore governs the render: no design is reproduced, and none was licence-researched." }
         rear_differs: false
       region_encoding: "plates/_decode/jp-office-marks.yml"
       sources:
@@ -3593,7 +3593,7 @@ series:
         background: { color: "#FFFFFF", finish: painted, hex_basis: observed }
         foreground: "#00693E"
         artwork: { monotone: "included in the issue fee", full_colour: "available on a donation of 1,000 yen or more (MLIT)", motif: "the flowers of the 47 prefectures" }
-        emblem: { present: true, rendered: placeholder, note: "The whole point of the plate is its artwork, and PRD-PLATES §3's placeholder rule therefore governs the render: no design is reproduced, and none was licence-researched." }
+        emblem: { present: true, rendered: placeholder, note: "The whole point of the plate is its artwork, and the plates spec §3's placeholder rule therefore governs the render: no design is reproduced, and none was licence-researched." }
         rear_differs: false
       region_encoding: "plates/_decode/jp-office-marks.yml"
       sources:
@@ -3631,7 +3631,7 @@ series:
         background: { color: "#FFFFFF", finish: painted, hex_basis: observed }
         foreground: "#00693E"
         artwork: { monotone: "included in the issue fee", full_colour: "available on a donation of 1,000 yen or more (MLIT)", motif: "GREEN×EXPO 2027 (2027 International Horticultural Expo)" }
-        emblem: { present: true, rendered: placeholder, note: "The whole point of the plate is its artwork, and PRD-PLATES §3's placeholder rule therefore governs the render: no design is reproduced, and none was licence-researched." }
+        emblem: { present: true, rendered: placeholder, note: "The whole point of the plate is its artwork, and the plates spec §3's placeholder rule therefore governs the render: no design is reproduced, and none was licence-researched." }
         rear_differs: false
       region_encoding: "plates/_decode/jp-office-marks.yml"
       sources:

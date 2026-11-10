@@ -1,4 +1,4 @@
-# plates/us-or.yml — Oregon (PRD-PLATES gate L2, northwest group).
+# plates/us-or.yml — Oregon (the plates spec gate L2, northwest group).
 #
 # THE ONE FACT THAT MAKES OREGON WORTH READING CAREFULLY. ORS 803.535 does not
 # describe the plate. It POINTS AT A DESIGN CONTEST: "The design of the
@@ -17,13 +17,13 @@
 # bound on the current base — plates cannot predate the contest that chose
 # them. The commonly repeated November 1989 first-issue date is
 # encyclopedia-grade and is recorded as such, never asserted. This is exactly
-# the discipline PRD-PLATES §9 asks for: primary-source-or-marked.
+# the discipline the plates spec §9 asks for: primary-source-or-marked.
 #
 # SOURCE-ACCESS NOTE, RECORDED HONESTLY. www.oregonlegislature.gov refused TLS
 # from this environment on every attempt (curl exit 35, WebFetch ECONNRESET).
 # The ORS text below was therefore read from oregon.public.law, a third-party
 # reproduction. Oregon statutes are EDICTS OF GOVERNMENT and public domain at
-# every level (PRD-PLATES §4), so the reproduction carries the same text with
+# every level (the plates spec §4), so the reproduction carries the same text with
 # the same PD status — but the OFFICIAL citation is given first in every
 # source line, and re-verification against oregonlegislature.gov is an open
 # item for the verifier.
@@ -39,14 +39,14 @@ statute_edition: >-
   803.540.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4/§7.1.
+# artwork_risk — required per jurisdiction by the plates spec §4/§7.1.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: asserted-trademark-copyright-unresearched
   basis: >-
     OREGON IS NOT ON EITHER SIDE OF THE SURVEYED LEDGER, AND SAYING SO IS THE
     HONEST ANSWER. Oregon appears NOWHERE in the standing per-state copyright
-    survey PRD-PLATES §4 works from — it is neither in the favourable column
+    survey the plates spec §4 works from — it is neither in the favourable column
     (FL, CA, NC, NJ, MA, GA) nor in the adverse column (NY, AZ, PA, WA) — and
     no {{PD-ORGov}} tag exists on Wikimedia Commons. So the DEFAULT applies:
     a US state's works are copyrighted unless that state says otherwise
@@ -64,7 +64,7 @@ artwork_risk:
     adverse, which would overclaim, and not as unresearched, which would
     ignore the fetched assertion.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies to the Douglas fir, the
+    the plates spec §3's placeholder default applies to the Douglas fir, the
     mountain silhouette and every special-background graphic. Note the
     additional Oregon-specific hazard: ORS 803.535 makes the design the
     winning entry of a 1987 PUBLIC CONTEST, which means an identifiable
@@ -133,11 +133,11 @@ series:
           1950s to avoid collision with the optional Oregon Trail plates, and
           the I and O blocks skipped since 2004 for confusion with the
           numerals 1 and 0 — are LOCATOR-GRADE and are deliberately NOT
-          encoded as a `regex_strict`, which PRD-PLATES §2.7 reserves for the
+          encoded as a `regex_strict`, which the plates spec §2.7 reserves for the
           authority's own alphabet.
       pattern_note: >-
         The group boundary is written as the separator-only class `[- ]`,
-        sanctioned by PRD-PLATES §2.8, because Oregon prints a GAP (not a
+        sanctioned by the plates spec §2.8, because Oregon prints a GAP (not a
         glyph) and no authority text names a separator character; `pattern`
         shows the canonical printed form with a space. There is no
         `regex_statutory`: ORS 803.535 states no outer bound to encode, which
@@ -179,7 +179,7 @@ series:
       - "https://www.oregonlegislature.gov/bills_laws/ors/ors803.html  # ORS 803.535: the 1987 contest design provision, the fully-reflectorized-safety-plate requirement, the 'distinctive number or characters ... and the word Oregon' legend rule, the size/form/arrangement delegation, and the identical-pair rule. Read via oregon.public.law (official host TLS-unreachable)."
       - "https://www.oregon.gov/odot/DMV/pages/vehicle/plates.aspx  # Oregon DMV's own plate estate: plate-option structure, the special-background fee chart pointer, and the plate imagery the observed colours are taken from"
       - "https://www.aamva.org/getmedia/646bcc8a-219b-47d8-b5cd-726240473163/License-Plate-Standard-Edition-3_September-2025-Update.pdf  # AAMVA Ed.3 §2.2/§3.3 layout and retroreflectivity, adopted voluntarily; Oregon legislates the requirement without the metric"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Oregon  # LOCATOR ONLY (PRD-PLATES §4): the reported February 2004 arrangement change, the reported serial ranges, and the reported A/I/O block exclusions. None is asserted as sourced here."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Oregon  # LOCATOR ONLY (the plates spec §4): the reported February 2004 arrangement change, the reported serial ranges, and the reported A/I/O block exclusions. None is asserted as sourced here."
     notes: >-
       OREGON STANDARD ISSUE, NUMERAL-LEADING. THE ID IS DELIBERATELY UNDATED
       for the us-fl-standard reason: `start: 2026` is the year the ORS was
@@ -231,7 +231,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Oregon  # LOCATOR ONLY: the letters-first arrangement and the reported February 2004 end. The end year is not asserted as sourced."
     notes: >-
       THE PREVIOUS OREGON ARRANGEMENT, ON THE SAME STATUTORY BASE. Modelled as
-      its own series because PRD-PLATES §2.3's test is format OR design OR
+      its own series because the plates spec §2.3's test is format OR design OR
       period, and the FORMAT differs. A parser needs both: an Oregon plate of
       unknown vintage on the fir base is either LLL 999 or 999 LLL. Distinct
       from us-or-standard in that this series is closed and letter-leading
@@ -242,7 +242,7 @@ series:
   # CORE DISTINCT CLASSES. Oregon separately serializes these — ORS 803.525
   # sources the PLATE COUNT for each, which is a real primary claim, while the
   # serial grammars are locator-grade, hence `recall-only` with widened
-  # regexes per PRD-PLATES §2.7.
+  # regexes per the plates spec §2.7.
   # =========================================================================
   - id: us-or-trailer
     class: trailer
@@ -289,7 +289,7 @@ series:
     design:
       plate: { w: 12, h: 6, unit: in, dimension_basis: convention-observed }
       background: { finish: retroreflective }
-      colour_note: "reported blue on gold — the pre-1989 Oregon colourway retained for exempt plates, i.e. an OLD BASE STILL IN ISSUE. Recorded because it is exactly the parallel-series case PRD-PLATES §2.2 warns about, but the claim is locator-grade."
+      colour_note: "reported blue on gold — the pre-1989 Oregon colourway retained for exempt plates, i.e. an OLD BASE STILL IN ISSUE. Recorded because it is exactly the parallel-series case the plates spec §2.2 warns about, but the claim is locator-grade."
       emblem: { present: true, rendered: placeholder }
     region_encoding: none
     sources:
@@ -303,7 +303,7 @@ series:
       instrument for the exempt series was located.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. Count and official
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. Count and official
   # links only; no individual designs (those are L4).
   # =========================================================================
   - id: us-or-specialty-index
@@ -320,7 +320,7 @@ series:
           Oregon calls these SPECIAL BACKGROUND plates, and the name is the
           model: the serial arrangement is the ordinary one and only the
           background changes. Because per-programme grammars were not sourced
-          (individual specialty specs are L4 per PRD-PLATES §2.5), the index
+          (individual specialty specs are L4 per the plates spec §2.5), the index
           carries a deliberately wide union and is `recall-only`.
     design:
       plate: { w: 12, h: 6, unit: in, dimension_basis: convention-observed }
@@ -356,7 +356,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Oregon  # LOCATOR ONLY: the reported 20-plus optional designs. NOT adopted as the count."
     notes: >-
       THE OREGON SPECIALTY INDEX — one entry standing for the whole programme,
-      per PRD-PLATES §2.5. The honest headline is a NEGATIVE result: Oregon
+      per the plates spec §2.5. The honest headline is a NEGATIVE result: Oregon
       publishes no programme count. Recording "unstated" with the reason beats
       importing a number from an encyclopedia, and the Special Background Fees
       Chart is the identified path to a real figure next pass.

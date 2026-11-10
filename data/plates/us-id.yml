@@ -1,4 +1,4 @@
-# plates/us-id.yml — Idaho (PRD-PLATES gate L2, northwest group).
+# plates/us-id.yml — Idaho (the plates spec gate L2, northwest group).
 #
 # READ THIS FIRST: IDAHO IS THE WEAKEST-SOURCED FILE IN THIS GROUP, AND THE
 # REASON IS ACCESS, NOT ABSENCE. legislature.idaho.gov refused the TLS
@@ -10,7 +10,7 @@
 # way. SO IDAHO CODE 49-443 — the section that should carry the plate design,
 # the county designator and the numbering rule — WAS NEVER READ. Every other
 # state in this group rests on statute; Idaho rests on the Idaho
-# Transportation Department's own published pages, which PRD-PLATES §4 ranks
+# Transportation Department's own published pages, which the plates spec §4 ranks
 # as PRIMARY but second-preference, plus clearly-flagged locator material.
 # The verifier should treat re-fetching Idaho Code 49-443 from a working
 # network as the single highest-value action on this file.
@@ -47,13 +47,13 @@ statute_edition: >-
   ABSENT, not summarised.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4/§7.1.
+# artwork_risk — required per jurisdiction by the plates spec §4/§7.1.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched
   basis: >-
     UNRESEARCHED, AND RECORDED HONESTLY RATHER THAN GUESSED. Idaho appears
-    NOWHERE in the standing per-state copyright survey PRD-PLATES §4 works
+    NOWHERE in the standing per-state copyright survey the plates spec §4 works
     from — neither in the favourable column (FL, CA, NC, NJ, MA, GA) nor in
     the adverse column (NY, AZ, PA, WA). No {{PD-IDGov}} tag exists among the
     state templates listed on Wikimedia Commons' US per-territory page. No
@@ -75,7 +75,7 @@ artwork_risk:
     Appaloosa plate likewise implicates a breed-registry mark. So even a
     favourable Idaho finding would not clear the whole catalogue.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies to the scenic mountain
+    the plates spec §3's placeholder default applies to the scenic mountain
     graphic, the sky gradient and every special-plate design without
     exception. No Idaho emblem is a candidate for an upgrade at this gate:
     upgrades require BOTH a cleared artwork_risk and a ledger entry, and Idaho
@@ -150,7 +150,7 @@ series:
           series fills — are LOCATOR-GRADE, and the regex is deliberately
           written as their UNION rather than as any one of them. That union is
           wider than any grammar Idaho issues, which is exactly what
-          `matching: recall-only` means under PRD-PLATES §2.7: a match here is
+          `matching: recall-only` means under the plates spec §2.7: a match here is
           a shape hit and nothing more.
         personalized_exclusion_note: >-
           ONE REAL, AGENCY-SOURCED CHARSET FACT EXISTS, though it governs
@@ -161,7 +161,7 @@ series:
           delicious inconsistency this creates with the county designator
           table, in which Oneida and Owyhee are reported as 1O and 2O — the
           exclusion binds the owner, not the department.
-      separator_note: "The boundary between the county designator and the plate number is spelled as the separator-only class `[- ]`, sanctioned by PRD-PLATES §2.8, because it is a printed GAP and no authority text names a glyph. `pattern` shows the canonical printed form with a space."
+      separator_note: "The boundary between the county designator and the plate number is spelled as the separator-only class `[- ]`, sanctioned by the plates spec §2.8, because it is a printed GAP and no authority text names a glyph. `pattern` shows the canonical printed form with a space."
       progression: >-
         LOCATOR-GRADE, NOT ASSERTED: the encyclopedia record reports the
         trailing letter advancing as each county's block fills, with Ada
@@ -290,7 +290,7 @@ series:
     sources:
       - "https://itd.idaho.gov/dmv/registrations-plates-titles/license-plates/  # ITD, quoted throughout: 'Idaho's standard license plate is the red, white and blue scenic Idaho plate'; 'Standard plates cost $3.75 per plate'; 'All plates regardless of design are good for 10 years with active registration'; 'The standard plate includes a \"county designator\" in the plate number that corresponds with the county you live in'; the made-to-order / six-week USPS fulfilment model; the personalized-plate rules including the letter-O exclusion"
       - "https://itd.idaho.gov/faqs/permanent-plates-and-no-registration-stickers/  # ITD FAQ: the 1 July 2026 change, House Bill 533 (registration stickers) and House Bill 577 (the ten-year replacement requirement), quoted verbatim"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Idaho  # LOCATOR ONLY (PRD-PLATES §4): the county designator table, the reported serial arrangements and trailing-letter progression, the September 1991 base introduction, the 1987-1991 Centennial predecessor, the FAMOUS POTATOES legend, and the non-passenger formats. NONE of it is asserted as sourced here."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Idaho  # LOCATOR ONLY (the plates spec §4): the county designator table, the reported serial arrangements and trailing-letter progression, the September 1991 base introduction, the 1987-1991 Centennial predecessor, the FAMOUS POTATOES legend, and the non-passenger formats. NONE of it is asserted as sourced here."
       - "https://www.aamva.org/getmedia/646bcc8a-219b-47d8-b5cd-726240473163/License-Plate-Standard-Edition-3_September-2025-Update.pdf  # AAMVA Ed.3 §1.1 — the 7-to-10-year recommendation Idaho met and then abolished"
     notes: >-
       IDAHO STANDARD ISSUE. `matching: recall-only` IS THE HONEST DESCRIPTION
@@ -349,7 +349,7 @@ series:
       being closed.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. Agency-counted.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. Agency-counted.
   # =========================================================================
   - id: us-id-specialty-index
     class: specialty
@@ -360,7 +360,7 @@ series:
     format:
       pattern: "9L 999L"
       regex: '\A[A-Z0-9](?:[- ]?[A-Z0-9])*\z'
-      charset: { notes: "no per-programme grammar was sourced; individual specialty specs are L4 per PRD-PLATES §2.5. The index carries a deliberately wide union and is recall-only." }
+      charset: { notes: "no per-programme grammar was sourced; individual specialty specs are L4 per the plates spec §2.5. The index carries a deliberately wide union and is recall-only." }
     design:
       plate: { w: 12, h: 6, unit: in, dimension_basis: convention-observed }
       background: { finish: retroreflective }
@@ -397,7 +397,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Idaho  # LOCATOR ONLY: the reported ~40 active designs and the programme names"
     notes: >-
       THE IDAHO SPECIALTY INDEX — one entry standing for the whole programme,
-      per PRD-PLATES §2.5. The count is AGENCY-SOURCED ("over 40", ITD's own
+      per the plates spec §2.5. The count is AGENCY-SOURCED ("over 40", ITD's own
       words), which is stronger than Oregon's (unpublished) and Wyoming's
       (enumerated but not totalled), though weaker than Washington's
       (a statutory table). Two follow-ups are pinned and both are cheap:
@@ -420,7 +420,7 @@ series:
         excluded: ["O"]
         excluded_encoding_note: >-
           THE EXCLUSION LIVES IN `charset.excluded`, NOT IN THE REGEX, AND
-          THAT IS THE SCHEMA WORKING AS DESIGNED. PRD-PLATES §2.7 makes
+          THAT IS THE SCHEMA WORKING AS DESIGNED. The plates spec §2.7 makes
           `format.regex` the round-trippable tier — it is generated against
           `format.pattern` by the lint and therefore CANNOT carry charset
           restrictions, which is precisely why `regex_strict` and
@@ -478,7 +478,7 @@ series:
       department-assigned, which is a format property — and because it carries
       THE ONLY GENUINELY SOURCED CHARSET EXCLUSION IN THIS ENTIRE FILE. The
       letter-O rule is worth the whole entry: it is an authority's own words
-      about its own alphabet, which is exactly what PRD-PLATES §2.7 wants, and
+      about its own alphabet, which is exactly what the plates spec §2.7 wants, and
       it produces the pleasing inconsistency that Idaho's own county
       designators for Oneida and Owyhee use a letter its citizens may not
       choose. `recall-only` only because the LENGTH cap is unsourced; if the

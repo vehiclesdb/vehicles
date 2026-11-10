@@ -1,4 +1,4 @@
-# plates/in.yml — India (PRD-PLATES gate L3). DRAFT for human verification.
+# plates/in.yml — India (the plates spec gate L3). DRAFT for human verification.
 #
 # EVERY format, colour, dimension and class claim in this file comes from one
 # of five primaries, all fetched and quoted verbatim in the dossier:
@@ -102,7 +102,7 @@
 # instrument imposes NO digit count and our regex invents a practical bound
 # (the diplomatic series).
 #
-# SEPARATOR NOTE (PRD-PLATES § 2.6): an Indian plate prints NO separator
+# SEPARATOR NOTE (the plates spec § 2.6): an Indian plate prints NO separator
 # glyph. Rule 50(3) prescribes a two-LINE layout (state+district code above,
 # the rest below) and rule 51 prescribes inter-character spacing in
 # millimetres; the space in every `pattern` here is the conventional textual
@@ -388,7 +388,7 @@ series:
       calls it "registering authority code" and rule 35(3) calls it "RTO Code".
       Each State creates, merges and renumbers its own offices, and there are
       well over a thousand of them, so this dimension is OPEN and is deliberately
-      NOT tabled here (PRD-PLATES § 2.4 mechanism-note rule). A decode may
+      NOT tabled here (the plates spec § 2.4 mechanism-note rule). A decode may
       return the State with confidence and the district only against a
       State-published list of that State's own offices, dated. THIRD ELEMENT,
       FLAGGED AS UNSOURCED: several States are widely reported to spend the
@@ -541,7 +541,7 @@ series:
           photograph of an Indian truck-trailer combination will see the same
           mark twice and a second, different mark once; it must not treat the
           repetition as two vehicles. Colour-only variant of this series, hence
-          a sub-entry (PRD-PLATES § 2.3). Rule 50(6) exempts agricultural
+          a sub-entry (the plates spec § 2.3). Rule 50(6) exempts agricultural
           tractors: "The registration mark of the drawing agricultural tractor
           may not be exhibited on the agricultural trailer or trailers", and
           rule 50(7) does the same for a modular hydraulic trailer behind a
@@ -587,7 +587,7 @@ series:
           colour on Green background" (rule 50(2A)) — the same green plate with
           yellow characters instead of white. Colour-only variant of the same
           format and period, hence a sub-entry rather than a series
-          (PRD-PLATES § 2.3). This is the one place in Indian plate law where
+          (the plates spec § 2.3). This is the one place in Indian plate law where
           the transport/non-transport split changes the FOREGROUND rather than
           the background.
         sources:
@@ -800,7 +800,7 @@ series:
           Rule 35(3) says the letter "Represents serial number of class of
           vehicle as prescribed in Rule 34(2) i.e. from A to J"; rule 34(2)
           lists those classes as clauses (a) to (j), which is the closed
-          primary list inlined above (PRD-PLATES § 2.4 small-inline-table
+          primary list inlined above (the plates spec § 2.4 small-inline-table
           rule). NOTE THE TRAP: this is the one Indian series in which the
           letter I IS issued — it is E-cart — while BH and temporary marks
           expressly exclude I. A parse API must not apply a blanket I/O
@@ -961,7 +961,7 @@ series:
       not a place decode — and the MEA list was NOT reached in this pass, so
       this dataset cannot turn "13 CD 1" into a country. That table is the
       single most requested Indian plate decode after the state codes and is a
-      recorded gap for gate L4 (PRD-PLATES § 7 lists diplomatic decode tables
+      recorded gap for gate L4 (the plates spec § 7 lists diplomatic decode tables
       there).
     sources:
       - "https://web.archive.org/web/20211130113450id_/https://morth.nic.in/sites/default/files/CMVR-chapter3.pdf  # rule 76(1)-(6) with footnote 96 dating the substitution of sub-rule (6) to G.S.R. 221(E) 28-3-2001; rule 77(1)(i) 'with deep blue background, the registration mark and the number being in white'; rule 77(1) plate size '41 centimetres by 14 centimetres'; rule 77(2)-(3); accessed 2026-08-02"

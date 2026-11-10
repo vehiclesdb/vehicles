@@ -1,4 +1,4 @@
-# plates/au-vic.yml — Victoria (PRD-PLATES gate L3, Australia).
+# plates/au-vic.yml — Victoria (the plates spec gate L3, Australia).
 #
 # VICTORIA IS THE BEST-EVIDENCED AUSTRALIAN JURISDICTION IN THIS WAVE, and the
 # reason is one page: VicRoads publishes, on its own General issue number plates
@@ -22,7 +22,7 @@
 # quotes the empowering words). What Victoria has is not a better LAW, it is a
 # better AGENCY PAGE. Recorded that way.
 #
-# SEPARATOR NOTE (PRD-PLATES §2.6): a Victorian plate prints a RAISED DOT
+# SEPARATOR NOTE (the plates spec §2.6): a Victorian plate prints a RAISED DOT
 # between the two groups, and VicRoads itself writes the combination both ways
 # on the same page — "1AA.1AA" in the prose, "1AA 1AA" in the table. Neither
 # glyph is serial-significant: the dot is the printed group separator and the
@@ -45,7 +45,7 @@ instrument:
     Queensland and Tasmanian files carry the equivalent rules verbatim from
     their own instruments, and Victoria's are understood to be materially the
     same, which is an EXPECTATION, not a claim, and is not encoded.
-  licence: "legislation.vic.gov.au publishes Victorian legislation; VicRoads pages are Victorian Crown copyright. Facts extracted, text quoted only where marked verbatim (PRD-PLATES §4)"
+  licence: "legislation.vic.gov.au publishes Victorian legislation; VicRoads pages are Victorian Crown copyright. Facts extracted, text quoted only where marked verbatim (the plates spec §4)"
 
 national_schemes:
   heavy_vehicle: >-
@@ -105,7 +105,7 @@ series:
         VicRoads, verbatim: "blue characters on a white reflective background".
         The white is recorded as a hex with `hex_basis: observed`; THE BLUE IS
         NOT — VicRoads names the colour and never specifies it, and inventing a
-        blue would be exactly the fabricated-fact failure PRD-PLATES §9 warns
+        blue would be exactly the fabricated-fact failure the plates spec §9 warns
         about. A `foreground` hex lands when a Victorian specification does.
       colour_history: >-
         VicRoads' own three lines, verbatim: "1960 - 1977: Black background,
@@ -118,7 +118,7 @@ series:
       legend_rule: "VicRoads, verbatim: 'the current slogan printed on the centre bottom of the plate (not included on slimline)'. The slogan is a VARIABLE of the design — Victoria has changed it by policy several times — and the current text is deliberately not hard-coded here"
       plate: { w: 372, h: 134, unit: mm }
       plate_dimension_note: "the Australian passenger size; VicRoads does not publish its own millimetres, so this is the cross-State figure sourced in plates/au-wa.yml (WA DoT: 372 x 134 mm) and plates/au-nt.yml (NT MVR: 372 x 133 mm), flagged as such"
-      slimline_variant: "VicRoads offers a slimline plate, on which the slogan is omitted — a design variant of this series, not a series of its own (PRD-PLATES §2.3)"
+      slimline_variant: "VicRoads offers a slimline plate, on which the slogan is omitted — a design variant of this series, not a series of its own (the plates spec §2.3)"
       rear_differs: false
     region_encoding: none
     sources:
@@ -180,7 +180,7 @@ series:
 
   # =========================================================================
   # MOTORCYCLES — a separate series because the ARRANGEMENT differs, not just
-  # the size (PRD-PLATES §2.3: own series iff format OR design OR period).
+  # the size (the plates spec §2.3: own series iff format OR design OR period).
   # =========================================================================
   - id: au-vic-motorcycle
     class: motorcycle

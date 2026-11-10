@@ -14,16 +14,16 @@ module Vehicles
     #
     # The images endpoint is LIVE (since 2026-07): mint a key at
     # https://vehiclesdb.com/settings/api-keys, set `config.api_key`, and
-    # `model.image` / `model.images` answer with rendered vehicle imagery.
+    # `model.image` / `model.images` answer with studio vehicle imagery.
     # Since 0.9.2:
     #   - a renamed/merged id's 301 is followed (same origin only);
     #   - failures are no longer silent: `model.images_result` says why
     #     (Vehicles::HostedResult), and 401/402/403/429/5xx/timeouts go to
     #     `config.on_hosted_error` and a warn log line;
     #   - payloads are cached (`config.image_cache`), so a page view does not
-    #     pay per render;
+    #     pay per image;
     #   - `year:` is sent, not dropped (the API answers 422
-    #     `unsupported_filter` until year-accurate renders ship);
+    #     `unsupported_filter` until year-accurate images ship);
     #   - `exact_color: true` refuses the API's honest color fallback.
     #
     # `years` and `segment` are the wired-up seam for enrichment the API does
@@ -53,7 +53,7 @@ module Vehicles
       end
 
       # One variant URL — the common "just give me an <img src>" case.
-      # `size` picks from the API's rendered variants (:sm 320×180, :md
+      # `size` picks from the API's image variants (:sm 320×180, :md
       # 640×360, :lg 1280×720; webp).
       def image(model, year: nil, color: nil, size: :md, exact_color: false)
         images_result(model, year: year, color: color, exact_color: exact_color).url(size)

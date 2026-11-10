@@ -1,4 +1,4 @@
-# plates/us-mi.yml — Michigan (PRD-PLATES gate L2, group midwest-a).
+# plates/us-mi.yml — Michigan (the plates spec gate L2, group midwest-a).
 #
 # WHAT MICHIGAN CONTRIBUTES THAT NO OTHER STATE IN THIS GROUP DOES: a
 # LEGISLATED PLATE LIFETIME, stated as a prohibition rather than as a schedule.
@@ -25,7 +25,7 @@
 # line and was NOT fetched.
 #
 # NOT HERE, DELIBERATELY: individual specialty/fundraising DESIGNS (L4 per
-# PRD-PLATES §2.5); the MOTORCYCLE series, because no source in this pass gave a
+# the plates spec §2.5); the MOTORCYCLE series, because no source in this pass gave a
 # Michigan motorcycle serial format and a plates file should carry a declared
 # gap rather than a plausible guess (see the dossier); and the personalized
 # series, which is outside the L2 core-class list.
@@ -37,7 +37,7 @@ binding: vehicle
 statute_edition: "Michigan Compiled Laws, Chapter 257 (Michigan Vehicle Code), as reproduced by codes.findlaw.com and read 2026-08-02. FindLaw warns its text 'may not reflect the most recent version of the law'; currency is UNVERIFIED."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched-default-adverse
@@ -57,7 +57,7 @@ artwork_risk:
     the ten-year renewal bar are all EDICTS OF GOVERNMENT and public domain at
     every level. The adverse posture bites on the artwork, not the spec.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies. The current base carries the
+    the plates spec §3's placeholder default applies. The current base carries the
     'Pure Michigan' wordmark — which raises a question the copyright analysis does
     not reach: Pure Michigan is the state's TOURISM BRAND, and brand marks carry
     TRADEMARK protection entirely independent of copyright and of any public-
@@ -304,7 +304,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Michigan  # LOCATOR ONLY: government/municipal serial range 130 X 000 to ~136 X 999 as of January 2026"
     notes: >-
       GOVERNMENT / MUNICIPAL. The statutory fact is the good one: this is a plate
-      class whose VALIDITY IS A CONDITION rather than a date. PRD-PLATES's runs
+      class whose VALIDITY IS A CONDITION rather than a date. The plates spec's runs
       shape handles open-ended periods, but 'ends when worn out' is not a year and
       cannot be made into one — recorded in prose, deliberately, rather than
       forced into `period.end`.
@@ -362,7 +362,7 @@ series:
       charset: { notes: "fundraising and university plates carry ordinary serials on an alternative design; no distinct grammar was sourced" }
     design:
       background: { finish: retroreflective }
-      note: "one design per authorising public act; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorising public act; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: null
@@ -377,7 +377,7 @@ series:
         describes was NOT located in the section of MCL 257.811e that was read,
         so the '20' is a claim about a statute rather than a quotation from one,
         and a verifier should either find the cap or strike the figure. Per
-        PRD-PLATES §5.3 the discrepancy is recorded, not averaged away.
+        the plates spec §5.3 the discrepancy is recorded, not averaged away.
       official_list_url: "https://www.michigan.gov/sos/vehicle/plates"
       official_list_fetch_status: "BLOCKED — HTTP 403 on every attempt, 2026-08-02"
       statutory_basis: >-
@@ -398,7 +398,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Michigan  # LOCATOR ONLY: 'State law limits the number of fundraising plates (excluding universities) available at one time to 20, and 14 are currently in production.'"
     notes: >-
       THE MICHIGAN SPECIALTY PROGRAM INDEX — one entry for the whole programme per
-      PRD-PLATES §2.5, with the official count declared a gap and a secondary
+      the plates spec §2.5, with the official count declared a gap and a secondary
       figure carried, flagged, alongside. The durable finding is the mechanism:
       Michigan gates specialty plates through the LEGISLATURE, Illinois through a
       2,000-application petition, Wisconsin through 500 signatures, Ohio through

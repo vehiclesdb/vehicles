@@ -39,7 +39,7 @@
 #   * `secondary-wikipedia` — the rest of the pre-2012 rows. Both the English
 #     and the Danish Wikipedia article carry a pre-2012 block table, each
 #     crediting the enthusiast register nrpl.dk. THE TWO TABLES DISAGREE, and
-#     PRD-PLATES §5.3 says record disagreements rather than average them, so
+#     the plates spec §5.3 says record disagreements rather than average them, so
 #     conflicting rows carry both readings and a `conflict:` note. Nothing here
 #     is presented as an instrument.
 #

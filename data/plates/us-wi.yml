@@ -1,4 +1,4 @@
-# plates/us-wi.yml — Wisconsin (PRD-PLATES gate L2, group midwest-a).
+# plates/us-wi.yml — Wisconsin (the plates spec gate L2, group midwest-a).
 #
 # WISCONSIN IS THE STATE THAT LEGISLATES THE SHEETING. Wis. Stat. 341.12(4)(am)
 # is the single most renderable, most citable piece of US plate law found in
@@ -33,7 +33,7 @@
 # REPRODUCTION of the same edict; the canonical docs.legis.wisconsin.gov
 # citation accompanies each source line and was NOT fetched.
 #
-# NOT HERE, DELIBERATELY: individual special-plate DESIGNS (L4 per PRD-PLATES
+# NOT HERE, DELIBERATELY: individual special-plate DESIGNS (L4 per the plates spec
 # §2.5); the personalized series and Wisconsin's 'official' state plate series,
 # both outside the L2 core-class list — the statutory personalized position
 # limits are recorded instead inside the standard series' charset notes, where
@@ -46,7 +46,7 @@ binding: vehicle
 statute_edition: "Wisconsin Statutes Chapter 341 (Registration of Vehicles), as reproduced by codes.findlaw.com and read 2026-08-02. FindLaw warns its text 'may not reflect the most recent version of the law'; currency is UNVERIFIED. The 341.12(4)(am) text read here includes the July 2022 commencement, so the reproduction is at least that recent."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched-default-adverse
@@ -66,10 +66,10 @@ artwork_risk:
     sheeting, 150 cd/lx/m², luminance factor above 55 — is an EDICT OF
     GOVERNMENT and public domain at every level, as are the plate-content rules
     of 341.12(3) and the display rules of 341.15. Wisconsin is the strongest
-    case in this group for PRD-PLATES §4's preference for statutes over
+    case in this group for the plates spec §4's preference for statutes over
     brochures: the statute gives a renderable spec that no brochure would.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies to the state name treatment and
+    the plates spec §3's placeholder default applies to the state name treatment and
     any graphic element on the base. Render
     `emblem: {present: true, rendered: placeholder}`. State-seal protection is
     independent of copyright and is unresearched for Wisconsin.
@@ -161,7 +161,7 @@ series:
           regex.
         separator_note: >-
           The hyphen is PRINTED on the Wisconsin plate, so it is spelled in both
-          the pattern and the regex per PRD-PLATES §2.6 rule 2. The regex accepts
+          the pattern and the regex per the plates spec §2.6 rule 2. The regex accepts
           either emitted separator or none — `[- ]?` — which is a sanctioned
           separator-only class under §2.8: it contains only separator characters
           and is not negated, so a consumer deriving the separator-free twin can
@@ -465,7 +465,7 @@ series:
       charset: { notes: "special group plates carry ordinary serials on an alternative design; 341.145's position caps apply where the combination is owner-chosen (6 positions on certain veteran and conservation plates, 5 on electric-vehicle plates — the statute varies the cap BY PLATE TYPE, which is unusual and is itself a modelling signal)" }
     design:
       background: { finish: retroreflective }
-      note: "one design per special group; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per special group; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
       design_authority: "Wis. Stat. 341.14: 'the department shall specify the design for special group plates, but the department shall consult' the relevant officials and organisations before finalising a design — so a Wisconsin special plate's design is departmental with a statutory consultation duty, not organisational"
     program_index:
@@ -500,7 +500,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Wisconsin  # LOCATOR ONLY: the individual special plates are listed without an aggregate count"
     notes: >-
       THE WISCONSIN SPECIALTY PROGRAM INDEX — one entry for the whole programme per
-      PRD-PLATES §2.5, count declared as a gap, statutory mechanism recorded in
+      the plates spec §2.5, count declared as a gap, statutory mechanism recorded in
       full because it is the durable half. Two details are worth carrying: the
       threshold is SIGNATURES OF INTENT rather than applications, which is a
       weaker commitment than Illinois demands and predicts a larger, churnier

@@ -36,7 +36,7 @@
 # NOT A COMPLETE ARMS CATALOGUE. This file names the upravne enote whose seat
 # municipality supplies each shield; it does NOT carry the 58 blazons, their
 # artwork or their licensing. Municipal arms are protected independently of
-# copyright and PRD-PLATES §3 puts them in the placeholder slot
+# copyright and the plates spec §3 puts them in the placeholder slot
 # (`design.emblem.rendered: placeholder` in plates/si.yml). Recorded gap:
 # a per-upravna-enota arms ledger.
 jurisdiction: si

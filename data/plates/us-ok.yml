@@ -1,4 +1,4 @@
-# plates/us-ok.yml — Oklahoma (PRD-PLATES gate L2, group: southcentral).
+# plates/us-ok.yml — Oklahoma (the plates spec gate L2, group: southcentral).
 #
 # WHY OKLAHOMA IS THE BEST-SOURCED STATE IN THIS GROUP, and it is not close:
 #
@@ -58,7 +58,7 @@ binding: vehicle
 statute_edition: "Oklahoma Statutes Title 47 (Motor Vehicles), Oklahoma Senate published compilation, 2019 — the edition obtainable by fetch. oscn.net (official) timed out on every attempt this pass; post-2019 amendments UNCHECKED (recorded gap)."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: no-pd-rule-found-default-copyrighted
@@ -92,7 +92,7 @@ artwork_risk:
     three series.
   sources:
     - "https://oklahoma.gov/service/popular-services/license-plates.html  # Service Oklahoma's own license-plate page; footer reads 'Copyright (c) 2026 Service Oklahoma' — the only Oklahoma rights assertion located"
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): establishes that §105 does not reach the states and that Oklahoma is not among the states with a favourable rule; used to evidence an ABSENCE"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): establishes that §105 does not reach the states and that Oklahoma is not among the states with a favourable rule; used to evidence an ABSENCE"
     - "https://oksenate.gov/sites/default/files/2019-12/os47.pdf  # 47 O.S. § 1113(B)(5)-(7): the state seal and the DOC badge mandated on the face of the OHP, OMD and DOC plates — the emblem exposure, in statute (an edict, and therefore itself PD)"
 
 # ---------------------------------------------------------------------------
@@ -107,7 +107,7 @@ us_standards:
     replacement_cycle: "AAMVA §1.1 recommends a replacement cycle 'not to exceed 7 to 10 years'. Oklahoma instead legislates a MINIMUM REISSUE INTERVAL of five years (§ 1113.2(H)) — a different mechanism answering a different question, and the contrast is the point."
     source: "https://www.aamva.org/getmedia/646bcc8a-219b-47d8-b5cd-726240473163/License-Plate-Standard-Edition-3_September-2025-Update.pdf"
   state_retroreflectivity_statute: "47 O.S. § 1113(B)(3), verbatim: 'All license plates and decals shall be made with reflectorized material as a background to the letters, numbers and characters displayed thereon. The reflectorized material shall be of such a nature as to provide effective and dependable brightness during the service period for which the license plate or decal is issued.' Note Oklahoma legislates the PROPERTY (brightness for the service period) and not the measurement, exactly as AAMVA does not."
-  folklore_caution: "The '1956 AMA standardization agreement' remains COMMONLY REPEATED, UNSOURCED (PRD-PLATES §4). Oklahoma's statute states no plate dimensions at all — § 1113(A)(1) leaves size wholly to the agency: 'The license plate and decal shall be of such size, color, design and numbering as the Tax Commission may direct.'"
+  folklore_caution: "The '1956 AMA standardization agreement' remains COMMONLY REPEATED, UNSOURCED (the plates spec §4). Oklahoma's statute states no plate dimensions at all — § 1113(A)(1) leaves size wholly to the agency: 'The license plate and decal shall be of such size, color, design and numbering as the Tax Commission may direct.'"
 
 # ---------------------------------------------------------------------------
 # Display rules. Oklahoma is a ONE-PLATE state with the truck-tractor inversion
@@ -173,7 +173,7 @@ series:
         light, or practice has moved past the 2016 wording, or the 2019 text read
         here has since been amended. The statute is quoted and the reported
         colours are recorded as observation only; the discrepancy is recorded,
-        not resolved (PRD-PLATES §5.3).
+        not resolved (the plates spec §5.3).
       legend_top: "OKLAHOMA"
       legend_bottom: "IMAGINE THAT"
       legend_basis: locator-unconfirmed
@@ -199,7 +199,7 @@ series:
         renewal or $9 outside of their annual renewal at a local licensed
         operator."
       consequence: >-
-        THIS IS A PARALLEL-ISSUANCE SERIES IN THE PRD-PLATES §2.2 SENSE, stated
+        THIS IS A PARALLEL-ISSUANCE SERIES IN THE the plates spec §2.2 SENSE, stated
         by the authority rather than inferred. The 2017 base was mandatory-replace;
         the 2024 base is opt-in. Both are therefore lawfully current, both are
         being issued, and the periods overlap for real. That is exactly the
@@ -215,13 +215,13 @@ series:
       county abbreviation; the county-abbreviated decal is reported to have
       stopped being issued in 2024. So Oklahoma's geographic signal migrated
       serial -> sticker -> nothing over fifteen years. The historic decode table
-      is L4 scope (PRD-PLATES §7) and is deliberately not built here; it is
+      is L4 scope (the plates spec §7) and is deliberately not built here; it is
       flagged as a high-value `_decode/` candidate because it is one of the few
       genuine US serial-to-geography decodes that ever existed.
     sources:
       - "https://oklahoma.gov/service/popular-services/license-plates.html  # Service Oklahoma: 'Starting Sept. 1, 2024, Oklahoma's standard issue license plate will have a new design'; the Iconic Oklahoma Plate name; the NOT-automatically-reissued rule; $4 with renewal / $9 outside renewal"
       - "https://oksenate.gov/sites/default/files/2019-12/os47.pdf  # 47 O.S. § 1113(A)(1) size/colour/design/numbering delegated to the agency; § 1113(B)(3) reflectorized background; § 1113.2(G) contrast against a light-coloured background; § 1113.2(H) the five-year minimum reissue interval that permitted this base"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Oklahoma  # LOCATOR ONLY (PRD-PLATES §4): the ABC-123 arrangement, the 'IMAGINE THAT' bottom legend, the red field with the star separator, and the PNU-001/PZJ-001-to-VXY-261 range as of 2025-11-08. None asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Oklahoma  # LOCATOR ONLY (the plates spec §4): the ABC-123 arrangement, the 'IMAGINE THAT' bottom legend, the red field with the star separator, and the PNU-001/PZJ-001-to-VXY-261 range as of 2025-11-08. None asserted as sourced."
     notes: >-
       THE ICONIC OKLAHOMA PLATE. Its defining fact is administrative rather than
       visual: Oklahoma broke with its own precedent and did NOT force a fleet
@@ -268,7 +268,7 @@ series:
         format: { pattern: "LLL-999" }
       - name: "OKLAHOMA legend"
         period: { start: 2022, end: 2024 }
-        note: "same base, top legend changed to plain 'OKLAHOMA'; recorded as a VARIANT and not a series because format and period are continuous and only the legend text moves (PRD-PLATES §2.3). Both variants are locator-grade."
+        note: "same base, top legend changed to plain 'OKLAHOMA'; recorded as a VARIANT and not a series because format and period are continuous and only the legend text moves (the plates spec §2.3). Both variants are locator-grade."
         format: { pattern: "LLL-999" }
     statutory_origin:
       text: >-
@@ -394,7 +394,7 @@ series:
       plate because the class differs (military vs police in
       `_meta/classes.yml`), the assigner differs (Adjutant General vs badge
       number) and the serial WIDTH differs (fixed three vs open badge number) —
-      three independent reasons under PRD-PLATES §2.3, in adjacent statutory
+      three independent reasons under the plates spec §2.3, in adjacent statutory
       paragraphs.
 
   - id: us-ok-corrections
@@ -434,7 +434,7 @@ series:
       would destroy all of that.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX ONLY, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX ONLY, per the plates spec §2.5.
   # =========================================================================
   - id: us-ok-specialty-index
     class: specialty
@@ -450,7 +450,7 @@ series:
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised program; individual designs are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised program; individual designs are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count: null

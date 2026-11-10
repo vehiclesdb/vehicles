@@ -1,4 +1,4 @@
-# plates/ar.yml — Argentina (PRD-PLATES gate L3).
+# plates/ar.yml — Argentina (the plates spec gate L3).
 #
 # EVERY format, period, dimension, colour and font claim in this file comes
 # from an Argentine or MERCOSUR instrument read in full. The chain, in the
@@ -81,14 +81,14 @@
 #    comercial roja, oficial azul, diplomático/consular dorada, especiales
 #    verde, de colección gris plata — and Ley 27.187 made that annex part of the
 #    Argentine legal order. Those are colour-only variants of one format and one
-#    period, so under PRD-PLATES §2.3 they are SUB-ENTRIES on the standard
+#    period, so under the plates spec §2.3 they are SUB-ENTRIES on the standard
 #    series, not series of their own.
 #
 # 5. THE SEPARATOR IS A GAP, NOT A GLYPH — AND THE AUTHORITY WRITES IT AS A
 #    SPACE. Res. GMC 33/14's Annex describes "un arreglo de siete caracteres";
 #    no instrument prescribes a separator character. Disposición 40/2016 writes
 #    the shapes as "AA 000 AA" and "A 000 AAA", so this file spells that gap as
-#    the emitted SPACE of PRD-PLATES §2.6 and makes it optional in every regex,
+#    the emitted SPACE of the plates spec §2.6 and makes it optional in every regex,
 #    exactly as plates/gb.yml does for the British 33 mm gap.
 jurisdiction: ar
 authority:
@@ -151,7 +151,7 @@ common:
   mercosur_spec:
     plate: { w: 400, h: 130, unit: mm, tolerance_mm: 2, thickness_mm: 1, thickness_tolerance_mm: 0.2 }
     motorcycle_plate: { w: 200, h: 170, unit: mm, tolerance_mm: 2 }
-    font: { name: "FE-Engschrift", cap_height_mm: 65, motorcycle_cap_height_mm: 53, license: "statutory reference by NAME, not by file — the instruments name the typeface and prescribe its cap height; no font is embedded (PRD-PLATES §6)" }
+    font: { name: "FE-Engschrift", cap_height_mm: 65, motorcycle_cap_height_mm: 53, license: "statutory reference by NAME, not by file — the instruments name the typeface and prescribe its cap height; no font is embedded (the plates spec §6)" }
     band: { side: top, pantone: "286 C", w: 390, h: 30, unit: mm, motorcycle_w: 196 }
     emblem_mercosur: { w: 32, h: 22, unit: mm, motorcycle_w: 25, motorcycle_h: 20, pantone: ["286 (azul)", "347 (verde)"], placement: "left edge of the logo begins 15 mm from the left border of the plate" }
     flag: { w: 28, h: 20, unit: mm, motorcycle_w: 23, motorcycle_h: 16, placement: "upper-right quadrant, 4 mm from the top and 4 mm from the right border, with a 1 mm white frame" }
@@ -221,7 +221,7 @@ series:
         horizontal en su parte superior, cuyo color es el Pantone Nº 286 C. La
         misma contiene el emblema oficial del Mercosur - República Argentina -
         Bandera Argentina." The hex is an OBSERVED rendering of the named
-        Pantone; Pantone coordinates are a licensed dataset (PRD-PLATES §6), so
+        Pantone; Pantone coordinates are a licensed dataset (the plates spec §6), so
         the standard is cited and the hex is marked observed.
       font: { name: "FE-Engschrift", cap_height_mm: 65 }
       emblem: { present: true, rendered: placeholder, note: "MERCOSUR emblem 32 × 22 mm at Pantone 286/347, left edge 15 mm from the plate's left border; Argentine flag 28 × 20 mm in the upper-right quadrant with a 1 mm white frame" }
@@ -232,7 +232,7 @@ series:
         Asimismo dicha lámina contiene una onda sinusoidal ubicada en forma
         horizontal." The Islas Malvinas outline is a SECURITY FEATURE written
         into Argentine registral law, and it is recorded here as the instrument
-        states it; it carries obvious political sensitivity and PRD-PLATES §3's
+        states it; it carries obvious political sensitivity and the plates spec §3's
         neutral-placeholder rule for emblems applies to it in the render layer
         exactly as it does to every other emblem.
       construction: >-
@@ -257,7 +257,7 @@ series:
         note: >-
           COMERCIAL use — red characters on the same white ground and the same
           dominio. Colour-only variant of this series, hence a sub-entry per
-          PRD-PLATES §2.3. No hex: see common.mercosur_spec.colours_by_use for
+          the plates spec §2.3. No hex: see common.mercosur_spec.colours_by_use for
           the OCR caution on the Pantone number.
         sources:
           - "https://servicios.infoleg.gob.ar/infolegInternet/anexos/250000-254999/253150/ley27187.pdf  # Res. GMC 33/14 Anexo § 2, 'Comercial — Roja'"
@@ -539,7 +539,7 @@ series:
     categories: [trailer]
     period: { start: 2019 }
     period_evidence: enabling-instrument
-    # RECALL-ONLY (PRD-PLATES §2.7): this plate carries the TOWING VEHICLE's
+    # RECALL-ONLY (the plates spec §2.7): this plate carries the TOWING VEHICLE's
     # existing dominio, so its regex is the union of the Argentine shapes in
     # circulation. A match is a SHAPE hit — it says the string has a shape
     # Argentina has issued, never that it is a valid trailer registration.

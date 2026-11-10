@@ -219,11 +219,11 @@ module Vehicles
       Vehicles.resolve(:segment, self)
     end
 
-    # One rendered image URL, ready for an <img src>. `size` picks the
+    # One image URL, ready for an <img src>. `size` picks the
     # variant (:sm/:md/:lg), `color` a palette slug (Vehicles.colors); an
-    # un-rendered color falls back honestly server-side (another color is
+    # unavailable color falls back honestly server-side (another color is
     # served) unless `exact_color: true`, which answers nil instead. `year`
-    # is sent to the API, which rejects it until year-accurate renders ship
+    # is sent to the API, which rejects it until year-accurate images ship
     # (→ nil; `images_result` says :invalid_request "unsupported_filter").
     # nil without hosted data or on any failure — always render a
     # placeholder path, and ask `images_result` when you need to know why.
@@ -232,7 +232,7 @@ module Vehicles
     end
 
     # The full hosted images payload — every variant with dimensions, the
-    # rendered palette for this model, served-vs-requested color, provenance.
+    # available palette for this model, served-vs-requested color, provenance.
     # Reach for this when one URL isn't enough (srcset, color pickers,
     # caching whole responses). nil without hosted data.
     def images(color: nil, year: nil, exact_color: false)
@@ -240,7 +240,7 @@ module Vehicles
     end
 
     # The same call as `images`, answering a Vehicles::HostedResult that says
-    # WHY when there is no image (no key, 401/402/429, not rendered, timeout…).
+    # WHY when there is no image (no key, 401/402/429, not available, timeout…).
     # Cached like `images`; never raises.
     def images_result(color: nil, year: nil, exact_color: false)
       Providers::HostedProvider.images_result(self, color: color, year: year, exact_color: exact_color)

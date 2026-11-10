@@ -20,7 +20,7 @@ Everything below the plates fixes comes from dogfooding the gem in a production 
 - **One kind-collision rule, shared by every VehiclesDB surface** (`Vehicles::KindRule`; vehiclesdb RESOLUTION.md §3). When one nameplate is several records (Iveco "Daily" is a van, a truck and a bus) and no kind is given, `Vehicles.model`, `Make#model`, `match_model` and `identify` pick the lowest `mass_decile`, then van → car → bus → truck → moped → motorcycle, then the id. Until 0.9.1 the gem preferred the car (else file order) while the SDKs used another tie-break, so the stored id depended on the door a user came through. Backtested on register counts, the rule picks the most-registered kind in 87% of collision groups (car-first: 43%). Pass `kind:` to keep a kind.
 - **`Model#==`, `eql?` and `hash` compare the canonical id**, not the composite slug: the car and the van of one nameplate are no longer equal (they used to collapse in sets, `uniq` and hash keys).
 - `Vehicles.refresh!` keeps returning true/false, but now true means "the app has the latest release" (written, or already current), and it refuses releases it used to accept (see Safe refresh).
-- `Model#image(year:)` sends `year` to the API instead of silently dropping it; the API answers `422 unsupported_filter` until year-accurate renders ship, so `image(year:)` is nil and `images_result` says why.
+- `Model#image(year:)` sends `year` to the API instead of silently dropping it; the API answers `422 unsupported_filter` until year-accurate images ship, so `image(year:)` is nil and `images_result` says why.
 - A refreshed cache older than the gem's bundled data, or in a schema the gem does not read, is no longer served.
 - `Model#to_h` gains `id`, `model_slug`, `forms`, `registration_years`; `ModelMatch#to_h` gains `id` and `confident`.
 
@@ -32,7 +32,7 @@ Everything below the plates fixes comes from dogfooding the gem in a production 
 - **`ModelMatch#confident?`**: an answer from a curated rung (exact, former_id, fold, alias, form, cleaned), never fuzzy or ambiguous — the recommended threshold for writing a match back without asking.
 - **Per-country catalog**: `country:` on `Vehicles.catalog`, `makes`, `models`, `make_options` and `model_options` (models with official evidence there, in that country's own order). `top_models(limit: nil)` returns every match.
 - **Labels in English and Spanish** (the same strings as the JS/Python SDKs): `Vehicles.colors(locale: :es)`, `Vehicles.color_options(locale: :es)`, `Color#label(:es)`, `Vehicles.kind_label` / `kind_options`, `Vehicles.body_type_label` / `body_type_options`. `Vehicles.color` resolves Spanish input ("Rojo", "marrón", "plateada", "granate"). English labels for `wagon`/`coupe` read "Wagon"/"Coupe".
-- **Hosted errors are no longer silent**: `Model#images_result` returns a `Vehicles::HostedResult` (`reason`, `status`, the API's own `error` code, `url(size)`); `config.on_hosted_error` and a warn log line fire for 401/402/403/429/5xx/timeouts (never for a missing render). Image payloads are cached (`config.image_cache`, in-process by default; `image_cache_ttl` 1 day capped by the payload's `expires_at`, `image_miss_ttl` 10 min for 404s; errors never cached). `exact_color: true` answers nil instead of another color's render and remembers the palette so an unrendered color costs no request. ActiveSupport notifications `request.vehicles` / `refresh.vehicles` when present.
+- **Hosted errors are no longer silent**: `Model#images_result` returns a `Vehicles::HostedResult` (`reason`, `status`, the API's own `error` code, `url(size)`); `config.on_hosted_error` and a warn log line fire for 401/402/403/429/5xx/timeouts (never for a missing image). Image payloads are cached (`config.image_cache`, in-process by default; `image_cache_ttl` 1 day capped by the payload's `expires_at`, `image_miss_ttl` 10 min for 404s; errors never cached). `exact_color: true` answers nil instead of another color's image and remembers the palette so an unavailable color costs no request. ActiveSupport notifications `request.vehicles` / `refresh.vehicles` when present.
 - **`Vehicles.dataset_slice(kind:, kinds:, country:, region:)`**: the `catalog` scope as records in the shape of the published `dist/vehicles.json` (a Hash, ready for `to_json`): make and model slugs, kinds, aliases, forms, former ids, availability, deciles, country ranks and registration years, plus the release's version and CC-BY attribution. It is what the make-model-dropdown widget's `data` option (0.4.1) and the JS/Python SDKs' dataset mode read, so a page can embed its scope and resolve stored values and canonical ids with no CDN or API request. Lean: no `regions` or `body_type`, and with `country:` the per-country fields keep only that country (Spain's cars on data 2026.11.3: ~360 KB of JSON, ~57 KB gzipped). README: a Rails recipe that embeds it.
 - `Model#registration_years`: `{ first:, last: }` — the first and last year in official registrations, when the dataset publishes it (dataset 2026.11.3 publishes it for ~9,900 of 16,032 records). A hint, never a validation bound; `Model#years` docs now say plainly that production years are not published yet.
 - Plates: `Match#reason` (`:ok`, `:unverifiable`, `:excluded_letters`, `:bad_shape`, `:empty`, `:unknown_jurisdiction` — the API's codes), `Match#excluded_letters`, `Match#passenger?` and `Series#passenger?` (issued to passenger-carrying vehicles; trailer and tractor series are not).
@@ -43,7 +43,7 @@ Everything below the plates fixes comes from dogfooding the gem in a production 
 - The hosted client follows a former id's `301` (same origin only, so the key never leaves the host): images no longer vanish around a rename or a gem/API version skew.
 - `Vehicles.regions` follows the dataset in effect (it was memoized once per process).
 - Docs: the "car catalog is tens of KB" claim (it is ~63 KB worldwide, ~14 KB for one country), `Model::KINDS` ("all :car"), and the initializer's "EU market" text.
-- **`Plates::Series#strict?` now reads the dataset's `matching:` key** (PRD-PLATES §2.7, normative) instead of inferring strictness from a `regex_strict` twin being present. The spec forbids that inference: most strict series need no twin because their `regex` already is the issuing grammar. 668 strict series were answering `strict? == false` before, among them Portugal's whole national range (AA-00-AA) and the Spanish CD/CC/OI/TA, military and police series. `Match#strict?` follows. Found by dogfooding: 2 of CarHey's 3 Portuguese cars validated as "recall-only".
+- **`Plates::Series#strict?` now reads the dataset's `matching:` key** (the plates spec §2.7, normative) instead of inferring strictness from a `regex_strict` twin being present. The spec forbids that inference: most strict series need no twin because their `regex` already is the issuing grammar. 668 strict series were answering `strict? == false` before, among them Portugal's whole national range (AA-00-AA) and the Spanish CD/CC/OI/TA, military and police series. `Match#strict?` follows. Found by dogfooding: 2 of CarHey's 3 Portuguese cars validated as "recall-only".
 - `Match#formatted` / `Series#format_serial` no longer invent a split when the series' regex can split a serial more than one way (`Series#ambiguous_split?`): "CD12345" and "CD123456" come back as stored instead of "CD-1234-5" / the representative "CD-123-456". This runs before the display-pattern walk; 22 series with variable-width groups (ES diplomatic, personalised and special-index plates) are affected.
 - `Plates.template_series` (what `Plates.render` draws) prefers strict hits over recall-only ones: a Spanish "CD-123-456" is drawn as the diplomatic series, not as the 1900–1971 numeric catch-all it also fits.
 
@@ -168,7 +168,7 @@ Everything below the plates fixes comes from dogfooding the gem in a production 
   template per window, not one per call. Keys carry the template schema and
   gem version.
 - `Vehicles::Plates::TemplateFill`: the reference filler, moved verbatim from
-  vehiclesdb-web (`fill`, `metadata`, `groups`, and the shared fit formulas
+  the VehiclesDB web app (`fill`, `metadata`, `groups`, and the shared fit formulas
   `fit_size` / `recentered_baseline` the VehiclesDB renderer will call from
   here), plus `shape_of` and a `label:` option for a localized accessible
   name. Standard library only; the file loads on its own in a gem-less Ruby.
@@ -314,7 +314,7 @@ Everything below the plates fixes comes from dogfooding the gem in a production 
 
 ### Changed
 
-- Plates dataset refreshed — the overnight swarm passes' settlements
+- Plates dataset refreshed — the overnight verification passes' settlements
   land: the Cypriot centre date mark, Brazil's square-dot printed form
   and photographed moto split, San Marino's structured legend/sigla
   fields, Ukraine's statutory line counts, California's pixel-sampled
@@ -431,7 +431,7 @@ Everything below the plates fixes comes from dogfooding the gem in a production 
 
 ## [0.6.0] - 2026-07-27
 
-License plates become a first-class citizen: the PRD-PLATES registration-mark
+License plates become a first-class citizen: the VehiclesDB registration-mark
 dataset ships in the gem, bundled and offline like everything else.
 
 ### Added
@@ -451,20 +451,20 @@ The hosted images API is **live** — this release points the wired-up provider
 seam at the real thing.
 
 ### Added
-- `Model#image(color:, size:)` returns a rendered variant URL from the live
+- `Model#image(color:, size:)` returns an image variant URL from the live
   VehiclesDB images API (`:sm` 320×180, `:md` 640×360, `:lg` 1280×720, webp).
   Mint a key at <https://vehiclesdb.com/settings/api-keys> and set
   `config.api_key`; without a key it stays nil, as always.
 - `Model#images(color:)` returns the full payload: every variant with
-  dimensions, the rendered palette for the model, served-vs-requested color
-  (un-rendered colors fall back honestly instead of 404ing), provenance.
+  dimensions, the available palette for the model, served-vs-requested color
+  (unavailable colors fall back honestly instead of 404ing), provenance.
 
 ### Changed
 - `config.api_base_url` default is now `https://vehiclesdb.com` (the live API
   origin; endpoint paths carry `/v1`). It must be an ORIGIN — no path suffix.
 - `Model#image` accepts `year:` but does not send it: `year`/`trim` are
   reserved filters server-side (the API 422s on them by contract) until
-  year-accurate renders ship.
+  year-accurate images ship.
 
 ## [0.4.1] - 2026-07-26
 

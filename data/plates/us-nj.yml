@@ -1,4 +1,4 @@
-# plates/us-nj.yml — New Jersey (PRD-PLATES gate L2, mid-Atlantic group).
+# plates/us-nj.yml — New Jersey (the plates spec gate L2, mid-Atlantic group).
 #
 # THE FINDING THIS FILE EXISTS FOR: NEW JERSEY'S SEPARATOR IS NOT A CHARACTER.
 # The gap in the middle of a New Jersey serial is occupied by a SILHOUETTE OF
@@ -34,7 +34,7 @@ binding: vehicle
 statute_edition: "New Jersey Revised Statutes Title 39 (Motor Vehicles and Traffic Regulation), read 2026-08-02 through a third-party reproduction (see the sourcing caveat on 39:3-33). Edicts of government are public domain at every level, so the reproduction carries the text faithfully, but the OFFICIAL New Jersey Legislature service was not reachable in this pass and that is recorded as a gap."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: public-domain-favourable
@@ -76,7 +76,7 @@ artwork_risk:
     - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY: surfaces Burnett v. County of Bergen, 402 N.J. Super 319 (2008) and N.J.S.A. 52:18A-234.5 (Open Data Initiative Act). Neither was fetched."
 
 # ---------------------------------------------------------------------------
-# THE SEPARATOR FINDING (PRD-PLATES §2.6 / §2.8).
+# THE SEPARATOR FINDING (the plates spec §2.6 / §2.8).
 # ---------------------------------------------------------------------------
 separator_finding:
   headline: "New Jersey prints a state-outline GRAPHIC in the serial gap."
@@ -194,14 +194,14 @@ series:
     sources:
       - "https://www.nj.gov/mvc/vehicles/standplates.htm  # NJ MVC's standard-plate page and its official 'Standard Plate Example' image — the source for the 3+3 grouping, the state-outline separator, the gradient, the mixed-case legends and the two-plate rule"
       - "https://www.nj.gov/mvc/vehicles/personalized.htm  # NJ MVC: 'A personalized plate must have at least three letters and a maximum of seven characters' — the only official New Jersey character constraint"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Jersey  # LOCATOR ONLY (PRD-PLATES §4): the April 2014 date, the A12-BCD arrangement, the A10-EFF start and the R22-WPG progression"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Jersey  # LOCATOR ONLY (the plates spec §4): the April 2014 date, the A12-BCD arrangement, the A10-EFF start and the R22-WPG progression"
     notes: >-
       GARDEN STATE, SCREENED (2014-). The current New Jersey standard issue.
       `start: 2014` is locator-grade; what is agency-sourced is that this is the
       design NJ MVC shows as its standard plate today. The 2010 and 2014 bases
       share a serial arrangement and differ ONLY in manufacture — embossed with
       security threads versus screened — which is exactly the kind of boundary
-      PRD-PLATES §2.3 says makes a separate series (design differs) while
+      the plates spec §2.3 says makes a separate series (design differs) while
       warning that it will look like hair-splitting to a consumer. It is not:
       an embossed New Jersey plate and a screened one are physically different
       objects and a renderer must know which it is drawing.
@@ -473,7 +473,7 @@ series:
       pattern_note: >-
         The three-letter minimum is an unusual constraint — most states bound
         length and alphabet, not letter COUNT — and it is exactly the kind of
-        authority-alphabet rule PRD-PLATES §2.7 invented `regex_strict` for.
+        authority-alphabet rule the plates spec §2.7 invented `regex_strict` for.
     fee: "$50 initial personalisation; $50 to reactivate a registration expired more than two years; $50 to reissue to a different owner (NJ MVC). Dedicated plates may additionally be personalised with up to FIVE characters for an initial $100 plus the annual renewal."
     region_encoding: none
     sources:
@@ -485,7 +485,7 @@ series:
       validator that treats personalisation as one rule per state.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5.
   # =========================================================================
   - id: us-nj-specialty-index
     class: specialty
@@ -500,7 +500,7 @@ series:
       charset: { notes: "specialty plates carry ORDINARY serials on an alternative design; when personalised they are capped at five characters rather than seven (NJ MVC)." }
     design:
       background: { finish: retroreflective }
-      note: "one design per approved programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per approved programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       structure_official: >-

@@ -1,4 +1,4 @@
-# plates/us-pa.yml — Pennsylvania (PRD-PLATES gate L2, mid-Atlantic group).
+# plates/us-pa.yml — Pennsylvania (the plates spec gate L2, mid-Atlantic group).
 #
 # PENNSYLVANIA IS THE ONE STATE IN THIS GROUP WHOSE ADVERSE POSTURE IS IN
 # STATUTE. New York's is judicial and inferred; Pennsylvania's is a legislative
@@ -25,7 +25,7 @@
 # characters, NO hyphen, with the Liberty Bell as a watermark BEHIND the
 # characters. The base it replaced reads ABC-1234. So Pennsylvania dropped the
 # printed separator at the 2025 base change, and this file spells each base's
-# separator as that base actually prints it (PRD-PLATES §2.6 rule 2).
+# separator as that base actually prints it (the plates spec §2.6 rule 2).
 #
 # period_evidence / format_evidence vocabularies as in us-ny.yml.
 jurisdiction: us-pa
@@ -36,7 +36,7 @@ binding: vehicle
 statute_edition: "75 Pa.C.S. (Vehicles), Chapter 13, read 2026-08-02. The Pennsylvania General Assembly's own statute service (palegis.us) reset the connection on four attempts in this pass, so §§ 1331 and 1332 were read through a third-party reproduction of the consolidated statutes; edicts of government are public domain at every level so the text is freely usable, but a verifier should re-derive from palegis.us. Recorded gap."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: adverse-by-statute
@@ -55,7 +55,7 @@ artwork_risk:
     returned 403 on both a WebFetch and a browser-user-agent curl, and
     palegis.us reset the connection repeatedly. The citation and the quoted
     clause come from the Wikipedia survey of subnational copyright status, which
-    is a LOCATOR under PRD-PLATES §4 and not an authority. The clause is quoted
+    is a LOCATOR under the plates spec §4 and not an authority. The clause is quoted
     here so a verifier knows exactly what to pull and can falsify it in one
     fetch. The conclusion should not be relied on for a render decision until
     the statute itself is in hand.
@@ -143,7 +143,7 @@ series:
         ABC0123 as seven contiguous characters with the Liberty Bell rendered as
         a watermark BEHIND them. The base it replaced printed ABC-1234 with a
         hyphen. Pennsylvania therefore dropped the printed separator at the 2025
-        base change, and PRD-PLATES §2.6 rule 2 requires each base's regex to be
+        base change, and the plates spec §2.6 rule 2 requires each base's regex to be
         written in ITS OWN printed form — which is why this series has no hyphen
         in it and `us-pa-visitpa` does.
       progression: "reported to run MYR0200 onward, reaching NHJ 3386 as of 25 July 2026 (locator). Note the locator's own rendering of the later serial contains a space, which conflicts with PennDOT's contiguous sample; the conflict is recorded, not resolved."
@@ -156,7 +156,7 @@ series:
         letters and numbers'; PennDOT's own image of the same plate shows a
         distinctly CREAM ground, not white, with navy characters and DARK RED
         legends the alt text does not mention. The hex recorded is the observed
-        cream. PRD-PLATES §5.3 says record disagreements rather than average
+        cream. The plates spec §5.3 says record disagreements rather than average
         them, and this is a disagreement inside a single agency page.
       legend_top: "PENNSYLVANIA"
       legend_bottom: "LET FREEDOM RING"
@@ -189,10 +189,10 @@ series:
       - "https://www.pa.gov/en/agencies/dmv/vehicle-services/registration-plates/standard-issue-registration-plate.html  # PennDOT: the 'Liberty Bell style' standard plate, a June 2025 introduction, 'white background with large blue letters and numbers', the $14 replacement fee, the D/E/F reissuance front, and the official sample image showing the contiguous ABC0123 serial"
       - "https://codes.findlaw.com/pa/title-75-pacsa-vehicles/pa-csa-sect-75-1331.html  # § 1331(b) plate content; (d) reflectorizing; (f) the periodic reissuance program"
       - "https://codes.findlaw.com/pa/title-75-pacsa-vehicles/pa-csa-sect-75-1332.html  # § 1332(d) no validating stickers"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Pennsylvania  # LOCATOR ONLY (PRD-PLATES §4): a MAY 2025 introduction, ABC1234, MYR0200 to NHJ 3386 as of 25 July 2026"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Pennsylvania  # LOCATOR ONLY (the plates spec §4): a MAY 2025 introduction, ABC1234, MYR0200 to NHJ 3386 as of 25 July 2026"
     notes: >-
       LET FREEDOM RING (2025-) — THE CURRENT PENNSYLVANIA STANDARD ISSUE.
-      DATE DISAGREEMENT, RECORDED NOT AVERAGED (PRD-PLATES §5.3): PennDOT's own
+      DATE DISAGREEMENT, RECORDED NOT AVERAGED (the plates spec §5.3): PennDOT's own
       page says JUNE 2025; the locator says MAY 2025. Both are written down;
       neither is split. `period.start: 2025` is safe under either. The design
       name also differs by source — PennDOT calls it the 'Liberty Bell style'
@@ -217,7 +217,7 @@ series:
       pattern: "LLL-9999"
       regex: '\A[A-Z]{3}-?\d{4}\z'
       charset: { notes: "as us-pa-let-freedom-ring: no statutory charset. Reported range KLF-0000 to MYR-0199, i.e. this base ran out exactly where the current one begins (MYR0200) - a clean, checkable boundary claim and the strongest era-inference signal in the file." }
-      pattern_note: "THIS base prints a hyphen. Written in its own printed form per PRD-PLATES §2.6 rule 2; the separator-free twin is derived by the consumer, not shipped."
+      pattern_note: "THIS base prints a hyphen. Written in its own printed form per the plates spec §2.6 rule 2; the separator-free twin is derived by the consumer, not shipped."
     design:
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: observed }
       foreground: "#1B3A6B"
@@ -237,7 +237,7 @@ series:
       visitPA.com (2017-) — THE PREVIOUS BASE, WITH NO END YEAR ON PURPOSE.
       PennDOT states that third-party and non-Commonwealth vendors may still be
       issuing it, so closing the period would be a false claim: this is exactly
-      the parallel-issuance case PRD-PLATES §2.2 sanctions ('old stock issues
+      the parallel-issuance case the plates spec §2.2 sanctions ('old stock issues
       on'), and it is why this series and us-pa-let-freedom-ring overlap. The
       2004 base carried the same visitPA.com slogan and the same ABC-1234
       format, differing only in the absence of the state outline; it is NOT given
@@ -267,7 +267,7 @@ series:
           says 'this string has a shape Pennsylvania has issued to a motorcycle'
           and nothing more. PennDOT's own rule caps a personal motorcycle plate
           at five characters, which every one of the four arrangements satisfies.
-      pattern_note: "recall-only forbids a regex_strict (PRD-PLATES §2.7) and none is given. When a primary establishes which arrangement is current, this series splits and the union becomes a historic parent."
+      pattern_note: "recall-only forbids a regex_strict (the plates spec §2.7) and none is given. When a primary establishes which arrangement is current, this series splits and the union becomes a historic parent."
     design:
       background: { finish: retroreflective }
       legend_top: "PENNSYLVANIA"
@@ -418,7 +418,7 @@ series:
       pattern_note: >-
         WHY THE ALTERNATION AND NOT A LOOKAHEAD: bounding total length with a
         lookahead would require either an unescaped wildcard or a character class
-        MIXING separators with the serial alphabet, and PRD-PLATES §2.8 forbids
+        MIXING separators with the serial alphabet, and the plates spec §2.8 forbids
         the second while the lint rejects the first. The alternation is longer
         and is the only spelling that satisfies the separator contract, which is
         a small but real demonstration that §2.8's rule has teeth.
@@ -436,7 +436,7 @@ series:
       one that merely shapes.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5.
   # =========================================================================
   - id: us-pa-specialty-index
     class: specialty
@@ -451,7 +451,7 @@ series:
       charset: { notes: "specialty plates carry ordinary serials on an alternative design and PennDOT says 'the majority of which can be personalized', so the seven-character personalisation frame applies to most of them." }
     design:
       background: { finish: retroreflective }
-      note: "one design per authorised programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       structure_official: >-

@@ -1,4 +1,4 @@
-# plates/au-qld.yml — Queensland (PRD-PLATES gate L3, Australia).
+# plates/au-qld.yml — Queensland (the plates spec gate L3, Australia).
 #
 # QUEENSLAND IS THE AUSTRALIAN JURISDICTION WHERE THE LAW AND THE AGENCY BOTH
 # TALK. Two primaries carry this file:
@@ -28,7 +28,7 @@
 # while the FORMAT is the Minister's. Splitting those two claims apart — same
 # series, different evidence grades — is the whole discipline.
 #
-# SEPARATOR NOTE (PRD-PLATES §2.6): the Minister writes the new combination
+# SEPARATOR NOTE (the plates spec §2.6): the Minister writes the new combination
 # "456-BZ8" with a hyphen; the plate prints a gap, not a hyphen. `pattern` and
 # `regex` spell the printed form with an optional emitted SPACE, per §2.6
 # rule 2, and a forgiving consumer deletes the Minister's hyphen anyway.
@@ -48,7 +48,7 @@ instrument:
   reprint_read: "reprint current as at 2026-08-01 (publication.date attribute of the OQPC XML), administering department recorded in the instrument as 'Department of Transport and Main Roads'"
   stage_repeal: "the instrument carries an automatic expiry date of 1 September 2031 (stage repeal) — a Queensland drafting convention, not a plate fact, recorded so nobody reads it as a series end"
   source: "https://www.legislation.qld.gov.au/view/whole/html/inforce/current/sl-2021-0113  # the whole regulation; read as OQPC XML at /view/whole/xml/inforce/current/sl-2021-0113 on 2026-08-02"
-  licence: "Queensland legislation is published by the Office of the Queensland Parliamentary Counsel; the site's robots.txt permits the /view/whole/ paths used here. Edicts of government — quoted, not embedded (PRD-PLATES §4)"
+  licence: "Queensland legislation is published by the Office of the Queensland Parliamentary Counsel; the site's robots.txt permits the /view/whole/ paths used here. Edicts of government — quoted, not embedded (the plates spec §4)"
 
 national_schemes:
   heavy_vehicle: >-
@@ -130,7 +130,7 @@ series:
     sources:
       - "https://web.archive.org/web/20180701170407/http://statements.qld.gov.au/Statement/2018/7/1/new-combination-seals-queensland-number-plate-future  # 'New combination seals Queensland number plate future', Minister for Transport and Main Roads the Hon. Mark Bailey, Queensland Cabinet and Ministerial Directory, Sunday 1 July 2018 (read via the Internet Archive, accessed 2026-08-02): the new three-numeral/two-letter/one-numeral combination with the worked example, the 'unique to Queensland' claim, the directional security mark under consideration, and the Y/Z-series exhaustion timeline"
       - "https://www.legislation.qld.gov.au/view/whole/html/inforce/current/sl-2021-0113  # reg 2021 s 117: the chief executive assigns the registration number and issues one or two plates — the grammar is nowhere in the instrument, which is the negative half of the sourcing story"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Queensland  # LOCATOR ONLY (PRD-PLATES §4), accessed 2026-08-02: the September 2020 first issue of this series. Uncited in the article; used as a finding aid and flagged, not asserted"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Queensland  # LOCATOR ONLY (the plates spec §4), accessed 2026-08-02: the September 2020 first issue of this series. Uncited in the article; used as a finding aid and flagged, not asserted"
     notes: >-
       QUEENSLAND'S CURRENT GENERAL ISSUE, WITH ITS TWO CLAIMS GRADED
       SEPARATELY. THE FORMAT IS AUTHORITY-SOURCED: a serving Minister described
@@ -180,7 +180,7 @@ series:
       SA and TAS one-back series carry. The END is the locator's and is flagged.
       The 2001 mid-series colour change is recorded on the design rather than
       used to split the series, because a colour-only variant of the same
-      format and period is a sub-entry, not a series (PRD-PLATES §2.3).
+      format and period is a sub-entry, not a series (the plates spec §2.3).
 
   # =========================================================================
   # PERSONALISED — the framework is in the instrument, and the instrument
@@ -213,7 +213,7 @@ series:
           deliberate catch-all over the serial alphabet.
       uniqueness_rule: "s 132(6), quoted above — the one constraint the law actually imposes"
     design:
-      note: "designs are the supplier's catalogue, not the instrument's; individual personalised DESIGNS are out of scope at this gate (PRD-PLATES §2.5)"
+      note: "designs are the supplier's catalogue, not the instrument's; individual personalised DESIGNS are out of scope at this gate (the plates spec §2.5)"
     programme:
       operator: "Personalised Plates Queensland (PPQ)"
       statutory_hook: >-
@@ -236,7 +236,7 @@ series:
       Queensland has run personalised plates for decades under predecessor
       instruments that were not read in this pass (recorded gap). Dating a
       programme by the instrument that most recently restates it is the
-      instrument-date disease PRD-PLATES §4 names, so it is labelled
+      instrument-date disease the plates spec §4 names, so it is labelled
       `instrument-in-force-upper-bound` rather than dressed up as a start.
       Modelled as its own series because the SERIAL SOURCE differs — owner-chosen
       rather than department-assigned — which is a format property even where

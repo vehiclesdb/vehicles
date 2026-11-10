@@ -1,4 +1,4 @@
-# plates/sk.yml — Slovakia (PRD-PLATES gate L1, wave 2).
+# plates/sk.yml — Slovakia (the plates spec gate L1, wave 2).
 #
 # EVERY claim below is read from slov-lex.sk, the Slovak government's own legal
 # portal, in its OFFICIAL CONSOLIDATED PDFs. slov-lex publishes a dated version
@@ -49,7 +49,7 @@
 #    č. 227/2006 Z. z. Čl. I bod 13 replaced the words "za pomlčkou" with "za
 #    štátnym znakom Slovenskej republiky" throughout. Every regex in this file
 #    therefore spells that position as the separator-only class `[- ]?`
-#    (PRD-PLATES §2.8): a hyphen is what the law once prescribed and what Slovak
+#    (the plates spec §2.8): a hyphen is what the law once prescribed and what Slovak
 #    text still commonly writes, a space is the printed gap, and neither is
 #    mandatory today.
 #
@@ -100,7 +100,7 @@
 # the commonly-quoted "Czechoslovak plates expired on 1 January 2005" is right
 # but only became right by amendment. Both readings are recorded below. Neither
 # country file duplicates the other silently and neither drops the era; a shared
-# `cs-` file was rejected because PRD-PLATES §2.1 keys on ISO 3166-1 and CS is
+# `cs-` file was rejected because the plates spec §2.1 keys on ISO 3166-1 and CS is
 # withdrawn with no authority left to cite.
 #
 # WHAT THIS PASS COULD NOT ESTABLISH, recorded rather than filled:
@@ -119,7 +119,7 @@
 #     colours quoted here come from the last instrument that stated them in
 #     words (vyhláška 225/2004 Z. z.) and from § 36 ods. 1 of vyhláška 9/2009
 #     as in force to 31 December 2022. Flagged per series.
-#   * WHICH MISSIONS HOLD WHICH EE/ZZ BLOCKS. PRD-PLATES puts diplomatic decode
+#   * WHICH MISSIONS HOLD WHICH EE/ZZ BLOCKS. The plates spec puts diplomatic decode
 #     tables at L4; none is authored.
 jurisdiction: sk
 authority:
@@ -197,7 +197,7 @@ common:
       90/1997 § 44 ods. 2 and vyhláška 225/2004 § 48 ods. 2 ("za pomlčkou") —
       and vyhláška č. 227/2006 Z. z. Čl. I bod 13 replaced those words with "za
       štátnym znakom Slovenskej republiky". Every regex here spells the position
-      `[- ]?`, the sanctioned separator-only class of PRD-PLATES §2.8, which
+      `[- ]?`, the sanctioned separator-only class of the plates spec §2.8, which
       accepts the historic hyphen, the modern printed gap, and the closed-up
       form Slovak registries and databases use. `pattern` prints a space for
       post-2006 series and a hyphen for pre-2006 ones, matching what each plate
@@ -287,7 +287,7 @@ common:
       geometry is the recorded gap here; between the two jurisdictions the
       coverage is complementary and neither is complete.
     licence: >-
-      PRD-PLATES §6: derive from published geometry, never from a third-party
+      the plates spec §6: derive from published geometry, never from a third-party
       TTF. With no Slovak glyph geometry published at all, a renderer must use
       the schematic fallback for this jurisdiction and record the substitution.
       No Slovak public-domain-of-statutes provision was researched — recorded gap.
@@ -305,7 +305,7 @@ common:
       keeping the same number.
     note: >-
       Modelled as a material option on the standard series rather than as a
-      separate series: PRD-PLATES §2.3 makes a variant its own series iff format,
+      separate series: The plates spec §2.3 makes a variant its own series iff format,
       design or period differs, and the illuminated plate shares all three
       (§ 35 ods. 6 gives it the same black-on-white and the same 52 x 11 cm).
     source: "https://www.slov-lex.sk/static/pdf/2009/8/ZZ_2009_8_20230101.pdf  # § 123 ods. 3, 9, 12, 13. Accessed 2026-08-02"
@@ -391,7 +391,7 @@ series:
       foreground_note: "'vypuklé' — embossed, not printed"
       border: { color: "#000000", hex_basis: observed, note: "§ 35 ods. 10: 'Tabuľka s evidenčným číslom má na okraji vylisovanú obvodovú drážku, ktorej farba je totožná s farbou písmen a číslic' — an embossed peripheral groove in the character colour, carrying security features. No width is given, unlike the Czech 4 mm." }
       band: { side: left, color: "#003399", content: eu-stars+SK, hex_basis: observed, geometry_note: "fully dimensioned — see common.euro_band.geometry" }
-      emblem: { present: true, rendered: placeholder, position: "between the first letter pair and the digits, in the separator position", content: "štátny znak Slovenskej republiky (the double cross on three hills)", dimensions: { h: 49, w: 38, unit: mm }, render_note: "PRD-PLATES §3 placeholder rule: the Slovak state arms are not licence-cleared in this pass. The millimetres ARE published (vyhláška 227/2006 Čl. I bod 21) and are recorded so a renderer that clears them needs no further research." }
+      emblem: { present: true, rendered: placeholder, position: "between the first letter pair and the digits, in the separator position", content: "štátny znak Slovenskej republiky (the double cross on three hills)", dimensions: { h: 49, w: 38, unit: mm }, render_note: "The plates spec §3 placeholder rule: the Slovak state arms are not licence-cleared in this pass. The millimetres ARE published (vyhláška 227/2006 Čl. I bod 21) and are recorded so a renderer that clears them needs no further research." }
       material_options: ["light alloy", "illuminated polycarbonate/polyester blend"]
       rear_differs: false
       display: "front and rear on categories M and N and on goods L7e quadricycles; rear only (centre or left) on L1e-L6e, O, R, PS and multi-purpose L7e — § 35 ods. 11"
@@ -423,7 +423,7 @@ series:
       § 143h it inserted is headed "Prechodné ustanovenie k úpravám účinným od
       1. marca 2022", the fossil of an earlier plan that zákon č. 404/2021 Z. z.
       postponed. THE FORMAT DID NOT CHANGE, which is why this series and its
-      predecessor share a regex and are separated by MEANING alone: PRD-PLATES
+      predecessor share a regex and are separated by MEANING alone: The plates spec
       §2.3 makes a series its own iff format OR design OR period differs, and
       here it is the region_encoding — a semantic, machine-readable difference
       that a parse API must act on — plus the period. The pre-2023 plates were
@@ -683,7 +683,7 @@ series:
       regex: '\A(?:EL|EV)[- ]?\d{3}[A-Z]{2}\z'
       pattern_note: >-
         THE PATTERN SHOWS THE EV FORM AND THE REGEX CARRIES BOTH, for a schema
-        reason rather than a legal one: the human-pattern DSL of PRD-PLATES §2.2
+        reason rather than a legal one: the human-pattern DSL of the plates spec §2.2
         reserves L for "any letter", so a literal EL prefix cannot be spelled as a
         pattern at all without meaning "E followed by any letter". EV is equally
         canonical — § 35 ods. 7 offers the two as alternatives with no preference —
@@ -790,7 +790,7 @@ series:
       from the district system's own start rather than sourced. Flagged for the
       verifier as the first thing to check in this file. Modelled as its own
       series rather than a variant because the FORMAT differs — a reserved letter
-      at a fixed position is a grammar difference, and PRD-PLATES §2.3 makes that
+      at a fixed position is a grammar difference, and the plates spec §2.3 makes that
       a series.
 
   # =========================================================================
@@ -814,7 +814,7 @@ series:
           číslic" — which is why this series runs unbroken from 1997.
         block_allocation: >-
           NOT AUTHORED. Which mission holds which five-digit block is exactly the
-          decode PRD-PLATES defers to L4, and no instrument publishes it.
+          decode the plates spec defers to L4, and no instrument publishes it.
           Recorded gap.
     design:
       plate: { w: 520, h: 110, unit: mm }
@@ -1307,8 +1307,8 @@ series:
           words. A small provision that captures the whole reform: when the
           prefix stopped meaning a place, it stopped being able to make a word.
         matching_note: >-
-          `matching: recall-only` (PRD-PLATES §2.7), and the test is the one the
-          PRD sets: is this regex WIDER than what the authority issues? It is.
+          `matching: recall-only` (the plates spec §2.7), and the test is the one the
+          the spec sets: is this regex WIDER than what the authority issues? It is.
           § 124 ods. 2 admits any five-character tail "iná ako je uvedená
           v odseku 1" — anything EXCEPT the ordinary three-digits-two-letters
           arrangement — and no anchored regex in this dialect can subtract one
@@ -1366,7 +1366,7 @@ series:
           code) and `regex` accepts all thirty-two combinations of five
           alphanumerics. A match is a shape hit. The alternative — three
           alternated branches inside one anchored regex — was rejected because
-          each branch would straddle the separator position and PRD-PLATES §2.8
+          each branch would straddle the separator position and the plates spec §2.8
           forbids mixing separator and serial characters in one class.
         strict_note: >-
           The three enumerated shapes are all letter-initial and never place a

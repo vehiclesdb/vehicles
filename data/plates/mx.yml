@@ -1,4 +1,4 @@
-# plates/mx.yml — Mexico (PRD-PLATES gate L3).
+# plates/mx.yml — Mexico (the plates spec gate L3).
 #
 # EVERY format, dimension, character-metric, alphabet and series-allocation
 # claim in this file comes from ONE primary instrument and its predecessor,
@@ -69,14 +69,14 @@
 #    fix is a REPLACEMENT cycle (canje) whose phase differs per state; the
 #    widely repeated "Mexican states redesign their plates every three years"
 #    is the consequence, not the rule, and the artwork of a given state in a
-#    given trienio is NOT modelled here (PRD-PLATES §2.5).
+#    given trienio is NOT modelled here (the plates spec §2.5).
 #
 # 4. THE HYPHENS ARE PHYSICAL. NOM Apéndice A, under every figure, verbatim:
 #    "Las dimensiones de los guiones serán de 16 x 5.6." — the group separator
 #    is a stamped 16 × 5.6 mm bar, not typography, and 5.1.4.3 says the figures
 #    "contienen un guión o dos guiones de separación entre letras y dígitos".
 #    Every regex here therefore spells the hyphen as a MANDATORY literal
-#    (PRD-PLATES §2.6 rule 2: regexes are written in printed form). The
+#    (the plates spec §2.6 rule 2: regexes are written in printed form). The
 #    five-character motorcycle formats print NO separator and carry none.
 #
 # 5. FRONT AND REAR DIFFER — BY A LETTER, NOT A COLOUR. NOM 5.3.5, verbatim:
@@ -189,7 +189,7 @@ common:
       figuras, distintivos o leyendas que dificulten su lectura."
     font_posture: >-
       The glyph shapes are STATUTORY DRAWINGS (figuras 36-39 of Apéndice A
-      Normativo), not a named typeface — the same posture PRD-PLATES §6 records
+      Normativo), not a named typeface — the same posture the plates spec §6 records
       for the UK, Germany and Spain. No licensable font is mandated and none is
       recorded here.
     source: "https://www.dof.gob.mx/nota_detalle.php?codigo=5442476&fecha=24/06/2016  # 5.1.3.1, 5.1.3.2, 5.1.4.3 (guiones 16 x 5.6)"
@@ -1004,7 +1004,7 @@ series:
     notes: >-
       AMBULANCIAS and BOMBEROS. Tabla C gives them two rows and ONE order
       (AA-000-AA), and Apéndice A gives them ONE figure (34), so under
-      PRD-PLATES §2.3 they are one series with a shared format and design rather
+      the plates spec §2.3 they are one series with a shared format and design rather
       than two — the color-only-variant rule applied to a leyenda-only variant.
 
   - id: mx-civil-protection-2016
@@ -1036,7 +1036,7 @@ series:
       SISTEMA NACIONAL DE PROTECCIÓN CIVIL — the ONLY series in this file whose
       colours the NOM prescribes, which is why it is the only one carrying a
       background hex. The hexes are `observed` renderings of the NAMED Pantone
-      references (200 C red, Cool Gray 10 grey): PRD-PLATES §6 lets us build to a
+      references (200 C red, Cool Gray 10 grey): The plates spec §6 lets us build to a
       colour standard and forbids reproducing it, and Pantone's own coordinates
       are a licensed dataset, so the numbered colour is cited and the hex is
       marked observed — the same posture plates/gb.yml takes for BS AU 145e.
@@ -1103,7 +1103,7 @@ series:
     notes: >-
       TRASLADO NACIONAL — the federal transfer/ferry plate for moving an
       unregistered vehicle across the country, which is Mexico's `temporary`
-      class in the PRD vocabulary sense (short-validity, movement-only). Distinct
+      class in the spec vocabulary sense (short-validity, movement-only). Distinct
       from the state DEMOSTRACIÓN plates above, which are bound to a dealer
       rather than to a journey.
 

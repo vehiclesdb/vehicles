@@ -1,4 +1,4 @@
-# plates/gb.yml — United Kingdom (PRD-PLATES gate L1).
+# plates/gb.yml — United Kingdom (the plates spec gate L1).
 #
 # EVERY layout, colour, character-metric and class claim here comes from the
 # Road Vehicles (Display of Registration Marks) Regulations 2001 (S.I. 2001
@@ -39,7 +39,7 @@
 #    plate height, and neither does Schedule 2. The 520 x 111 mm oblong every
 #    British motorist can draw from memory is a BRITISH STANDARD dimension
 #    (BS AU 145e), and BS AU 145e is a copyrighted, paywalled BSI publication
-#    which PRD-PLATES § 6 permits us to build to and forbids us to reproduce.
+#    which the plates spec § 6 permits us to build to and forbids us to reproduce.
 #    Consequently `design.plate` is ABSENT from every series in this file and
 #    its absence is a sourced finding, not an omission. `design.characters`
 #    carries the metrics the Regulations do give.
@@ -92,7 +92,7 @@
 # DVLA memory-tag alphabet and the age-identifier value set from INF104, which
 # `regex` cannot carry because the lint generates "I", "Q" and "00".
 #
-# SEPARATOR NOTE (PRD-PLATES § 2.6): a British mark prints NO separator glyph.
+# SEPARATOR NOTE (the plates spec § 2.6): a British mark prints NO separator glyph.
 # What Table B line 5 prescribes is a GAP in millimetres — 33 mm between the
 # age identifier and the random letters on a current-style plate. The space in
 # every `pattern` here is the conventional textual rendering of that gap (and
@@ -163,7 +163,7 @@ common:
       first registered on or after 1.9.2001, nor on a replacement plate fitted
       on or after that date, "except where the vehicle was first registered
       before 1st January 1973". The DIAGRAMS THEMSELVES are line drawings in
-      Schedule 3 Part 2 and are not reproduced here (PRD-PLATES § 6: cite,
+      Schedule 3 Part 2 and are not reproduced here (the plates spec § 6: cite,
       never embed) — but note they are Crown-copyright material published
       inside a statutory instrument under OGL v3.0, not a paywalled standard.
     source: "https://www.legislation.gov.uk/uksi/2001/561/schedule/3  # Sch 3 Part 1 Table A rows 1-9 verbatim; Part 2 diagram list; Part 3 Table B"
@@ -180,7 +180,7 @@ common:
       The Regulations NAME the colours and never number them. The chromaticity
       coordinates live in BS AU 145d/145e, which are copyrighted BSI documents
       (Sch 2 Part 1 marginal citation M5 even gives the ISBN and tells the
-      reader to buy a copy). Under PRD-PLATES § 6 we build to them and never
+      reader to buy a copy). Under the plates spec § 6 we build to them and never
       reproduce them, so every hex in this file is `hex_basis: observed` inside
       a statutorily named colour — the same posture plates/de.yml takes for
       "grünes Kennzeichen" and "rotes Kennzeichen".
@@ -198,7 +198,7 @@ common:
       and at least 7 mm below the mark. Para 8 permits a border that is
       permanent, non-retroreflecting, single-shade, at least 10 mm clear of any
       character, not above the other markings, and no more than 5 mm wide.
-    ip_note: "BS AU 145e is paywalled BSI copyright. PRD-PLATES § 6 applies: cite, build to, never redistribute. No dimension in this file is taken from it."
+    ip_note: "BS AU 145e is paywalled BSI copyright. The plates spec § 6 applies: cite, build to, never redistribute. No dimension in this file is taken from it."
     source: "https://www.legislation.gov.uk/uksi/2001/561/schedule/2  # Sch 2 Part A1 paras 1, 5-8; Part 1 para 1 + M5; Part 2 para 1 + M6; Part 3 B.1 + M7"
   characters:
     current_style:
@@ -230,7 +230,7 @@ common:
     tolerance: "reg 12(2): character height may be +/- 1 mm; any other dimension +/- 0.5 mm"
     dossier_correction: >-
       THE SOURCE APPENDIX IS WRONG ON ONE NUMBER AND THIS FILE CORRECTS IT.
-      aux/research/plates-2026-07/plates-research-eu-intl.md § 2.6 tabulates
+      the EU research dossier § 2.6 tabulates
       "Character width (except 1 / I) ... Current style: 57". It is 50 mm.
       Table B line 1 ("Character width (all new registration plates from 1.9.01
       except replacement of 'classic' plates)") gives 50 mm at 79 mm height and
@@ -460,13 +460,13 @@ legacy_layouts_not_modelled: >-
   and dateless arrangements (1234 AB, 123 ABC, ABC 123, AB 1234) that Britain
   issued before 1963 and that survive in enormous numbers on personalised and
   historic vehicles. They are DELIBERATELY not authored as series in this L1
-  pass: PRD-PLATES scopes L1 at the current standard series plus ONE series
+  pass: The plates spec scopes L1 at the current standard series plus ONE series
   back, and no primary dating ANY of them was secured (the suffix system's
   1963 start and the prefix system's 1983 start are both folklore in this
   pass). Their SHAPES are nevertheless fully sourced in `common.layouts` above
   and are carried in the union regex of gb-historic-blacksilver, so a parse
   API can already recognise them as British without this file inventing a
-  period for them. Authoring them is L4 work (PRD-PLATES § 7, "Historical
+  period for them. Authoring them is L4 work (the plates spec § 7, "Historical
   depth (the pre-2000 world)").
 
 series:
@@ -523,7 +523,7 @@ series:
         S.I. 2001/561 nor its Schedules prescribe a plate width or height. Only
         characters, spacings and MINIMUM margins are regulated (reg 14,
         Table B). Plate sizes live in BS AU 145e, which is paywalled BSI
-        copyright (PRD-PLATES § 6).
+        copyright (the plates spec § 6).
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: observed, spec_note: "Sch 2 Part A1 para 2: black characters on a white background at the FRONT. Retroreflection per BS AU 145e (para 1)." }
       background_rear: { color: "#FFFF00", finish: retroreflective, hex_basis: observed, spec_note: "Sch 2 Part A1 para 3: black characters on a yellow background at the BACK. The statute names 'yellow' and gives no coordinates." }
       foreground: "#000000"
@@ -567,7 +567,7 @@ series:
       BS AU 145d to BS AU 145e is NOT cut as a second series. The MARK did not
       change, the colours did not change and the character metrics did not
       change; what changed is the plate-manufacturing standard and the
-      supplier-marking and border rules. Under PRD-PLATES § 2.3 that is a
+      supplier-marking and border rules. Under the plates spec § 2.3 that is a
       specification change inside one design, so it is recorded in
       `design.spec_history` with both instruments cited. Splitting it would
       have created two series with byte-identical regexes and no consumer-
@@ -618,7 +618,7 @@ series:
       BRITISH MOTORCYCLES CARRY AN ORDINARY MARK ON AN EXTRAORDINARY PLATE.
       A separate series and not a variant because the design differs on four
       axes at once — rear-only, two-line-only, 64 mm characters and a second
-      statutory font drawing — which is exactly the PRD-PLATES § 2.3 test.
+      statutory font drawing — which is exactly the plates spec § 2.3 test.
       Two edge cases INF104 § 07 states and this series carries: a tricycle
       "made from four-wheeled bodies, such as saloon cars" may use EITHER the
       car or the motorcycle requirements, while a tricycle built from a
@@ -691,7 +691,7 @@ series:
       S.I. 2020/1276 came into force on 8 December 2020 and INF104 § 09 gives
       the same date, so this is `enabling-instrument`, not folklore. Its own
       series rather than a sub-entry of gb-standard-2001 because BOTH the
-      period and the design differ (PRD-PLATES § 2.3), and because the class
+      period and the design differ (the plates spec § 2.3), and because the class
       vocabulary's `electric` value would otherwise have no British home. The
       flash is OPTIONAL — a zero-emission vehicle without one is entirely
       lawful — so a green flash is evidence of a ZEV and its absence is
@@ -801,7 +801,7 @@ series:
 
   # =========================================================================
   # THE PREVIOUS STANDARD FORMAT — the PREFIX system. Table A row 2. This is
-  # the "one series back" PRD-PLATES L1 requires, and the one period claim in
+  # the "one series back" the plates spec L1 requires, and the one period claim in
   # this file that is NOT firmly dated at its start.
   # =========================================================================
   - id: gb-prefix-1984
@@ -1067,7 +1067,7 @@ series:
 
   # =========================================================================
   # HISTORIC — the black-and-silver regime. A DESIGN laid over whatever mark
-  # the vehicle already holds, so RECALL-ONLY (PRD-PLATES § 2.7).
+  # the vehicle already holds, so RECALL-ONLY (the plates spec § 2.7).
   # =========================================================================
   - id: gb-historic-blacksilver
     class: historic
@@ -1150,7 +1150,7 @@ series:
         constructed on or before 1st January 1980" were INSERTED by S.I.
         2020/1363 reg 6 with effect from 1 January 2021.
       source_disagreement: >-
-        RECORDED, NOT AVERAGED (PRD-PLATES § 5.3). INF104 § 07 says: "From April
+        RECORDED, NOT AVERAGED (the plates spec § 5.3). INF104 § 07 says: "From April
         2020 vehicles manufactured before 1 January 1980 are also able to display
         traditional 'black and white' number plates. You must: have applied to
         DVLA; be registered within the 'historic vehicles' tax class." The

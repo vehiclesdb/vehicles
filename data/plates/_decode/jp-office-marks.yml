@@ -18,7 +18,7 @@
 # 250 cm3), and § 63-4(2) to 検査対象外軽自動車 (125-250 cm3 motorcycles).
 # One decode table therefore serves every series in plates/jp.yml.
 #
-# THE SCRIPT LINE (PRD-PLATES §2.6). These marks are written in kanji and
+# THE SCRIPT LINE (the plates spec §2.6). These marks are written in kanji and
 # hiragana. They are NOT in the dataset's serial alphabet (A-Z 0-9), so they
 # can never appear in a `format.pattern` or a `format.regex`; plates/jp.yml
 # carries them as a `format.fields[]` entry with `script: kanji-hiragana` and
@@ -35,7 +35,7 @@
 # boundary change stays valid afterwards. A decoder must therefore treat a mark
 # as evidence of the base of use AT FIRST REGISTRATION (or last renumbering),
 # never as a current-location signal. This is the same caution plates/gb.yml
-# records for DVLA memory tags and PRD-PLATES §2.4 records for the French SIV.
+# records for DVLA memory tags and the plates spec §2.4 records for the French SIV.
 #
 # ROWS ARE NEVER DELETED. No mark has been withdrawn from 別表第一 in any
 # revision e-Gov publishes (2017-04-01 onward): the table has only grown,

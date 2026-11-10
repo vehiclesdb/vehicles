@@ -1,4 +1,4 @@
-# plates/ca-nl.yml — Newfoundland and Labrador, Canada (PRD-PLATES gate L2/L3,
+# plates/ca-nl.yml — Newfoundland and Labrador, Canada (the plates spec gate L2/L3,
 # Canada east wave).
 #
 # NEWFOUNDLAND AND LABRADOR DOES NOT CALL IT A LICENCE PLATE OR A NUMBER PLATE.
@@ -52,10 +52,10 @@
 #    calendar 2024, and resumed in November 2025 with the province name in black.
 #    Four bases, one format (ABC 123), continuous serial allocation across all of
 #    them. Each interruption is authored as its own series because the DESIGN and
-#    the PERIOD both differ (PRD-PLATES §2.3), and they overlap the pitcher-plant
+#    the PERIOD both differ (the plates spec §2.3), and they overlap the pitcher-plant
 #    series by construction — the parallel-issuance case §2.2 contemplates.
 #
-# SEPARATOR NOTE (PRD-PLATES §2.6): the serial prints as a gap. Every `pattern`
+# SEPARATOR NOTE (the plates spec §2.6): the serial prints as a gap. Every `pattern`
 # spells the emitted space; every regex accepts it as optional.
 jurisdiction: ca-nl
 authority:
@@ -78,7 +78,7 @@ instrument:
     - "https://www.assembly.nl.ca/legislation/sr/statutes/h03.htm  # Highway Traffic Act, RSNL1990 c. H-3, full consolidated text, fetched 2026-08-02 — every statutory quotation in this file"
   licence: >-
     The Highway Traffic Act is an EDICT OF GOVERNMENT and its text is
-    uncopyrightable (PRD-PLATES §4). Every verbatim statutory quotation here is of
+    uncopyrightable (the plates spec §4). Every verbatim statutory quotation here is of
     that text.
   regulations_not_read: >-
     HTA s. 34 empowers the registrar to "issue other plates or markers that may be
@@ -98,7 +98,7 @@ artwork_risk:
     Labrador, all rights reserved." No provincial open licence covering plate
     ARTWORK was located. The statute TEXT is free as an edict of government.
   emblem_rule: >-
-    PRD-PLATES §3 placeholder default applies. The pitcher plant (the provincial
+    the plates spec §3 placeholder default applies. The pitcher plant (the provincial
     floral emblem, and the centrepiece of the provincial wordmark), the whale
     graphic of the 2022 base, the provincial flag sections and the half maple leaf
     of the 2024 base are all rendered `placeholder`. The pitcher-plant wordmark is
@@ -173,8 +173,8 @@ common:
       a finding rather than an omission.
   class_letters:
     note: >-
-      TAGGED SECONDARY (PRD-PLATES §4, owner override 2026-08-02) — the whole table.
-      Inlined rather than put in `plates/_decode/` because PRD-PLATES §2.4 sends
+      TAGGED SECONDARY (the plates spec §4, owner override 2026-08-02) — the whole table.
+      Inlined rather than put in `plates/_decode/` because the plates spec §2.4 sends
       LARGE, CLOSED, PRIMARY-SOURCED lists to a decode file and this is small
       (nineteen rows) and not primary. It decodes VEHICLE CLASS, never geography:
       a Newfoundland and Labrador serial encodes no region and no date.
@@ -295,7 +295,7 @@ series:
       display: "ONE plate, REAR, for a private car (HTA s. 30(2)(a)); the count itself is registrar's discretion under s. 16(2)(b)"
       spec_history:
         - { from: 2007, to: 2025, note: "provincial wordmark in blue" }
-        - { from: 2025, note: "same base with the province name in BLACK, per the article — a wordmark colour change inside one design, recorded here rather than cut as a series (PRD-PLATES §2.3)" }
+        - { from: 2025, note: "same base with the province name in BLACK, per the article — a wordmark colour change inside one design, recorded here rather than cut as a series (the plates spec §2.3)" }
     sources:
       - "https://www.assembly.nl.ca/legislation/sr/statutes/h03.htm  # HTA s. 16(2)(b) (the registrar determines number, distinctiveness and numbering), s. 16(4) (different plates for different classes), s. 28(1) (Crown property), s. 30(1)-(2) (30 cm, one plate rear / two plates front and rear), s. 31 (kept clean)"
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Newfoundland_and_Labrador  # TAGGED SECONDARY: the pitcher-plant base from April 2007, the ABC 123 format, the December 2021 / January 2023 and December 2022 / January 2024 interruptions, the November 2025 resumption with a black province name, and the issuance ranges"
@@ -310,7 +310,7 @@ series:
       modelling decision: the serial run continued straight through both, so what
       happened in 2022 and 2024 was a parallel base rather than a succession. The
       two commemorative series therefore OVERLAP this one, legally under
-      PRD-PLATES §2.2 and with distinct notes. PARSE CAUTION: ABC 123 is also the
+      the plates spec §2.2 and with distinct notes. PARSE CAUTION: ABC 123 is also the
       current shape in Nova Scotia and New Brunswick, so a bare string is not
       diagnostic; the province is recoverable only from the image, or from the class
       letter if the consumer has the block table in `common.class_letters`.
@@ -339,7 +339,7 @@ series:
     notes: >-
       A COMMEMORATIVE BASE THAT REPLACED THE STANDARD BASE FOR A CALENDAR YEAR, for
       Newfoundland and Labrador's 2022 Come Home Year. Its own series because both
-      the design and the period differ (PRD-PLATES §2.3), and it deliberately
+      the design and the period differ (the plates spec §2.3), and it deliberately
       overlaps ca-nl-standard-2007 because the serial run never broke: JRA-JTC is a
       slice of the ordinary J allocation that happens to have been struck on a
       different base. Entirely secondary, and the only Canadian series in this wave
@@ -677,7 +677,7 @@ series:
         RIC-9 governs callsign suffixes and was not read in this pass, so `regex`
         accepts any two or three serial characters after the prefix, which is
         certainly wider than what ISED assigns. A match is a shape hit and nothing
-        more (PRD-PLATES §2.7).
+        more (the plates spec §2.7).
     design:
       plate: { w: 12, h: 6, unit: in, plate_basis: convention }
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: observed }

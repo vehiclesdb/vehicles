@@ -1,4 +1,4 @@
-# plates/us-ar.yml — Arkansas (PRD-PLATES gate L2, group: southcentral).
+# plates/us-ar.yml — Arkansas (the plates spec gate L2, group: southcentral).
 #
 # READ THIS BEFORE TRUSTING ANY CLAIM IN THIS FILE. Arkansas is the WEAKEST-
 # SOURCED state in the southcentral group, and the reason is structural rather
@@ -10,7 +10,7 @@
 # unlike Texas (Chapter 504 read in full), Oklahoma (Title 47 read in full) and
 # Louisiana (the OMV policy manual read in full), NOT ONE WORD OF ARKANSAS
 # STATUTE IS QUOTED BELOW. Everything here rests on the DFA — the issuing
-# authority, which is a primary source in its own right under PRD-PLATES §4 —
+# authority, which is a primary source in its own right under the plates spec §4 —
 # or is explicitly marked locator-grade.
 #
 # THAT IS ITSELF A FINDING, and it belongs in the record: edicts of government
@@ -26,7 +26,7 @@
 # in the same league as the "oldest designs still in use" list the US dossier
 # records (Delaware 1959, Colorado 1960, DC 1975, Minnesota 1978, North Carolina
 # 1982) — while the serial ARRANGEMENT changed underneath it in April 2021 when
-# the numeric-first space ran out. Under PRD-PLATES §2.3 ("own series iff format
+# the numeric-first space ran out. Under the plates spec §2.3 ("own series iff format
 # OR design OR period differs") that is two series on one design, and modelling
 # it any other way would let a parse API date an Arkansas plate fifteen years
 # wrong.
@@ -44,7 +44,7 @@ statute_access_note: >-
   next pass does not repeat the same four dead ends.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: no-pd-rule-found-default-copyrighted
@@ -69,14 +69,14 @@ artwork_risk:
     industries. Where a private contractor draws or manufactures a state design,
     "is this a state work?" stops being the only question. Flagged, not resolved.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies to the DIAMOND graphic that has
+    the plates spec §3's placeholder default applies to the DIAMOND graphic that has
     sat in the centre of the Arkansas base since 2006 (the diamond is an
     Arkansas state symbol — the state is the only US diamond producer — so the
     state-symbol regime, independent of copyright, is in play and is
     unresearched). Render `emblem: {present: true, rendered: placeholder}`.
   sources:
     - "https://portal.arkansas.gov/v/acceptable-use/  # Arkansas.gov acceptable-use and legal notices: 'Copyright 2026. All Rights Reserved, Arkansas.gov'; the no-framing / no-passing-off rule; Tyler Technologies as DMCA designated agent"
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): §105 does not reach the states; Arkansas is not listed among the states with a favourable rule — used to evidence an ABSENCE"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): §105 does not reach the states; Arkansas is not listed among the states with a favourable rule — used to evidence an ABSENCE"
 
 # ---------------------------------------------------------------------------
 # The US standards chain — recorded once per US file (see us-fl.yml).
@@ -89,7 +89,7 @@ us_standards:
     character_layout: "AAMVA §2.2: characters at least 2.5 in high, spaced at least 0.25 in apart, stroke weight 0.2-0.4 in, at least 1.25 in clear of the top and bottom edges"
     replacement_cycle: "AAMVA §1.1 recommends a rolling or full replacement cycle 'not to exceed 7 to 10 years'. NO ARKANSAS REPLACEMENT CYCLE WAS FOUND, and on the evidence there is none: the current base has been issued continuously since March 2006, which is twenty years and twice AAMVA's outer bound. Recorded as an apparent absence, not as a sourced absence."
     source: "https://www.aamva.org/getmedia/646bcc8a-219b-47d8-b5cd-726240473163/License-Plate-Standard-Edition-3_September-2025-Update.pdf"
-  folklore_caution: "The '1956 AMA standardization agreement' remains COMMONLY REPEATED, UNSOURCED (PRD-PLATES §4). The Arkansas locator repeats it with the same unobtained ALPCA magazine citation the Texas article uses, and adds a genuinely interesting detail that is worth chasing to a primary one day: that Arkansas's 1947, 1952 and 1955 issues were already 6 x 12 in but had NON-STANDARD MOUNTING HOLES, so the 1956 issue was the first to comply fully. If true, that is evidence the 1956 convention was about bolt spacing as much as about size — which is exactly what AAMVA §3.1 still delegates to J686 today."
+  folklore_caution: "The '1956 AMA standardization agreement' remains COMMONLY REPEATED, UNSOURCED (the plates spec §4). The Arkansas locator repeats it with the same unobtained ALPCA magazine citation the Texas article uses, and adds a genuinely interesting detail that is worth chasing to a primary one day: that Arkansas's 1947, 1952 and 1955 issues were already 6 x 12 in but had NON-STANDARD MOUNTING HOLES, so the 1956 issue was the first to comply fully. If true, that is evidence the 1956 convention was about bolt spacing as much as about size — which is exactly what AAMVA §3.1 still delegates to J686 today."
 
 # ---------------------------------------------------------------------------
 # Display rules. Recorded thinly and honestly, because the Arkansas Code was
@@ -107,7 +107,7 @@ display_rules:
     it were. This is the single most-used fact in the file with the weakest
     support; a verifier should close it first.
   sources:
-    - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Arkansas  # LOCATOR ONLY (PRD-PLATES §4): 'Only rear plates have been required since 1944.' Not asserted as sourced; the underlying Arkansas Code section was not obtainable."
+    - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Arkansas  # LOCATOR ONLY (the plates spec §4): 'Only rear plates have been required since 1944.' Not asserted as sourced; the underlying Arkansas Code section was not obtainable."
 
 series:
 
@@ -131,7 +131,7 @@ series:
           because the Code was unreachable and the DFA publishes no format page.
           The arrangement recorded here — three letters, two numerals, one
           letter — is locator-grade and is labelled as such throughout. It is
-          NOT given a `regex_strict`, because PRD-PLATES §2.7 reserves that tier
+          NOT given a `regex_strict`, because the plates spec §2.7 reserves that tier
           for the authority's own alphabet and Arkansas has published none.
         excluded_reported: ["Q"]
         excluded_basis: locator-unconfirmed
@@ -163,11 +163,11 @@ series:
     region_encoding_note: "no geographic encoding in the serial and none reported historically; Arkansas is the plainest of the four states in this group on that axis."
     sources:
       - "https://www.dfa.arkansas.gov/office/motor-vehicle/  # the issuing authority: DFA Office of Motor Vehicle, the body that issues and administers Arkansas plates"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Arkansas  # LOCATOR ONLY (PRD-PLATES §4): the ABC 12D arrangement from April 2021, the AAA 01A to BJA 95D range as of 2025-10-31, the 2006 base design and its diamond graphic, the Q/U/V exclusions and the 2015 restoration of U and V, 12 x 6 in aluminium, Waldale manufacture. Wikipedia's own citation for the range is licenseplates.cc, a collector site. Nothing here is asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Arkansas  # LOCATOR ONLY (the plates spec §4): the ABC 12D arrangement from April 2021, the AAA 01A to BJA 95D range as of 2025-10-31, the 2006 base design and its diamond graphic, the Q/U/V exclusions and the 2015 restoration of U and V, 12 x 6 in aluminium, Waldale manufacture. Wikipedia's own citation for the range is licenseplates.cc, a collector site. Nothing here is asserted as sourced."
     notes: >-
       ARKANSAS CURRENT ISSUE — SAME PLATE, NEW NUMBER SHAPE. The modelling
       decision to record is why this is its own series rather than a note on the
-      2006 entry: PRD-PLATES §2.3 makes a format difference sufficient on its
+      2006 entry: The plates spec §2.3 makes a format difference sufficient on its
       own, and here the format is the ONLY difference — same design, same
       slogan, same graphic, same everything visible except the arrangement of the
       characters. A dataset that keyed series to base designs would have one
@@ -357,7 +357,7 @@ series:
       plate_category: "DFA classifies it under the catalogue's 'Special Interest' plate category"
       basis: authority-stated
     superseded_variants:
-      - "the 1957-2007 five-numeral antique plate is reported NO LONGER ISSUED BUT STILL VALID — a dead series lawfully on the road, exactly the case PRD-PLATES's `ended: true` + `year_end_min:` semantics exist for. It is not given its own entry here because the only source for its own format is a locator and because L2 scope is the current series plus one back per class."
+      - "the 1957-2007 five-numeral antique plate is reported NO LONGER ISSUED BUT STILL VALID — a dead series lawfully on the road, exactly the case the plates spec's `ended: true` + `year_end_min:` semantics exist for. It is not given its own entry here because the only source for its own format is a locator and because L2 scope is the current series plus one back per class."
       - "a separate ANTIQUE MOTORCYCLE plate is reported with a three-numeral-plus-letter arrangement (123A) on an 'ARK. M CYCLE / ANTIQUE' legend — recorded here rather than as a series for the same reason."
     region_encoding: none
     sources:
@@ -370,13 +370,13 @@ series:
       "Antique Vehicle License Plate - Current" and "Antique Vehicle License
       Plate - Valid - No Longer Issued" as separate catalogue items. That is an
       issuing authority explicitly modelling a discontinued-but-still-valid
-      series in its own public catalogue — the same distinction PRD-PLATES draws
+      series in its own public catalogue — the same distinction the plates spec draws
       with `ended: true`, arrived at independently by a state DMV, and the
       strongest available evidence that the schema's period semantics match how
       registrars actually think.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX ONLY, per PRD-PLATES §2.5. Arkansas gives the
+  # SPECIALTY — THE PROGRAM INDEX ONLY, per the plates spec §2.5. Arkansas gives the
   # cleanest COUNT in this group, from the department's own content API.
   # =========================================================================
   - id: us-ar-specialty-index
@@ -393,7 +393,7 @@ series:
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised program; individual designs are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised program; individual designs are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: 131

@@ -1,4 +1,4 @@
-# plates/us-mn.yml — Minnesota (PRD-PLATES gate L2, group midwest-b).
+# plates/us-mn.yml — Minnesota (the plates spec gate L2, group midwest-b).
 #
 # MINNESOTA'S STATUTE IS THE MOST PHYSICALLY SPECIFIC IN THIS GROUP AND THE LEAST
 # FORMAT-SPECIFIC. Minn. Stat. § 168.12 subd. 1 will tell you that a plate must be
@@ -23,7 +23,7 @@
 #
 #  3. MINNESOTA REGISTERS ROADABLE AIRCRAFT WITH THEIR FAA TAIL NUMBERS.
 #     § 168.12 subd. 1(i), in terms. That is a direct, statutory bridge between
-#     this dataset's road layer and the aircraft layer PRD-PLATES §7 puts at gate
+#     this dataset's road layer and the aircraft layer the plates spec §7 puts at gate
 #     L6, and it is specified below as its own series because it genuinely is one.
 #
 # WHAT THIS FILE COULD NOT GET: Minnesota's serial ARRANGEMENT and its current
@@ -39,7 +39,7 @@ binding: vehicle
 statute_edition: "Minnesota Statutes Chapter 168 (Vehicle Registration, Taxation, Sale), §§ 168.10 and 168.12 as published by the Office of the Revisor of Statutes at revisor.mn.gov. § 168.12 was last amended by 2024 c 104 art 1 s 17, so the design provisions read here are current to the 2024 session."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4. Minnesota is one of
+# artwork_risk — required per jurisdiction by the plates spec §4. Minnesota is one of
 # only two states in group midwest-b for which ANY evidence exists — and the
 # evidence is that the question is genuinely open.
 # ---------------------------------------------------------------------------
@@ -84,12 +84,12 @@ artwork_risk:
     the seven-year plate period and the roadable-aircraft rule are all free to use
     whatever the answer on artwork turns out to be.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies to whatever graphic the current Minnesota
+    the plates spec §3's placeholder default applies to whatever graphic the current Minnesota
     base carries — which this pass could not identify, since the DVS site refused every
     request. Render `emblem: {present: true, rendered: placeholder}`. Minnesota state-seal
     misuse statutes are a protection regime independent of copyright and are unresearched.
   sources:
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): the Minnesota section, which sets out the conflicting 1994 commissioner and 1995 Attorney General statements and quotes Minn. Stat. § 13.03 subd. 5. The conflict is recorded here, not resolved (PRD-PLATES §5.3)"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): the Minnesota section, which sets out the conflicting 1994 commissioner and 1995 Attorney General statements and quotes Minn. Stat. § 13.03 subd. 5. The conflict is recorded here, not resolved (the plates spec §5.3)"
     - "https://www.revisor.mn.gov/statutes/cite/13.03  # Minn. Stat. § 13.03 subd. 5, FETCHED AND READ: the software-only copyright authorization and its trade-secret consequence — an edict, PD, and the primary the secondary account turns on"
 
 us_standards:
@@ -162,7 +162,7 @@ series:
           appear in the statute. Note the striking phrase 'a letter or SIGN with figures':
           Minnesota law contemplates a non-alphanumeric SIGN in a registration number,
           which if ever exercised would be a `never_separator` amendment under
-          PRD-PLATES §2.6 rule 3. No such sign is known to be in use.
+          the plates spec §2.6 rule 3. No such sign is known to be in use.
       pattern_note: >-
         REPRESENTATIVE SHAPE ONLY, on the nl-export precedent, AND AN HONEST ADMISSION.
         Neither Minnesota's serial width nor its arrangement was sourced in this pass: the
@@ -281,7 +281,7 @@ series:
         and narrows it on two counts the round-trippable form cannot carry — the I/O
         exclusion, spelled as the ranges A-H, J-N and P-Z, and the leading-zero prohibition,
         spelled by requiring the first symbol after N to be 1-9. This is a textbook case of
-        why PRD-PLATES §2.7's strict twin exists: the charset restriction is real, sourced
+        why the plates spec §2.7's strict twin exists: the charset restriction is real, sourced
         and unrepresentable in a regex that must round-trip a human pattern.
     design:
       note: "no plate design is prescribed — subd. 1(i) issues a registration NUMBER 'in lieu of plates required under this section', so what is displayed is the aircraft's existing tail number"
@@ -294,10 +294,10 @@ series:
     notes: >-
       ROADABLE AIRCRAFT. This series is small, strange and genuinely valuable to the
       dataset, because it is a STATUTORY BRIDGE between the road-vehicle layer this program
-      is building now and the aircraft layer PRD-PLATES §7 schedules for gate L6: Minnesota
+      is building now and the aircraft layer the plates spec §7 schedules for gate L6: Minnesota
       law says a roadable aircraft's road registration number IS its FAA tail number. Two
       consequences worth carrying forward. First, `categories: [aircraft]` exercises the
-      schema's kind-extensibility exactly as PRD-PLATES §2.2 anticipated, with no schema
+      schema's kind-extensibility exactly as the plates spec §2.2 anticipated, with no schema
       change. Second, this is the only series in group midwest-b whose format is fully
       specified by a fetched primary INCLUDING its charset exclusions, which is why it is
       the only one here carrying a `regex_strict` — and the specification came from the
@@ -349,7 +349,7 @@ series:
       THE MINNESOTA COLLECTOR FAMILY — Pioneer, Classic Car, Collector and Street Rod —
       modelled as ONE series with four legend variants rather than four series, because
       § 168.10 gives them a single grammar, a single validity rule and a single no-date
-      rule, and PRD-PLATES §2.3 makes a variant its own series only where format OR design
+      rule, and the plates spec §2.3 makes a variant its own series only where format OR design
       OR period differs. Here only the inscription word differs.
       THE FACT WORTH CARRYING FORWARD is the interaction of two provisions: these plates
       bear NO DATE and are valid FOREVER without renewal. A Minnesota collector plate
@@ -361,7 +361,7 @@ series:
       were not extracted in this pass (recorded gap).
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5.
   # =========================================================================
   - id: us-mn-specialty-index
     class: specialty
@@ -374,7 +374,7 @@ series:
       regex: '\A[A-Z0-9](?: ?[A-Z0-9]){0,6}\z'
       pattern_note: "REPRESENTATIVE SHAPE ONLY; the index stands for many programs whose arrangements are not individually stated and whose common frame was not sourced"
     design:
-      note: "one design per authorised program; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised program; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: null
@@ -402,7 +402,7 @@ series:
       - "https://www.revisor.mn.gov/statutes/cite/168.12  # Minn. Stat. § 168.12 subd. 2: the amateur radio plate and its eligibility and fee conditions, the worked example of a Minnesota special-plate authorization; subd. 1(c)-(d): special plates displacing the 'noncommercial' legend and remaining available to commercial one-ton pickups"
       - "https://www.revisor.mn.gov/statutes/cite/168.10  # Minn. Stat. § 168.10: the collector-vehicle plate regimes, which sit alongside the specialty programs and are specified separately above"
     notes: >-
-      THE SPECIALTY PROGRAM INDEX — present as required by PRD-PLATES §2.5, CARRYING NO
+      THE SPECIALTY PROGRAM INDEX — present as required by the plates spec §2.5, CARRYING NO
       COUNT. Minnesota and Kansas are the two states in group midwest-b that yielded no
       specialty figure at all, in both cases because the issuing agency's website refused
       automated requests and the statutory enumeration was not completed. The honest record
