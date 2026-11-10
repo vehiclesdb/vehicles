@@ -1,4 +1,4 @@
-# plates/fr.yml — France (PRD-PLATES gate L1).
+# plates/fr.yml — France (the plates spec gate L1).
 #
 # EVERY format, colour, period and class claim in this file is sourced to one
 # of five French primaries, all fetched 2026-08-02 and pinned per claim below:
@@ -84,7 +84,7 @@
 #    a fourth item — "Le numéro d'immatriculation est reproduit sur chaque
 #    plaque d'immatriculation en caractères noirs sur fond rose" — and art. 3
 #    fixed its entry into force at 1 January 2026. Design differs, so per
-#    PRD-PLATES §2.3 the WW and W garage regimes are each TWO series, split at
+#    the plates spec §2.3 the WW and W garage regimes are each TWO series, split at
 #    2025/2026. A pink French plate cannot predate 2026; that is one of very
 #    few hard date signals a French plate carries.
 #
@@ -200,7 +200,7 @@ common:
       The three annexe-7 colours that matter most for the special series — the
       transit RED, the diplomatic JASPER GREEN and the diplomatic ORANGE — have
       NO coordinates anywhere in the 1996 arrêté's table. They are named and not
-      numbered, exactly as PRD-PLATES found for the German green and red plates.
+      numbered, exactly as the plates spec found for the German green and red plates.
       Their hexes below are marked `observed` and are the weakest colour claims
       in this file.
     source: "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000193190  # tableau des coordonnées trichromatiques (jour); art. 1 bis added 2026-01-01 exempting pink WW/W plates from the art. 1 homologation rule while binding them to the pink coordinates"
@@ -258,7 +258,7 @@ common:
     licence: >-
       NO NAMED TYPEFACE IS MANDATED — France is a third data point for the EU
       dossier's finding (UK prescribes a drawing, Germany a Schriftmuster,
-      France a written description). PRD-PLATES §6 therefore applies at its
+      France a written description). The plates spec §6 therefore applies at its
       cleanest here: the render layer derives glyphs from the statutory
       description, never from a third-party "plaque" TTF.
     source: "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000020237128  # art. 6"
@@ -458,7 +458,7 @@ series:
         background: "blue, not necessarily retroreflective"
         owner_chosen: true
         note: "art. 9; identical front and rear; reproduced only by homologated manufacturers"
-      emblem: { present: true, rendered: placeholder, note: "the identifiant territorial carries an official REGIONAL LOGO — 18 régions plus the collectivité européenne d'Alsace, none HELD. LICENCE ROUTE, corrected by reading art. 9 to its end: the logos are declared officiels ET LIBRES DE DROIT, and the article names their publisher — verbatim, 'Les logos des collectivités territoriales officiels et libres de droit, qui figurent sur le site internet du ministère de l intérieur : http://www.interieur.gouv.fr/, ne peuvent être reproduits sur les plaques d immatriculation que par le seul fabricant de plaques ou de matériau réfléchissant titulaire d homologation.' The reservation that follows is about reproducing them ON PLATES by makers without homologation — a manufacturing rule — and it sits after the words 'libres de droit'. So the blocker is ACQUIRING the official files, not their licence. PRD-PLATES §3 placeholder rule still applies until they are held and ledgered." }
+      emblem: { present: true, rendered: placeholder, note: "the identifiant territorial carries an official REGIONAL LOGO — 18 régions plus the collectivité européenne d'Alsace, none HELD. LICENCE ROUTE, corrected by reading art. 9 to its end: the logos are declared officiels ET LIBRES DE DROIT, and the article names their publisher — verbatim, 'Les logos des collectivités territoriales officiels et libres de droit, qui figurent sur le site internet du ministère de l intérieur : http://www.interieur.gouv.fr/, ne peuvent être reproduits sur les plaques d immatriculation que par le seul fabricant de plaques ou de matériau réfléchissant titulaire d homologation.' The reservation that follows is about reproducing them ON PLATES by makers without homologation — a manufacturing rule — and it sits after the words 'libres de droit'. So the blocker is ACQUIRING the official files, not their licence. The plates spec §3 placeholder rule still applies until they are held and ledgered." }
       shape_note: "art. 5: the useful part is rectangular with the long side horizontal; the physical support must be symmetric about a vertical axis and may be slightly curved; a lower 'bavette' outside the useful part may carry only the seller's or fitter's references"
       background_pattern_rule: "art. 5: 'Les trames de fonds de plaques ne doivent pas comporter de caractères explicites (lettre ou symbole) ou ostentatoires' — decorative background textures are allowed, explicit letters or symbols in them are not"
       rear_differs: false
@@ -479,7 +479,7 @@ series:
           Trailers and semi-trailers below the mass threshold of art. R. 317-8 II
           carry a plate REPRODUCING the towing vehicle's number rather than one
           of their own, and it may be removable. Format-identical and
-          colour-identical, so a sub-entry per PRD-PLATES §2.3 and not a series.
+          colour-identical, so a sub-entry per the plates spec §2.3 and not a series.
         sources:
           - "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042266062  # art. R. 317-8 II"
     sources:
@@ -571,7 +571,7 @@ series:
         date, ceux qui ont été préalablement immatriculés suivant ce format
         conservent leur numéro d'immatriculation. Exemple : A 11 A."
       separator: " "
-      separator_note: "the arrêté specifies a SPACE here and hyphens for the definitive number — the only French series pair whose separators differ, and a clean illustration of why the dataset commits to a separator set (PRD-PLATES §2.6)"
+      separator_note: "the arrêté specifies a SPACE here and hyphens for the definitive number — the only French series pair whose separators differ, and a clean illustration of why the dataset commits to a separator set (the plates spec §2.6)"
     design:
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: spec }
       foreground: "#000000"
@@ -620,7 +620,7 @@ series:
       the start of the new plate annexes. This series overlaps
       fr-siv-cyclomoteur-2009 at 2015 by construction: the old numbers keep
       running while the new shape starts, which is exactly the parallel-issuance
-      case PRD-PLATES §2.2 sanctions.
+      case the plates spec §2.2 sanctions.
 
   # =========================================================================
   # DEALER — W garage. Two series, split by the 2026 pink plate.
@@ -658,7 +658,7 @@ series:
       that where a W number is used on an already-registered vehicle "ce numéro
       doit seul être utilisé" is the tell: the vehicle's own plates come off.
       This entry exists as a separate series from fr-wgarage-2026 solely because
-      the DESIGN changed on 1 January 2026 (PRD-PLATES §2.3); the number format
+      the DESIGN changed on 1 January 2026 (the plates spec §2.3); the number format
       is identical across the split. TRANSITIONAL GAP: no provision on plates
       ALREADY IN SERVICE on 1 January 2026 was located — whether a pre-2026 W
       garage plate had to be replaced with a pink one, and by when, is
@@ -933,7 +933,7 @@ series:
         certificate tax, and an X for a vehicle belonging to a person who does
         NOT enjoy fiscal or customs immunities. Examples: "105 CD 5 Z",
         "600 CD 20 X".
-      range_note: "the country group is 1-199 and the organisation group 400-499 (with the fixed 500, 600, 700 cases) — ranges the regex deliberately does NOT encode, because a numeric range is not a lexical constraint and PRD-PLATES keeps regexes lexical; the ranges are recorded here for the decode layer"
+      range_note: "the country group is 1-199 and the organisation group 400-499 (with the fixed 500, 600, 700 cases) — ranges the regex deliberately does NOT encode, because a numeric range is not a lexical constraint and the plates spec keeps regexes lexical; the ranges are recorded here for the decode layer"
     design:
       background: { color: "#0B5D3B", finish: retroreflective, hex_basis: observed, hex_note: "annexe 7 item 2 says 'fond vert jaspe'; the 1996 colorimetric table has no green row at all, so this is a named colour with no coordinates anywhere in French law — observed, and flagged" }
       foreground: "#E87511"
@@ -941,7 +941,7 @@ series:
       band: { side: none, note: "SETTLED PHOTOGRAPHICALLY, and against the guess: French CD/CMD/C/K plates carry NO European symbol at all. Art. 8's duty is written for 'véhicules portant le numéro définitif', which a diplomatic number is not, and two independent photographs — 168 CD 66 in orange on jasper green, 431 K 12355 in white on jasper green — show a plain coloured face from rim to rim. Evidence: photographic-observed." }
       border_rule: { present: true, color: "as the characters", note: "both references show a thin rule inset about 2 mm from the rim in the character colour, orange on the CD plate and white on the K plate. In neither arrêté; photographic-observed." }
     region_encoding: none
-    region_encoding_note: "the leading 1-199 group is a COUNTRY code allocated by the Ministère des affaires étrangères and is NOT published in the arrêté — a diplomatic decode table is L4 work per PRD-PLATES §7 and is deliberately not authored here"
+    region_encoding_note: "the leading 1-199 group is a COUNTRY code allocated by the Ministère des affaires étrangères and is NOT published in the arrêté — a diplomatic decode table is L4 work per the plates spec §7 and is deliberately not authored here"
     sources:
       - "https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000030801732  # annexe VII D.1 (CMD/CD compositions for ambassades, hautes personnalités and organisations internationales, plus the ESA/Guyane 973 completion) and D.4 (the Z and X suffixes)"
       - "https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000052974050  # annexe 7 item 2: 'Séries CMD, CD — Le numéro d'immatriculation est reproduit sur chaque plaque d'immatriculation en caractères orangés sur fond vert jaspe.'"
@@ -1203,7 +1203,7 @@ series:
     categories: [car, van, truck, bus, motorcycle, moped, trailer, semitrailer, tractor, machine]
     period: { start: 1984, end: 2009 }
     period_evidence: instrument-in-force
-    # RECALL-ONLY (PRD-PLATES §2.7), and for an unusual reason: the composition
+    # RECALL-ONLY (the plates spec §2.7), and for an unusual reason: the composition
     # annexe of the governing instrument IS NOT PUBLISHED. Légifrance renders
     # annexe I of the arrêté du 5 novembre 1984 as the single line "(Annexe non
     # reproduite, voir JO du 22 décembre 1984 pages 11837 et suivantes". So the

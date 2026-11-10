@@ -1,4 +1,4 @@
-# plates/us-il.yml — Illinois (PRD-PLATES gate L2, group midwest-a).
+# plates/us-il.yml — Illinois (the plates spec gate L2, group midwest-a).
 #
 # WHY ILLINOIS IS THE BEST-SOURCED FILE IN THIS GROUP: alone among the five
 # midwest-a states, Illinois legislates the PLATE ITSELF rather than delegating
@@ -19,7 +19,7 @@
 #      of this dataset has never had to face; it is flagged, not modelled.
 #   2. THE 2017 BASE CHANGED ITS OWN LAYOUT MID-RUN — from AB1 2345 to AB 12345,
 #      same seven characters, moved space. That is precisely the case
-#      PRD-PLATES §2.6 was written for: a separator-forgiving consumer
+#      the plates spec §2.6 was written for: a separator-forgiving consumer
 #      canonicalizes both to one serial, which is why the dataset commits to
 #      which characters are separators.
 #   3. THE SOLIDUS IN COLLECTOR NOTATION IS NOT A SEPARATOR. Illinois plates
@@ -37,7 +37,7 @@
 # codes.findlaw.com, a third-party REPRODUCTION of the same edict; canonical
 # ilga.gov citations are carried alongside and were NOT fetched.
 #
-# NOT HERE, DELIBERATELY: individual specialty DESIGNS (L4 per PRD-PLATES §2.5)
+# NOT HERE, DELIBERATELY: individual specialty DESIGNS (L4 per the plates spec §2.5)
 # and the vanity/personalized series, which sit outside the L2 core-class list —
 # the statutory vanity grammar is recorded instead as evidence inside the
 # standard series' charset notes, where it does real work.
@@ -49,7 +49,7 @@ binding: vehicle
 statute_edition: "Illinois Compiled Statutes, Chapter 625 Act 5 (Illinois Vehicle Code), Article IV of Chapter 3, as reproduced by codes.findlaw.com and read 2026-08-02. FindLaw warns its text 'may not reflect the most recent version of the law'; currency is UNVERIFIED."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched-default-adverse
@@ -69,10 +69,10 @@ artwork_risk:
     legibility standard and the 'Land of Lincoln' legend are all EDICTS OF
     GOVERNMENT, which are public domain at every level. The adverse posture bites
     on the Lincoln portrait and skyline artwork, not on the spec — which is
-    exactly the split PRD-PLATES §4 predicts and the reason it prefers statutes
+    exactly the split the plates spec §4 predicts and the reason it prefers statutes
     over brochures.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies. The current base carries a grey
+    the plates spec §3's placeholder default applies. The current base carries a grey
     Abraham Lincoln portrait graphic and a Chicago/Springfield skyline — pictorial
     artwork in a state with no PD posture, i.e. the highest-risk category. Render
     `emblem: {present: true, rendered: placeholder}`; do not approximate the
@@ -159,7 +159,7 @@ series:
           exactly. That is evidence, not a grammar, so no `regex_statutory` is
           recorded — the vanity rule does not bound department-assigned serials.
       layout_change_note: >-
-        THE SEPARATOR CASE, and the reason PRD-PLATES §2.6 exists. Within the
+        THE SEPARATOR CASE, and the reason the plates spec §2.6 exists. Within the
         first year of this base the printed layout moved from AB1 2345 to
         AB 12345 — the SAME SEVEN CHARACTERS, with the space relocated from
         after the first digit to after the letters. A separator-forgiving
@@ -352,7 +352,7 @@ series:
           The Illinois dealer plate prints a stacked D-over-L pair (collector
           notation 'D/L') ahead of a variable-length numeric group, and under
           AAMVA Ed.3 that stacked pair IS part of the official plate number. The
-          honest `pattern` would therefore be "DL 99999" — but PRD-PLATES §2.2's
+          honest `pattern` would therefore be "DL 99999" — but the plates spec §2.2's
           human-pattern DSL reserves `L` for "any letter" and `9` for "any
           digit" and provides NO ESCAPE for a literal L or a literal 9, so that
           string cannot be written: the lint correctly generates "DF 23681" from
@@ -436,7 +436,7 @@ series:
           the AAMVA reading used throughout this file. A match against this regex
           says 'this string has the SHAPE of an Illinois public-fleet plate' and
           nothing more — it is not a validity claim for any one of the three
-          series, and per PRD-PLATES §2.7 a `regex_strict` here would be a
+          series, and per the plates spec §2.7 a `regex_strict` here would be a
           contradiction and is absent.
     design:
       background: { finish: retroreflective }
@@ -469,7 +469,7 @@ series:
       charset: { notes: "special plates carry ordinary serials on an alternative design; 625 ILCS 5/3-405.1's ban on 'characters, symbols... foreign words, or letters of punctuation' applies to the owner-chosen space and is the only statutory alphabet rule in Illinois plate law" }
     design:
       background: { finish: retroreflective }
-      note: "one design per approved special plate; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per approved special plate; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: null
@@ -508,7 +508,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Illinois  # LOCATOR ONLY: the categories of Illinois specialty plates, with no count given"
     notes: >-
       THE ILLINOIS SPECIALTY PROGRAM INDEX — one entry for the whole programme per
-      PRD-PLATES §2.5. The catalogue count is a declared gap, but Illinois gives
+      the plates spec §2.5. The catalogue count is a declared gap, but Illinois gives
       something better and more durable than a count: the programme's CREATION and
       DEATH thresholds, in statute. 2,000 applications to be born, fewer than
       1,000 live sets over two years to be killed. Those numbers will still be

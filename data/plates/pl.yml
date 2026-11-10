@@ -1,4 +1,4 @@
-# plates/pl.yml — Poland (PRD-PLATES gate L1, wave 2).
+# plates/pl.yml — Poland (the plates spec gate L1, wave 2).
 #
 # EVERY format, colour, dimension and class claim here is read from a Polish
 # primary instrument fetched in this pass through the Sejm's ELI API
@@ -198,7 +198,7 @@ common:
       pkt 2.12's rule that layout follows Rysunki 9-25, with the substitute
       rectangles of Rysunek 27 used for the digit 1 and the letters I, J, L and T.
     licence: >-
-      PRD-PLATES §6 applies unchanged: the render layer derives glyphs from the
+      the plates spec §6 applies unchanged: the render layer derives glyphs from the
       statutory drawing, never from a third-party TTF. Whether Poland has a
       German-style §5 UrhG public-domain rule for designs published inside
       statutory instruments was NOT researched in this pass — recorded gap, and
@@ -240,7 +240,7 @@ common:
       it OFF moped plates and temporary plates.
     rendered: placeholder
     render_note: >-
-      PRD-PLATES §3 placeholder rule applies. The eagle is a state emblem under
+      the plates spec §3 placeholder rule applies. The eagle is a state emblem under
       the 1980 ustawa o godle and its licensing posture was not researched here;
       the render layer draws a neutral placeholder in the slot.
     source: "https://api.sejm.gov.pl/eli/acts/DU/2024/1709/text/O/D20241709.pdf  # § 28 ust. 4 pkt 1 and ust. 6; załącznik nr 12 pkt 2.6 lit. b. Accessed 2026-08-02"
@@ -830,7 +830,7 @@ series:
         from the bottom, with a two-letter prefix 105 mm from the left and
         66.5 mm from the bottom. The sticker moves to a different ROW of the
         two-row plate according to how long the prefix is — the same pressure
-        PRD-PLATES §2.2 records for Japan, and a `format.fields` case if the
+        the plates spec §2.2 records for Japan, and a `format.fields` case if the
         render bundle ever needs it.
     region_encoding: "plates/_decode/pl-powiats.yml"
     sources:

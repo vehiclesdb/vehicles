@@ -1,4 +1,4 @@
-# plates/us-ks.yml — Kansas (PRD-PLATES gate L2, group midwest-b).
+# plates/us-ks.yml — Kansas (the plates spec gate L2, group midwest-b).
 #
 # KANSAS IS THE ONLY STATE IN THIS GROUP WHOSE SERIAL ARRANGEMENT IS FIXED BY
 # STATUTE. K.S.A. 8-147(c) does not delegate the format to the agency the way
@@ -34,7 +34,7 @@ binding: vehicle
 statute_edition: "Kansas Statutes Annotated Chapter 8 (Automobiles and Other Vehicles), Article 1, as published by the Kansas Office of Revisor of Statutes and fetched for this pass. K.S.A. 8-147 carries a 2025 amendment (L. 2025, ch. 75, § 6), so the design provisions read here are current to the 2025 session."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched
@@ -56,13 +56,13 @@ artwork_risk:
     level ({{PD-US-GovEdict}}). So the entire format layer of this file is affirmatively
     clean regardless of what Kansas thinks about its artwork. Only the artwork is exposed.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies to whatever graphic the current Kansas
+    the plates spec §3's placeholder default applies to whatever graphic the current Kansas
     base carries — which this pass could not identify, since the Department of Revenue
     site timed out. Render `emblem: {present: true, rendered: placeholder}`. Kansas
     state-seal misuse statutes are a protection regime independent of copyright and are
     unresearched.
   sources:
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): read to establish that Kansas has NO section in the survey — a negative result, recorded as such"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): read to establish that Kansas has NO section in the survey — a negative result, recorded as such"
     - "https://www.ksrevisor.gov/statutes/chapters/ch08/008_001_0047.html  # K.S.A. 8-147, the statutory design spec itself — an edict of government, PD"
 
 us_standards:
@@ -216,7 +216,7 @@ series:
       their boundaries was obtained, and the Department of Revenue site was unreachable.
       Minting a dated id on an inferred five-year step would be inventing a boundary the
       statute expressly allows the director to move. When a primary lands, a dated id is
-      added and this id becomes its former-id alias under the PRD-QUALITY I-5/I-6 contract.
+      added and this id becomes its former-id alias under the quality spec I-5/I-6 contract.
       PERIOD CAVEAT: `start: 2025` is the statute edition read — K.S.A. 8-147 was amended
       in the 2025 session — and is an UPPER BOUND on the true start of the current base,
       not a claim about it. THE ONE SERIES BACK IS A RECORDED GAP for the same reason.
@@ -303,7 +303,7 @@ series:
       eligibility threshold and fee were not obtained (recorded gap).
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5.
   # =========================================================================
   - id: us-ks-specialty-index
     class: specialty
@@ -317,7 +317,7 @@ series:
       regex_statutory: '\A[A-Z0-9](?: ?[A-Z0-9])*\z'
       charset: { notes: "K.S.A. 8-147(c) requires the arrangement to be 'uniform throughout each classification of registration', so a specialty classification has ITS OWN uniform arrangement, which need not be the passenger three-and-three; the arrangement per specialty class was not obtained (recorded gap)" }
     design:
-      note: "one design per authorised program; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised program; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: null
@@ -339,7 +339,7 @@ series:
       - "https://www.ksrevisor.gov/statutes/chapters/ch08/008_001_0047.html  # K.S.A. 8-147(c): 'Except as authorized by other provisions of law' — the clause under which individually legislated Kansas specialty plates displace the general arrangement, and the per-classification uniformity rule"
       - "https://www.ksrevisor.gov/statutes/chapters/ch08/008_001_0032.html  # K.S.A. 8-132(c): specialty and standard designs alike may be personalized, which is what makes the specialty serial space share the personalized caps"
     notes: >-
-      THE SPECIALTY PROGRAM INDEX — present as required by PRD-PLATES §2.5, but CARRYING NO
+      THE SPECIALTY PROGRAM INDEX — present as required by the plates spec §2.5, but CARRYING NO
       COUNT, which is the honest outcome for Kansas in this pass. Every other state in
       group midwest-b yielded either an agency figure or a statutory enumeration; Kansas
       yielded neither, because its revenue department's site was unreachable and the

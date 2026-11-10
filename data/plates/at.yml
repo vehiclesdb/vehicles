@@ -1,4 +1,4 @@
-# plates/at.yml — Austria (PRD-PLATES gate L1).
+# plates/at.yml — Austria (the plates spec gate L1).
 #
 # EVERY format, colour, dimension and class claim here comes from two
 # instruments on ris.bka.gv.at, read in their consolidated tagesaktuelle
@@ -58,7 +58,7 @@
 #    kann der Bindestrich entfallen."
 #    That is a rare thing: a primary source for BOTH the emitted separator AND
 #    for its being optional. Every `pattern` here prints the hyphen; every
-#    regex spells the position as the separator-only class `[- ]?` (PRD-PLATES
+#    regex spells the position as the separator-only class `[- ]?` (the plates spec
 #    §2.8), because the law prescribes a hyphen, permits its omission, and
 #    prescribes no glyph at all on the plate itself.
 #
@@ -213,7 +213,7 @@ common:
       inter-block gap, which is the visual reason an Austrian serial reads as
       two groups.
     licence: >-
-      PRD-PLATES §6 applies unchanged: the render layer derives glyphs from the
+      the plates spec §6 applies unchanged: the render layer derives glyphs from the
       published geometry, never from a third-party TTF. Austria is a weaker case
       than Germany for the public-domain argument (no §5(1) UrhG equivalent was
       researched in this pass — recorded gap), which is one more reason to
@@ -258,7 +258,7 @@ common:
       5 mm high depending on word length.
     rendered: placeholder
     render_note: >-
-      PRD-PLATES §3 placeholder rule applies: nine Land arms plus the federal
+      the plates spec §3 placeholder rule applies: nine Land arms plus the federal
       arms plus the Feuerwehr-Korpsabzeichen, none licence-cleared. The
       Silber->Weiß / Gold->Gelb substitution is recorded because a renderer that
       ever does clear them will need it.
@@ -523,7 +523,7 @@ series:
         Wien W." Abs. 2 adds "Die Bezeichnung der Landeshauptstadt Graz hat im
         Kennzeichen zu lauten G, die Bezeichnung der Landeshauptstadt Linz hat im
         Kennzeichen zu lauten L." The instrument prints Steiermark as "St" in mixed
-        case; the dataset's serial alphabet is uppercase-only (PRD-PLATES §2.6), so
+        case; the dataset's serial alphabet is uppercase-only (the plates spec §2.6), so
         it is recorded as ST and the mixed-case printing is noted here.
       structure_note: >-
         § 48 Abs. 4 KFG 1967 as enacted, verbatim: "Das Kennzeichen muß mit einem
@@ -609,7 +609,7 @@ series:
         und die restlichen 5 Stellen des Vormerkzeichens in der unteren Zeile" —
         the serial is SPLIT ACROSS TWO LINES at a position that depends on its
         length. A single `pattern` string cannot express that; it is the same
-        pressure PRD-PLATES §2.2 records for Japan.
+        pressure the plates spec §2.2 records for Japan.
     design:
       plate: { w: 210, h: 170, unit: mm, note: "Muster VIII" }
       plate_variants:
@@ -914,7 +914,7 @@ series:
         They are plate-like badges alongside the Kennzeichen, not part of it, and are
         therefore not in the pattern.
     region_encoding: inline
-    region_encoding_note: "prefix decode in plates/_decode/at-districts.yml, diplomatic_consular block; the mission-identifying allocation inside the Vormerkzeichen is not published in the KDV and is NOT authored (PRD-PLATES puts diplomatic decode tables at L4)"
+    region_encoding_note: "prefix decode in plates/_decode/at-districts.yml, diplomatic_consular block; the mission-identifying allocation inside the Vormerkzeichen is not published in the KDV and is NOT authored (the plates spec puts diplomatic decode tables at L4)"
     sources:
       - "https://www.ris.bka.gv.at/NormDokument.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10011385&Paragraf=26  # § 26 Abs. 5 lit. a: the D letter, its beneficiary definition (Legitimationskarte for the diplomatic corps in Vienna, for officials of international organisations in Austria with equivalent status, and for members of diplomatic rank of permanent missions), the Graz exception, and the security caveat 'sofern nicht aus Sicherheitsgründen die Zuweisung eines Kennzeichens gemäß Abs. 6 (Vormerkzeichen) erforderlich ist'; Abs. 6 Z 1 lit. c the serial grammar. Accessed 2026-08-02"
       - "https://www.ris.bka.gv.at/NormDokument.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10011384&Paragraf=54  # § 54 Abs. 3 lit. a-c (who may display CD), Abs. 3b (household family members), Abs. 3c (how the sign is affixed and recorded). Accessed 2026-08-02"
@@ -1246,7 +1246,7 @@ series:
     categories: [trailer]
     period: { start: 2002 }
     period_evidence: enacted-commencement
-    # RECALL-ONLY (PRD-PLATES §2.7): § 49 Abs. 3 KFG issues these plates "mit
+    # RECALL-ONLY (the plates spec §2.7): § 49 Abs. 3 KFG issues these plates "mit
     # dessen Kennzeichen" — the TOWING VEHICLE's registration — so the regex is
     # the union of the ordinary and the Wunschkennzeichen shapes. A match says
     # only that the string has a shape Austria issues; it is not a claim that
@@ -1480,7 +1480,7 @@ series:
         present: true
         rendered: placeholder
         content: "the FEUERWEHR-KORPSABZEICHEN, not a coat of arms"
-        note: "§ 49 Abs. 4 KFG, verbatim: 'bei den zur Verwendung für die Feuerwehr bestimmten Fahrzeugen tritt an die Stelle des Landeswappens das Feuerwehr-Korpsabzeichen'. The only Austrian plate whose emblem slot holds a corps badge; PRD-PLATES §3 placeholder rule applies, and its licensing is unresearched."
+        note: "§ 49 Abs. 4 KFG, verbatim: 'bei den zur Verwendung für die Feuerwehr bestimmten Fahrzeugen tritt an die Stelle des Landeswappens das Feuerwehr-Korpsabzeichen'. The only Austrian plate whose emblem slot holds a corps badge; the plates spec §3 placeholder rule applies, and its licensing is unresearched."
     region_encoding: "plates/_decode/at-districts.yml"
     region_encoding_note: >-
       THE DISTRICT CODE IS A SUFFIX HERE, NOT A PREFIX. Decode the LAST one or two

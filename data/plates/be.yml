@@ -1,4 +1,4 @@
-# plates/be.yml — Belgium (PRD-PLATES gate L1, EU/EEA slice).
+# plates/be.yml — Belgium (the plates spec gate L1, EU/EEA slice).
 #
 # EVERY format, colour, dimension and class claim in this file is taken from
 # one of two consolidated Belgian instruments, fetched from the federal
@@ -123,7 +123,7 @@
 # between them — art. 4 § 1, 2° says the groups together follow the
 # rectangular combinations "SANS TIRET DE SEPARATION". Those series therefore
 # spell that position as the separator-only class `[- ]` sanctioned by
-# PRD-PLATES § 2.8, exactly as es-consular-cc-1999 does, while `pattern` shows
+# the plates spec § 2.8, exactly as es-consular-cc-1999 does, while `pattern` shows
 # the canonical printed hyphen.
 jurisdiction: be
 authority:
@@ -237,7 +237,7 @@ common:
     note: >-
       The embossed CV seal is what makes a plate the OFFICIAL plate: art. 1, 22°
       of the arrete royal defines a reproduction as a copy "sans sceau en relief".
-      It is a lettermark, not a coat of arms, so PRD-PLATES § 3's emblem hazard
+      It is a lettermark, not a coat of arms, so the plates spec § 3's emblem hazard
       does not arise for Belgium — there is no state seal, no provincial arms and
       no artwork on a Belgian plate at all.
     source: "https://www.ejustice.just.fgov.be/cgi_loi/article.pl?language=fr&lg_txt=f&numac_search=2001014154&caller=SUM&view_numac=2001014154f  # art. 3 § 4, art. 11 § 3, art. 18 § 2"
@@ -252,7 +252,7 @@ common:
       reprise pour des raisons techniques, voir M.B. du 15-05-2020, p. 34158").
       Belgium is therefore the same case the EU dossier found for the UK, Germany
       and Spain: the legal object is a statutory drawing, not a licensable font
-      file, and PRD-PLATES § 6's derive-from-the-drawing rule applies.
+      file, and the plates spec § 6's derive-from-the-drawing rule applies.
     pitch: "art. 24 § 4, 4°: the horizontal distance between the centre of each sign is 50 mm on car reproductions and 39,2 mm on motorcycle reproductions — the only character metric available as TEXT rather than as a drawing"
     pre_2010_metrics: >-
       The 2001 text, before the drawings replaced it, gave the metrics in words
@@ -299,7 +299,7 @@ common:
     source: "https://mobilit.belgium.be/fr/route/immatriculer-et-radier/plaques-et-certificats-dimmatriculation/format-de-plaque  # DIV's format page: sizes only, no index series table (accessed 2026-08-02)"
 
 # ---------------------------------------------------------------------------
-# The index vocabulary — small, closed, primary, so inlined per PRD-PLATES
+# The index vocabulary — small, closed, primary, so inlined per the plates spec
 # § 2.4's "inline table (small)" rule. This is Belgium's answer to Germany's
 # Anlage 2: not geography, but VEHICLE CATEGORY.
 # ---------------------------------------------------------------------------
@@ -593,7 +593,7 @@ series:
       separator_note: >-
         Two-line plate: the letter group sits ABOVE the digit group with no printed
         glyph between them, so the position is spelled as the separator-only class
-        `[- ]` (PRD-PLATES § 2.8). Only the hyphen after the index is printed.
+        `[- ]` (the plates spec § 2.8). Only the hyphen after the index is printed.
     design:
       plate: { w: 210, h: 140, unit: mm }
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: spec }
@@ -612,7 +612,7 @@ series:
       HISTORIC MOTORCYCLE, "O" index with an "M" letter group, from 01-01-2021.
       Kept as its own entry rather than folded into be-historic-o-2021 because both
       the format (the mandated M) and the design (210 x 140 two-line) differ, which
-      is the PRD-PLATES § 2.3 test applied literally. Note that art. 12 § 3 keys
+      is the plates spec § 2.3 test applied literally. Note that art. 12 § 3 keys
       eligibility to art. 2 § 2, 1° of the arrete royal of 10 October 1974 on the
       technical conditions for mopeds and motorcycles — NOT to the thirty-year test
       that art. 4 § 2 now uses for cars, so the two O series do not share a
@@ -631,7 +631,7 @@ series:
       charset:
         index: [M]
         notes: "art. 12 § 2, verbatim: 'l'inscription consiste en la lettre (index) \"M\" suivie d'un tiret de separation et d'un groupe de trois lettres au-dessus d'un groupe de trois chiffres ou d'un groupe de trois chiffres au-dessus d'un groupe de trois lettres'"
-      separator_note: "two-line plate; the group boundary carries no printed glyph, hence the separator-only class `[- ]` (PRD-PLATES § 2.8)"
+      separator_note: "two-line plate; the group boundary carries no printed glyph, hence the separator-only class `[- ]` (the plates spec § 2.8)"
     design:
       plate: { w: 210, h: 140, unit: mm }
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: spec }
@@ -677,7 +677,7 @@ series:
           ... Pour les quadricycles legers ... Les series de lettres commencent
           par la lettre 'U'." So the SECOND character of the string decodes the
           exact vehicle kind — a four-way split no other series in this file has.
-      separator_note: "two-line plate; separator-only class `[- ]` at the stacked group boundary (PRD-PLATES § 2.8)"
+      separator_note: "two-line plate; separator-only class `[- ]` at the stacked group boundary (the plates spec § 2.8)"
     design:
       plate: { w: 100, h: 120, unit: mm }
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: spec }
@@ -1195,7 +1195,7 @@ series:
     categories: [car, van, truck, bus, trailer, motorcycle, moped]
     period: { start: 2014 }
     period_evidence: enabling-instrument
-    # RECALL-ONLY (PRD-PLATES § 2.7): the regex below accepts any hyphen-grouped
+    # RECALL-ONLY (the plates spec § 2.7): the regex below accepts any hyphen-grouped
     # alphanumeric string, which is deliberately WIDER than the grammar DIV
     # issues — the eight-character cap, the at-least-one-letter rule and the
     # long list of reserved shapes cannot be expressed without either a
@@ -1658,7 +1658,7 @@ series:
       charset:
         first_letter_of_group: [M, W]
         notes: "art. 12 (2001), verbatim: 'L'inscription est constituee d'un groupe de trois lettres au dessus d'un groupe de trois chiffres. § 2. Le groupe de lettres commence par un \"M\" ou un \"W\".'"
-      separator_note: "two-line plate with no index and no printed glyph between the groups; the position is the separator-only class `[- ]` (PRD-PLATES § 2.8)"
+      separator_note: "two-line plate with no index and no printed glyph between the groups; the position is the separator-only class `[- ]` (the plates spec § 2.8)"
     design:
       plate: { w: 140, h: 175, unit: mm }
       background: { color: "#F9B700", finish: retroreflective, hex_basis: observed, spec_note: "art. 12 § 1 (2001), verbatim: 'La marque d'immatriculation ordinaire a un fond JAUNE. L'inscription et le lisere sont noirs.' The statute names the colour without a code, so the hex is observed within a named colour." }

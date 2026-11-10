@@ -1,4 +1,4 @@
-# plates/ng.yml — Nigeria (PRD-PLATES gate L5).
+# plates/ng.yml — Nigeria (the plates spec gate L5).
 #
 # THE CENTRAL FINDING, AND IT IS AN AWKWARD ONE: **THE GAZETTE DOES NOT CONTAIN
 # THE PLATE MASK.** The National Road Traffic Regulations 2012 (S.I. No. 61,
@@ -314,7 +314,7 @@ series:
       (production / State disposal, in naira): standard private 5,000/12,500;
       MV fancy 40,000/80,000; motorcycle 1,500/3,000; articulated 10,000/20,000;
       out-of-series 20,000/40,000; government fancy MV 20,000/20,000. Recorded
-      as `official` tier and as context, not as schema data — PRD-PLATES §2.5
+      as `official` tier and as context, not as schema data — the plates spec §2.5
       excludes fees from the model.
     sources:
       - "https://sabilaw.org/wp-content/uploads/2021/12/National-Road-Traffic-Regulations-2012.pdf  # reg. 5(3) not exceeding eight alphanumeric characters; reg. 6 transfer requires police clearance and application to the State of last registration — accessed 2026-09-12"

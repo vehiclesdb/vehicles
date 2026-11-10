@@ -213,7 +213,7 @@ module Vehicles
 
     def ok(payload) = HostedResult.new(reason: :ok, status: 200, payload: payload)
 
-    # A live-contract images response (vehiclesdb.com API, PRD-IMAGES §3).
+    # A live-contract images response (vehiclesdb.com API).
     def images_payload
       {
         "id" => "car/volkswagen/golf", "color" => "blue", "requested_color" => "blue",

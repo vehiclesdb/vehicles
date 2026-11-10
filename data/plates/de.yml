@@ -1,4 +1,4 @@
-# plates/de.yml — Germany (PRD-PLATES gate L0 pilot).
+# plates/de.yml — Germany (the plates spec gate L0 pilot).
 #
 # EVERY format, colour and class claim here comes from the consolidated
 # Fahrzeug-Zulassungsverordnung (FZV) of 20 July 2023, BGBl. 2023 I Nr. 199,
@@ -272,7 +272,7 @@ common:
     licence: >-
       NO LICENSABLE FONT IS MANDATED. The legal object is a statutory
       Schriftmuster (a drawing), exactly as the EU dossier found for the UK and
-      Spain. Per PRD-PLATES §6 the render layer derives glyphs from the
+      Spain. Per the plates spec §6 the render layer derives glyphs from the
       statutory drawing, never from a third-party FE-Schrift TTF whose own
       licence is unstated. Germany is additionally the affirmatively favourable
       case (PD-VzKat / §5(1) UrhG: designs published inside statutory
@@ -302,7 +302,7 @@ common:
     source: "https://www.gesetze-im-internet.de/fzv_2023/anlage_1.html  # Anlage 1 (zu § 9 Absatz 1 Satz 4), Fundstelle BGBl. 2023 I Nr. 199, S. 67 — the five shapes and the umlaut exclusion, verbatim"
 
 # Anlage 2 FZV — the SMALL, CLOSED, primary code table (contrast the district
-# list, which is not in the FZV at all). Inlined per PRD-PLATES §2.4's
+# list, which is not in the FZV at all). Inlined per the plates spec §2.4's
 # "inline table (small) or a reference (large)" rule.
 region_encoding_tables:
   anlage2_federal_and_diplomatic:
@@ -395,7 +395,7 @@ series:
       foreground: "#000000"
       border: { color: "#000000", note: "Anlage 4 permits black, GREEN or RED borders depending on plate type" }
       band: { side: left, color: "#003399", content: eu-stars+D, hex_basis: observed, note: "the FZV states the star-wreath ratio and cross-references Reg. 2411/98 for the 'D', but gives no RGB/RAL for the blue field" }
-      emblem: { present: true, rendered: placeholder, note: "the Stempelplakette carries the FARBIGES WAPPEN DES LANDES (§ 12 Abs. 3) — a coat of arms per Land. PRD-PLATES §3 placeholder rule applied at write time; SUPERSEDED 2026-08-03: ALL 16 Land arms are licence-cleared in plates/_art/de-<land>/ (PD family, extmetadata-verified, ledgered) — depiction consumers may render the coloured arms in the seal. The remaining gap is the district→Land mapping (the future de-districts table) for serial-driven resolution." }
+      emblem: { present: true, rendered: placeholder, note: "the Stempelplakette carries the FARBIGES WAPPEN DES LANDES (§ 12 Abs. 3) — a coat of arms per Land. The plates spec §3 placeholder rule applied at write time; SUPERSEDED 2026-08-03: ALL 16 Land arms are licence-cleared in plates/_art/de-<land>/ (PD family, extmetadata-verified, ledgered) — depiction consumers may render the coloured arms in the seal. The remaining gap is the district→Land mapping (the future de-districts table) for serial-driven resolution." }
       seal: { name: Stempelplakette, diameter_mm: null, content: "coloured Land arms, Land name, registration authority name, unique Druckstücknummer, and a CONCEALED security code that can only be revealed irreversibly; self-destroying on removal", source_note: "§ 12 Abs. 3 FZV + Anlage 5" }
       rear_differs: false
       display: "front and rear on motor vehicles; rear only on trailers, motorcycles and class L5e vehicles; front only on single-axle tractors (§ 12 Abs. 5 FZV)"
@@ -669,7 +669,7 @@ series:
         Nr. 4: in the Betriebszeitraum field, "die Zahl über dem Bindestrich" is the
         start month and "die Zahl unter dem Bindestrich" the end month, set in
         DIN 1451-2:1986-02. A single `pattern` string cannot carry a stacked
-        two-number field — this is the same schema pressure PRD-PLATES §2.2 records
+        two-number field — this is the same schema pressure the plates spec §2.2 records
         for Japan, arriving in Germany.
     design:
       plate: { w: 520, h: 110, unit: mm }
@@ -702,7 +702,7 @@ series:
       pages is partial) — recorded gap, deliberately not asserted. Its own
       series rather than a variant because the DESIGN differs (an added
       operating-period field) while the serial grammar does not — the
-      PRD-PLATES §2.3 test resolves cleanly. It composes with other classes:
+      the plates spec §2.3 test resolves cleanly. It composes with other classes:
       green plates (§ 10 Abs. 2), Oldtimerkennzeichen and E-Kennzeichen can
       all be issued AS seasonal plates, which means class is genuinely
       multi-valued here and the single-`class` schema cannot express the
@@ -1008,7 +1008,7 @@ series:
       table, not for this series' start. Two facts a decode table must carry,
       both verbatim from Anlage 2 (2023): BG (Bundespolizei) is "noch gültig,
       wird nicht mehr zugeteilt" — still valid, no longer assigned, exactly
-      the ended-but-on-the-road case PRD-PLATES's `ended: true` semantics
+      the ended-but-on-the-road case the plates spec's `ended: true` semantics
       exist for at the series level and that decode rows need at the row
       level. And the CONSULAR case has no code of its own: career consular
       posts carry "das Unterscheidungszeichen des Verwaltungsbezirkes am Sitz
@@ -1035,7 +1035,7 @@ series:
       foreground: "#000000"
       band: { side: left, color: "#003399", content: eu-stars+D }
     region_encoding: inline
-    region_encoding_note: "prefix decode in region_encoding_tables.anlage2_federal_and_diplomatic.diplomatic; the mission-number sub-decode is NOT authored (PRD-PLATES puts diplomatic decode tables at L4)"
+    region_encoding_note: "prefix decode in region_encoding_tables.anlage2_federal_and_diplomatic.diplomatic; the mission-number sub-decode is NOT authored (the plates spec puts diplomatic decode tables at L4)"
     sources:
       - "https://www.gesetze-im-internet.de/fzv_2023/anlage_2.html  # Anlage 2 Nr. 3: '0, B oder BN — Diplomatische Vertretungen oder internationale Organisationen und in Abhängigkeit vom Status der bevorrechtigten Person', registered at Berlin or Bonn"
       - "https://www.gesetze-im-internet.de/fzv_2023/__9.html  # § 9 Abs. 1 Satz 6-7"

@@ -3,7 +3,7 @@
 require "test_helper"
 
 module Vehicles
-  # Strictness is the dataset's `matching:` key (PRD-PLATES §2.7), and the
+  # Strictness is the dataset's `matching:` key (the plates spec §2.7), and the
   # Spanish cases are the shapes CarHey's production fleet actually holds
   # (aggregate shape masks from the 2026-11-10 dry run, filled with made-up
   # serials; no real plate is in this file).

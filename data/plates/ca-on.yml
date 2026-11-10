@@ -1,4 +1,4 @@
-# plates/ca-on.yml — Ontario, Canada (PRD-PLATES gate L2/L3, Canada east wave).
+# plates/ca-on.yml — Ontario, Canada (the plates spec gate L2/L3, Canada east wave).
 #
 # FEDERATED JURISDICTION, per-province file, exactly as the US states are cut
 # (us-fl.yml is the exemplar). Canada has NO federal plate mandate: every
@@ -43,7 +43,7 @@
 #    2 to 5 characters." Everything else about Ontario serial shape in this file
 #    (ABCD 123, AB 12345, the motorcycle and trailer arrangements, the excluded
 #    letters G/I/O/Q/U) rests on the en.wikipedia Ontario article's tables, is
-#    tagged `secondary-wikipedia` per PRD-PLATES §4, and is flagged in terms.
+#    tagged `secondary-wikipedia` per the plates spec §4, and is flagged in terms.
 #
 # 4. FRONT AND REAR ARE PRESCRIBED, AND THE VALIDATION STICKER MOVES BETWEEN
 #    THEM BY VEHICLE CLASS. O. Reg. 628 s. 9(3), verbatim: "The number plates for
@@ -61,10 +61,10 @@
 #    It was announced by the Government of Ontario in April 2019, entered issue
 #    in February 2020, was recalled and then abandoned in May 2020, and the white
 #    "Yours to Discover" base resumed. Overlapping series are legal under
-#    PRD-PLATES §2.2 when the notes are distinct; here they are distinct because
+#    the plates spec §2.2 when the notes are distinct; here they are distinct because
 #    the two really were issued in parallel while blue stock was exhausted.
 #
-# SEPARATOR NOTE (PRD-PLATES §2.6): an Ontario plate prints NO separator glyph
+# SEPARATOR NOTE (the plates spec §2.6): an Ontario plate prints NO separator glyph
 # between the letter group and the digit group. What sits in the gap is a
 # SCREENED CROWN GRAPHIC (an emblem, carried in `design.emblem`, never in the
 # serial — the `never_separator` reasoning in _meta/separators.yml §4 exactly).
@@ -109,11 +109,11 @@ instrument:
     e-Laws content is published by the King's Printer for Ontario under the
     Government of Ontario's Open Government Licence. Independently, statutes and
     regulations are EDICTS OF GOVERNMENT and their text is uncopyrightable
-    (PRD-PLATES §4) — every verbatim quotation in this file is from that class of
+    (the plates spec §4) — every verbatim quotation in this file is from that class of
     material or from a ServiceOntario public information page.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — carried here even though PRD-PLATES §7.1 makes it mandatory
+# artwork_risk — carried here even though the plates spec §7.1 makes it mandatory
 # only for US states, because the Canadian posture differs from every US state
 # and a renderer must not guess.
 # ---------------------------------------------------------------------------
@@ -129,14 +129,14 @@ artwork_risk:
     Act and Reg. 628, which is why this file quotes them freely; it does not free
     plate ARTWORK, the trillium graphic or the Ontario crown device.
   emblem_rule: >-
-    PRD-PLATES §3 placeholder default applies without exception. The crown
+    the plates spec §3 placeholder default applies without exception. The crown
     separator, the stylized white trillium of the 2020 base and the provincial
     wordmark are all rendered `placeholder` until affirmatively cleared per
     emblem. The Ontario crown is additionally a royal device with protection
     independent of copyright; that question is unresearched and flagged.
   photograph_caution: >-
     Commons photographs of Ontario plates carry the PHOTOGRAPHER's licence, not a
-    licence over the design (PRD-PLATES §6). Our renders are generated from this
+    licence over the design (the plates spec §6). Our renders are generated from this
     data, never derived from a photograph, so those obligations never attach.
 
 # ---------------------------------------------------------------------------
@@ -219,7 +219,7 @@ common:
       count on the ServiceOntario page (2-8 / 2-5), which is why
       `ca-on-personalized` is the only series in this file whose `regex` is
       authority-sourced end to end.
-    source: "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Ontario  # FINDING AID + tagged secondary (PRD-PLATES §4, owner override 2026-08-02): passenger/commercial/motorcycle/trailer serial formats and the excluded-letter sets; article read 2026-08-02"
+    source: "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Ontario  # FINDING AID + tagged secondary (the plates spec §4, owner override 2026-08-02): passenger/commercial/motorcycle/trailer serial formats and the excluded-letter sets; article read 2026-08-02"
   dimensions:
     note: >-
       NO ONTARIO PRIMARY PRESCRIBES A PLATE SIZE. The 6 in x 12 in
@@ -231,7 +231,7 @@ common:
     folklore_caution: >-
       The "1956 AMA / AAMVA standardization agreement" that supposedly fixed
       6 x 12 in is UNCITED in its Wikipedia source and is copied verbatim across
-      the Canada, US and Puerto Rico articles (circular). PRD-PLATES §4 records it
+      the Canada, US and Puerto Rico articles (circular). The plates spec §4 records it
       as commonly repeated, unsourced. It is NOT relied on here.
 
 # ---------------------------------------------------------------------------
@@ -279,7 +279,7 @@ classes_not_modelled:
       A YEAR-OF-MANUFACTURE PLATE HAS NO FORMAT OF ITS OWN — it is a genuine
       historic Ontario plate of whatever year, re-authorised. Modelling it would
       mean authoring every Ontario series back to 1911, which is L4 scope
-      (PRD-PLATES §7). The class is recorded because the STATUTE creates it and
+      (the plates spec §7). The class is recorded because the STATUTE creates it and
       because a parse API must know that a pre-1973 Ontario shape on a modern road
       is lawful and dates the VEHICLE, not the registration.
     sources:
@@ -294,7 +294,7 @@ classes_not_modelled:
       characters (letters and/or numbers) without a graphic - $310 / 2 to 6
       characters (letters and/or numbers) with a graphic - $336.40".
     why_not_modelled: >-
-      PRD-PLATES §2.5 excludes the individual specialty DESIGN catalogue from v1;
+      the plates spec §2.5 excludes the individual specialty DESIGN catalogue from v1;
       L2 indexes programs, L4 does designs. The graphic budget is carried instead
       as a variant on `ca-on-personalized`, where it belongs, because the SERIAL
       grammar is what changes.
@@ -360,7 +360,7 @@ series:
         The French-slogan plate is the SAME series in a different bottom legend,
         allocated its own serial blocks (F-block exclusively since April 2019 per
         the article). It is recorded as a variant rather than a series because
-        format and period are identical — the PRD-PLATES §2.3 test.
+        format and period are identical — the plates spec §2.3 test.
       emblem: { present: true, rendered: placeholder, description: "provincial crown device, screened, between the letter and numeral groups" }
       band: { side: none }
       rear_differs: false
@@ -378,7 +378,7 @@ series:
       - "https://www.ontario.ca/laws/statute/90h08  # HTA s. 7(1)(b)(i): the plate shows 'the number of the permit issued for the vehicle'; s. 7(24) regulation-making power, which reaches display and never composition"
       - "https://www.ontario.ca/laws/regulation/900628  # R.R.O. 1990, Reg. 628 s. 9(1),(3): front-and-rear display and the rear-plate validation corner"
       - "https://www.ontario.ca/page/register-vehicle-permit-and-licence-plate  # ServiceOntario: 'Vehicle permits and licence plates are issued immediately'; automatic renewal for passenger, light commercial, motorcycle and moped plates"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Ontario  # TAGGED SECONDARY (PRD-PLATES §4): the ABCD-123 format, its 1997 start, and the G/I/O/Q/U exclusion. Read 2026-08-02. The article's own citation for the exclusion is a collector site, not a government source."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Ontario  # TAGGED SECONDARY (the plates spec §4): the ABCD-123 format, its 1997 start, and the G/I/O/Q/U exclusion. Read 2026-08-02. The article's own citation for the exclusion is a collector site, not a government source."
     notes: >-
       THE CURRENT ONTARIO PASSENGER PLATE, and the whole of it rests on a
       SECONDARY for its start year — which is stated here rather than hidden.
@@ -389,7 +389,7 @@ series:
       Ontario base or format, and the statute and regulation are silent on
       composition (`common.charset.statutory_alphabet_absent`). So
       `period_evidence: secondary-wikipedia` and 1997 is a flagged claim, not an
-      asserted fact (PRD-PLATES §9: primary-source-or-marked). WHAT IS
+      asserted fact (the plates spec §9: primary-source-or-marked). WHAT IS
       INDEPENDENTLY SOLID: that this format is CURRENT ISSUE is confirmed by
       ServiceOntario's own personalized-plate page, which prices passenger plates
       at "2 to 8 characters" and therefore presupposes a seven-character standard
@@ -397,7 +397,7 @@ series:
       are all quoted from the Act and the regulation. THE ID IS DATED because the
       1997 boundary is at least consistently reported across the article's own
       issuance ranges; if a primary lands that moves it, the dated id gains a
-      former-id alias under the PRD-QUALITY I-5/I-6 contract rather than moving.
+      former-id alias under the quality spec I-5/I-6 contract rather than moving.
 
   # =========================================================================
   # ONE SERIES BACK — three numerals, three letters (1986-1997).
@@ -430,7 +430,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Ontario  # TAGGED SECONDARY: 123-ABC issued 1986-1997, ranges 001-AAA to 999-ZZZ; the 1994 switch to screened reflective plates inside the same format"
       - "https://www.ontario.ca/laws/statute/90h08  # HTA s. 11(3): plates of this vintage remain lawfully transferable between the holder's vehicles of a similar class, which is why the series has no hard end for DISPLAY purposes"
     notes: >-
-      THE IMMEDIATELY PRIOR PASSENGER FORMAT, authored because PRD-PLATES scopes
+      THE IMMEDIATELY PRIOR PASSENGER FORMAT, authored because the plates spec scopes
       L2/L3 at the current series plus ONE back, and because Ontario plates are
       permanent: since 1973 the province has not re-plated annually, so
       123-ABC plates remain lawfully displayed in quantity. The period END is an
@@ -440,7 +440,7 @@ series:
       hence `secondary-wikipedia`. The 1994 change from embossed to screened
       reflective plates happened INSIDE this format and is not cut as a series:
       format, period and colours were unchanged and only the manufacturing method
-      moved (PRD-PLATES §2.3).
+      moved (the plates spec §2.3).
 
   # =========================================================================
   # THE 2020 BLUE BASE — a real four-month series, announced, issued, recalled.
@@ -472,13 +472,13 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Ontario  # TAGGED SECONDARY: issue from 1 February 2020, initial batch recalled after 4 March 2020, design scrapped 6 May 2020, blue stock exhausted through early June; serials CMAA-001 onward; the French 'EN PLEIN ESSOR' variant on F-block serials"
     notes: >-
       THE BLUE PLATE. Its own series because BOTH the design and the period differ
-      from ca-on-standard-1997 while the format does not (PRD-PLATES §2.3), and
+      from ca-on-standard-1997 while the format does not (the plates spec §2.3), and
       because a consumer holding a photograph of a blue Ontario plate needs to be
       told it is a four-month artefact rather than a current base. OVERLAP IS
       DELIBERATE AND REAL: white "Yours to Discover" plates never stopped being
       issued in French-slogan blocks and resumed in full in May 2020 while blue
       stock ran out, so this series and ca-on-standard-1997 genuinely overlap in
-      2020 — the parallel-issuance case PRD-PLATES §2.2 contemplates. EVERY DATE
+      2020 — the parallel-issuance case the plates spec §2.2 contemplates. EVERY DATE
       HERE IS SECONDARY. The Government of Ontario's own April 2019 announcement
       and its February 2020 update are cited by the article and were BOTH
       unreachable on 2026-08-02 (news.ontario.ca returned an empty body to the
@@ -575,7 +575,7 @@ series:
         notes: >-
           No letter exclusion is stated for the commercial format by any source
           located, so NO `regex_strict` is authored — the absence is deliberate and
-          is not the same as "no exclusions exist". PRD-PLATES §2.7: a missing
+          is not the same as "no exclusions exist". The plates spec §2.7: a missing
           strict twin does not weaken `matching: strict`.
       progression: "AA-10001 upward per the article's issuance record; a separate D-block (DA-10001 onward) carries the French slogan"
     design:

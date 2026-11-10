@@ -1,4 +1,4 @@
-# plates/pt.yml — Portugal (PRD-PLATES gate L1, EU/EEA wave 2).
+# plates/pt.yml — Portugal (the plates spec gate L1, EU/EEA wave 2).
 #
 # ONE INSTRUMENT CARRIES ALMOST THIS WHOLE FILE, and it is not the one the
 # secondary web cites. The Portuguese plate is governed by the REGULAMENTO DO
@@ -173,7 +173,7 @@ series:
         where the Anexo IV Modelo I drawing it replaces plainly draws one. The
         canonical printed form in `pattern` is therefore the GAP. `regex` still
         spells the position as the sanctioned separator-only class `[- ]`
-        (PRD-PLATES §2.8) because the instrument now prescribes millimetres and
+        (the plates spec §2.8) because the instrument now prescribes millimetres and
         no glyph, which is precisely the es-consular-cc-1999 situation: with no
         glyph mandated, both members of the emitted set are inside the grammar,
         so the class is `strict` rather than a widening. FLAGGED FOR THE
@@ -584,7 +584,7 @@ series:
       body that assigns the CD/CC/FM prefixes and their per-mission numbering is
       the Ministério dos Negócios Estrangeiros, not the IMT, and no MNE
       instrument was reached — so no mission decode table exists here and none
-      was invented. PRD-PLATES puts diplomatic decode tables at gate L4.
+      was invented. The plates spec puts diplomatic decode tables at gate L4.
 
   # =========================================================================
   # TEMPORARY IMPORT — the blue-character plate.
@@ -712,7 +712,7 @@ series:
         one, with black letters, digits, dashes and border on both. The yellow
         is recorded as the entry's background because ciclomotores are the
         dominant population; the white variant is a colour-only difference on
-        the same format and period, hence a note per PRD-PLATES §2.3 rather than
+        the same format and period, hence a note per the plates spec §2.3 rather than
         a second series.
     region_encoding: "câmara municipal — three-letter codes not enumerated by the instrument; no decode table authored"
     sources:
@@ -772,7 +772,7 @@ series:
           what the drawing — the thing a manufacturer builds from — labels, with
           the red confined to the class-letter field; the enacting sentence is
           preserved verbatim here so a verifier can overturn that choice with one
-          look at a photograph. PRD-PLATES §5.3: record disagreements, never
+          look at a photograph. The plates spec §5.3: record disagreements, never
           average them.
     region_encoding: none
     sources:

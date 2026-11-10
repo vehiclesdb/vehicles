@@ -23,7 +23,7 @@
 #     POST-MERGER identifiers T (Tipperary), L (Limerick City and County) and
 #     W (Waterford City and County).
 #
-# THE DISCREPANCY IS REAL AND IS RECORDED, NOT AVERAGED (PRD-PLATES §5.3): the
+# THE DISCREPANCY IS REAL AND IS RECORDED, NOT AVERAGED (the plates spec §5.3): the
 # VRT First Schedule table still reads TN / TS / LK / L / WD / W and has never
 # been amended to add T or to merge LK into L and WD into W, while the
 # trade-licence table WAS amended for exactly that reason — S.I. 328/2013's own
@@ -36,7 +36,7 @@
 # Referenced by: plates/ie.yml (ie-standard-1987, ie-standard-1991,
 # ie-standard-2013, ie-trade-1993) via region_encoding.
 #
-# PERIOD DISCIPLINE (PRD-PLATES §2.4): these are the marks assignable to
+# PERIOD DISCIPLINE (the plates spec §2.4): these are the marks assignable to
 # vehicles FIRST REGISTERED on or after 1 January 1987. The pre-1987 marks are a
 # different, disjoint set and are handled in `historic_pre_1987` below — they are
 # NOT in `codes:` and a pre-1987 plate must never be decoded through it. Marks
@@ -193,7 +193,7 @@ historic_pre_1987:
   exhaustive_list_note: >-
     The complete pre-1987 mark list is the 1958 Schedule as amended fourteen
     times, and merging those fourteen insertions row-by-row is gate-L4 work
-    (PRD-PLATES §7). It is deliberately NOT half-done here: a partial list read
+    (the plates spec §7). It is deliberately NOT half-done here: a partial list read
     as complete would make a parse API declare real plates invalid, which is
     worse than declaring them unresolved. The amending instruments, all read and
     all conforming to the expansion rule above, are pinned so the merge can be

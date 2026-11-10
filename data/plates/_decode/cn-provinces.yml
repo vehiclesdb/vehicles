@@ -68,7 +68,7 @@
 # rather than by this table will disagree with the road.
 #
 # ============================================================================
-# PERIOD DISCIPLINE (PRD-PLATES § 2.4) — ONE ROW IS YOUNGER THAN THE OTHERS
+# PERIOD DISCIPLINE (the plates spec § 2.4) — ONE ROW IS YOUNGER THAN THE OTHERS
 # ============================================================================
 # GA 36-2007's 前言 lists, among the changes that edition made to GA 36-1992,
 # verbatim: "――增加了重庆的简称；" and "――增加了"渝"、"港"、"澳"、"使"、"警"、
@@ -591,7 +591,7 @@ limits:
     dataset with the British mark, which names the six-month period of first
     registration to 2050.
   cross_file_divergences: >-
-    RECORDED, NOT AVERAGED (PRD-PLATES § 5.3). Two `row_period_start` values in
+    RECORDED, NOT AVERAGED (the plates spec § 5.3). Two `row_period_start` values in
     `classification_han` above disagree with the period on the plates/cn.yml
     series that uses the same character, and the disagreement is left standing
     for the verifier rather than reconciled by one file overwriting the other.

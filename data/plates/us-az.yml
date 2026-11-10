@@ -1,4 +1,4 @@
-# plates/us-az.yml — Arizona (PRD-PLATES gate L2, mountain group).
+# plates/us-az.yml — Arizona (the plates spec gate L2, mountain group).
 #
 # ARIZONA IS THE NAMED ADVERSE STATE, and this pass pins the evidence rather
 # than repeating the assertion. The US research dossier recorded Arizona as
@@ -23,7 +23,7 @@
 # rather than papered over — Arizona is the schema stressor for a mixed
 # alphanumeric position, exactly as Japan is for composed fields.
 #
-# WHAT IS NOT HERE (PRD-PLATES §2.5): individual special-plate DESIGNS.
+# WHAT IS NOT HERE (the plates spec §2.5): individual special-plate DESIGNS.
 jurisdiction: us-az
 authority:
   name: Arizona Department of Transportation, Motor Vehicle Division (ADOT MVD)
@@ -47,7 +47,7 @@ statute_edition: >-
   onward).
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4. THE FLAGGED ONE.
+# artwork_risk — required per jurisdiction by the plates spec §4. THE FLAGGED ONE.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: copyright-expressly-asserted
@@ -77,7 +77,7 @@ artwork_risk:
     re-verify the live text before anything is rendered.
   what_this_does_and_does_not_reach: >-
     It does NOT reach the statutes. Edicts of government are uncopyrightable at
-    every level (PRD-PLATES §4), so §§ 28-2351, 28-2354, 28-2356 and 28-2406 —
+    every level (the plates spec §4), so §§ 28-2351, 28-2354, 28-2356 and 28-2406 —
     every legal claim in this file — are public domain regardless of Arizona's
     posture, and the ADOT-sourced facts are facts. What the posture reaches is
     the DESIGN: the Four Peaks silhouette, the sunset gradient, the saguaro. In
@@ -102,7 +102,7 @@ artwork_risk:
   sources:
     - "https://azlibrary.gov/website-policies  # Arizona State Library, Archives and Public Records (Office of the Arizona Secretary of State), Copyright Policy: 'Arizona state government works: Unlike federal works, state works are not in the public domain and are protected by copyright.' LIVE URL 403s to automated clients; read via https://web.archive.org/web/20230915005643/https://azlibrary.gov/website-policies"
     - "https://www.azleg.gov/ars/39/00121-03.htm  # A.R.S. § 39-121.03, the commercial-purpose public-records procedure the copyright policy routes commercial users through. NOT FETCHED in this pass (azleg.gov returned a socket hang-up on this section twice); pinned as the target to read, and no content is attributed to it here."
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4) — where the azlibrary.gov pointer was found. The policy itself is what is quoted."
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4) — where the azlibrary.gov pointer was found. The policy itself is what is quoted."
 
 # ---------------------------------------------------------------------------
 # The US standards chain.
@@ -153,7 +153,7 @@ display_rules:
     in sans serif font and be three-fourths of an inch in height." This is the
     most typographically prescriptive plate provision found in this group of
     five states, and it prescribes a FONT CLASS rather than a font — consistent
-    with PRD-PLATES §6's finding that no surveyed jurisdiction mandates a
+    with the plates spec §6's finding that no surveyed jurisdiction mandates a
     licensable typeface.
   reflectivity: "§ 28-2351: 'The director shall coat the license plate with a reflective material that is consistent with the determination of the department regarding the color and design.'"
   sources:
@@ -235,7 +235,7 @@ series:
     sources:
       - "https://www.azleg.gov/ars/28/02351.htm  # § 28-2351: the absence of any statutory serial constraint, the director's design power, the reflective coating, the contrast rule and the sans-serif state-name height"
       - "https://azdot.gov/adot-news/your-eyes-don%E2%80%99t-deceive-you-new-license-plate-numbers-are-different  # ADOT's own June 2020 announcement of the new plate-numbering system. NOT FETCHED — azdot.gov 403s to automated clients behind Cloudflare; pinned as the primary to read on a browser-capable pass, and no wording is attributed to it here."
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Arizona  # LOCATOR ONLY (PRD-PLATES §4): the February 2021 arrangement change, the six-position alphanumeric grammar with a digit fixed in position four, the non-standard progression order, the AAA 0AA start and the design description. None is asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Arizona  # LOCATOR ONLY (the plates spec §4): the February 2021 arrangement change, the six-position alphanumeric grammar with a digit fixed in position four, the non-standard progression order, the AAA 0AA start and the design description. None is asserted as sourced."
     notes: >-
       ARIZONA STANDARD ISSUE, CURRENT GENERATION. THE BASE DESIGN IS OLDER THAN
       THE SERIES: the desert scene dates to 1996 (flat-printed from January
@@ -372,7 +372,7 @@ series:
       has issued personalized plates for decades.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5.
   # =========================================================================
   - id: us-az-special-plate-index
     class: specialty
@@ -387,7 +387,7 @@ series:
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count: unresearched
@@ -420,7 +420,7 @@ series:
       - "https://azdot.gov/motor-vehicles/vehicle-services/license-plates  # ADOT MVD's own plate index — PINNED BUT NOT FETCHED (403, Cloudflare). No claim in this entry rests on it."
     notes: >-
       THE SPECIAL-PLATE PROGRAM INDEX — one entry for the whole programme, per
-      PRD-PLATES §2.5. IT IS DELIBERATELY THIN, and the thinness is the finding:
+      the plates spec §2.5. IT IS DELIBERATELY THIN, and the thinness is the finding:
       Arizona is the only state in the mountain group whose issuing agency could
       not be reached at all. Everything in this file that is stated as fact came
       from azleg.gov (the legislature) or from an archived Secretary of State

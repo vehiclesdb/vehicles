@@ -13,7 +13,7 @@ namespace :plates do
     rm_rf "#{root}/data/plates/_art"
     commit = `git -C #{ds} rev-parse origin/main`.strip
     File.write("#{root}/data/plates/PROVENANCE.md", <<~MD)
-      # Bundled plates dataset (PRD-PLATES, full corpus)
+      # Bundled plates dataset (full corpus)
 
       Copy of `plates/` from the public data repo (EXCLUDING `_art/`),
       refreshed on gem releases:

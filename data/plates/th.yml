@@ -1,4 +1,4 @@
-# plates/th.yml — Thailand (PRD-PLATES gate L3). DRAFT for verification.
+# plates/th.yml — Thailand (the plates spec gate L3). DRAFT for verification.
 #
 # EVERY size, layout, colour and class claim about the MOTOR-VEHICLE-ACT plates
 # in this file comes from one instrument, read verbatim from the Royal Gazette
@@ -34,7 +34,7 @@
 #    this file models them as two blocks of series.
 #
 # 2. THE SERIAL IS PARTLY IN THAI SCRIPT, WHICH IS A GENUINE COLLISION WITH
-#    PRD-PLATES §2.6. The separator contract fixes the dataset-wide serial
+#    the plates spec §2.6. The separator contract fixes the dataset-wide serial
 #    alphabet at A-Z0-9 "and nothing else", and says in terms that a
 #    jurisdiction printing a glyph inside the serial "is a schema amendment,
 #    not a data entry". Thailand is that jurisdiction. The line taken here,
@@ -44,7 +44,7 @@
 #        block the plate prints — which is what §2.6 permits us to spell — and
 #        every such series therefore carries `matching: recall-only`, because a
 #        bare digit regex is deliberately wider than the mark it belongs to.
-#      * `format.fields` (the PRD §2.2 Japan extension point) carries the WHOLE
+#      * `format.fields` (the spec §2.2 Japan extension point) carries the WHOLE
 #        composition, field by field, each with its script and its source.
 #      * `format.regex_native` carries the full Unicode-aware regex. It is NOT
 #        one of the three lint-checked regex keys (`regex`, `regex_strict`,
@@ -224,7 +224,7 @@ charset_defaults:
     source: "https://web.archive.org/web/20171113165614/http://www.ratchakitcha.soc.go.th/DATA/PDF/2554/A/045/6.PDF  # ข้อ ๓ (๑) (ก) ๕) and (ข) ๔) — the delegation"
 
 # The pattern/regex policy, stated once and referenced by every Thai-script
-# series (PRD-PLATES §2.6 collision — see header fact 2).
+# series (the plates spec §2.6 collision — see header fact 2).
 regex_policy:
   thai_script_series: >-
     `format.pattern` is the ARABIC-NUMERAL BLOCK ONLY ("9999" = the registration
@@ -284,7 +284,7 @@ series:
   # in the legal vehicle class, which is exactly why the regulation writes the
   # sizes once in ข้อ ๓ (๑) (ก) and the colours eight times in ข้อ ๓ (๒).
   # Because DESIGN differs (background and character colour), each is its own
-  # SERIES under PRD-PLATES §2.3 and not a colour sub-entry.
+  # SERIES under the plates spec §2.3 and not a colour sub-entry.
   # =========================================================================
 
   - id: th-private-car-2011
@@ -304,7 +304,7 @@ series:
         `regex_native`, and the file header, fact 2.
       regex_native: '\A[1-9]?[ก-ฮ]{2}\s?\d{1,4}\z'
       regex_native_note: >-
-        Not lint-checked (PRD-PLATES §2.6 admits only A-Z0-9 in a serial). It
+        Not lint-checked (the plates spec §2.6 admits only A-Z0-9 in a serial). It
         covers ONE LINE — the province name of line 2 is a separate field. The
         letter positions are written as the whole Thai consonant range
         U+0E01-U+0E2E because the category-letter alphabet is delegated and
@@ -355,7 +355,7 @@ series:
           "ในแผ่นป้ายมีเครื่องหมายเป็นตัวอักษร ขส อยู่ภายในวงกลมอัดเป็นรอยดุนที่
           มุมล่างด้านขวาของแผ่นป้าย" — the letters ขส (the DLT's abbreviation)
           inside an embossed circle at the LOWER RIGHT corner, at a size the
-          Director-General fixes. PRD-PLATES §3 placeholder rule applies.
+          Director-General fixes. The plates spec §3 placeholder rule applies.
       border: { note: "ขอบแผ่นป้ายอัดเป็นรอยดุน — the plate edge is embossed; the border takes the character colour (ข้อ ๓ (๒) (ค))" }
       characters:
         line1_digit_min_h_mm: 58
@@ -411,7 +411,7 @@ series:
       PRIVATE PASSENGER VEHICLE of MORE than seven persons (รถยนต์นั่งส่วนบุคคล
       เกินเจ็ดคน) — vans and minibuses in private ownership. Identical format and
       size to the ordinary car plate; only the character colour differs, which
-      under PRD-PLATES §2.3 would make it a sub-entry — except that the
+      under the plates spec §2.3 would make it a sub-entry — except that the
       regulation treats it as a distinct legal vehicle class with its own
       colour rule, and the auction regulation of B.E. 2546 draws its own line at
       "more than seven but not more than twelve", so it is carried as a series.
@@ -763,7 +763,7 @@ series:
       fields:
         - { name: corps_letter, section: left, line: 1, script: Thai, values: ["ท"], rule: "ข้อ ๓ (๑) (ค) ๓) ก): 'รถยนต์ของบุคคลในคณะผู้แทนทางการทูต ให้ใช้อักษร ท'" }
         - { name: country_code, section: left, line: 2, script: "Arabic numerals", values: "a code standing for the country or the international organisation or UN specialised agency stationed in Thailand — the code list is not in the regulation" }
-        - { name: separator_bar, section: middle, note: "ขีดตามทางยาว, 1.1 cm wide x 4 cm long, embossed; a printed SEPARATOR, spelled '-' under PRD-PLATES §2.6" }
+        - { name: separator_bar, section: middle, note: "ขีดตามทางยาว, 1.1 cm wide x 4 cm long, embossed; a printed SEPARATOR, spelled '-' under the plates spec §2.6" }
         - { name: registration_number, section: right, script: "Arabic numerals", values: "1 to 9999 (หมายเลขทะเบียนให้เริ่มตั้งแต่ ๑ ถึง ๙๙๙๙)" }
     design:
       plate: { w: 387, h: 110, unit: mm }
@@ -835,7 +835,7 @@ series:
           สำหรับรถยนต์ของเจ้าพนักงานกงสุลกิตติมศักดิ์ ให้พื้นแผ่นป้ายใช้สีเทา
           สะท้อนแสง โดยให้ตัวอักษร ตัวเลข และขีดใช้สีดำ" — a retroreflective GREY
           ground with black characters, digits and bar. Colour-only variant of
-          the same format and period, so a sub-entry per PRD-PLATES §2.3.
+          the same format and period, so a sub-entry per the plates spec §2.3.
         sources:
           - "https://web.archive.org/web/20171113165614/http://www.ratchakitcha.soc.go.th/DATA/PDF/2554/A/045/6.PDF  # ข้อ ๓ (๒) (ซ) proviso"
     sources:

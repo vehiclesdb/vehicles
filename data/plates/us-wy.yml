@@ -1,4 +1,4 @@
-# plates/us-wy.yml — Wyoming (PRD-PLATES gate L2, northwest group).
+# plates/us-wy.yml — Wyoming (the plates spec gate L2, northwest group).
 #
 # WYOMING IS THE ONLY STATE IN THIS GROUP WHOSE PLATE ARTWORK IS A REGISTERED
 # STATE TRADEMARK, AND THE STATUTE PUTS THAT ARTWORK INSIDE THE SERIAL LINE.
@@ -43,7 +43,7 @@ statute_edition: >-
   text-extracted 2026-08-02.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4/§7.1.
+# artwork_risk — required per jurisdiction by the plates spec §4/§7.1.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: asserted
@@ -62,16 +62,16 @@ artwork_risk:
     appropriates funds specifically to enforce it. W.S. 31-2-204(b) then puts
     that mark ON THE PLATE, between the county number and the serial, on every
     standard issue. Separately, Wyoming appears NOWHERE in the standing
-    per-state COPYRIGHT survey PRD-PLATES §4 works from and no {{PD-WYGov}}
+    per-state COPYRIGHT survey the plates spec §4 works from and no {{PD-WYGov}}
     tag exists on Wikimedia Commons, so the copyright posture is unresearched
     and the default (state works copyrighted unless the state says otherwise)
     applies. THE TRADEMARK POINT IS INDEPENDENT OF COPYRIGHT AND SURVIVES IT:
     even a favourable copyright finding would not clear the Bucking Horse and
     Rider, because trademark protection is a separate regime — exactly the
-    hazard PRD-PLATES §4 flags for state seals, here documented rather than
+    hazard the plates spec §4 flags for state seals, here documented rather than
     assumed.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies with unusual force. The
+    the plates spec §3's placeholder default applies with unusual force. The
     Bucking Horse and Rider MUST render as a neutral placeholder — it is a
     live, licensed, revenue-generating state trademark, and it is not a
     candidate for an emblem-slot upgrade at any gate absent an affirmative
@@ -196,7 +196,7 @@ series:
         a DESIGN ELEMENT carried in `design.emblem`; it is NOT a separator
         character, it is NOT part of the serial, and no consumer may treat it
         as either. The separator position is spelled as the separator-only
-        class `[- ]`, sanctioned by PRD-PLATES §2.8, because the statute names
+        class `[- ]`, sanctioned by the plates spec §2.8, because the statute names
         no separator GLYPH at all — it names a picture. `pattern` shows the
         canonical printed form as a space.
       tier_note: >-
@@ -327,7 +327,7 @@ series:
       BOUND. NO "ONE SERIES BACK" ENTRY IS GIVEN: with an annual cycle and no
       legislated design generations there is no primary-sourced predecessor
       base to record, and inventing one from a collector table would be
-      exactly the laundering PRD-PLATES §9 warns against. Recorded as a gap.
+      exactly the laundering the plates spec §9 warns against. Recorded as a gap.
       Distinct from us-wy-antique in carrying the year numerals, which the
       antique plate is statutorily forbidden to bear.
 
@@ -365,7 +365,7 @@ series:
       - "https://www.wyoleg.gov/statutes/compress/title31.pdf  # W.S. 31-2-204(b): the 'Pioneer Wyo' inscription and the no-date prohibition; W.S. 31-2-205(a)(i)(A)(VII): antique vehicles excluded from the front plate; W.S. 31-2-223: the antique registration section (cross-referenced, not read in full)"
     notes: >-
       ANTIQUE ("Pioneer Wyo"). Worth its own series on two independent
-      PRD-PLATES §2.3 grounds: the LEGEND is legislated verbatim, and the
+      the plates spec §2.3 grounds: the LEGEND is legislated verbatim, and the
       no-date rule is a statutory design prohibition the standard series
       inverts. `recall-only` because only the legend and the date prohibition
       are sourced — the serial grammar is not, and the regex is deliberately
@@ -417,7 +417,7 @@ series:
       Wyoming vehicles.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5.
   # =========================================================================
   - id: us-wy-specialty-index
     class: specialty
@@ -480,7 +480,7 @@ series:
       - "https://www.wyoleg.gov/statutes/compress/title31.pdf  # the disabled-plate serial specification (county numerals, emblem, up to three numbers and letters, international symbol of access) and the 3 x 6 inch small-plate minimum; W.S. 31-3-102(a)(xxii)-(xxiv): the optional-embossed fee and the EV/PHEV decals bearing the emblem; W.S. 31-2-226/31-2-227: street rod and custom vehicle classes"
     notes: >-
       THE WYOMING SPECIALTY INDEX — one entry standing for the whole
-      programme, per PRD-PLATES §2.5. Wyoming's catalogue is SMALL (23 named
+      programme, per the plates spec §2.5. Wyoming's catalogue is SMALL (23 named
       programmes against Washington's 49 statutory entries and Idaho's
       "over 40"), ENUMERATED rather than counted, and split by issuing route
       in a way that matters operationally: nineteen go through the county

@@ -1,4 +1,4 @@
-# plates/it.yml — Italy (PRD-PLATES gate L1).
+# plates/it.yml — Italy (the plates spec gate L1).
 #
 # EVERY format, colour, dimension and period claim in this file comes from the
 # consolidated text of the REGOLAMENTO DI ESECUZIONE E DI ATTUAZIONE DEL NUOVO
@@ -12,10 +12,10 @@
 #
 # The L0 EU research dossier recorded Italy as its worst gap — "**No primary
 # source secured.** Everything below is from Wikipedia and must be confirmed
-# against the Codice della Strada and DPR 495/1992" (plates-research-eu-intl.md
+# against the Codice della Strada and DPR 495/1992" (the EU research dossier
 # §2.5 and DEAD-ENDS §8). This file closes that gap: every claim below is
 # instrument-dated, and where the primaries and the enthusiast web disagree the
-# disagreement is RECORDED rather than averaged (PRD-PLATES §5.3).
+# disagreement is RECORDED rather than averaged (the plates spec §5.3).
 #
 # THE SIX STRUCTURAL FACTS THAT SHAPE THIS FILE
 #
@@ -41,7 +41,7 @@
 #    always names it BETWEEN two character groups, so the printed gaps on an
 #    Italian plate are occupied by an emblem, exactly as the German gap is
 #    occupied by the Plaketten (see plates/de.yml). The dataset writes those gaps
-#    as the emitted SPACE separator (PRD-PLATES §2.6) and carries the emblem in
+#    as the emitted SPACE separator (the plates spec §2.6) and carries the emblem in
 #    `design.emblem`; no glyph is ever inside an Italian serial.
 #
 # 3. 1993, NOT 1994 — AND THE PRIMARY SAYS SO TWICE. Art. 260 comma 5 as
@@ -176,7 +176,7 @@ common:
     licensing: >-
       The emblem is the Stella d'Italia between olive and oak — an element of the
       emblem of the Italian Republic, whose use is regulated independently of
-      copyright. PRD-PLATES §3 placeholder rule applies: renders carry
+      copyright. The plates spec §3 placeholder rule applies: renders carry
       `emblem: {present: true, rendered: placeholder}` until a per-emblem
       clearance exists.
     source: "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.del.presidente.della.repubblica:1992-12-16;495~art262  # art. 262 Marchio ufficiale, verbatim"
@@ -234,7 +234,7 @@ common:
     licence: >-
       Italy is the fourth surveyed country to prescribe the glyphs by STATUTORY
       DRAWING rather than by named licensable font (after DE, ES and UK — EU
-      dossier §6). PRD-PLATES §6 therefore applies unchanged: the render layer
+      dossier §6). The plates spec §6 therefore applies unchanged: the render layer
       derives glyphs from the statutory figures, never from a third-party
       "Italian plate font" TTF whose own licence is unstated. The figures
       themselves were not text-extractable from Normattiva's export and are a
@@ -355,13 +355,13 @@ series:
         The two printed gaps are occupied by the marchio ufficiale (Appendice XII
         lett. a) names it between the first letter pair and the digits), not by a
         separator glyph. Both regexes accept the gap as an optional emitted SPACE
-        per PRD-PLATES §2.6.
+        per the plates spec §2.6.
       reserved_combinations: >-
         Art. 100 comma 8 of the codice lets the holder request "una specifica
         combinazione alfanumerica" at cost, "ferma restando la sequenza
         alfanumerica fissata dal regolamento" — a personalised SERIAL inside the
         standard grammar, hence the `personalized` variant below rather than a
-        series of its own (PRD-PLATES §2.3).
+        series of its own (the plates spec §2.3).
     design:
       plate: { w: 520, h: 110, unit: mm, note: "targa posteriore, formato A" }
       plate_variants:
@@ -403,7 +403,7 @@ series:
           the office checks the combination is unused, registers the vehicle, and
           the Istituto Poligrafico delivers the plates within thirty days. Format
           and design are identical to the standard series — a sub-entry, not a
-          series, per PRD-PLATES §2.3. Italy has no vanity ALPHABET: the requested
+          series, per the plates spec §2.3. Italy has no vanity ALPHABET: the requested
           combination must still obey Appendice XII.
         sources:
           - "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:1992-04-30;285!vig=~art100  # art. 100 c. 8, verbatim"
@@ -442,7 +442,7 @@ series:
         l'esaurimento delle targhe di vecchio tipo ancora in giacenza presso gli
         uffici provinciali della Direzione generale della M.C.T.C. e comunque non
         oltre il 31 dicembre 1996". Legal commencement and full coverage are three
-        years apart and the regulation says so — the PRD-PLATES §2.2
+        years apart and the regulation says so — the plates spec §2.2
         `period.rollout` case, arriving in Italy.
     matching: strict
     format:
@@ -487,7 +487,7 @@ series:
     categories: [car, van, truck, bus]
     period: { start: 1959, end: 1996 }
     period_evidence: instrument-in-force
-    # RECALL-ONLY (PRD-PLATES §2.7): the 1959 regolamento fixes the province
+    # RECALL-ONLY (the plates spec §2.7): the 1959 regolamento fixes the province
     # sigla and nothing else — the rest of the mark is "un numero o una
     # combinazione di lettere e cifre", with no length, no alphabet and no
     # arrangement. Any regex covering it is necessarily wider than what was
@@ -524,7 +524,7 @@ series:
         white retroreflective. No instrument changing the colour was located in
         this pass, so the black-on-white variant is a RECORDED GAP and is not
         asserted; the sourced colours are recorded here and the discrepancy is
-        flagged rather than averaged (PRD-PLATES §5.3).
+        flagged rather than averaged (the plates spec §5.3).
     region_encoding: "plates/_decode/it-provinces.yml"
     region_encoding_mechanism: >-
       THE PROVINCE IS IN THE MARK ITSELF — this is the only Italian series where a
@@ -578,7 +578,7 @@ series:
       fact in Italian plate law: while cars carried white on black, motorcycles
       carried BLUE on white under the same 1959 regolamento. Its own series rather
       than a variant of it-provincial-1959 because both design and dimensions
-      differ (PRD-PLATES §2.3). The 165 x 165 mm square survived the 1993 reform
+      differ (the plates spec §2.3). The 165 x 165 mm square survived the 1993 reform
       unchanged and did not grow until 1999.
 
   # =========================================================================
@@ -589,7 +589,7 @@ series:
     categories: [motorcycle]
     period: { start: 1999 }
     period_evidence: instrument-in-force
-    # RECALL-ONLY (PRD-PLATES §2.7), and the reason is a documented conflict
+    # RECALL-ONLY (the plates spec §2.7), and the reason is a documented conflict
     # rather than a union of issued shapes — see notes. A match is a shape hit.
     matching: recall-only
     format:
@@ -603,7 +603,7 @@ series:
         discarded — see notes.
       charset:
         letters_excluded: [I, O, Q, U]
-        notes: "Appendice XII comma 2's 22-letter alphabet governs whichever shape is in fact issued; it is not written into `regex` because a recall-only series may carry no regex_strict (PRD-PLATES §2.7)."
+        notes: "Appendice XII comma 2's 22-letter alphabet governs whichever shape is in fact issued; it is not written into `regex` because a recall-only series may carry no regex_strict (the plates spec §2.7)."
     design:
       plate: { w: 177, h: 177, unit: mm, note: "art. 258 c. 1 lett. e-bis), inserted by D.P.R. 355/1998 — the motorcycle plate GREW from 165x165 to 177x177 when the EU band arrived" }
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: spec }
@@ -629,7 +629,7 @@ series:
           sostituisce." A self-built yellow panel repeating the vehicle's own
           registration, legal only on race days and race routes, and only for FMI
           licence holders. Colour-and-substrate variant of the same serial, hence a
-          sub-entry (PRD-PLATES §2.3).
+          sub-entry (the plates spec §2.3).
         sources:
           - "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:1992-04-30;285!vig=~art100  # art. 100 c. 10, second sentence"
     sources:
@@ -648,7 +648,7 @@ series:
       Art. 257 c. 2 supplies a lawful mechanism by which both could be true — the
       Minister may set a different character succession by decree without amending
       the appendix — and no such decree was located. Averaging the two would be
-      exactly the failure PRD-PLATES §5.3 forbids, so the series is `recall-only`
+      exactly the failure the plates spec §5.3 forbids, so the series is `recall-only`
       with a union regex, the appendix text is quoted in the sources, and this is
       the FIRST item on the verifier's list (see dossier-it.md §Verification).
       period.start 1999 is the design date (D.P.R. 355/1998 + art. 260 c. 5's
@@ -805,7 +805,7 @@ series:
         scritta 'Rimorchio', due caratteri alfabetici, il marchio ufficiale della
         Repubblica italiana e cinque caratteri numerici". It is carried in
         `design.legend` because it contains a full stop and a space and could never
-        be spelled inside a serial under PRD-PLATES §2.6.
+        be spelled inside a serial under the plates spec §2.6.
     design:
       plate: { w: 340, h: 109, unit: mm, note: "art. 258 c. 1 lett. d) as enacted" }
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: spec }
@@ -830,7 +830,7 @@ series:
     categories: [trailer]
     period: { start: 1993 }
     period_evidence: instrument-in-force
-    # RECALL-ONLY (PRD-PLATES §2.7): a repeater plate carries the TOWING vehicle's
+    # RECALL-ONLY (the plates spec §2.7): a repeater plate carries the TOWING vehicle's
     # registration, transcribed by the owner into empty boxes. Its regex is a
     # container, not a grammar; a match says only that the string could sit in
     # those boxes. Same situation as nl-export.
@@ -929,7 +929,7 @@ series:
       regex: '\A[A-Z]{2} ?\d{3} ?[A-Z]\z'
       regex_strict: '\A[ABCDEFGHJKLMNPRSTVWXYZ]{2} ?\d{3} ?[ABCDEFGHJKLMNPRSTVWXYZ]\z'
       charset: { letters_excluded: [I, O, Q, U] }
-      legend_note: "the 'Rim. Agr.' legend contains a full stop and a space and is therefore a design element, never part of the serial (PRD-PLATES §2.6)"
+      legend_note: "the 'Rim. Agr.' legend contains a full stop and a space and is therefore a design element, never part of the serial (the plates spec §2.6)"
     design:
       plate: { w: 340, h: 109, unit: mm, note: "art. 258 c. 1 lett. d)" }
       background: { color: "#FFCC00", finish: retroreflective, hex_basis: observed }
@@ -1096,7 +1096,7 @@ series:
       square. Note the order differs from the car EE plate as well: here "EE" comes
       FIRST and the marchio and the national sign follow, where lett. p) opens with
       the marchio. Two entries rather than one because both format and dimensions
-      differ (PRD-PLATES §2.3).
+      differ (the plates spec §2.3).
 
   # =========================================================================
   # TEMPORARY — targa provvisoria, the only Italian plate with a region prefix

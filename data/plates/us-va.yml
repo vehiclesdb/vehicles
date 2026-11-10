@@ -1,4 +1,4 @@
-# plates/us-va.yml — Virginia (PRD-PLATES gate L2, group southeast-a).
+# plates/us-va.yml — Virginia (the plates spec gate L2, group southeast-a).
 #
 # THE VIRGINIA FINDING, stated first because it governs every other claim in
 # this file: VIRGINIA'S PLATE STATUTE SPECIFIES ALMOST NOTHING. § 46.2-712(A)
@@ -23,7 +23,7 @@
 #                                   a collector reference. Recorded WITH its
 #                                   grade attached, asserted as nothing more.
 #                                   This is labelling, not laundering: the
-#                                   PRD forbids passing collector era tables
+#                                   the spec forbids passing collector era tables
 #                                   off as sourced years, and every such year
 #                                   in this file is marked at the point of use.
 #
@@ -40,7 +40,7 @@ binding: vehicle
 statute_edition: "Code of Virginia, Title 46.2 (Motor Vehicles), Chapter 6 (Titling and Registration), Articles 9-11 and Chapter 15 — section pages as served by law.lis.virginia.gov and stamped 8/1/2026"
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: no-public-domain-basis-located
@@ -69,11 +69,11 @@ artwork_risk:
     domain at every level regardless of the footer notice on the site that
     serves it. Everything this file cites to § 46.2-711 through § 46.2-750 is
     therefore freely usable even under the adverse default — which is exactly
-    why PRD-PLATES §4 makes the statute the preferred source. The problem in
+    why the plates spec §4 makes the statute the preferred source. The problem in
     Virginia is not that the statute is unusable; it is that the statute says
     so little (see the header).
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies without qualification: render
+    the plates spec §3's placeholder default applies without qualification: render
     `emblem: {present: true, rendered: placeholder}`. The "VIRGINIA IS FOR
     LOVERS" wordmark on the current base is a registered tourism brand of the
     Commonwealth used far beyond plates, which is a TRADEMARK question on top
@@ -177,7 +177,7 @@ series:
       separator_note: >-
           The hyphen is written because the plate prints one. `-?` makes it
           optional so a separator-stripping consumer's canonical form still
-          matches without deriving a twin (PRD-PLATES §2.6 rule 2 keeps the
+          matches without deriving a twin (the plates spec §2.6 rule 2 keeps the
           PRINTED form here; the optionality is a convenience, not a claim
           that Virginia sometimes omits the hyphen).
     design:
@@ -225,7 +225,7 @@ series:
     sources:
       - "https://law.lis.virginia.gov/vacode/title46.2/chapter6/section46.2-712/  # § 46.2-712(A): what the plate must display (registration number, name of the Commonwealth, year or month-and-year); the discretion clause that leaves size, letters, numerals and ALL colour to the Commissioner; the decal rule"
       - "https://law.lis.virginia.gov/vacode/title46.2/chapter6/section46.2-711/  # § 46.2-711(A): two plates for this class of vehicle"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Virginia  # LOCATOR ONLY (PRD-PLATES §4): the March 2014 start, the ABC-1234 arrangement, the VIRGINIA IS FOR LOVERS slogan and heart, the V/U/T/S serial blocks and the reverse progression. None of it is asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Virginia  # LOCATOR ONLY (the plates spec §4): the March 2014 start, the ABC-1234 arrangement, the VIRGINIA IS FOR LOVERS slogan and heart, the V/U/T/S serial blocks and the reverse progression. None of it is asserted as sourced."
     notes: >-
       VIRGINIA CURRENT STANDARD ISSUE. THE PERIOD AND THE FORMAT ARE BOTH
       LOCATOR-GRADE AND SAID SO. Virginia is the clearest case in this group of
@@ -259,7 +259,7 @@ series:
       foreground: "#1F3D7A"
       legend_top: "VIRGINIA"
       legend_bottom: null
-      legend_note: "SLOGAN-FREE. This base is reported as a return to the 1993 design: embossed dark blue serial on reflective white, 'VIRGINIA' screened in blue at the top, and nothing at the bottom. The design difference from the current base is exactly one slogan, which under PRD-PLATES §2.3 (own series iff format OR design OR period differs) makes it its own series."
+      legend_note: "SLOGAN-FREE. This base is reported as a return to the 1993 design: embossed dark blue serial on reflective white, 'VIRGINIA' screened in blue at the top, and nothing at the bottom. The design difference from the current base is exactly one slogan, which under the plates spec §2.3 (own series iff format OR design OR period differs) makes it its own series."
       emblem: { present: false }
       rear_differs: false
     region_encoding: none
@@ -437,7 +437,7 @@ series:
 
   # =========================================================================
   # PERSONALIZED. Virginia officially permits a glyph inside the serial —
-  # a PRD-PLATES §2.6 schema-amendment candidate, not a data entry.
+  # a the plates spec §2.6 schema-amendment candidate, not a data entry.
   # =========================================================================
   - id: us-va-personalized
     class: personalized
@@ -455,7 +455,7 @@ series:
           numbers and the special characters DASH, SPACE AND AMPERSAND." Dash
           and space are emitted separators and are already in the contract.
           THE AMPERSAND IS NOT: it is not in the serial alphabet, it is not a
-          separator, and under PRD-PLATES §2.6 a jurisdiction that prints a
+          separator, and under the plates spec §2.6 a jurisdiction that prints a
           glyph INSIDE a serial is a SCHEMA AMENDMENT, not a data entry. So
           the regex above cannot represent the ampersand-bearing subset of
           Virginia personalized plates and does not try to. `matching: strict`
@@ -493,14 +493,14 @@ series:
       is a format property. The headline is the ampersand: this is the first
       of two independent, officially-sourced US findings in group southeast-a
       of a state permitting a non-alphanumeric glyph inside a serial (North
-      Carolina is the other, and its set is wider). PRD-PLATES §2.6 anticipated
+      Carolina is the other, and its set is wider). The plates spec §2.6 anticipated
       exactly this case and prescribed the remedy — an amendment to
       _meta/separators.yml's `never_separator` list, with sources, so every
       consumer learns it in one place. That amendment is proposed in the group
       dossier and is NOT made unilaterally here.
 
   # =========================================================================
-  # SPECIALTY — PROGRAM INDEX ONLY (PRD-PLATES §2.5). Counts and official
+  # SPECIALTY — PROGRAM INDEX ONLY (the plates spec §2.5). Counts and official
   # links; no individual designs.
   # =========================================================================
   - id: us-va-specialty-index
@@ -516,7 +516,7 @@ series:
     design:
       plate: { unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: 340
@@ -555,7 +555,7 @@ series:
       - "https://law.lis.virginia.gov/vacode/title46.2/chapter6/section46.2-725/  # § 46.2-725: special license plates, generally — the frame the per-programme sections hang off"
     notes: >-
       THE VIRGINIA SPECIALTY PROGRAM INDEX — one entry standing for the whole
-      programme, which is what PRD-PLATES §2.5 asks for at this gate. Two
+      programme, which is what the plates spec §2.5 asks for at this gate. Two
       things to carry forward. First, the count is EXACT and RECONCILED (340,
       facets summing to 340) rather than the "over 100"-style estimate every
       other state in this group publishes, because DMV exposes it through a

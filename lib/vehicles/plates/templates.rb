@@ -3,7 +3,7 @@
 module Vehicles
   module Plates
     # VehiclesDB's real plate art for a registration, WITHOUT sending the
-    # registration anywhere (VehiclesDB PRD-PLATE-ART §9: a plate number is
+    # registration anywhere (VehiclesDB plate-art spec §9: a plate number is
     # personal data). The plate is fetched as a BLANK template — the series,
     # the registration's shape ("NNNN LLL", character classes only) and an
     # optional region — and filled locally by TemplateFill:

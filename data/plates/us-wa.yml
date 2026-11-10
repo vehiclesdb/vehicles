@@ -1,8 +1,8 @@
-# plates/us-wa.yml — Washington (PRD-PLATES gate L2, northwest group).
+# plates/us-wa.yml — Washington (the plates spec gate L2, northwest group).
 #
 # WHY WASHINGTON IS THE HARD CASE OF THIS GROUP. Two independent reasons, and
 # both are sourced below rather than assumed. First, IP: Washington is one of
-# the four states PRD-PLATES §4 names as adverse, and this pass confirms it
+# the four states the plates spec §4 names as adverse, and this pass confirms it
 # from the state's own instruments — the issuing agency stamps its web estate
 # "© Washington State Department of Licensing" and the Legislature's own site
 # carries "Copyright 2025. All Rights Reserved." Second, and far more
@@ -24,7 +24,7 @@
 # unusually good: plate counts per vehicle type, display geometry, the
 # unlawful-acts list, and a replacement trigger that is not a clock.
 #
-# PERIOD DISCIPLINE (PRD-PLATES §9, and the standing rule for this wave).
+# PERIOD DISCIPLINE (the plates spec §9, and the standing rule for this wave).
 # Washington publishes no design changelog. Every era boundary below that came
 # from an enthusiast/encyclopedia table carries
 # `period_evidence: secondary-locator-only` and a `period_caveat` saying in
@@ -46,7 +46,7 @@ statute_edition: >-
   noted.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4/§7.1.
+# artwork_risk — required per jurisdiction by the plates spec §4/§7.1.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: adverse
@@ -77,7 +77,7 @@ artwork_risk:
     reading of Washington's own posture would clear only a minority of the
     artwork on Washington plates.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies to EVERY Washington emblem and
+    the plates spec §3's placeholder default applies to EVERY Washington emblem and
     graphic without exception, including the Mount Rainier motif on the
     standard base. Render `emblem: {present: true, rendered: placeholder}` and
     do not revisit per-emblem for the special-plate tier at all — the owners
@@ -92,7 +92,7 @@ artwork_risk:
     - "https://app.leg.wa.gov/RCW/default.aspx?cite=46.18.200  # RCW 46.18.200(2): the statutory special-plate table, quoted above, naming third-party logos and likenesses as the plate artwork"
     - "https://app.leg.wa.gov/RCW/default.aspx?cite=46.16A.200  # RCW 46.16A.200(1)(f): 'special license plate series approved by the department and enacted into law by the legislature may display a symbol or artwork approved by the department' — the department approves; it does not thereby own"
     - "https://dol.wa.gov/vehicles-and-boats/vehicles/license-plates  # fetched 2026-08-02; footer notice reads '© Washington State Department of Licensing'"
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): 'Works created by the State of Washington are copyrighted...' — used to locate the posture, not to establish it"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): 'Works created by the State of Washington are copyrighted...' — used to locate the posture, not to establish it"
 
 # ---------------------------------------------------------------------------
 # The US standards chain. Recorded per state because adoption is VOLUNTARY and
@@ -160,7 +160,7 @@ series:
           exclusion list anywhere in RCW 46.16A. The reported exclusion of
           I, O and Q from the third letter position of the current series is
           LOCATOR-GRADE ONLY and is deliberately NOT encoded as a
-          `regex_strict`: a strict twin is defined by PRD-PLATES §2.7 as the
+          `regex_strict`: a strict twin is defined by the plates spec §2.7 as the
           AUTHORITY's own alphabet, and no authority has stated one.
       progression: >-
         LOCATOR-GRADE, NOT ASSERTED: the encyclopedia record reports the
@@ -173,7 +173,7 @@ series:
         arrangement, corroborated by DOL's own plate imagery and by the
         encyclopedia record. It is written with an OPTIONAL space (` ?`)
         because Washington prints the group boundary as a kerning gap rather
-        than a glyph — PRD-PLATES §2.6 rule 2 requires the printed form.
+        than a glyph — the plates spec §2.6 rule 2 requires the printed form.
         There is NO `regex_statutory`: Washington's statute states no outer
         bound to be encoded, which is itself the finding.
     design:
@@ -212,7 +212,7 @@ series:
         arrangement and with the serial block simply continuing. No DOL
         instrument announcing it was located in this pass. Because the format
         and the period are unchanged and only the manufacturing method and
-        hue moved, PRD-PLATES §2.3 would in any case make this a sub-entry
+        hue moved, the plates spec §2.3 would in any case make this a sub-entry
         rather than a series — and on this evidence it is not even that. It
         is recorded here so a verifier knows exactly what to chase.
     replacement_rule:
@@ -240,7 +240,7 @@ series:
       - "https://app.leg.wa.gov/RCW/default.aspx?cite=46.16A.200  # (1)(a)-(f) design delegation, state-name requirement, reflectorization, artwork approval; (2) the pre-1968 reflectorization carve-out; (4)(a) plate counts; (8) transfer and its seven exceptions; (9) the event-triggered replacement duty; (10) the three never-replaced classes; (12) tabs and emblems"
       - "https://dol.wa.gov/vehicles-and-boats/vehicles/license-plates  # DOL's own plate estate: the standard/custom/replacement service structure and the plate imagery the observed colours are taken from"
       - "https://www.aamva.org/getmedia/646bcc8a-219b-47d8-b5cd-726240473163/License-Plate-Standard-Edition-3_September-2025-Update.pdf  # AAMVA Ed.3 §1.1, the 7-10 year recommendation Washington declined to legislate"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Washington_(state)  # LOCATOR ONLY (PRD-PLATES §4): the reported 2010 arrangement change, the reported October 2024 flat-plate transition, the reported I/O/Q exclusion and the reported serial ranges. None is asserted as sourced here."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Washington_(state)  # LOCATOR ONLY (the plates spec §4): the reported 2010 arrangement change, the reported October 2024 flat-plate transition, the reported I/O/Q exclusion and the reported serial ranges. None is asserted as sourced here."
     notes: >-
       WASHINGTON STANDARD ISSUE. THE ID IS DELIBERATELY UNDATED, for the same
       reason us-fl-standard is: Washington law fixes no design generation, DOL
@@ -249,7 +249,7 @@ series:
       UPPER BOUND on the true start; Washington has issued three-letter /
       four-numeral plates for well over a decade. When a departmental
       instrument lands, a dated id is added and this id becomes its former-id
-      alias under the PRD-QUALITY I-5/I-6 contract. THE STRUCTURAL FINDING
+      alias under the quality spec I-5/I-6 contract. THE STRUCTURAL FINDING
       WORTH CARRYING: Washington delegates the whole design to the director by
       statute, so unlike Florida, Montana and Wyoming there is no statutory
       design text to mine — the primary-source ceiling for Washington plate
@@ -281,7 +281,7 @@ series:
           in the 1987-1998 sub-range is locator-grade and is not encoded.
       pattern_note: >-
         The group boundary is spelled as the separator-only class `[- ]`,
-        which PRD-PLATES §2.8 sanctions, because the printed boundary on this
+        which the plates spec §2.8 sanctions, because the printed boundary on this
         base is a gap on some issues and a dash-like element on others and no
         authority text settles it. `pattern` shows the canonical printed form
         with a space.
@@ -298,7 +298,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Washington_(state)  # LOCATOR ONLY: the 999-LLL arrangement and both boundary years, neither asserted as sourced"
     notes: >-
       THE PREVIOUS WASHINGTON BASE ARRANGEMENT. Kept as its own series because
-      the FORMAT differs from the current one, which is the PRD-PLATES §2.3
+      the FORMAT differs from the current one, which is the plates spec §2.3
       test, and because a parser needs it: a Washington plate of unknown
       vintage is either 999-LLL or LLL9999 and nothing else. Its period is the
       weakest data in this file and says so on its face. Distinct from
@@ -307,7 +307,7 @@ series:
 
   # =========================================================================
   # CORE DISTINCT CLASSES. Washington separately serializes these; the formats
-  # are LOCATOR-GRADE, so each is `recall-only` per PRD-PLATES §2.7 — a match
+  # are LOCATOR-GRADE, so each is `recall-only` per the plates spec §2.7 — a match
   # is a shape hit and nothing more, and the regexes are deliberately widened
   # so that recall-only is the honest description rather than a hedge.
   # =========================================================================
@@ -366,7 +366,7 @@ series:
       only place in the group where the mounting geometry bends for a class.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. Washington is the one
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. Washington is the one
   # state in this group whose specialty programme is ENUMERATED IN STATUTE,
   # which makes its index unusually strong and its count unusually contested.
   # =========================================================================
@@ -384,7 +384,7 @@ series:
           Washington special plates do NOT all carry the standard passenger
           arrangement — several run their own shorter serials. Because no
           per-programme grammar was sourced (individual specialty specs are L4
-          per PRD-PLATES §2.5), the index carries a deliberately wide union
+          per the plates spec §2.5), the index carries a deliberately wide union
           and is `recall-only`. A match says "this string could sit on some
           Washington special plate" and nothing more.
     design:
@@ -402,7 +402,7 @@ series:
         forces", so the statutory table describes at least 54 designs.
       count_agency: "approximately 89 plates across eleven categories on DOL's own special-design gallery (U.S. Armed Forces, Military Services and Veterans, Charitable Organizations, Collector Vehicles, Colleges and Universities, First Responders, Parks and Nature, Special Interest, Sports, Tribal, Miscellaneous)"
       count_discrepancy_note: >-
-        THE COUNTS ARE NOT RECONCILED AND ARE NOT AVERAGED (PRD-PLATES §5.3).
+        THE COUNTS ARE NOT RECONCILED AND ARE NOT AVERAGED (the plates spec §5.3).
         The statute enumerates 49; DOL's gallery shows roughly 89. The gap is
         structural rather than an error: the DOL gallery mixes in plate types
         authorised elsewhere in Title 46 (Medal of Honor, Former Prisoner of
@@ -443,7 +443,7 @@ series:
       - "https://app.leg.wa.gov/RCW/default.aspx?cite=46.16A.200  # (1)(f): special series may display a symbol or artwork approved by the department"
     notes: >-
       THE WASHINGTON SPECIALTY INDEX — one entry standing for the whole
-      programme, which is what PRD-PLATES §2.5 asks for at this gate. Two
+      programme, which is what the plates spec §2.5 asks for at this gate. Two
       things worth carrying forward. First, Washington is the rare state whose
       specialty catalogue is a STATUTORY TABLE rather than an agency list,
       which means the index is citable to an edict of government and is

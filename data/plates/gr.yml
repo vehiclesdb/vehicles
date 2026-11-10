@@ -1,4 +1,4 @@
-# plates/gr.yml — Greece (PRD-PLATES gate L1, wave 2).
+# plates/gr.yml — Greece (the plates spec gate L1, wave 2).
 #
 # THE CENTRAL FACT OF THIS JURISDICTION, AND IT IS A REGULATED ONE: a Greek
 # ordinary plate is spelled in GREEK CAPITALS, but only in the fourteen Greek
@@ -33,7 +33,7 @@
 # be shown in capital Latin characters and Arabic numerals — on that reading,
 # issuing only the intersection of the two alphabets lets one physical plate
 # satisfy the domestic Greek script and the international requirement at once.
-# That is a plausible and widely repeated rationale, but PRD-PLATES §4 records
+# That is a plausible and widely repeated rationale, but the plates spec §4 records
 # the Vienna Convention annexes as UNPINNED in this program (UNECE returned
 # 403s), and Greece's own ratification status was not checked in this pass.
 # The instrument itself says only "common to the Greek and the Latin alphabet"
@@ -125,7 +125,7 @@
 #   * ΥΑ 282069/2023 (ΦΕΚ Β' 5645 of 25-9-2023) and ΥΑ 178239/2024 (ΦΕΚ Β' 5096
 #     of 9-9-2024) — live amendments to the 1982 allocation annex.
 #
-# THE INSTRUMENT-DATE RULE, APPLIED TWICE AND HONESTLY (PRD-PLATES §5.3):
+# THE INSTRUMENT-DATE RULE, APPLIED TWICE AND HONESTLY (the plates spec §5.3):
 #
 #   1. The 2004 series does NOT start on 4-2-2004, the date of its instrument.
 #      Art. 9 states its own commencement: "Η ισχύς της απόφασης αυτής αρχίζει
@@ -150,7 +150,7 @@
 #    the specifications of decision 19800/1982 CONTINUES UNTIL STOCKS ARE
 #    EXHAUSTED.")
 # So pre-band plates went on being ISSUED, lawfully, for an undated period
-# after 1-5-2004. This is the PRD's "old stock issues on" case stated by the
+# after 1-5-2004. This is the spec's "old stock issues on" case stated by the
 # authority itself, and it is why the two standard series overlap at 2004.
 #
 # ============================================================================
@@ -177,7 +177,7 @@
 #
 # Transliterating ΔΣ to "DS" would be a CHOICE, not a glyph identity: no Greek
 # diplomatic plate has ever shown the letters D and S, and a regex spelling
-# "DS" would be a fabricated string presented as a format. Per PRD-PLATES §2.6
+# "DS" would be a fabricated string presented as a format. Per the plates spec §2.6
 # ("a jurisdiction that prints a glyph inside a serial is a schema amendment,
 # not a data entry"), these series are REPORTED AS A GAP requiring a schema
 # decision — a `script:` field on the series plus a Greek-capital extension to
@@ -237,7 +237,7 @@ font_spec:                       # cited once; referenced by every design below
     Mittelschrift for the digits — and art. 2 para. 2 puts the euroband's "GR"
     in Engschrift as well. This is unusual and is easy to miss: most
     jurisdictions name one typeface for the whole serial. A render layer that
-    sets a Greek plate in a single cut is wrong by the instrument. PRD-PLATES
+    sets a Greek plate in a single cut is wrong by the instrument. The plates spec
     §6 applies to DIN 1451 itself: build to it, never redistribute its
     drawings; the statute names the standard rather than supplying a
     Schriftmuster, so the render layer needs a metrically-compatible free face
@@ -251,7 +251,7 @@ security_marking:
     Art. 2 para. 7 requires the marking to be integrated "έτσι ώστε να μην
     μπορεί να γίνει απομίμηση, αντικατάσταση, τροποποίηση" — so that imitation,
     substitution or alteration is impossible without changing the appearance of
-    the plate. PRD-PLATES §3 emblem rule applies: the render layer emits a
+    the plate. The plates spec §3 emblem rule applies: the render layer emits a
     neutral placeholder in both emblem slots.
   source: "https://www.dsanet.gr/Epikairothta/Nomothesia/yaoik4700-330_04.htm  # art. 2 paras. 7 and 8; art. 3 para. 2(δ) places the embossed seal on the hyphen"
 
@@ -336,7 +336,7 @@ series:
           white. That last detail is stated in art. 2 para. 2 and is routinely
           drawn wrong.
       emblem: { present: true, rendered: placeholder, note: "two distinct emblems — the printed security-marking εθνόσημο and the embossed state seal; see the file-level security_marking block" }
-      font: { name: "DIN 1451 Teil 4", note: "see file-level font_spec — Engschrift for letters, Mittelschrift for digits", license: "standards document; build to it, never redistribute (PRD-PLATES §6)" }
+      font: { name: "DIN 1451 Teil 4", note: "see file-level font_spec — Engschrift for letters, Mittelschrift for digits", license: "standards document; build to it, never redistribute (the plates spec §6)" }
       rear_differs: false
       tolerances: { element_sizes: 0.5, overall: 1.0, other: 1.0, unit: mm, note: "art. 2 paras. 12-14" }
     region_encoding: "plates/_decode/gr-prefectures.yml"
@@ -365,7 +365,7 @@ series:
           characters on a WHITE retroreflective ground for private cars,
           motorcycles and trailers, and on a YELLOW retroreflective ground for
           public-use cars. Same format, same period, colour-only difference,
-          therefore a sub-entry and not its own series (PRD-PLATES §2.3).
+          therefore a sub-entry and not its own series (the plates spec §2.3).
           CLASS CAVEAT, and it matters: Δ.Χ. is BROADER THAN `taxi`. It is the
           whole public-use category — taxis, hire cars, and the licensed
           haulage and bus fleets whose reserved prefixes (ΤΑ, ΕΚ, ΙΑ, ΝΧ ->
@@ -444,7 +444,7 @@ series:
       GREEK MOTORCYCLE PLATE — 280 x 210 mm, nearly square, two rows. It is NOT
       a size variant of the car plate and is not modelled as one, because the
       DIGIT COUNT differs (three, not four): that is a format difference and
-      therefore its own series under PRD-PLATES §2.3. Worth stating for a parse
+      therefore its own series under the plates spec §2.3. Worth stating for a parse
       API: a three-letter/three-digit Greek string is a motorcycle, and a
       three-letter/four-digit one is not — the digit count is the only
       discriminator in the string, and it is reliable because both are fixed by
@@ -565,14 +565,14 @@ series:
       self-governing units altogether while the plate codes kept their
       prefecture names. Decoding a 1980s or 1990s Greek plate through the
       current table will therefore be right often and wrong silently. Historic
-      decode rows are L4 work (PRD-PLATES §7) — recorded gap.
+      decode rows are L4 work (the plates spec §7) — recorded gap.
     sources:
       - "https://www.e-nomothesia.gr/index.php/pinakides-kuklophorias/ya-19800-1982.html  # ΥΑ 19800/1982 «Πινακίδες αριθμού κυκλοφορίας αυτοκινήτων οχημάτων και ρυμουλκουμένων», ΦΕΚ Β' 455/1-7-1982 — the instrument's IDENTITY, title and gazette reference. Its TEXT is paywalled and was NOT read; every claim in this entry that depends on the text is marked. Accessed 2026-08-02"
       - "https://www.dsanet.gr/Epikairothta/Nomothesia/yaoik4700-330_04.htm  # ΥΑ οικ. 4700/330/2004 art. 9: repeals paragraphs Α, Β, ΙΑ, ΙΓ, ΙΕ and ΙΣΤ of Chapter Ι of the 1982 decision as regards state plates for cars, trailers and motorcycles, commences 1-5-2004, and expressly continues issuance of 1982-specification plates until stocks are exhausted — i.e. this series' END, dated, from the instrument that ended it"
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Greece  # secondary-wikipedia: the first-issue date of the three-letter format, given as 1983-1984, which DIVERGES from the 1982 instrument date recorded here. Revision 1367180219 of 2026-08-01. Recorded, not averaged"
     notes: >-
       THE PRE-EUROBAND THREE-LETTER SERIES. PERIOD HONESTY, stated at point of
-      use, because this is exactly the boundary PRD-PLATES §5.3 warns about.
+      use, because this is exactly the boundary the plates spec §5.3 warns about.
       START: ΥΑ 19800/1982 was published in ΦΕΚ Β' 455 on 1-7-1982 and is the
       instrument that frames this system, but ITS TEXT WAS NOT OBTAINED, so its
       own commencement clause is unknown and it may contain a delayed or
@@ -653,7 +653,7 @@ series:
       does NOT point it at plates/_decode/gr-prefectures.yml, because that table
       is the CURRENT allocation and there is no evidence the 1972 codes survived
       into it unchanged. Pointing a 1972 plate at a 2004 table would be the
-      French-SIV error PRD-PLATES §2.4 records. Recorded gap.
+      French-SIV error the plates spec §2.4 records. Recorded gap.
     sources:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Greece  # secondary-wikipedia: two letters + four digits, prefecture letters introduced 1972, superseded by the three-letter format in the mid-1980s. Revision 1367180219 of 2026-08-01T14:31:31Z"
       - "https://el.wikipedia.org/wiki/%CE%A0%CE%B9%CE%BD%CE%B1%CE%BA%CE%AF%CE%B4%CE%B5%CF%82_%CE%BA%CF%85%CE%BA%CE%BB%CE%BF%CF%86%CE%BF%CF%81%CE%AF%CE%B1%CF%82_%CE%BF%CF%87%CE%B7%CE%BC%CE%AC%CF%84%CF%89%CE%BD_%CF%84%CE%B7%CF%82_%CE%95%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1%CF%82  # secondary-wikipedia: the same era given as 1972-1984, corroborating the end but note the two articles differ (see notes)"
@@ -670,7 +670,7 @@ series:
       being issued. PRE-1972 GREECE IS NOT MODELLED: the purely numeric eras
       (reported as 1911-1954 and 1956-1972) and the short 1954-1956
       letter-and-number era have no instrument, no reliable format and no
-      colour source here, and pre-2000 depth is L4 work under PRD-PLATES §7.
+      colour source here, and pre-2000 depth is L4 work under the plates spec §7.
       Recorded as a deliberate gap rather than authored from folklore.
 
   # =========================================================================

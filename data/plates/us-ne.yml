@@ -1,4 +1,4 @@
-# plates/us-ne.yml — Nebraska (PRD-PLATES gate L2, group midwest-b).
+# plates/us-ne.yml — Nebraska (the plates spec gate L2, group midwest-b).
 #
 # NEBRASKA IS THE MOST STRUCTURALLY INTERESTING STATE IN THIS GROUP, and the
 # reason is that it runs TWO INCOMPATIBLE SERIAL SYSTEMS SIMULTANEOUSLY, split
@@ -37,7 +37,7 @@ binding: vehicle
 statute_edition: "Nebraska Revised Statutes Chapter 60 as CITED BY the Nebraska DMV's own 2023-series catalogue, registration manual and specialty-plate tables. THE STATUTE TEXT ITSELF WAS NOT READ: nebraskalegislature.gov timed out on every request in this pass (recorded gap). No section is quoted verbatim below."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched
@@ -59,13 +59,13 @@ artwork_risk:
     uncopyrightable — which is the ground this file actually stands on — but their TEXT
     is not free to reproduce, and none is reproduced at length here.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies to every Nebraska plate graphic,
+    the plates spec §3's placeholder default applies to every Nebraska plate graphic,
     including the Husker mark, which carries a further layer: it is a UNIVERSITY mark,
     plausibly trademarked and licensed to the state's program rather than owned by it.
     Nothing about it is cleared. Render `emblem: {present: true, rendered: placeholder}`.
     State-seal misuse statutes are unresearched for Nebraska.
   sources:
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): read to establish that Nebraska has NO section in the survey — a negative result, recorded as such"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): read to establish that Nebraska has NO section in the survey — a negative result, recorded as such"
 
 us_standards:
   no_federal_mandate: true
@@ -128,7 +128,7 @@ series:
       pattern_note: >-
         'regardless of spacing' in the source is why the separator is optional in the
         regex: the DMV treats `ABC123` and `ABC 123` as the same reserved shape, which is
-        exactly the separator-forgiving equivalence PRD-PLATES §2.6 exists to make sound.
+        exactly the separator-forgiving equivalence the plates spec §2.6 exists to make sound.
       progression: "not established (recorded gap)"
     design:
       graphic: { present: true, rendered: placeholder, description: "the 2023-series Nebraska base graphic; the DMV catalogue carries designs as raster images and describes none of them in text" }
@@ -273,7 +273,7 @@ series:
       needing the statute. PERIOD NOTE: `end: 2023` overlaps the current series' `start:
       2023` by design and by fact — a plate issued under the 2017 series remains valid and
       on the road well past the changeover, which is exactly the parallel-issuance case
-      PRD-PLATES's overlap-legal-iff-distinct-notes rule exists to permit.
+      the plates spec's overlap-legal-iff-distinct-notes rule exists to permit.
 
   # =========================================================================
   # COUNTY MESSAGE — the ONLY Nebraska serial grammar stated in full anywhere,
@@ -371,7 +371,7 @@ series:
       NEGATIVE constraint: Nebraska forbids any message shaped like its own standard
       alpha/numeric series, state-wide and independent of spacing. That is a jurisdiction
       actively defending the disjointness of its serial spaces, and it is the cleanest
-      real-world justification in this whole dataset for PRD-PLATES §2.6's
+      real-world justification in this whole dataset for the plates spec §2.6's
       separator-forgiving contract — the DMV itself reasons about `ABC123` and `ABC 123`
       as the same string. Modelled as `personalized` because the serial is owner-chosen.
 
@@ -426,7 +426,7 @@ series:
       dealer plate in both states. Recorded on both files for that reason.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. Count and links only.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. Count and links only.
   # =========================================================================
   - id: us-ne-specialty-index
     class: specialty
@@ -444,7 +444,7 @@ series:
         organizational, cause and military plates), and FCC-assigned call signs (Amateur
         Radio). The pattern shows the common assigned form the DMV writes as '123AB'.
     design:
-      note: "one design per authorised program; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised program; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: 42
@@ -475,7 +475,7 @@ series:
       - "https://dmv.nebraska.gov/dvr/license-plates  # the DMV's license-plate index, the official entry point for the program list"
     notes: >-
       THE SPECIALTY PROGRAM INDEX — one entry standing for the whole program, per
-      PRD-PLATES §2.5, with no individual designs. Nebraska is the best-instrumented
+      the plates spec §2.5, with no individual designs. Nebraska is the best-instrumented
       specialty index in group midwest-b for a reason worth generalising: the state
       publishes its plate types as an NLETS CODE TABLE, i.e. as operational data for other
       states' police systems, complete with per-type character limits. Any state that

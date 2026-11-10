@@ -1,4 +1,4 @@
-# plates/us-ga.yml — Georgia (PRD-PLATES gate L2, group southeast-a).
+# plates/us-ga.yml — Georgia (the plates spec gate L2, group southeast-a).
 #
 # THE GEORGIA FINDING, AND IT IS THE MOST CONSEQUENTIAL artwork_risk RESULT OF
 # THIS GROUP: GEORGIA IS A PUBLIC-DOMAIN STATE THAT HAS CARVED LICENSE PLATE
@@ -49,7 +49,7 @@ binding: vehicle
 statute_edition: "Official Code of Georgia Annotated, Title 40 (Motor Vehicles and Traffic), Chapter 2 — §§ 40-2-31, 40-2-41 and 40-2-60.1 as reproduced by codes.findlaw.com and read 2026-08-01"
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4. THE HEADLINE.
+# artwork_risk — required per jurisdiction by the plates spec §4. THE HEADLINE.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: split-public-domain-state-with-statutory-plate-design-carve-out
@@ -105,7 +105,7 @@ artwork_risk:
     — which means the ownership position on this particular plate may be split
     between the State and a third party. That is the WORST possible posture for
     a renderer and the strongest possible argument for the placeholder rule.
-  emblem_rule: "PRD-PLATES §3's placeholder default, applied without exception. The Georgia state seal, if used on any plate, additionally carries seal-misuse protection independent of copyright, which is unresearched."
+  emblem_rule: "The plates spec §3's placeholder default, applied without exception. The Georgia state seal, if used on any plate, additionally carries seal-misuse protection independent of copyright, which is unresearched."
   photograph_caution: "Commons photographs of Georgia plates carry the photographer's licence on the photograph, not on the design — and in Georgia the design is affirmatively owned by the State. A CC BY-SA tag on a Georgia plate photo licenses nothing you need and clears nothing you actually risk. Our renders are generated from the statute and never derived from a photograph."
   sources:
     - "https://codes.findlaw.com/ga/title-40-motor-vehicles-and-traffic/ga-code-sect-40-2-60-1.html  # O.C.G.A. § 40-2-60.1 [via FindLaw]: the verbatim state-ownership sentence over special license plate designs and subsequent editions, with the licensed-from-others exception and the commissioner's authorisation power"
@@ -141,7 +141,7 @@ digital_plates:
     period — presumes a metal plate. Georgia has legislated a second kind of
     thing: a registration number RENDERED ON A DISPLAY by a third-party
     provider. Its "design" is software, its "colours" are emitted rather than
-    printed, and its content can change without a base change. PRD-PLATES has
+    printed, and its content can change without a base change. The plates spec has
     no field for it and needs none yet, but the dataset should know the case
     exists before it meets a jurisdiction that has gone digital at scale.
   scope_gap: "the extent of Georgia's digital-plate programme — which vehicle classes, which providers, whether the digital plate carries the same serial as a metal one — was NOT established in this pass (recorded gap)"
@@ -232,14 +232,14 @@ series:
       - "https://dor.georgia.gov/georgia-standard-license-plate-designs  # Georgia DOR names the three current standard elections: 'Georgia vehicle owners may select either the current Peach Plate, Peach Orchard Plate, or the new USA Semiquincentennial/America 250 plate'"
       - "https://codes.findlaw.com/ga/title-40-motor-vehicles-and-traffic/ga-code-sect-40-2-31.html  # § 40-2-31(a) the distinctive number and the digital-plate clause; (b) the 6 x 12 in minima, the boldface required contents, the county designation, the 'Peach State' advertising authority and the five-year service floor; (c) complete retroreflective treatment; (d)-(g) the decals"
       - "https://dor.georgia.gov/motor-vehicles/vehicle-registration-license-plates/specialty-prestige-license-plates  # DOR: 'Prestige license plates are only issued on the STANDARD PEACH PLATE BACKGROUND' — which identifies this base, by the agency's own name for it, as Georgia's canonical standard"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Georgia_(U.S._state)  # LOCATOR ONLY (PRD-PLATES §4): the May 2012 start, the ABC1234 arrangement, the PFA1000/QFA1000 blocks, the historical charset exclusions, and the note that 'In God We Trust' can be printed at the bottom in place of the county name"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Georgia_(U.S._state)  # LOCATOR ONLY (the plates spec §4): the May 2012 start, the ABC1234 arrangement, the PFA1000/QFA1000 blocks, the historical charset exclusions, and the note that 'In God We Trust' can be printed at the bottom in place of the county name"
     notes: >-
       GEORGIA'S PLAIN PEACH PLATE — the canonical standard base, and the one
       the agency itself treats as canonical: DOR states that prestige (vanity)
       plates issue ONLY on "the standard peach plate background", which
       distinguishes it from its Peach Orchard sibling as a matter of official
       practice rather than of appearance. The two run concurrently from the same
-      base change and differ only in the graphic, which under PRD-PLATES §2.3
+      base change and differ only in the graphic, which under the plates spec §2.3
       (design difference is sufficient) makes them two series. The statutory
       "Peach State" advertising clause is the entry's best find: Georgia does
       not merely permit a peach on its plate, it directs the commissioner to
@@ -390,14 +390,14 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Georgia_(U.S._state)  # LOCATOR ONLY: a second serial arrangement, AB1CDE, reported from March 2026 on the same base, running AA1AAA to AA1ADB as of April 2026"
     notes: >-
       A SECOND SERIAL ARRANGEMENT ON THE AMERICA 250 BASE, GIVEN ITS OWN SERIES
-      BECAUSE PRD-PLATES §2.3 SAYS FORMAT DIFFERENCE IS SUFFICIENT — and it is
+      BECAUSE the plates spec §2.3 SAYS FORMAT DIFFERENCE IS SUFFICIENT — and it is
       worth pausing on how odd this is. Georgia opened a new alphabet-heavy
       format (LLL9LL) in January 2026 and then, two months later, opened a
       SECOND one (LL9LLL) on the same design. Two readings are possible: the
       first block is exhausting far faster than planned, or the two arrangements
       are allocated to different vehicle populations. NEITHER IS ESTABLISHED,
       and the honest record is both readings and no choice between them
-      (PRD-PLATES §5.3: record disagreements, never average them). This is the
+      (the plates spec §5.3: record disagreements, never average them). This is the
       thinnest-sourced series in the Georgia file and should be verified before
       the parse API relies on it.
 
@@ -581,7 +581,7 @@ series:
     design:
       plate: { unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
       ownership_warning: >-
           UNIQUE TO GEORGIA IN THIS GROUP, AND IT BELONGS ON THE DESIGN BLOCK
@@ -631,7 +631,7 @@ series:
       - "https://mvd.dor.ga.gov/motor/plates/PlateSelection.aspx  # Georgia MVD's Search License Plate Designs service: the full alphabetical list enumerated at 340 entries, the 14 'New plates are no longer available' markers, and the per-branch/per-body-style military and motorcycle variants"
       - "https://codes.findlaw.com/ga/title-40-motor-vehicles-and-traffic/ga-code-sect-40-2-60-1.html  # O.C.G.A. § 40-2-60.1 [via FindLaw]: what a special license plate is for, and the State's sole ownership of the designs"
     notes: >-
-      THE GEORGIA SPECIALTY PROGRAM INDEX — per PRD-PLATES §2.5, a count and a
+      THE GEORGIA SPECIALTY PROGRAM INDEX — per the plates spec §2.5, a count and a
       programme-list reference with source URLs, and no individual designs.
       Three findings worth carrying. FIRST, the count is given twice and
       honestly: the agency says "hundreds", the agency's own list enumerates to

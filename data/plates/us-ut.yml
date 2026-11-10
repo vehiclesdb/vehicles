@@ -1,4 +1,4 @@
-# plates/us-ut.yml — Utah (PRD-PLATES gate L2, mountain group).
+# plates/us-ut.yml — Utah (the plates spec gate L2, mountain group).
 #
 # READ THE SOURCING CAVEAT FIRST, BECAUSE IT SHAPES EVERY ENTRY BELOW. Utah is
 # the ONE state in the mountain group whose STATUTE could not be read in this
@@ -23,7 +23,7 @@
 #      began RE-ISSUING SERIALS FROM A PREVIOUS RUN. A dataset that assumes a
 #      US state serial is issued once is now wrong about Utah.
 #
-# WHAT IS NOT HERE (PRD-PLATES §2.5): individual special-group DESIGNS.
+# WHAT IS NOT HERE (the plates spec §2.5): individual special-group DESIGNS.
 jurisdiction: us-ut
 authority:
   name: Utah State Tax Commission, Division of Motor Vehicles (DMV)
@@ -38,7 +38,7 @@ statute_edition: >-
   as a source.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched-leaning-adverse
@@ -61,7 +61,7 @@ artwork_risk:
     Archives' website policies — the two places the equivalent assertion was
     found in Arizona. Both are cheap; neither was reachable here.
   emblem_rule: >-
-    PRD-PLATES §3 placeholder default applies, and under an unresearched posture
+    the plates spec §3 placeholder default applies, and under an unresearched posture
     it applies at the strict end. Utah's plate identity is carried by DELICATE
     ARCH (a named natural feature inside Arches National Park, which raises a
     separate and unresearched federal question about depictions of national-park
@@ -75,7 +75,7 @@ artwork_risk:
     the PHOTOGRAPH, not the design, and never reaches a render generated from
     the spec.
   sources:
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): where the § 63G-2-201 / § 63A-12-105 pointers were found. Neither section was read; nothing is asserted from this."
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): where the § 63G-2-201 / § 63A-12-105 pointers were found. Neither section was read; nothing is asserted from this."
 
 # ---------------------------------------------------------------------------
 # The US standards chain.
@@ -151,7 +151,7 @@ series:
           not used, but its footnote for that assertion reads, in full,
           "Observing hundreds of plates over the past several months" — which is
           an editor's own observation, not a source of any kind. Under
-          PRD-PLATES §4 that is below even enthusiast-corroboration grade, so it
+          the plates spec §4 that is below even enthusiast-corroboration grade, so it
           is recorded here as a LEAD and deliberately kept out of
           `regex_strict`. Contrast Nevada, where the same exclusion is
           attributed to a published collector reference and IS encoded.
@@ -184,7 +184,7 @@ series:
       variants_note: >-
         Recorded as variants of ONE series rather than two series because they
         share the arrangement, the period and the issuing rule and differ only
-        in graphic — which is the colour-only-variant test in PRD-PLATES §2.3,
+        in graphic — which is the colour-only-variant test in the plates spec §2.3,
         applied to a graphic. The progression difference noted above is the
         argument for the other reading; it is recorded so a verifier can
         overturn this call with evidence rather than taste.
@@ -195,7 +195,7 @@ series:
     region_encoding: none
     sources:
       - "https://dmv.utah.gov/plates  # Utah DMV: 'Utah currently has four standard issue plates, plus four additional plates that are no longer issued, but are still valid for use on vehicles', naming In God We Trust, Life Elevated Skier, Life Elevated Arches and Off-Highway Vehicle"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Utah  # LOCATOR ONLY (PRD-PLATES §4): the 19 November 2007 introduction date, the A12 3BC arrangement, the divergent skier/arch progressions, the 2023 end of the original runs and the 2025 flat-printing and serial-reuse changes. None is asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Utah  # LOCATOR ONLY (the plates spec §4): the 19 November 2007 introduction date, the A12 3BC arrangement, the divergent skier/arch progressions, the 2023 end of the original runs and the 2025 flat-printing and serial-reuse changes. None is asserted as sourced."
       - "https://le.utah.gov/xcode/Title41/Chapter1A/  # Utah Code Title 41 Chapter 1a Part 4 — PINNED, NOT READ"
     notes: >-
       UTAH'S PRINCIPAL STANDARD ISSUE. `period_evidence: corroboration-only`:
@@ -206,7 +206,7 @@ series:
       putting the SAME arrangement back into circulation on the SAME designs —
       which is continuation, not revival. If a verifier reads it as two runs,
       the honest shape is `ended: true` on a first entry plus a second dated
-      2025, and the PRD-QUALITY I-5/I-6 alias contract covers the recut.
+      2025, and the quality spec I-5/I-6 alias contract covers the recut.
 
   # =========================================================================
   # CURRENT STANDARD ISSUE (2) — In God We Trust, a specialty plate promoted
@@ -331,7 +331,7 @@ series:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
       layout_rule: "five-character combination at the RIGHT of the plate; special group sticker at the LEFT; descriptive phrase along the BOTTOM (Utah DMV). A stated layout, which most states do not give at all, and directly usable as render constraints."
-      note: "one design per authorised group; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised group; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_measured: 63
@@ -352,7 +352,7 @@ series:
         `year_end_min:` case again, and the reason a US plates dataset cannot
         model only what is currently ORDERABLE.
       internal_discrepancy: >-
-        RECORDED, NOT RECONCILED (PRD-PLATES §5.3). The same DMV page says in
+        RECORDED, NOT RECONCILED (the plates spec §5.3). The same DMV page says in
         one paragraph that "Utah has three standard issue plates" and in the
         next that "Utah currently has four standard issue plates". Both
         sentences are quoted above from the same archived capture. The four-plate
@@ -375,7 +375,7 @@ series:
       - "https://le.utah.gov/xcode/Title41/Chapter1A/  # Utah Code Title 41 Chapter 1a Part 4 and § 41-1a-418 — PINNED, NOT READ"
     notes: >-
       THE SPECIAL-GROUP PROGRAM INDEX — one entry for the whole programme, per
-      PRD-PLATES §2.5. IT IS THE STRONGEST ENTRY IN THIS FILE despite the file's
+      the plates spec §2.5. IT IS THE STRONGEST ENTRY IN THIS FILE despite the file's
       weak statutory base, because the Division states the serial LENGTH and the
       plate LAYOUT in its own words, which is more than Florida, Colorado,
       Nevada or Arizona do for their specialty programmes. The gap that remains

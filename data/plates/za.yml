@@ -1,4 +1,4 @@
-# plates/za.yml — South Africa (PRD-PLATES gate L3).
+# plates/za.yml — South Africa (the plates spec gate L3).
 #
 # EVERY grammar claim in this file comes from ONE regulation — regulation 27
 # of the National Road Traffic Regulations, 2000 (GNR.225 of 17 March 2000),
@@ -85,11 +85,11 @@
 # `format.regex` is the LINT-ROUND-TRIPPABLE regex; `format.regex_strict`
 # carries the reg 27(2)(a)(ii) proviso alphabet, which `regex` cannot.
 #
-# SEPARATOR NOTE (PRD-PLATES § 2.6): a South African plate prints NO separator
+# SEPARATOR NOTE (the plates spec § 2.6): a South African plate prints NO separator
 # glyph between the serial groups. Reg 35(3) prescribes the ARRANGEMENT of the
 # groups ("with all the letters and figures in one line", or the two-line
 # forms) and never a separator character; the millimetre spacing lives in
-# SANS/SABS 1116, a paywalled SABS publication which PRD-PLATES § 6 lets us
+# SANS/SABS 1116, a paywalled SABS publication which the plates spec § 6 lets us
 # build to and forbids us to reproduce. The space in every `pattern` here is
 # the conventional textual rendering of that gap, and every regex accepts it
 # as optional. The hyphen widely printed in the Western Cape ("CA 123-456") is
@@ -175,7 +175,7 @@ instrument:
     ("This gazette is also available free online at www.gpwonline.co.za")
     accompanies the Government Gazette text quoted here. SANS/SABS 1116 is a
     COPYRIGHTED SABS publication and is cited, never reproduced
-    (PRD-PLATES § 6).
+    (the plates spec § 6).
 
 # ---------------------------------------------------------------------------
 # Jurisdiction-wide facts, cited once and referenced per series.
@@ -217,7 +217,7 @@ common:
       by GNR.404 of 4 May 2007.
     hex_basis_note: >-
       The Regulations NAME the colours and never number them; the chromaticity
-      lives in SANS/SABS 1116, which PRD-PLATES § 6 forbids reproducing. Every
+      lives in SANS/SABS 1116, which the plates spec § 6 forbids reproducing. Every
       hex in this file is therefore `hex_basis: observed` inside a
       statutorily named colour — the same posture plates/gb.yml takes for BS
       AU 145e and plates/de.yml for "grünes Kennzeichen".
@@ -232,7 +232,7 @@ common:
       Free State separately recognises a 305 x 165 mm plate for seven-character
       personalised numbers (Provincial Notice 278 of 2006) — a size the
       national regulation does not list, and the discrepancy is recorded, not
-      averaged (PRD-PLATES § 5.3).
+      averaged (the plates spec § 5.3).
     character_height: >-
       Reg 35(4): 75 mm is the norm and 60 mm characters may be approved by the
       MEC for a rear illuminated space too small for 75 mm. The Free State
@@ -261,7 +261,7 @@ common:
       Vehicles', Part 2: 'Registration plates (metal)' or Part 4: 'Registration
       plates (plastic)'." Reg 50(1) binds registered manufacturers of number
       plates to the same two parts.
-    posture: "cited, never reproduced — SABS 1116 is a paywalled SABS publication (PRD-PLATES § 6)"
+    posture: "cited, never reproduced — SABS 1116 is a paywalled SABS publication (the plates spec § 6)"
     source: "https://disasterlaw.ifrc.org/sites/default/files/media/disaster_law/2021-06/%20ROAD%20TRAFFIC%20REGULATIONS,%202000.pdf  # reg 35(1), reg 35(6)(i), reg 50(1)(a)"
   font:
     name: "FE-Schrift, modified (\"FE modified\"), 75 mm — 60 mm on the 305 x 165 mm Free State personalised plate"
@@ -289,7 +289,7 @@ series:
   #    "a combination of three letters and three figures in any sequence ...
   #    and the licence mark of the province concerned".
   #    One series per province, because the provincial mark is a LITERAL and
-  #    a series is one format (PRD-PLATES § 2.2).
+  #    a series is one format (the plates spec § 2.2).
   # =========================================================================
 
   - id: za-gp-standard-3l3f
@@ -405,7 +405,7 @@ series:
           adds a covert element: the retro-reflective sheeting carries the
           manufacturer's identifier and "the Province by way of the letters
           'FS' inside a 12 mm circle interspersed throughout the sheeting".
-          PRD-PLATES § 3 placeholder rule applies to the cheetah landscape.
+          The plates spec § 3 placeholder rule applies to the cheetah landscape.
       rear_differs: false
     region_encoding: "plates/_decode/za-licence-marks.yml"
     sources:
@@ -972,7 +972,7 @@ series:
           statutory twin is unbounded and `regex` is deliberately narrower at
           six characters, which is the longest serial any South African
           provincial system issues. Narrower than the statute is still
-          `strict` (PRD-PLATES § 2.7); the outer legal bound is in
+          `strict` (the plates spec § 2.7); the outer legal bound is in
           `regex_statutory`, which is exactly what that field is for.
     design:
       plate: { w: 520, h: 113, unit: mm }
@@ -1006,7 +1006,7 @@ series:
     categories: [car, van, truck, bus, motorcycle]
     period: { start: 2000 }
     period_evidence: instrument-in-force
-    # RECALL-ONLY (PRD-PLATES § 2.7): reg 27(5)(d) delegates the ENTIRE
+    # RECALL-ONLY (the plates spec § 2.7): reg 27(5)(d) delegates the ENTIRE
     # grammar to the Director-General of Foreign Affairs and fixes exactly one
     # thing about it — that the number "shall end in the letter 'D'". No
     # DIRCO determination was located, so the regex below is a shape net built

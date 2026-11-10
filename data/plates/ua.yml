@@ -1,4 +1,4 @@
-# plates/ua.yml — Ukraine (PRD-PLATES gate L3).
+# plates/ua.yml — Ukraine (the plates spec gate L3).
 #
 # EVERY type, dimension, colour, character-count, letter-set and class claim in
 # this file is read from the CONSOLIDATED TEXT of the governing instrument on
@@ -45,7 +45,7 @@
 # 2. HOW THAT IS MODELLED HERE, AND WHY. The lint's pattern DSL generates Latin
 #    A–Z for its `L` token, so a `format.regex` written over Cyrillic could
 #    never round-trip. This file therefore does NOT declare a per-jurisdiction
-#    `serial_alphabet:` (PRD-PLATES §2.6 decision 2): every `pattern`, `regex`
+#    `serial_alphabet:` (the plates spec §2.6 decision 2): every `pattern`, `regex`
 #    and `regex_strict` here is written in the MACHINE-READABLE LATIN
 #    TRANSLITERATION of the printed glyphs — which is also what OCR, the
 #    Vienna-Convention rationale for the 12-letter restriction, and every
@@ -110,7 +110,7 @@
 #   transliterated Cyrillic letters, the Додаток 5 series blocks, the Додаток 6
 #   numeric code set — which `regex` cannot carry.
 #
-# SEPARATOR NOTE (PRD-PLATES §2.6): a Ukrainian plate prints NO separator
+# SEPARATOR NOTE (the plates spec §2.6): a Ukrainian plate prints NO separator
 # glyph. Додаток 3 fixes character HEIGHTS in millimetres and the ЄДИНІ ЗРАЗКИ
 # drawings fix the group gaps; no provision of the Вимоги names a separator
 # character. The space in every `pattern` here is the conventional textual
@@ -741,7 +741,7 @@ series:
       UA band it did not previously carry. Before that these plates were WHITE
       with black characters — see ua-diplomatic-cdp-2021. The country code is
       allocated by the ГДІП, not by МВС; the per-country table is a decode
-      table for gate L4 and is deliberately not modelled here (PRD-PLATES §2.5).
+      table for gate L4 and is deliberately not modelled here (the plates spec §2.5).
 
   - id: ua-consular-cc-2025
     class: consular
@@ -994,7 +994,7 @@ series:
     categories: [car, van, truck, bus]
     period: { start: 2000 }
     period_evidence: enabling-instrument
-    # RECALL-ONLY (PRD-PLATES §2.7): the content of a type-7 plate is chosen by
+    # RECALL-ONLY (the plates spec §2.7): the content of a type-7 plate is chosen by
     # the owner within limits that two instruments state DIFFERENTLY — постанова
     # КМУ № 1081 says «від трьох до восьми символів» while Додаток 2 Таблиця 4
     # of the Вимоги gives «2-8» letters and «2 (7)» digits. The regex is the
@@ -1116,7 +1116,7 @@ series:
     categories: [tractor, machine]
     period: { start: 2021 }
     period_evidence: enabling-instrument
-    # RECALL-ONLY (PRD-PLATES §2.7): the instrument contradicts itself on the
+    # RECALL-ONLY (the plates spec §2.7): the instrument contradicts itself on the
     # letter count. Розділ III п. 6 says the letter «Т» is placed «ліворуч від
     # літеросполуки, що позначає адміністративно-територіальну належність» —
     # T plus a two-letter region pair, i.e. three letters — while Додаток 2
@@ -1163,7 +1163,7 @@ series:
     categories: [car, van, truck, bus, trailer, machine]
     period: { start: 2004 }
     period_evidence: enabling-instrument
-    # RECALL-ONLY (PRD-PLATES §2.7): Розділ III п. 9 says these plates use
+    # RECALL-ONLY (the plates spec §2.7): Розділ III п. 9 says these plates use
     # «літери української абетки» WITHOUT the homoglyph restriction, so the
     # letter may be one of Ukrainian's non-Latin letters (Г, Ф, Ч, Ю, Я ...)
     # that this dataset's Latin-transliterated regex cannot express. A match on
@@ -1277,7 +1277,7 @@ series:
       include the two-digit region code printed small under the state arms, so
       the number a human reads off the plate is four digits. The emblem is a
       presidential-decree device and is rendered as a neutral placeholder per
-      PRD-PLATES §3 until its own licensing is affirmatively cleared.
+      the plates spec §3 until its own licensing is affirmatively cleared.
 
   # =========================================================================
   # TYPES 13-17 — uniformed state services. One designation letter, a region
@@ -1472,7 +1472,7 @@ series:
     categories: [car, van, truck, bus, trailer, machine]
     period: { start: 2025 }
     period_evidence: enabling-instrument
-    # RECALL-ONLY (PRD-PLATES §2.7): Додаток 2 Таблиця 6 gives type 18 five
+    # RECALL-ONLY (the plates spec §2.7): Додаток 2 Таблиця 6 gives type 18 five
     # digits and one letter, and Розділ III п. 1 names the letters «D», «С»,
     # «О» — but nothing in the instrument states whether the letter leads or
     # trails the digits, and type 18 is three months old with no published

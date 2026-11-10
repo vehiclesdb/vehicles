@@ -1,4 +1,4 @@
-# plates/us-pr.yml — Puerto Rico (PRD-PLATES gate L2, territories group).
+# plates/us-pr.yml — Puerto Rico (the plates spec gate L2, territories group).
 #
 # WHY PUERTO RICO IS THE BEST-SOURCED TERRITORY IN THIS GROUP: its plate law is
 # a single consolidated statute — Ley Núm. 22 de 7 de enero de 2000, "Ley de
@@ -20,7 +20,7 @@
 # the NUMBER OF PLATES are therefore recorded as gaps, not guessed. This is the
 # same shape as Guam (16 GCA § 7120(c)) and it is the territory pattern.
 #
-# WHAT IS DELIBERATELY NOT HERE (PRD-PLATES §2.5): individual specialty DESIGNS.
+# WHAT IS DELIBERATELY NOT HERE (the plates spec §2.5): individual specialty DESIGNS.
 # `us-pr-specialty-index` indexes the SEVEN statutory programmes and nothing
 # more.
 jurisdiction: us-pr
@@ -36,7 +36,7 @@ statute_edition: >-
   are in the served text, and later amendments were not checked (recorded gap).
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4 / §7.1.
+# artwork_risk — required per jurisdiction by the plates spec §4 / §7.1.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: public-domain-favourable
@@ -66,7 +66,7 @@ artwork_risk:
     factual claim in this file — is unambiguously free to use. This is the
     cleanest legal path for Puerto Rico and it is the one taken here.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies to the FORT / GARITA graphic
+    the plates spec §3's placeholder default applies to the FORT / GARITA graphic
     reported on the current base and to any Commonwealth coat of arms. Seals and
     coats of arms carry protection INDEPENDENT of copyright, and Commons notes
     for Puerto Rico that "Flags and coats of arms seem to follow the same laws
@@ -84,7 +84,7 @@ artwork_risk:
     - "https://bvirtual.ogp.pr.gov/ogp/Bvirtual/leyesreferencia/PDF/2/0022-2000.pdf  # Ley 22-2000 itself — an edict of government, PD at every level"
 
 # ---------------------------------------------------------------------------
-# The US standards chain. Recorded per PRD-PLATES §4. NOTHING here quotes SAE
+# The US standards chain. Recorded per the plates spec §4. NOTHING here quotes SAE
 # J686, whose text is paywalled and unpinned (the standing rule).
 # ---------------------------------------------------------------------------
 us_standards:
@@ -140,7 +140,7 @@ display_rules:
     unserviceable, or is scrapped. The plate is state property, not the owner's.
   sources:
     - "https://bvirtual.ogp.pr.gov/ogp/Bvirtual/leyesreferencia/PDF/2/0022-2000.pdf  # Art. 2.18: rear-only including motorcycles, horizontal fixing, colourless illumination, and the delegation of design/size/colour/plate-count to reglamento; Art. 2.11: staggered annual renewal keyed to first-registration month, government/municipal exclusion, 30-day extension power; Art. 2.13: plates are Department property, 30-day return duty"
-    - "http://www.plateshack.com/y2k/Puerto_Rico/pry2k.html  # CORROBORATION ONLY (PRD-PLATES §4): dated photographs of PR WINDSHIELD registration stickers (Jan 2022, Jan 2023, Feb 2023, Jan 2024 expirations), which is how the marbete practice was confirmed against the statute's silence"
+    - "http://www.plateshack.com/y2k/Puerto_Rico/pry2k.html  # CORROBORATION ONLY (the plates spec §4): dated photographs of PR WINDSHIELD registration stickers (Jan 2022, Jan 2023, Feb 2023, Jan 2024 expirations), which is how the marbete practice was confirmed against the statute's silence"
 
 series:
 
@@ -174,7 +174,7 @@ series:
         gap, three numerals. That arrangement is NOT in the statute; it is
         reported by a Wikipedia locator and corroborated by dated plate
         photographs, and it is recorded as `matching: strict` because it lies
-        INSIDE the statutory alphabet, never outside it (PRD-PLATES §2.7:
+        INSIDE the statutory alphabet, never outside it (the plates spec §2.7:
         narrower is still strict). `regex_statutory` is the outer legal bound
         from Art. 1.94 and is the honest matcher for a Puerto Rico plate of
         unknown vintage.
@@ -205,14 +205,14 @@ series:
       rear_differs: false
     previous_base_reported:
       note: >-
-        DELIBERATELY NOT MINTED AS A SERIES, per PRD-PLATES §4's rule that
+        DELIBERATELY NOT MINTED AS A SERIES, per the plates spec §4's rule that
         Wikipedia is a LOCATOR and its era tables are not sourced years. The
         locator reports a March 2023 changeover to the fort / "Isla del Encanto"
         base from a 2007-2023 base, both in ABC 123. NO PRIMARY establishing
         either boundary was obtained: DTOP publishes no plate-design instrument
         that was reachable in this pass, and Ley 22-2000 is design-silent by
         construction. Rather than mint a dated id on a folklore boundary and then
-        have to alias it (PRD-QUALITY I-5/I-6), the boundary is recorded here and
+        have to alias it (the quality spec I-5/I-6), the boundary is recorded here and
         a dated series is added when a reglamento or DTOP order lands.
       reported_boundaries: ["1987-2007 ABC 123", "2007-2023 ABC 123", "2023-present ABC 123, fort graphic"]
       evidence: locator-only
@@ -220,7 +220,7 @@ series:
     sources:
       - "https://bvirtual.ogp.pr.gov/ogp/Bvirtual/leyesreferencia/PDF/2/0022-2000.pdf  # Art. 1.94: the serial alphabet ('números o letras o combinación de ambos') and the ABSENCE of any length cap; Art. 2.05: the register keys each vehicle by VIN plus 'aquel otro número que entienda apropiado el Secretario' and records the 'Identificación o tablilla concedida al vehículo'; Art. 2.17: the Secretary issues plates on registration, renewal, change of authorised use, and transfer where the acquirer holds no plate, and sets design/characteristics/issuance/renewal/use by reglamento against a $10 fee to the DISCO special account; Art. 2.18: content, delegation of design/size/colours, rear-only horizontal display including motorcycles, colourless illumination"
       - "https://www.dtop.pr.gov/  # the issuing authority; DISCO/CESCO is the plate-issuing directorate named throughout Ley 22-2000"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Puerto_Rico  # LOCATOR ONLY (PRD-PLATES §4): the ABC 123 arrangement, the reported March 2023 fort base, the reported serial blocks, and the 'rear plate only since 1976' claim. NONE of these is asserted as sourced here; the rear-only rule is instead cited to Art. 2.18, which states it in law and needs no folklore"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Puerto_Rico  # LOCATOR ONLY (the plates spec §4): the ABC 123 arrangement, the reported March 2023 fort base, the reported serial blocks, and the 'rear plate only since 1976' claim. NONE of these is asserted as sourced here; the rear-only rule is instead cited to Art. 2.18, which states it in law and needs no folklore"
       - "https://www.aamva.org/getmedia/646bcc8a-219b-47d8-b5cd-726240473163/License-Plate-Standard-Edition-3_September-2025-Update.pdf  # AAMVA Ed.3 geometry, recorded as voluntary recommendation with no evidence of PR adoption"
     notes: >-
       PUERTO RICO STANDARD ISSUE. THE ID IS DELIBERATELY UNDATED, for the same
@@ -444,7 +444,7 @@ series:
       imposing Florida's law on Puerto Rico.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. Puerto Rico is the rare
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. Puerto Rico is the rare
   # jurisdiction where the specialty catalogue is ITSELF STATUTORY: seven
   # programmes, each with its own article. Count and citations only; no designs.
   # =========================================================================
@@ -460,7 +460,7 @@ series:
       charset: { notes: "specialty plates carry ordinary Art. 1.94 serials; several are DISTINTIVOS carried IN ADDITION to the official plate rather than in place of it — see the index" }
       pattern_note: "illustrative pattern, statutory-bound regex — this is an INDEX entry, not a spec"
     design:
-      plate: { note: "one design per statutory programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here" }
+      plate: { note: "one design per statutory programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here" }
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_statutory: 7
@@ -483,7 +483,7 @@ series:
         the statute — Roberto Clemente and Roberto Clemente Anniversary,
         Make-A-Wish Foundation, San Juan 500th Anniversary, Olympic Committee, and
         a Veteran plate first issued around 2009. The statute-versus-practice
-        discrepancy is RECORDED, NOT AVERAGED (PRD-PLATES §5.3): either these rest
+        discrepancy is RECORDED, NOT AVERAGED (the plates spec §5.3): either these rest
         on later amendments to Ley 22-2000 that the served scan predates, or on
         separate special acts, or on the Secretary's reglamento power. Resolving
         which is a recorded gap and the highest-value next step for Puerto Rico.
@@ -493,10 +493,10 @@ series:
     sources:
       - "https://bvirtual.ogp.pr.gov/ogp/Bvirtual/leyesreferencia/PDF/2/0022-2000.pdf  # Arts. 2.20, 2.26, 2.27, 2.28, 2.29, 2.30, 2.31 — the seven statutory specialty programmes, their eligibility, fees, display rules and penalties; Art. 2.31(a) the front-plate inversion; Arts. 2.21-2.24 the disabled placards excluded from this index"
       - "https://www.cesco.pr.gov/  # DTOP/CESCO driver-services portal — the official channel; no enumerated specialty catalogue found (gap)"
-      - "http://www.plateshack.com/y2k/Puerto_Rico/pry2k.html  # CORROBORATION + GAP-FINDER (PRD-PLATES §4): dated photographs of Roberto Clemente, Roberto Clemente Anniversary, Make-A-Wish, San Juan 500th Anniversary, Olympic Committee and Veteran plates, plus a trailer plate and a private-truck plate. This is how the statute-versus-practice discrepancy above was FOUND; no text or image was copied"
+      - "http://www.plateshack.com/y2k/Puerto_Rico/pry2k.html  # CORROBORATION + GAP-FINDER (the plates spec §4): dated photographs of Roberto Clemente, Roberto Clemente Anniversary, Make-A-Wish, San Juan 500th Anniversary, Olympic Committee and Veteran plates, plus a trailer plate and a private-truck plate. This is how the statute-versus-practice discrepancy above was FOUND; no text or image was copied"
     notes: >-
       THE SPECIALTY PROGRAM INDEX — one entry standing for the whole programme,
-      which is what PRD-PLATES §2.5 asks for at this gate. Two things worth
+      which is what the plates spec §2.5 asks for at this gate. Two things worth
       carrying forward. First, PUERTO RICO'S SPECIALTY CATALOGUE IS AN EDICT: seven
       programmes, seven articles, all public domain and all citable per claim —
       a materially better provenance than the agency-webpage counts most US states

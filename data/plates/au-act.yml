@@ -1,4 +1,4 @@
-# plates/au-act.yml — Australian Capital Territory (PRD-PLATES gate L3, Australia).
+# plates/au-act.yml — Australian Capital Territory (the plates spec gate L3, Australia).
 #
 # THIS FILE CARRIES THE 1948 LETTER ALLOCATION — the one genuinely national fact
 # in Australian plates, and the reason plates/au-nsw.yml, plates/au-sa.yml and
@@ -31,7 +31,7 @@
 #    grammar in terms, and — uniquely in this dataset — says what the DIAMOND
 #    between serial groups counts as.
 #
-# THE SEPARATOR IS A DIAMOND AND WE DO NOT WRITE IT (PRD-PLATES §2.6). ACT
+# THE SEPARATOR IS A DIAMOND AND WE DO NOT WRITE IT (the plates spec §2.6). ACT
 # plates print a diamond between groups (YGH♦75R). U+2666 is neither in the
 # serial alphabet nor in the emitted separator set, so no pattern or regex here
 # spells it; patterns spell the gap as an emitted SPACE and every regex accepts
@@ -97,7 +97,7 @@ instrument:
     one number. No separate series is authored for it — same number, same
     grammar, different mount.
   source: "https://www.legislation.act.gov.au/DownloadFile/sl/2000-12/current/PDF/2000-12.PDF  # Road Transport (Vehicle Registration) Regulation 2000 (ACT), Republication No 62, authorised PDF, fetched and text-extracted 2026-08-02: s 49 issue rule, s 50 bicycle-rack plates, s 59 display"
-  licence: "ACT legislation is published by the ACT Parliamentary Counsel; the register states the material is authorised and accessible at www.legislation.act.gov.au. Edicts of government (PRD-PLATES §4)."
+  licence: "ACT legislation is published by the ACT Parliamentary Counsel; the register states the material is authorised and accessible at www.legislation.act.gov.au. Edicts of government (the plates spec §4)."
 
 # ---------------------------------------------------------------------------
 # THE 1948 ALLOCATION. Quoted here once for the whole Australian wave.
@@ -189,7 +189,7 @@ plate_stock:
     printed_glyph: diamond
     note: >-
       Printed between serial groups on ACT plates. Not written in any pattern or
-      regex (PRD-PLATES §2.6 permits only "-" and " " as emitted separators);
+      regex (the plates spec §2.6 permits only "-" and " " as emitted separators);
       patterns spell the gap as a SPACE. Flagged for the _meta/separators.yml
       owner with the agency's own "A diamond symbol or space counts as a
       character" sentence, which is the only government text found in this wave
@@ -219,7 +219,7 @@ display_rules:
     inverse of Florida's: § 316.605(1) F.S. sets a maximum of 60 in (1.52 m) and
     a MINIMUM of 12 in; the ACT sets a maximum only. Diagrams 59.1 and 59.2 are
     line drawings inside the instrument and are cited, never reproduced
-    (PRD-PLATES §6).
+    (the plates spec §6).
   agency_gloss: >-
     Access Canberra, verbatim: "Unless exempted, all characters on a numberplate
     must be fully visible when viewed from all positions within the areas
@@ -300,7 +300,7 @@ series:
         production from 3 July 2017.
       special_series_note: >-
         AGENCY-SOURCED, and a good example of a colour-only variant that is NOT
-        its own series under PRD-PLATES §2.3: "Rainbow numberplates are standard
+        its own series under the plates spec §2.3: "Rainbow numberplates are standard
         tin 'Y' series plates with a rainbow stripe along the bottom. You are
         unable to customise the size or numbers on these plates." Same format,
         same period, same issuing rule — a sub-entry, not a series.
@@ -311,7 +311,7 @@ series:
     sources:
       - "https://web.archive.org/web/20181003140711/https://www.accesscanberra.act.gov.au/app/answers/detail/a_id/2125/~/act-numberplate-information  # Access Canberra, archived 2018-10-03, fetched 2026-08-02: the 'Y' series is the standard issue and who does not get it; the blue-on-reflective-white colour rule; the rainbow variant's identity as a standard Y plate; replacement plates 'cannot be requested out of sequence'"
       - "https://www.legislation.act.gov.au/DownloadFile/sl/2000-12/current/PDF/2000-12.PDF  # Road Transport (Vehicle Registration) Regulation 2000 (ACT) s 49: two plates for a motor vehicle, at least one for a motorbike, motortrike or trailer — the plate COUNT is statutory even though the format is not"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Australian_Capital_Territory  # secondary (CC BY-SA; facts extracted in our expression per the PRD-PLATES §4 Wikipedia rule, accessed 2026-08-02): the YLL 99L arrangement, its 1998 start on exhaustion of the previous arrangement, the slogan history and the block allocations. The 1998 date carries NO citation in the article"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Australian_Capital_Territory  # secondary (CC BY-SA; facts extracted in our expression per the plates spec §4 Wikipedia rule, accessed 2026-08-02): the YLL 99L arrangement, its 1998 start on exhaustion of the previous arrangement, the slogan history and the block allocations. The 1998 date carries NO citation in the article"
     notes: >-
       ACT GENERAL ISSUE, SECOND-GENERATION Y SERIES. The SHAPE is safe and the
       DATE is not, and the two are tagged separately on purpose. What the agency
@@ -320,10 +320,10 @@ series:
       ACT government source obtained states: when the three-letters/two-numerals/
       one-letter arrangement replaced the three-letters/three-numerals one. So
       `period_evidence: secondary-wikipedia` and 1998 is the article's claim,
-      flagged, not asserted (PRD-PLATES §9: primary-source-or-marked). THE ID IS
+      flagged, not asserted (the plates spec §9: primary-source-or-marked). THE ID IS
       DELIBERATELY UNDATED (`au-act-standard`, not `au-act-standard-1998`) for
       the same reason us-fl-standard is: minting a dated id on an uncited
-      boundary builds a dated id on sand, and the id contract (PRD-QUALITY
+      boundary builds a dated id on sand, and the id contract (the quality spec
       I-5/I-6) then forbids retracting it. When an agency date lands, the dated
       id is added and this becomes its former-id alias. RECORDED GAPS: the ACT
       issues plates to "public, government, diplomatic or heavy" vehicles on
@@ -381,12 +381,12 @@ series:
       single evidence tier for the pair would have hidden that asymmetry, which
       is exactly what the period discipline exists to prevent — plates/es.yml
       and plates/no.yml already carry compound tiers for the same reason.
-      NOTE ALSO A DATE DISAGREEMENT, recorded and not averaged (PRD-PLATES §5.3):
+      NOTE ALSO A DATE DISAGREEMENT, recorded and not averaged (the plates spec §5.3):
       the agency says the first Y plates were issued in AUGUST 1968 commencing
       at YAA-000; the secondary article says "From September 1968 the Yaa-nnn
       series commenced (in blue on reflective white) at YAB. YAA was set aside
       for recalls of numericals." Different month, different opening
-      combination. The AGENCY IS THE AUTHORITY (PRD-PLATES §5.3: majority is not
+      combination. The AGENCY IS THE AUTHORITY (the plates spec §5.3: majority is not
       authority) and its August/YAA-000 reading is the one recorded; the
       article's is preserved here so a verifier can adjudicate rather than
       rediscover. The all-numeric ACT series that ran to 1968 (reported "from 1
@@ -437,10 +437,10 @@ series:
           are longer and thinner than standard numberplates and can also come in
           a European style slimline set"), sharing the scheme, the period and the
           issuing rule — hence a variant on this series rather than a series of
-          its own under PRD-PLATES §2.3.
+          its own under the plates spec §2.3.
     design:
       plate: { length_mm: 372, unit: mm }
-      plate_variants_note: "standard (372 mm), medium (317 mm) and short (190 mm) lengths, plus slimline and European styles, all agency-listed with their fees; the individual designs are out of scope (PRD-PLATES §2.5)"
+      plate_variants_note: "standard (372 mm), medium (317 mm) and short (190 mm) lengths, plus slimline and European styles, all agency-listed with their fees; the individual designs are out of scope (the plates spec §2.5)"
       background: { finish: retroreflective }
       colour_note: "the ten plastic-plate colour combinations Access Canberra lists are recorded in plate_stock.materials_quote; tin personalised plates follow the blue-on-white tin rule"
       custom_slogan_note: "nonstandard plates may carry a custom slogan of up to 14 / 25 / 30 characters by plate length, and a customer-supplied logo of up to seven colours supplied as .eps, .tif or .dxf — agency-stated"

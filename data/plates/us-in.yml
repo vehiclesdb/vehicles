@@ -1,4 +1,4 @@
-# plates/us-in.yml — Indiana (PRD-PLATES gate L2, group midwest-a).
+# plates/us-in.yml — Indiana (the plates spec gate L2, group midwest-a).
 #
 # WHAT INDIANA IS FOR IN THIS DATASET: the cleanest DELEGATION case in the US
 # so far, and the direct analogue of Germany's §9 FZV trap. Indiana's
@@ -25,7 +25,7 @@
 # codes.findlaw.com, a third-party REPRODUCTION of the same edict; the canonical
 # iga.in.gov citation is carried alongside every FindLaw URL and was NOT fetched.
 #
-# NOT HERE, DELIBERATELY (PRD-PLATES §2.5 + L2 scope): individual specialty
+# NOT HERE, DELIBERATELY (the plates spec §2.5 + L2 scope): individual specialty
 # DESIGNS (L4); Indiana's truck (TK), semi-tractor (TC) and permanent
 # semi-trailer (SP) series, which are outside the L2 core-class list and are
 # recorded only as evidence of the class-token convention; and DEALER,
@@ -39,7 +39,7 @@ binding: vehicle
 statute_edition: "Indiana Code Title 9 (Motor Vehicles), Articles 18.1 and 18.5, as reproduced by codes.findlaw.com and read 2026-08-02. FindLaw's own banner warns it 'may not reflect the most recent version of the law'; the currency of this text is therefore UNVERIFIED."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched-default-adverse
@@ -61,7 +61,7 @@ artwork_risk:
     unresearched-default-adverse with the near-miss stated, because a future
     researcher will find IC 5-14-3-3 and be tempted by it.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies. The current base is a pictorial
+    the plates spec §3's placeholder default applies. The current base is a pictorial
     country scene with a covered bridge; render
     `emblem: {present: true, rendered: placeholder}` and approximate nothing.
     State-seal protection is independent of copyright and is unresearched for
@@ -90,7 +90,7 @@ us_standards:
     The "1956 AMA standardization agreement" is UNCITED in its Wikipedia source
     and is not relied on here. Note the trap it sets for Indiana specifically:
     the Indiana article cites an ALPCA page for 'standard plate size
-    documentation', which is precisely the circular enthusiast sourcing PRD-PLATES
+    documentation', which is precisely the circular enthusiast sourcing the plates spec
     §4 warns about. No Indiana plate dimension is recorded in this file.
 
 display_rules:
@@ -160,7 +160,7 @@ series:
       from 1950 to 1962 a two-letter county prefix. Since 2008 the county number
       and name ride on a sticker at the top of the plate. So a decode table for
       Indiana geography is PERIOD-BOUND and applies only to pre-2008 serials —
-      exactly the trap PRD-PLATES §2.4 records for the French SIV band. All of
+      exactly the trap the plates spec §2.4 records for the French SIV band. All of
       this is secondary; no primary was obtained.
     sources:
       - "https://codes.findlaw.com/in/title-9-motor-vehicles/in-code-sect-9-18-1-4-3.html  # FETCHED. IC 9-18.1-4-3, the delegation: 'The bureau shall adopt rules under IC 4-22-2 regarding the size, character, display, mounting, securing, content, issuance, replacement, and life cycle of license plates, temporary license plates, renewal stickers, and other proof of registration.' This is the reason no format claim in this file can be statute-grade."
@@ -170,7 +170,7 @@ series:
     notes: >-
       INDIANA STANDARD ISSUE, CURRENT BASE. The id is dated on a
       SECONDARY first-issue year and carries `period_evidence:
-      secondary-first-issue` to say so; PRD-QUALITY's id contract means a dated
+      secondary-first-issue` to say so; the quality spec's id contract means a dated
       id minted on a soft boundary must be aliased rather than moved if the
       boundary shifts, so the flag is load-bearing, not decorative. The entry's
       real contribution to the dataset is the two structural facts around the
@@ -295,7 +295,7 @@ series:
       charset: { notes: "specialty and 'special group recognition' plates carry ordinary serials on an alternative design; no distinct grammar was sourced" }
     design:
       background: { finish: retroreflective }
-      note: "one design per authorised group; designs are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised group; designs are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: null
@@ -316,7 +316,7 @@ series:
       - "https://www.in.gov/bmv/  # FETCHED (root only): the BMV's own promotion of the blackout plate and its 'Specialty & Personalized License Plates' section"
     notes: >-
       THE INDIANA SPECIALTY PROGRAM INDEX — one entry for the whole programme per
-      PRD-PLATES §2.5, with the count declared as a gap. The structural finding is
+      the plates spec §2.5, with the count declared as a gap. The structural finding is
       that Indiana routes optional plates through a dedicated CODE ARTICLE
       (IC 9-18.5) rather than through per-plate statutes as Ohio does or through a
       petition threshold as Illinois and Wisconsin do. That article is the right

@@ -33,7 +33,7 @@
 # (c) legally not part of the plate. On a pre-1993 plate the sigla is in the mark
 # and denotes the province OF REGISTRATION (art. 320 D.P.R. 420/1959). Same two
 # letters, opposite semantics, and a parse API must not blend them. This is
-# Italy's version of the French SIV caution recorded in PRD-PLATES §2.4.
+# Italy's version of the French SIV caution recorded in the plates spec §2.4.
 jurisdiction: it
 topic: provinces
 authority:
@@ -57,7 +57,7 @@ period_note: >-
   later (Monza-Brianza MB, Fermo FM, Barletta-Andria-Trani BT in 2004-2009, Sud
   Sardegna SU in 2016) never appeared on a provincial-era plate at all.
 
-# PERIOD DISCIPLINE (PRD-PLATES §2.4). D.P.R. 20 luglio 2017, n. 140 (GU
+# PERIOD DISCIPLINE (the plates spec §2.4). D.P.R. 20 luglio 2017, n. 140 (GU
 # 22-09-2017 n. 222) withdrew four sigle and added one, and its art. 2 comma 2
 # states the rule every decode table of this kind needs, verbatim:
 #   "I veicoli dotati di targhe di immatricolazione con le sigle delle province,
@@ -82,7 +82,7 @@ withdrawn_rule_source: "https://www.normattiva.it/do/atto/caricaAKN?dataGU=19921
 #   * Three sigle carry a heraldic device the appendix describes in words and
 #     which a render pipeline must not silently drop: Aosta ("La O è sormontata
 #     dallo stemma"), Bolzano ("La Z è sormontata dallo stemma"), Trento ("La N è
-#     sormontata dallo stemma"). PRD-PLATES §3 placeholder rule applies to those
+#     sormontata dallo stemma"). The plates spec §3 placeholder rule applies to those
 #     three emblems.
 maximal_munch: false
 

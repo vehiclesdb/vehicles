@@ -1,4 +1,4 @@
-# plates/us-nv.yml — Nevada (PRD-PLATES gate L2, mountain group).
+# plates/us-nv.yml — Nevada (the plates spec gate L2, mountain group).
 #
 # NEVADA IS THE BEST-LEGISLATED PLATE SYSTEM IN THIS GROUP. Where Arizona
 # delegates everything and Colorado legislates a character cap, NRS Chapter 482
@@ -20,14 +20,14 @@
 # legislatively authorised reproduction programme — a live series and a revival
 # series of the same design, side by side, both current.
 #
-# THE SEPARATOR FINDING (PRD-PLATES §2.6): the glyph between the serial groups
+# THE SEPARATOR FINDING (the plates spec §2.6): the glyph between the serial groups
 # on a modern Nevada plate is THE OUTLINE OF THE STATE OF NEVADA. It is a
 # design element occupying a separator position, not a character. Every regex
 # below therefore spells that position with the emitted SPACE, and
 # `design.serial_separator_glyph` records what is actually printed. See the
 # note on `us-nv-standard-2024`.
 #
-# WHAT IS NOT HERE (PRD-PLATES §2.5): individual special-plate DESIGNS.
+# WHAT IS NOT HERE (the plates spec §2.5): individual special-plate DESIGNS.
 jurisdiction: us-nv
 authority:
   name: Nevada Department of Motor Vehicles (DMV)
@@ -42,7 +42,7 @@ statute_edition: >-
   28 May 2025, which preserves that revision stamp.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched
@@ -66,7 +66,7 @@ artwork_risk:
     and both are exactly where the answer sat in the two states where it was
     found.
   emblem_rule: >-
-    PRD-PLATES §3 placeholder default applies, and applies to more than usual
+    the plates spec §3 placeholder default applies, and applies to more than usual
     here: the Nevada plate's identity is carried by the STATE-OUTLINE glyph
     between the serial groups and by the stylised mountain range along the
     bottom. Render both as `rendered: placeholder`. Nevada state seal statutes
@@ -76,7 +76,7 @@ artwork_risk:
     photograph licenses the PHOTOGRAPH, not the design, and never reaches a
     render generated from the spec.
   sources:
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): consulted, and recorded here precisely because its Nevada section is EMPTY — the negative result is the claim"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): consulted, and recorded here precisely because its Nevada section is EMPTY — the negative result is the claim"
 
 # ---------------------------------------------------------------------------
 # The US standards chain. Nevada is the one state in this group whose statute
@@ -166,7 +166,7 @@ series:
           Q have not been used in Nevada passenger serials since the 2001 base
           and the practice continues. That is what `regex_strict` encodes, and
           it is why a strict twin exists here at all — the round-trip forbids
-          `regex` from carrying it (PRD-PLATES §2.7). The exclusion is
+          `regex` from carrying it (the plates spec §2.7). The exclusion is
           corroboration-grade (a collector reference reached through a locator),
           not authority-stated, and is recorded as such; the statute is silent,
           because § 482.2705(2) hands the Director the whole question: "the
@@ -196,7 +196,7 @@ series:
         screened in black within the mountain range. Recorded as a lead.
       serial_separator_glyph: >-
         THE PRINTED SEPARATOR IS THE OUTLINE OF THE STATE OF NEVADA, not a
-        hyphen, dot or space. Under PRD-PLATES §2.6 the dataset may emit only
+        hyphen, dot or space. Under the plates spec §2.6 the dataset may emit only
         '-' and ' ', so every regex here spells that position with an optional
         SPACE and this field records the truth. The reasoning is the one already
         set out in _meta/separators.yml's never_separator note for German and
@@ -224,7 +224,7 @@ series:
       - "https://www.leg.state.nv.us/nrs/nrs-482.html  # NRS 482.2705(1)-(2): the Director orders preparation of passenger and truck plates in the same manner as § 482.270 and determines the letter-and-number combinations; § 482.270(4)-(5) the material, brightness and visibility requirements and the mandatory plate contents"
       - "https://dmv.nv.gov/platesnumbers.htm  # Nevada DMV, Previously-Issued Standard Plate Numbers: 'You may obtain any standard plate number (\"123ABC\") or special counter plate number (\"Lake Tahoe 12345\")' subject to an 18-month dormancy or a release form; and '\"123ABC\" can be ordered in the Home Means Nevada or Circa 1982 styles only'"
       - "https://dmv.nv.gov/platesmain.htm  # Nevada DMV: 'License plates are available in the standard Home Means Nevada design and more than 30 specialty designs'"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Nevada  # LOCATOR ONLY (PRD-PLATES §4): the March 2024 arrangement change, the two concurrent current arrangements and their ranges, the I/O/Q exclusion, the state-outline separator, the design description and the historic county-code table. None is asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Nevada  # LOCATOR ONLY (the plates spec §4): the March 2024 arrangement change, the two concurrent current arrangements and their ranges, the I/O/Q exclusion, the state-outline separator, the design description and the historic county-code table. None is asserted as sourced."
     notes: >-
       NEVADA STANDARD ISSUE, CURRENT ARRANGEMENTS. THE BASE IS OLDER THAN THE
       SERIES: "Home Means Nevada" debuted 1 November 2016 and the March 2024
@@ -268,7 +268,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Nevada  # LOCATOR ONLY: the 1 November 2016 debut of the Home Means Nevada base, the 000 A00 to 999 Z99 range and the ZDK-ZZZ dealer block"
     notes: >-
       THE PREVIOUS ARRANGEMENT ON THE CURRENT BASE. It is separated from
-      us-nv-standard-2024 because the format differs and PRD-PLATES §2.3 makes
+      us-nv-standard-2024 because the format differs and the plates spec §2.3 makes
       format a series boundary, and it is kept because the two are visually
       identical — a photograph cannot distinguish them, only the serial can.
       That is precisely the case a format-plus-period dataset exists to resolve
@@ -312,7 +312,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Nevada  # LOCATOR ONLY: the January 2001 start, the December 2006 screening change, the April 2015 arrangement change, the July 2015 re-embossing and state-shape separator, and concurrent issuance with the Home Means Nevada base from 1 November 2016 until supplies were exhausted"
     notes: >-
       THE PREVIOUS BASE. The overlap with us-nv-standard-2016 is REAL AND
-      DELIBERATE, and is exactly the parallel-issuance case PRD-PLATES §2.2
+      DELIBERATE, and is exactly the parallel-issuance case the plates spec §2.2
       anticipates: the Sierra base kept being issued from existing stock after
       the Home Means Nevada base debuted on 1 November 2016, until supplies ran
       out. Old stock issues on — recorded, not smoothed.
@@ -420,7 +420,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Nevada  # LOCATOR ONLY: the six-digit numeric arrangement and the 2017 transition to the Home Means Nevada motorcycle base"
     notes: >-
       MOTORCYCLE PLATES. Included because § 482.272 gives motorcycles their own
-      section and their own issuance rule, which is the test PRD-PLATES §2.3
+      section and their own issuance rule, which is the test the plates spec §2.3
       sets for a separate series. The honest weakness is the FORMAT: the statute
       delegates the character count entirely, and the six-digit arrangement is
       corroboration-grade. Recorded with that grade visible rather than omitted,
@@ -487,7 +487,7 @@ series:
           The prefix letter carries the meaning: D, L or R for the dealer,
           lessor and rebuilder families (corroboration-grade from a locator).
           `regex` accepts any prefix letter because the round-trip against
-          `pattern` forbids it from carrying the restriction (PRD-PLATES §2.7);
+          `pattern` forbids it from carrying the restriction (the plates spec §2.7);
           `regex_strict` is the sourced-as-far-as-it-goes prefix set.
     design:
       plate: { w: 12, h: 6, unit: in }
@@ -584,10 +584,10 @@ series:
       `matching: recall-only` is the correct grade and worth stating plainly: an
       unbounded alphanumeric regex is deliberately wider than any grammar Nevada
       actually issues, so a match is a shape hit and nothing more, exactly as
-      PRD-PLATES §2.7 requires such a regex to be labelled.
+      the plates spec §2.7 requires such a regex to be labelled.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5.
   # =========================================================================
   - id: us-nv-special-plate-index
     class: specialty
@@ -602,7 +602,7 @@ series:
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: "more than 30"
@@ -612,7 +612,7 @@ series:
         the charitable-and-collegiate group alone, plus twenty-one veteran
         plates and four main plates, so "more than 30" is plainly a floor rather
         than a total. Both figures are recorded; neither is averaged
-        (PRD-PLATES §5.3). The veteran group as listed: Air Force, Army, Army
+        (the plates spec §5.3). The veteran group as listed: Air Force, Army, Army
         Airborne, Coast Guard, Marine Corps, National Guard - Air Force,
         National Guard - Army, Navy, Navy Seabees, Woman Veteran, Disabled
         Veteran, Disabled Female Veteran, Medal of Honor, Silver Star, Bronze
@@ -645,7 +645,7 @@ series:
       - "https://dmv.nv.gov/platescharitable.htm  # Nevada DMV charitable and collegiate plates: the sequential-versus-personalized fee structure and the per-cause allocations"
     notes: >-
       THE SPECIAL-PLATE PROGRAM INDEX — one entry for the whole programme, per
-      PRD-PLATES §2.5. Nevada is the most quantitatively documented specialty
+      the plates spec §2.5. Nevada is the most quantitatively documented specialty
       programme in the mountain group: the threshold, the window, both fee tiers
       and the per-cause allocation are all in statute or on the DMV's own pages,
       and the catalogue itself is a statutory range. What is NOT here, and is

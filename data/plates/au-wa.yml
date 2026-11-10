@@ -1,4 +1,4 @@
-# plates/au-wa.yml — Western Australia (PRD-PLATES gate L3, Australia).
+# plates/au-wa.yml — Western Australia (the plates spec gate L3, Australia).
 #
 # WESTERN AUSTRALIA HAS THE BEST START DATE IN THE AUSTRALIAN WAVE, and it is
 # not from a statute — it is from the Transport Minister's own dated media
@@ -56,7 +56,7 @@ instrument:
     source anyway, since Australian registration regulations carry no serial
     grammar. The verifier should still read the Regulations for the display
     rules, which this file therefore does NOT state (recorded gap).
-  licence: "Government of Western Australia material; facts extracted, quotations marked verbatim (PRD-PLATES §4)"
+  licence: "Government of Western Australia material; facts extracted, quotations marked verbatim (the plates spec §4)"
 
 national_schemes:
   heavy_vehicle: >-
@@ -169,7 +169,7 @@ series:
   # =========================================================================
   # ONE SERIES BACK — added in the completion pass. The first pass recorded it
   # as a gap because the Minister names it without describing it; the Wikipedia
-  # rule (PRD-PLATES §4, owner override 2026-08-02) permits the description to
+  # rule (the plates spec §4, owner override 2026-08-02) permits the description to
   # be taken from the article and tagged, which is strictly better than a gap.
   # =========================================================================
   - id: au-wa-standard-1978
@@ -191,7 +191,7 @@ series:
           used was black on yellow, where the numbers preceding the letters
           ranged between 6 and 9. This series ended at 9MZ-999 and the trailer
           series ended at 9RZ-999." The 6-9 restriction is exactly what
-          `regex_strict` is for (PRD-PLATES §2.7): the lint generates every
+          `regex_strict` is for (the plates spec §2.7): the lint generates every
           digit from `pattern`, so `regex` cannot carry it, and the tier order
           regex_strict ⊆ regex holds by construction here.
         corroboration: >-
@@ -224,14 +224,14 @@ series:
       product page (plateswa.com) was not fetched in this pass (recorded gap).
     sources:
       - "https://web.archive.org/web/20160305010058/https://www.mediastatements.wa.gov.au/Pages/Court/1997/07/Unveiling-of-new-generation-of-vehicle-licence-plates.aspx  # Hon Eric Charlton MLC, Minister for Transport (WA), 'Unveiling of new generation of vehicle licence plates', 5 July 1997, archived, accessed 2026-08-02: 'Until now we have been getting just four or five years from each licence plate series and with the current nine series plates about to expire, Transport was keen to develop something which will provide long-term consistency' — the government's own corroboration of the 9 block and of the four-to-five-year series cadence this series ended"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Western_Australia  # secondary (CC BY-SA; facts in our expression per the PRD-PLATES §4 Wikipedia rule), accessed 2026-08-02: the October 1978 start at 6AA-000, the 6-9 leading-digit range, the black-on-yellow colours, the 9MZ-999 and 9RZ-999 endings, and the February 2025 Nostalgia reissue. The 1978 sentence is footnoted in the article to a print periodical ('Registration Notes, Fleetline issue 41, December 1978, page 4') which was NOT obtained"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Western_Australia  # secondary (CC BY-SA; facts in our expression per the plates spec §4 Wikipedia rule), accessed 2026-08-02: the October 1978 start at 6AA-000, the 6-9 leading-digit range, the black-on-yellow colours, the 9MZ-999 and 9RZ-999 endings, and the February 2025 Nostalgia reissue. The 1978 sentence is footnoted in the article to a print periodical ('Registration Notes, Fleetline issue 41, December 1978, page 4') which was NOT obtained"
     notes: >-
       WESTERN AUSTRALIA'S PREVIOUS GENERAL ISSUE, 1978-1997, AUTHORED IN THE
       COMPLETION PASS. The first pass of this file deliberately left it out and
       said so ("the Minister names it only as 'the current nine series plates',
       which is not a format description, and it is a recorded gap rather than a
       guessed series"). That was right under a locator-only reading of the
-      Wikipedia row of PRD-PLATES §4; under the owner's 2026-08-02 override the
+      Wikipedia row of the plates spec §4; under the owner's 2026-08-02 override the
       description may be EXTRACTED provided it is tagged, and a tagged
       description that the Minister's own sentence independently corroborates is
       better data than an empty gap. Both boundaries are secondary: 1978 from
@@ -269,7 +269,7 @@ series:
           Mandurah." So the leading two letters are a DISTRICT CODE and the
           remainder is an ascending sequence — but the department publishes no
           code list and no sequence grammar, so the regex is deliberately wider
-          than what is issued and `matching: recall-only` says so (PRD-PLATES
+          than what is issued and `matching: recall-only` says so (the plates spec
           §2.7). A match means "this could be a WA district plate", never "this
           is a valid one".
     design:
@@ -293,7 +293,7 @@ series:
       WA DISTRICT SERIES — THE ONE GEOGRAPHIC DECODE IN AUSTRALIAN PLATES, AND
       IT IS DELIBERATELY LEFT AS A MECHANISM. The department states the
       mechanism plainly and gives a single example; it publishes no code table.
-      PRD-PLATES §2.4's rule is that open-ended or unpublished decodes get a
+      The plates spec §2.4's rule is that open-ended or unpublished decodes get a
       mechanism note, not an invented table, and that is what this is. The
       period is an UPPER BOUND for an unusual reason worth stating: the
       department's own page dates nothing except a 2021 administrative change

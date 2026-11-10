@@ -1,4 +1,4 @@
-# plates/ca-ns.yml — Nova Scotia, Canada (PRD-PLATES gate L2/L3, Canada east wave).
+# plates/ca-ns.yml — Nova Scotia, Canada (the plates spec gate L2/L3, Canada east wave).
 #
 # THE SURPRISE OF THE CANADA EAST WAVE: Nova Scotia legislates its plate DESIGNS.
 # Ontario, New Brunswick, Prince Edward Island and Newfoundland and Labrador all
@@ -69,7 +69,7 @@
 #    are not merely observed. (The regulation omits the apostrophe in "CANADAS";
 #    quoted as found.)
 #
-# SEPARATOR NOTE (PRD-PLATES §2.6): a Nova Scotia plate prints a GAP, not a glyph.
+# SEPARATOR NOTE (the plates spec §2.6): a Nova Scotia plate prints a GAP, not a glyph.
 # The Personalized regulations confirm it from the authority's own side — a
 # personalized designation is "composed of a sequence of at least 2 and no more
 # than 7 numerals and letters ... WITH OR WITHOUT SPACES between the numerals and
@@ -130,9 +130,9 @@ instrument:
     The Nova Scotia Registry of Regulations serves these consolidations with the
     notice "This consolidation is unofficial and is for reference only" and a
     Crown copyright assertion. The TEXT of a statute or regulation is an EDICT OF
-    GOVERNMENT and uncopyrightable (PRD-PLATES §4); the quotations here are of that
+    GOVERNMENT and uncopyrightable (the plates spec §4); the quotations here are of that
     text. Where a regulation refers to a Schedule "A" DEPICTION of the plate, the
-    depiction is not reproduced (PRD-PLATES §6: cite, never embed), and in several
+    depiction is not reproduced (the plates spec §6: cite, never embed), and in several
     cases the Registry itself states "Hard copy may be obtained from the Registry
     of Regulations" — the drawing is not online at all.
 
@@ -147,7 +147,7 @@ artwork_risk:
     to each plate regulation are not reproduced and several are not published
     online at all.
   emblem_rule: >-
-    PRD-PLATES §3 placeholder default applies. The Bluenose depiction, the
+    the plates spec §3 placeholder default applies. The Bluenose depiction, the
     provincial crest, the Fire Department symbol and the piping plover are all
     rendered `placeholder`. The Bluenose is additionally a provincial emblem with
     protection independent of copyright; unresearched, flagged.
@@ -205,7 +205,7 @@ common:
       plate" for a motorcycle (N.S. Reg. 224/1990 s. 1(a)-(b)) — inches, and a
       DIFFERENT motorcycle size from the personalized regulation's. Both are
       recorded; neither is reconciled, because they are two instruments about two
-      plate types and averaging them would be invention (PRD-PLATES §5.3).
+      plate types and averaging them would be invention (the plates spec §5.3).
     source: "https://novascotia.ca/just/regulations/regs/mvprsnum.htm  # Personalized reg s. 7(1)(a), 7(2)(a)"
     source_secondary: "https://novascotia.ca/just/regulations/regs/mvrvehid.htm  # N.S. Reg. 224/1990 s. 1(a)-(b): the six-by-twelve and five-by-eight inch RESTRICTED plates"
   charset:
@@ -222,7 +222,7 @@ common:
       are not used in the ABC-123 serial format, citing a collector site. No
       instrument says so. Encoded ONLY in `regex_strict`.
     source: "https://novascotia.ca/just/regulations/regs/mvprsnum.htm  # Personalized reg s. 5(c)(ii)"
-    source_secondary: "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Nova_Scotia  # TAGGED SECONDARY (PRD-PLATES §4, owner override 2026-08-02), read 2026-08-02"
+    source_secondary: "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Nova_Scotia  # TAGGED SECONDARY (the plates spec §4, owner override 2026-08-02), read 2026-08-02"
 
 classes_not_modelled:
   conservation:
@@ -357,7 +357,7 @@ series:
       display: "one plate, REAR, for a passenger or light commercial vehicle (Number Plates Regulations ss. 1(b), 2(1)); FRONT for a heavy commercial vehicle issued a single plate (s. 2(2))"
       spec_history:
         - { from: 1989, to: 2011, note: "embossed blue serial on reflective white with border lines around the plate and around the top corners" }
-        - { from: 2011, note: "border lines removed and narrower serial dies introduced; the mark, the format and the colours are unchanged, so this is a specification change inside one design (PRD-PLATES §2.3) and not a second series" }
+        - { from: 2011, note: "border lines removed and narrower serial dies introduced; the mark, the format and the colours are unchanged, so this is a specification change inside one design (the plates spec §2.3) and not a second series" }
     region_encoding: none
     sources:
       - "https://web.archive.org/web/20251124192915/https://nslegislature.ca/sites/default/files/legc/statutes/motor%20vehicle.pdf  # MVA s. 19(1),(2): plates are furnished to the OWNER and display 'the registration number assigned to the owner and such other matter as the Minister may determine'; s. 20(2): the 300 mm mounting rule"
@@ -373,7 +373,7 @@ series:
       1989 and ABC 123 are the en.wikipedia article's, hence
       `period_evidence: secondary-wikipedia`. THE FORMAT PREDATES THE BASE and that
       is why the series is cut at 1989 rather than 1979: the article dates ABC-123
-      to 1979 and the Bluenose base to 1989, and PRD-PLATES §2.3 makes a design
+      to 1979 and the Bluenose base to 1989, and the plates spec §2.3 makes a design
       change with a distinct period its own series. The predecessor is authored
       below. NOTE FOR THE PARSE LAYER: three letters and three numerals is the most
       common plate shape in North America, so a bare ABC 123 string is very weakly
@@ -406,7 +406,7 @@ series:
       - "https://web.archive.org/web/20251124192915/https://nslegislature.ca/sites/default/files/legc/statutes/motor%20vehicle.pdf  # MVA s. 19(3): the Registrar may require the return of plates 'upon the termination of the lawful use thereof' — the mechanism by which a superseded Nova Scotia plate leaves the road"
     notes: >-
       ONE SERIES BACK. The FORMAT is identical to the current series and only the
-      DESIGN differs, which is exactly the PRD-PLATES §2.3 test for a separate
+      DESIGN differs, which is exactly the plates spec §2.3 test for a separate
       series and also the reason a parse API cannot distinguish the two from a
       string. Both boundaries are the article's, unfootnoted. The 1986 switch from
       steel to aluminium is recorded here rather than cut as a series: a material
@@ -566,7 +566,7 @@ series:
       period.start 1991 is `enabling-instrument` and reads off the Order's own
       words: plates "issued after the lst day of April, 1991" (the consolidation's
       typography for "1st", quoted as found). `class: specialty` rather than a
-      bespoke value: the vocabulary has no firefighter member, and PRD-PLATES §2.3
+      bespoke value: the vocabulary has no firefighter member, and the plates spec §2.3
       forbids inventing one ad hoc; the plate is an optional design on an ordinary
       allocation, which is what `specialty` means.
 
@@ -592,7 +592,7 @@ series:
           with the number plate depicted in Schedule A." The FM prefix is primary.
           "Random numbers" states neither a count nor a range, so `regex` accepts
           one to six digits and the series is `matching: recall-only`: a hit is a
-          shape hit, not a validity claim (PRD-PLATES §2.7).
+          shape hit, not a validity claim (the plates spec §2.7).
       dimension_note: "s. 3(a) reads '15.24 cm in width by 30.48 in length' — the unit is missing from the second figure in the consolidation. Quoted as found; read as 30.48 cm by comparison with the identically worded Personalized, Conservation and Honorary Consul regulations."
     design:
       plate: { w: 30.48, h: 15.24, unit: cm, w_in: 12, h_in: 6 }

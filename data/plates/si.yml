@@ -1,4 +1,4 @@
-# plates/si.yml — Slovenia (PRD-PLATES gate L1, wave 2).
+# plates/si.yml — Slovenia (the plates spec gate L1, wave 2).
 #
 # EVERY format, colour, dimension and class claim here is read from the Uradni
 # list Republike Slovenije, in the instruments' own published text, on
@@ -40,7 +40,7 @@
 #    glyph, and all three are primary. Every `pattern` here prints it.
 #    Slovenia's specimen drawings render it as a raised dot; the dataset writes
 #    the hyphen the LAW names, because U+00B7 is in the forgiving set of
-#    plates/_meta/separators.yml but not the emitted set (PRD-PLATES §2.6).
+#    plates/_meta/separators.yml but not the emitted set (the plates spec §2.6).
 #
 # 3. THE CHARSET RULE IS THIRTY-FOUR YEARS OLD AND ALMOST UNCHANGED. 1992
 #    (15. člen): "se v registrski oznaki vozila ne uporablja črk O, Č, Š in Ž
@@ -148,7 +148,7 @@ common:
     artwork_risk: unresearched
     artwork_note: >-
       Fifty-eight municipal coats of arms, each protected under its own
-      municipal instrument and none assessed in this pass. PRD-PLATES §3
+      municipal instrument and none assessed in this pass. The plates spec §3
       applies: every series below carries `rendered: placeholder`.
     source: "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2011-01-2292  # 28. člen. Accessed 2026-08-02"
   alphabet:
@@ -240,7 +240,7 @@ common:
   font:
     name: null
     statutory_basis: "31. člen, in its entirety: 'Podrobnosti o obliki zapisa na registrski tablici so navedene v tehnični specifikaciji.' One sentence, delegating everything, to a document the pravilnik does not name, publish or date — and which 55. člen then makes the trigger for 31. člen's own application. The specimen drawings in Priloga VI are the only published glyph evidence and carry no measurements."
-    licence: "PRD-PLATES §6 applies unchanged: derive glyphs from the drawings, never from a third-party TTF. Slovenia is a WEAKER case than Germany for a public-domain argument because the operative document is a procurement specification rather than a statutory annex. Recorded gap."
+    licence: "The plates spec §6 applies unchanged: derive glyphs from the drawings, never from a third-party TTF. Slovenia is a WEAKER case than Germany for a public-domain argument because the operative document is a procurement specification rather than a statutory annex. Recorded gap."
     secondary_note: "en.wikipedia names the typeface as Helvetica. That is a secondary claim about a document this pass never saw, and it is recorded here rather than in any design block."
     secondary_evidence: secondary-wikipedia
     secondary_source: "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Slovenia  # 'Text in Helvetica typeface'. Accessed 2026-08-02"
@@ -252,7 +252,7 @@ common:
       federal system in 1991; authoring it in each national file would duplicate
       a single historical layer, give it two ids, and let the two copies drift
       apart under later correction. It belongs in ONE historical jurisdiction
-      file at gate L4 (PRD-PLATES §7 — "historical depth, the pre-2000 world"),
+      file at gate L4 (the plates spec §7 — "historical depth, the pre-2000 world"),
       not twice at L1. What is recorded in each national file is the HINGE, from
       that nation's own primary, so the L4 pass has two dated anchors to work
       from.
@@ -704,7 +704,7 @@ series:
         chosen marks on foreign-mission plates and on test plates.
       why_recall_only: >-
         The regex is deliberately wider than the issuing grammar and a match is
-        a shape hit only (PRD-PLATES §2.7). It does not enforce the
+        a shape hit only (the plates spec §2.7). It does not enforce the
         three-character floor, does not count the hyphen against the six-character
         budget, cannot express the O-excludes-0 rule, and cannot express
         "kombinacija znakov, ki jo omogoča prostor na tablici" — a physical-fit
@@ -758,7 +758,7 @@ series:
         kombinacija je lahko tudi izbirna."
       recorded_conflict: >-
         THE TEXT AND THE DRAWING DISAGREE, AND THE DISAGREEMENT IS RECORDED
-        RATHER THAN RESOLVED (PRD-PLATES §5.3). 40. člen (1) says the mark is
+        RATHER THAN RESOLVED (the plates spec §5.3). 40. člen (1) says the mark is
         the ORDINARY four- or five-character combination, which by 30. člen (3)-(4)
         means one of nine enumerated arrangements. Risba št. 9 of Priloga VI
         shows the specimen "MV [grb] H1-001" — a letter followed by four digits,
@@ -873,7 +873,7 @@ series:
       first numeric group is a COUNTRY code assigned by the agency — neither is
       geographic in the si-regions.yml sense. The country-code table is not
       published in the pravilnik ("ki jo določi agencija") and was not obtained
-      from any primary: a RECORDED GAP, and PRD-PLATES puts diplomatic decode
+      from any primary: a RECORDED GAP, and the plates spec puts diplomatic decode
       tables at gate L4 in any case.
     sources:
       - "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2011-01-2292  # 39. člen (1)-(3), 28. člen (2), 35. člen (5) (no chosen marks on these plates)"

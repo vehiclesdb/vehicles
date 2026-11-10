@@ -1,4 +1,4 @@
-# plates/my.yml — Malaysia (PRD-PLATES gate L3). DRAFT for verification.
+# plates/my.yml — Malaysia (the plates spec gate L3). DRAFT for verification.
 #
 # ===========================================================================
 # THE CENTRAL SOURCING FACT, STATED FIRST BECAUSE IT SHAPES EVERY ENTRY
@@ -80,7 +80,7 @@
 # the CURRENT format of every Malaysian state in one pass. Its readings are
 # recorded per row in plates/_decode/my-index-marks.yml and drive the two
 # standard series below. This is as close to a registration-corpus test
-# (PRD-PLATES §5.2) as a jurisdiction without open registry data can get.
+# (the plates spec §5.2) as a jurisdiction without open registry data can get.
 #
 # WHAT THE SNAPSHOT PROVES, mechanically, from 28 successful readings:
 #   * TWO live arrangements coexist nationwide, not one.
@@ -112,7 +112,7 @@
 # THE EXCLUDED LETTERS — AND A FOLKLORE CORRECTION THIS FILE MAKES EXPLICITLY
 # ===========================================================================
 # The rule Malaysia actually runs, per both the English and Malay Wikipedia
-# articles (the mandatory finding aid, PRD-PLATES §4) and CONSISTENT WITH every
+# articles (the mandatory finding aid, the plates spec §4) and CONSISTENT WITH every
 # one of the 28 live JPJ readings above: the letters I and O are never issued
 # (confusable with 1 and 0) and Z is reserved for military vehicles. The Malay
 # article states it directly — "Huruf I dan O ditiadakan daripada urutan abjad
@@ -130,7 +130,7 @@
 # NOTE THE ONE PLACE THE EXCLUSION IS NOT VISIBLE: it is an ISSUING rule, not a
 # spelling rule, so `format.regex` cannot carry it (the lint generates "I" and
 # "O" from `pattern`). It lives in `format.regex_strict` on every series that
-# has one, which is exactly what PRD-PLATES §2.7 built the twin for.
+# has one, which is exactly what the plates spec §2.7 built the twin for.
 #
 # ===========================================================================
 # WHAT IS DELIBERATELY NOT MODELLED
@@ -142,7 +142,7 @@
 # (FA, FB, FC, FD, FE, FF, FFF, FG, FH), university series, NGO series, event
 # series, the national "MALAYSIA 1-9999" series. Each is an ORDINARY
 # registration whose mark was auctioned; none has its own format, design or
-# period. PRD-PLATES §2.5 excludes exactly this, so the programme is recorded
+# period. The plates spec §2.5 excludes exactly this, so the programme is recorded
 # once, as a class note on my-standard-prefix (see `special_series` in
 # `common`), and no series is authored for any individual release. The one
 # exception is `my-jpjeplate-ev-2024`, which is a genuinely different PLATE
@@ -188,7 +188,7 @@ instrument:
     Chambers. Unless and until reprinted pursuant to the powers of the
     Commissioner of Law Revision under subsection 14(1) of the Revision of Laws
     Act 1968 [Act 1], this text is NOT AN AUTHENTIC TEXT." Recorded because
-    PRD-PLATES §5.3 says the authority is the authority: this is the authority's
+    the plates spec §5.3 says the authority is the authority: this is the authority's
     own updated text, published by the authority, flagged by the authority as
     non-authentic. Every quotation above and below is from it.
   sections_used:
@@ -222,7 +222,7 @@ charset_defaults:
     the Malay- and English-language Wikipedia articles and is CONSISTENT WITH
     all 28 live JPJ readings of 3 August 2026, none of which contains I, O or
     Z. Tagged `secondary-wikipedia` wherever it is load-bearing, per
-    PRD-PLATES §4.
+    the plates spec §4.
   digits_note: >-
     "No leading zeroes permitted" is stated by the English Wikipedia article
     and is corroborated by every one of the 28 live JPJ readings (859, 1644,
@@ -283,9 +283,9 @@ common:
       "MALAYSIA 1-9999" series, and well over a hundred others) is an ORDINARY
       registration under my-standard-prefix or my-standard-suffix whose mark
       was auctioned rather than allocated in sequence. No separate series is
-      authored for any of them (PRD-PLATES §2.5); a consumer wanting the
+      authored for any of them (the plates spec §2.5); a consumer wanting the
       programme index should treat it as the Malaysian analogue of a US
-      specialty-plate index, which PRD-PLATES puts at L2/L4.
+      specialty-plate index, which the plates spec puts at L2/L4.
     statutory_basis: "Act 333 s. 66(1)(jj), verbatim: 'to prescribe the procedures relating to tender of registration numbers'"
     source: "https://lom.agc.gov.my/ilims/upload/portal/akta/outputaktap/1871744_BI/Act%20333_Final_15%20Oct%202023%20(25.3.24).pdf  # s. 66(1)(jj). Accessed 2026-08-02"
 
@@ -325,7 +325,7 @@ series:
         NO SEPARATOR GLYPH is prescribed by anything located, and Malaysian
         plates print a GAP between the letter group and the number group. The
         space in `pattern` is that gap; every regex accepts it as optional and
-        also accepts a hyphen, per PRD-PLATES §2.8 (a separator-only class).
+        also accepts a hyphen, per the plates spec §2.8 (a separator-only class).
     design:
       background: { color: "#000000", finish: non-reflective, hex_basis: observed }
       foreground: "#FFFFFF"
@@ -342,7 +342,7 @@ series:
         Arial Bold with Calisto MT Italic and Franklin Gothic Bold as
         alternates; the diagram is an image and was not read in this pass.
         Charles Wright and FE-Schrift are both common in the wild and both are
-        aftermarket choices, not standards. PRD-PLATES §6's schematic-render
+        aftermarket choices, not standards. The plates spec §6's schematic-render
         fallback applies.
     region_encoding: "plates/_decode/my-index-marks.yml"
     sources:
@@ -386,7 +386,7 @@ series:
           Sarawak to prevent collision with the division prefixes; that
           refinement is NOT carried in regex_strict because the live sample
           contains a Q suffix (SU 7665 Q, Keningau) which contradicts it.
-          Recorded as a disagreement, not averaged (PRD-PLATES §5.3).
+          Recorded as a disagreement, not averaged (the plates spec §5.3).
       separator_note: "two printed gaps, both optional in the regexes and both spelled as separator-only classes"
     design:
       background: { color: "#000000", finish: non-reflective, hex_basis: observed }
@@ -405,7 +405,7 @@ series:
       Sabah and Sarawak arrangement, it is now also Johor's (the J…J series),
       Langkawi's (KV) and was Kuala Lumpur's during the W run-out before the V
       series began. Separate series from my-standard-prefix because the FORMAT
-      differs (PRD-PLATES §2.3); same statutory frame, same colours, same
+      differs (the plates spec §2.3); same statutory frame, same colours, same
       period, and both are live — which is why both carry distinct notes and
       the lint's overlap rule is satisfied honestly rather than by accident.
       period.start 1987 is the Act in force, not the arrangement's origin; the
@@ -465,7 +465,7 @@ series:
       pattern_note: >-
         Country code, rank/serial number, and the literal DC. The two numeric
         groups and the DC marking are printed as three groups; the country-code
-        group's own table is a RECORDED GAP (PRD-PLATES puts diplomatic decode
+        group's own table is a RECORDED GAP (the plates spec puts diplomatic decode
         tables at L4) and \d{1,3} is a practical bound, not a sourced one. The
         RANK BLOCK of the second group IS sourced, in detail, and is carried in
         plates/_decode/my-index-marks.yml.
@@ -473,7 +473,7 @@ series:
         - { name: country_code, note: "the sending state's code — table not located, recorded gap" }
         - { name: rank_number, note: "allocated by diplomatic rank: 01 head of mission's official car, 02/03 head of mission's personal car, 04 deputy chief of mission / deputy high commissioner / minister, 05 minister counsellor, 06-09 counsellor, 10-19 first secretary, 20-29 second secretary, 30-39 third secretary, 40-59 attaché (including military advisers, trade representatives and defence advisers), 60-99 a diplomat's SECOND duty-free car, 101 and above vehicles registered in the name of the mission — Wisma Putra, Protocol Department, paras 6.4, 6.6, 6.8" }
         - { name: marking, value: "DC", note: "Diplomatic Corps" }
-      separator_note: "printed as three groups; the regexes spell the gap as an emitted separator class per PRD-PLATES §2.8"
+      separator_note: "printed as three groups; the regexes spell the gap as an emitted separator class per the plates spec §2.8"
     design:
       background: { color: "#CC0000", finish: non-reflective, hex_basis: observed }
       foreground: "#FFFFFF"
@@ -495,7 +495,7 @@ series:
           or 'UN' respectively." So RED means a PERSON (an accredited diplomat);
           BLACK means an INSTITUTION (the mission, the consular corps, a UN
           office). Colour-only variant of the same format and period, hence a
-          sub-entry per PRD-PLATES §2.3.
+          sub-entry per the plates spec §2.3.
         sources:
           - "https://web.archive.org/web/20140714163606/http://www.kln.gov.my/web/guest/diplomat  # Ministry of Foreign Affairs Malaysia, Protocol > Foreign Missions > Diplomat, 'MOTOR VEHICLES' para 6.9 'Colour Identification Of Registration Plate'. Accessed 2026-08-02"
     region_encoding: "plates/_decode/my-index-marks.yml"
@@ -651,7 +651,7 @@ series:
       note: >-
         The MARK is an ordinary Malaysian registration — this is a different
         PLATE, not a different numbering system, which is exactly the
-        PRD-PLATES §2.3 test for a series of its own (design differs, format
+        the plates spec §2.3 test for a series of its own (design differs, format
         and period do not).
     design:
       plate_note: >-
@@ -660,7 +660,7 @@ series:
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: observed }
       foreground: "#000000"
       band: { side: left, color: "#009000", content: "green stripe + Jalur Gemilang (national flag) + the international distinguishing code MAL", hex_basis: observed }
-      emblem: { present: true, rendered: placeholder, note: "the national flag is a state emblem — PRD-PLATES §3 placeholder rule applies, artwork not reproduced" }
+      emblem: { present: true, rendered: placeholder, note: "the national flag is a state emblem — the plates spec §3 placeholder rule applies, artwork not reproduced" }
       rear_differs: false
       features: >-
         Embossed characters in FE-Schrift on a white retroreflective ground with

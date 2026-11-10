@@ -14,7 +14,7 @@ require "json"
 # are copied from the SAME tag's catalog/<kind>/models.json
 # (popularity.by_country[cc].rank — open CC-BY data), keyed by the full
 # kind/make/model id, so the merged file is what the pipeline's own projection
-# emits once it ships the key (vehiclesdb-pipeline emit.rb write_dist_json!,
+# emits once it ships the key (the VehiclesDB data pipeline,
 # 2026-10-10). When the projection DOES carry the key, the task asserts every
 # rank equals the catalog's and aborts on any mismatch. Output formatting is
 # the pipeline's (JSON.pretty_generate + "\n"); stripping `country_ranks`

@@ -1,4 +1,4 @@
-# plates/ca-bc.yml — British Columbia (PRD-PLATES gate L3, Canada west).
+# plates/ca-bc.yml — British Columbia (the plates spec gate L3, Canada west).
 #
 # CANADA IS FEDERATED THE WAY THE UNITED STATES IS, AND THIS FILE IS THE
 # per-subdivision shape the schema already carries (`us-fl.yml` is its
@@ -66,7 +66,7 @@
 #    ICBC's bulletin writes every pattern SOLID (`@###@@`, example `A123BC`).
 #    A physical BC passenger plate prints a visible gap between character
 #    groups, and secondary sources render the serial hyphenated (`A12-3BC`).
-#    ICBC states no separator glyph and no gap POSITION. Under PRD-PLATES
+#    ICBC states no separator glyph and no gap POSITION. Under the plates spec
 #    § 2.6 the dataset ships the printed form; where the authority itself
 #    prints the form solid and states nothing else, the solid form is what is
 #    shipped, and the gap is recorded as an open question rather than placed
@@ -119,7 +119,7 @@ instrument:
   licence: "bclaws.gov.bc.ca content is Copyright (c) King's Printer, Victoria, British Columbia, Canada, published under the King's Printer licence; the statute and regulation are edicts of government. The ICBC bulletin is an ICBC publication, served without click-through, and is cited (facts extracted) rather than reproduced."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — PRD-PLATES § 4 requires this per federated subdivision.
+# artwork_risk — the plates spec § 4 requires this per federated subdivision.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched-crown-copyright-presumed
@@ -133,7 +133,7 @@ artwork_risk:
     asserting or disclaiming copyright in the PLATE DESIGN specifically, so the
     posture is recorded as UNRESEARCHED and the § 3 placeholder default governs.
   emblem_rule: >-
-    PRD-PLATES § 3 placeholder rule applies to the provincial flag device on
+    the plates spec § 3 placeholder rule applies to the provincial flag device on
     the standard base and to all three BC Parks artworks (Kermode bear, Purcell
     Mountains, Porteau Cove), which are commissioned photographic/illustrative
     works, not statutory drawings. Render emblem slots as
@@ -267,7 +267,7 @@ series:
         ICBC prints the pattern and its example SOLID. The physical plate shows
         a group gap and secondary renderings hyphenate it (`A12-3BC`), but ICBC
         states neither a glyph nor a gap POSITION, so none is asserted. A
-        PRD-PLATES § 2.6 forgiving consumer strips the gap and matches this
+        the plates spec § 2.6 forgiving consumer strips the gap and matches this
         regex unchanged.
       progression: "not published. ICBC states only that the recut exists to extend the six-character space; no block-allocation order was found."
     design:
@@ -339,7 +339,7 @@ series:
       old inventories get exhausted") — which is why the two series overlap.
     sources:
       - "https://partners.icbc.com/assets/5GMseymkqs8E4Otb8osoGQ/bulletin-33-new-licence-plate-configurations.pdf  # 'Current pattern' column = @@###@; old-inventory exhaustion rule"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_British_Columbia  # FINDING AID ONLY (PRD-PLATES §4 Wikipedia row): the unfootnoted 2014 start; accessed 2026-08-02"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_British_Columbia  # FINDING AID ONLY (the plates spec §4 Wikipedia row): the unfootnoted 2014 start; accessed 2026-08-02"
 
   # =========================================================================
   # COMMERCIAL / FARM / TRAILER / PRORATE / INDUSTRIAL — the other seven rows

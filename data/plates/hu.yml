@@ -1,4 +1,4 @@
-# plates/hu.yml — Hungary (PRD-PLATES gate L1, wave 2).
+# plates/hu.yml — Hungary (the plates spec gate L1, wave 2).
 #
 # WHAT IS PRIMARY HERE AND WHAT IS NOT — read this before trusting any line.
 #
@@ -32,7 +32,7 @@
 #    instrument's date is 2021 and the SERIES date is 2022-07-01, thirteen
 #    months later. This file records 2022, not 2021 — which is exactly the trap
 #    plates/es.yml fell into once (a 1999-2000 decree window shipped as the
-#    period for a format that ran three decades) and the reason PRD-PLATES §5.3
+#    period for a format that ran three decades) and the reason the plates spec §5.3
 #    puts era boundaries at the top of the audit. The thirteen-month gap is not
 #    incidental: it is the lead time the plate manufacturer and the county
 #    government offices were given.
@@ -73,7 +73,7 @@
 #    decide which Latin letters count as vowels for the purpose (is Y a vowel
 #    here? is I issued at all, given that I, O and Q are avoided elsewhere in
 #    the system?), and the source states the rule without stating the letter
-#    sets. Inventing them would be precisely the confident guess PRD-PLATES
+#    sets. Inventing them would be precisely the confident guess the plates spec
 #    forbids, so the rule is recorded verbatim in `format.charset` and NO
 #    `regex_strict` is shipped for the standard series. The gap is named in
 #    `verifier_targets`.
@@ -202,7 +202,7 @@ common:
       it in the gap between the two letter pairs. If that placement is right,
       Hungary joins Italy (the marchio ufficiale) and Austria (the Landeswappen)
       in the class of jurisdictions whose printed "separator" is in fact an
-      EMBLEM occupying the gap — see PRD-PLATES §2.6 and the never_separator
+      EMBLEM occupying the gap — see the plates spec §2.6 and the never_separator
       note in _meta/separators.yml. The dataset accordingly writes that gap as
       the emitted SPACE and carries the emblem in `design.emblem`; no glyph is
       ever inside a Hungarian serial. THE PLACEMENT ITSELF IS SECONDARY and is a
@@ -210,7 +210,7 @@ common:
       pattern is unaffected but `design.emblem.position` is wrong.
     licensing: >-
       The coat of arms of Hungary is a state symbol whose use is regulated
-      independently of copyright. PRD-PLATES §3 placeholder rule applies:
+      independently of copyright. The plates spec §3 placeholder rule applies:
       renders carry `emblem: {present: true, rendered: placeholder}`.
     source: "https://hu.wikipedia.org/wiki/Magyarorsz%C3%A1gi_forgalmi_rendsz%C3%A1mok  # the coat of arms was added with the 2022 format. Accessed 2026-08-02"
   personalisation:
@@ -219,14 +219,14 @@ common:
       egyénileg kiválasztott és az egyedileg előállított rendszámtábla" — the
       individually CHOSEN plate (a serial picked out of the ordinary grammar)
       and the individually PRODUCED plate (a serial made to order). Two distinct
-      products, both inside the official frame, hence PRD-PLATES §2.3 sub-entry
+      products, both inside the official frame, hence the plates spec §2.3 sub-entry
       treatment rather than a series of their own. The fee, the eligibility and
       the grammar each product must obey are in the mellékletek and were not
       retrieved.
     source: "https://njt.jog.gov.hu/jogszabaly/2011-326-20-22  # §§ 58-59 headings and scope, Nemzeti Jogszabálytár, accessed 2026-08-02"
 
 # ---------------------------------------------------------------------------
-# Dead ends — recorded so the next pass does not repeat them (PRD-PLATES §5.3).
+# Dead ends — recorded so the next pass does not repeat them (the plates spec §5.3).
 # ---------------------------------------------------------------------------
 dead_ends:
   - what: "The mellékletek (annexes) of 326/2011 — the plate-type table, colours, dimensions and the serial grammar."
@@ -282,7 +282,7 @@ series:
       separator_note: >-
         The gap between the two letter pairs is reported to be occupied by the
         Hungarian coat of arms, not by a separator glyph; the hyphen before the
-        digits is printed. Both are written per PRD-PLATES §2.6: the emblem gap
+        digits is printed. Both are written per the plates spec §2.6: the emblem gap
         as an optional emitted SPACE, the printed hyphen as an optional emitted
         HYPHEN-MINUS. `pattern` shows the canonical printed form.
       progression: >-
@@ -309,7 +309,7 @@ series:
           of 326/2011 create two distinct personalisation products: a plate whose
           serial the applicant CHOOSES out of the ordinary grammar, and a plate
           individually PRODUCED to order. A sub-entry rather than a series
-          (PRD-PLATES §2.3) because neither is reported to change the format or
+          (the plates spec §2.3) because neither is reported to change the format or
           the design. Which of the two may depart from the ordinary grammar, and
           how far, is in the mellékletek and is a recorded gap.
         sources:
@@ -432,7 +432,7 @@ series:
       ABC-123, and the change dropped the commercial/private colour inversion
       that had been the visual signature of the previous system. This entry
       exists as its own series rather than as a design note on hu-standard-2004
-      because the EU band is a design difference of exactly the kind PRD-PLATES
+      because the EU band is a design difference of exactly the kind the plates spec
       §2.3 makes a series boundary — the same cut plates/it.yml makes at 1999.
 
   # =========================================================================
@@ -483,7 +483,7 @@ series:
           WHITE CHARACTERS ON BLACK. Same format, opposite colours, and the
           inversion disappeared with the 1990 reform. Modelled here as a
           documented colour inversion on one series rather than as two series,
-          because format and period are identical (PRD-PLATES §2.3).
+          because format and period are identical (the plates spec §2.3).
         inverse_background: "#000000"
         inverse_foreground: "#FFFFFF"
       evidence_tier: secondary-wikipedia
@@ -575,7 +575,7 @@ series:
       carried an ordinary six-character serial drawn from a reserved range, on a
       yellow ground — so the FORMAT is the standard one and only the block and
       the colour distinguish it. It is a series rather than a sub-entry because
-      the design differs (PRD-PLATES §2.3). Its dates are the system's, not its
+      the design differs (the plates spec §2.3). Its dates are the system's, not its
       own; see period_note.
 
   # =========================================================================
@@ -642,7 +642,7 @@ series:
       THE GREEN PLATE AFTER THE FORMAT CHANGE — the same environmental class on
       the seven-character grammar. Modelled as its own series rather than as a
       period extension because the FORMAT differs from hu-electric-2015, which is
-      the PRD-PLATES §2.3 boundary; the two are otherwise the same programme and
+      the plates spec §2.3 boundary; the two are otherwise the same programme and
       that continuity is the reason both carry the same class.
 
   # =========================================================================
@@ -672,7 +672,7 @@ series:
           rather than a geographic one, so it does not disturb this file's
           no-decode-table finding. Two reported points: 001 is the Holy See and
           020 the United States. The full mission-to-code mapping was NOT sourced
-          and is NOT authored here; PRD-PLATES puts diplomatic decode tables at
+          and is NOT authored here; the plates spec puts diplomatic decode tables at
           gate L4, and plates/fi.yml made the same call for the Finnish table.
     design:
       plate: { w: 520, h: 110, unit: mm }
@@ -941,7 +941,7 @@ unmodelled_series:
   source: "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Hungary  # every row below. Accessed 2026-08-02"
   reason_not_modelled: >-
     Each lacks at least one of: a start date this file could defend, a format
-    whose grouping is known, or a colour. PRD-PLATES §5.3 prefers the recorded
+    whose grouping is known, or a colour. The plates spec §5.3 prefers the recorded
     gap to the averaged guess, and a well-evidenced gap is a deliverable.
   rows:
     - { token: "H + letter + 4 digits", use: military, note: "the letter is reported to denote vehicle kind (A cars, B buses, N motorcycles, T trucks); a tricolour design is reported. Reported to have become HA under the 2022 system. No date at either end." }
@@ -956,4 +956,4 @@ unmodelled_series:
     - { token: "M + 6 digits", use: agricultural, note: "green on white, three-year validity; replaced by the general I plate in July 2022. No start date sourced." }
     - { token: "Y + 3 letters + 3 digits", use: "slow vehicles", note: "red on white; moved onto the normal series in July 2022. No start date sourced." }
     - { token: "OT + 4 digits", use: "old-timer, pre-2022 form", note: "the predecessor of hu-historic-2022; no start date sourced, which is why only the post-2022 form is authored." }
-    - { token: "grey repeater plate", use: "bicycle-rack repeater", note: "reported from April 2017. A REPEATER plate has no class in _meta/classes.yml; adding one is a vocabulary PR (PRD-PLATES §2.3), not a data-file decision." }
+    - { token: "grey repeater plate", use: "bicycle-rack repeater", note: "reported from April 2017. A REPEATER plate has no class in _meta/classes.yml; adding one is a vocabulary PR (the plates spec §2.3), not a data-file decision." }

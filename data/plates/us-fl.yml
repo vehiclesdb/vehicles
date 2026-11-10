@@ -1,4 +1,4 @@
-# plates/us/fl.yml — Florida (PRD-PLATES gate L0 pilot; the federated case).
+# plates/us/fl.yml — Florida (the plates spec gate L0 pilot; the federated case).
 #
 # WHY FLORIDA IS THE PILOT STATE, restated from the source law: the US has NO
 # federal plate mandate and per-state IP posture VARIES. Florida is the
@@ -9,14 +9,14 @@
 #
 # SOURCING RULE APPLIED HERE: Florida's plate FACTS come from the STATUTE, not
 # the brochure. Edicts of government are public domain at every level, and
-# PRD-PLATES §4 says always prefer the statute over the brochure. So every
+# the plates spec §4 says always prefer the statute over the brochure. So every
 # format, dimension, legend, display and replacement-cycle claim below cites
 # Chapter 320 or Chapter 316 of the Florida Statutes. The FLHSMV brochure and
 # the specialty portal are cited only for the two things the statute does not
 # carry: which standard VARIANTS are currently offered, and how many specialty
 # programs exist.
 #
-# REGEX FORM (PRD-PLATES §2.6, issue #124): every regex in this file is written
+# REGEX FORM (the plates spec §2.6, issue #124): every regex in this file is written
 # in PRINTED form — the separator is spelled where the plate shows it. That is
 # why `regex_statutory` reads '\A[A-Z0-9](?: ?[A-Z0-9]){0,6}\z' and not
 # '\A[A-Z0-9]{1,7}\z': the statutory claim is § 320.06(3)(a)'s SEVEN
@@ -24,7 +24,7 @@
 # claimed the plate is printed without a gap, so it rejected "ABC 123" —
 # every real Florida plate. The cap is the claim; the gap is not.
 #
-# WHAT IS DELIBERATELY NOT HERE (PRD-PLATES §2.5): the individual specialty
+# WHAT IS DELIBERATELY NOT HERE (the plates spec §2.5): the individual specialty
 # DESIGNS. L2 indexes the programs with official links and counts; individual
 # designs are L4. `us-fl-specialty-index` is that index entry and nothing more.
 #
@@ -61,7 +61,7 @@ binding: vehicle
 statute_edition: "The 2025 Florida Statutes (Title XXIII Motor Vehicles, Chapters 316 and 320) — the current edition read; leg.state.fl.us serves archive editions back to 1997, and the 1997 editions of §§ 320.06 and 320.086 were read for the 2026-08-02 re-dating pass, together with Laws of Florida ch. 99-248 (laws.flrules.org, accessed 2026-08-02)"
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: public-domain-favourable
@@ -73,7 +73,7 @@ artwork_risk:
     Wikimedia Commons carries and actively uses the {{PD-FLGov}} tag. Contrast
     Arizona, which expressly asserts copyright, and NY/PA/WA, which are adverse.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default still applies to the ORANGE BLOSSOM and
+    the plates spec §3's placeholder default still applies to the ORANGE BLOSSOM and
     STATE MAP graphic until the emblem is affirmatively cleared per-emblem. Even
     under a favourable copyright posture, state seals and emblems carry
     protection INDEPENDENT of copyright (state-seal misuse statutes), and that
@@ -233,7 +233,7 @@ series:
       - "https://www.flhsmv.gov/pdf/specialtyplates/FLPB.pdf  # official FLHSMV 'Florida License Plates' brochure, 27 pp — confirms the four standard variants: Sunshine State, County Name, In God We Trust (State Motto), America 250"
       - "https://www.aamva.org/getmedia/646bcc8a-219b-47d8-b5cd-726240473163/License-Plate-Standard-Edition-3_September-2025-Update.pdf  # AAMVA Ed.3 §1.1 replacement-cycle recommendation Florida's 10 years sits at the top of"
       - "https://www.flhsmv.gov/2025/12/15/flhsmv-launches-america-250-license-plate/  # FLHSMV press release, 15 December 2025 (accessed 2026-08-02), verbatim: 'Unlike specialty plates, the America 250 plate serves as an alternative to the standard Florida license plate, with all regular fees applying.' — the agency's own words for the standard-variant relationship, and primary evidence the standard frame recorded here is current issue"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Florida  # LOCATOR ONLY (PRD-PLATES §4), re-checked 2026-08-02: the December 2003 introduction of the current base, the February 2026 rollout of its successor, and the seven historical serial arrangements ALL carry no footnote in the article's tables — folklore-grade. The 2003 start below is recorded as this locator's claim, flagged, not asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Florida  # LOCATOR ONLY (the plates spec §4), re-checked 2026-08-02: the December 2003 introduction of the current base, the February 2026 rollout of its successor, and the seven historical serial arrangements ALL carry no footnote in the article's tables — folklore-grade. The 2003 start below is recorded as this locator's claim, flagged, not asserted as sourced."
     notes: >-
       FLORIDA STANDARD ISSUE ON THE CURRENT BASE. RE-DATED 2026-08-02: the L0
       pass shipped `start: 2025`, the statute-edition year — an instrument date,
@@ -242,7 +242,7 @@ series:
       Sunshine State bottom legends) is reported to have entered issuance in
       DECEMBER 2003 by the Wikipedia table, WHOSE ROW CARRIES NO FOOTNOTE —
       so `period_evidence: secondary-locator-unverified` and 2003 is the
-      locator's claim, flagged, not asserted (PRD-PLATES §9: primary-source-or-
+      locator's claim, flagged, not asserted (the plates spec §9: primary-source-or-
       marked). What WAS verified, and why nothing better exists to pin: (1)
       FLHSMV has NO plate-history page — the department's full sitemap (3,988
       URLs) was enumerated on 2026-08-02 and nothing on flhsmv.gov dates any
@@ -257,7 +257,7 @@ series:
       new dated series when an agency primary lands. THE ID STAYS UNDATED under
       the id contract: minting `us-fl-standard-2003` on a folklore boundary
       would build a dated id on sand; when a primary lands, the dated id is
-      added and this id becomes its former-id alias (PRD-QUALITY I-5/I-6).
+      added and this id becomes its former-id alias (the quality spec I-5/I-6).
       THE IMMEDIATELY-PRIOR BASE (the green-serial county base the locator
       dates to the late 1970s in several sub-forms) is deliberately NOT
       authored: no primary and no CITED secondary dating it was found, and
@@ -269,7 +269,7 @@ series:
       `regex_statutory` and are a recorded gap, per pattern_note.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. Count and official
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. Count and official
   # links only; no individual designs.
   # =========================================================================
   - id: us-fl-specialty-index
@@ -288,12 +288,12 @@ series:
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised program; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised program; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: "over 100"
       count_official_quote: "FLHSMV, in its own words: 'Florida offers over 100 different specialty license plates for various organizations in support of the causes they represent.'"
-      count_secondary: "over 120 per Wikipedia — LOCATOR ONLY, not reconciled with FLHSMV's own figure; the discrepancy is recorded, not averaged (PRD-PLATES §5.3)"
+      count_secondary: "over 120 per Wikipedia — LOCATOR ONLY, not reconciled with FLHSMV's own figure; the discrepancy is recorded, not averaged (the plates spec §5.3)"
       official_list_url: "https://www.flhsmv.gov/motor-vehicles-tags-titles/personalized-specialty-license-plates/specialty-license-plates/"
       official_catalogue_url: "https://www.flhsmv.gov/pdf/specialtyplates/FLPB.pdf"
       official_military_catalogue_url: "https://www.flhsmv.gov/pdf/specialtyplates/military_brochure.pdf"
@@ -326,7 +326,7 @@ series:
       - "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&Search_String=&URL=0300-0399/0320/Sections/0320.08056.html  # § 320.08056: specialty plate authorisation, annual use fees, the (8)(a) discontinuation duty with its 3,000/4,000-registration threshold, and the History line whose first entry — 's. 2, ch. 95-282' — dates the framework to 1995 (accessed 2026-08-02)"
     notes: >-
       THE SPECIALTY PROGRAM INDEX — one entry standing for the whole program, which
-      is what PRD-PLATES §2.5 asks for at this gate. RE-DATED 2026-08-02:
+      is what the plates spec §2.5 asks for at this gate. RE-DATED 2026-08-02:
       `start: 1995` is the creation year of the § 320.08056 framework — the
       section's History line opens 's. 2, ch. 95-282' (Laws of Florida 1995),
       and a History note is part of the official statute publication, so this
@@ -370,7 +370,7 @@ series:
           THE STATUTORY HYPHEN IS RECORDED, NOT ENCODED. § 320.0805 permits one
           hyphen INSIDE an owner-chosen configuration — which makes it part of
           the plate's identity rather than a group gap, i.e. exactly the
-          glyph-inside-a-serial case PRD-PLATES §2.6 consequence 3 reserves for
+          glyph-inside-a-serial case the plates spec §2.6 consequence 3 reserves for
           a schema amendment (_meta/separators.yml never_separator), not a data
           entry. No regex tier here accepts it yet; flagged for the separators
           vocabulary owner. The closest existing precedent is the ES military
@@ -531,7 +531,7 @@ series:
       pre-1997 History entries (78-363, 83-318, 87-197, 96-413 are the
       candidates) because Laws of Florida before 1997 are not served online —
       recorded gap, NOT guessed. The 'Collectible' plate is a genuinely DEAD
-      series that is still lawfully on the road — exactly the case PRD-PLATES's
+      series that is still lawfully on the road — exactly the case the plates spec's
       `ended: true` + `year_end_min:` semantics exist for; it is still not
       given its own entry because no primary for its own FORMAT (as opposed to
       its existence and closure) was obtained.
@@ -539,7 +539,7 @@ series:
   # =========================================================================
   # STATUTORY LEGEND SERIES. § 320.06(3)(a) mandates a specific bottom legend
   # for five vehicle-tax classes. Each is a design difference on the standard
-  # serial, so each is its own series under PRD-PLATES §2.3.
+  # serial, so each is its own series under the plates spec §2.3.
   # =========================================================================
   - id: us-fl-apportioned
     class: standard
@@ -704,7 +704,7 @@ series:
       statute draws the distinction itself, in adjacent sentences, and because
       only the Dealer legend may be displaced by a specialty design. CLASS
       CAVEAT: recorded as `dealer` — _meta/classes.yml has no `manufacturer`
-      value, and the PRD's definition of dealer ('trade/garage plates bound to
+      value, and the spec's definition of dealer ('trade/garage plates bound to
       a business, not a vehicle') fits the binding but not the trade.
 
   - id: us-fl-wrecker

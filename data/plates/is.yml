@@ -1,4 +1,4 @@
-# plates/is.yml — Iceland (PRD-PLATES gate L1, wave 2).
+# plates/is.yml — Iceland (the plates spec gate L1, wave 2).
 #
 # THE 1989 CUTOVER IS THE WHOLE STORY, AND IT IS DATED — just not by the
 # instrument that made it. Read this before trusting any period below.
@@ -152,7 +152,7 @@ common:
       "rönd á brúnum, stafir og bandstrik" together in every colour rule, and
       the two-row rule of 669/2008 places the bandstrik on the letter row. It is
       therefore written as the emitted HYPHEN in every `pattern` below, per
-      PRD-PLATES §2.6, and the regexes accept a hyphen or a space at that
+      the plates spec §2.6, and the regexes accept a hyphen or a space at that
       position under the §2.8 separator-only class rule.
     source: "https://www.reglugerd.is/reglugerdir/allar/nr/751-2003  # 18.-19. gr. Accessed 2026-08-02"
 
@@ -457,7 +457,7 @@ series:
           ORANGE, for létt bifhjól í flokki I (the slowest class, up to 25 km/h),
           added by reglugerð 1515/2020 of 14 December 2020 together with plate
           type E. A colour-only variant of the same format and period, hence a
-          sub-entry per PRD-PLATES §2.3.
+          sub-entry per the plates spec §2.3.
         sources:
           - "https://www.reglugerd.is/reglugerdir/allar/nr/1515-2020  # adds gerð E (168 x 133 mm) and the orange plate for létt bifhjól í flokki I. Accessed 2026-08-02"
     sources:

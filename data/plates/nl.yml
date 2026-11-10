@@ -1,9 +1,9 @@
-# plates/nl.yml — Netherlands (PRD-PLATES gate L0 pilot, COMPLETION PASS).
+# plates/nl.yml — Netherlands (the plates spec gate L0 pilot, COMPLETION PASS).
 #
 # Supersedes the 4-entry L0 seed. Entry ids from the seed are preserved
 # verbatim (nl-sidecode11-moped, nl-sidecode11-agricultural,
 # nl-sidecode11-car, nl-historic-darkblue) per the id contract
-# (PRD-QUALITY I-5/I-6); their DATA is corrected where the RDW pages
+# (the quality spec I-5/I-6); their DATA is corrected where the RDW pages
 # contradicted the seed — corrections are called out in each `notes`.
 #
 # THE NL MODELLING RULE (EU dossier finding 6, binding): a sidecode is a
@@ -93,7 +93,7 @@ series:
         design: { background: { color: "#7CB9E8", finish: retroreflective, hex_basis: observed }, foreground: "#000000", plate: { w: 520, h: 110, unit: mm } }
         note: >-
           Light-blue taxi plates carry the vehicle's OWN registration — colour-only
-          variant of this series, so a sub-entry per PRD-PLATES §2.3, not a series.
+          variant of this series, so a sub-entry per the plates spec §2.3, not a series.
           Models 27.30 (long), 27.31 (rectangular), 18.2 (American, light blue).
         sources:
           - "https://www.rdw.nl/de-kentekenplaat/soorten-kentekenplaten  # taxikentekenplaat lichtblauw met zwarte letters en cijfers; 520x110 / 340x210 / 310x110"
@@ -938,7 +938,7 @@ series:
     categories: [tractor, machine, trailer]
     period: { start: 1978 }
     period_evidence: eligibility-cutoff
-    # RECALL-ONLY (PRD-PLATES §2.7): RDW exempts these vehicles from the
+    # RECALL-ONLY (the plates spec §2.7): RDW exempts these vehicles from the
     # 2+2+2 registration-shape rule, so the regex is the same fourteen-shape
     # union as nl-export. A match is a SHAPE hit — it says the string has a
     # shape the Netherlands has issued, not that it is a valid historic
@@ -979,7 +979,7 @@ series:
     categories: [car, van, truck, bus, motorcycle, moped, trailer, semitrailer, tractor, machine]
     period: { start: 1951 }
     period_evidence: earliest-underlying-series   # the regime's own start is unsourced
-    # RECALL-ONLY (PRD-PLATES §2.7): the export plate carries the vehicle's
+    # RECALL-ONLY (the plates spec §2.7): the export plate carries the vehicle's
     # OWN existing registration, so the regex is the union of all fourteen
     # RDW sidecode shapes. A match is a SHAPE hit, never the claim that the
     # string is a valid export registration — the union admits vowel serials

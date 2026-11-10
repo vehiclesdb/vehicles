@@ -1,4 +1,4 @@
-# plates/no.yml — Norway (PRD-PLATES gate L1, wave 2).
+# plates/no.yml — Norway (the plates spec gate L1, wave 2).
 #
 # THE ONE STRUCTURAL FACT THAT SHAPES THIS FILE, AND IT IS THE OPPOSITE OF
 # SPAIN'S: Norway's HISTORIC plate formats are instrument-dated to the day,
@@ -48,7 +48,7 @@
 #   Note the FOR number: 1994-10-04-918, not the 1994-03-25-918 that circulates.
 #
 # A MISTAKE MADE AND CAUGHT IN THIS PASS, recorded because it is the exact
-# defect PRD-PLATES §9 warns about. The § 2-11 footnote lists twelve amending
+# defect the plates spec §9 warns about. The § 2-11 footnote lists twelve amending
 # forskrifter, and reading FOR-2015-07-13-888 suggested it "introduced" the
 # green varebil plate in § 2-11 tredje ledd bokstav b. It did not. That
 # forskrift RENUMBERED the whole of kapittel 2 (the colour rules had lived in
@@ -214,7 +214,7 @@ series:
         The gap between letter group and digit group is a printed GAP with no
         glyph — no instrument prescribes a separator, since no instrument
         prescribes the composition at all. Written as the emitted SPACE per
-        PRD-PLATES §2.6 and optional in the regex.
+        the plates spec §2.6 and optional in the regex.
     design:
       plate: { w: 520, h: 110, unit: mm }
       plate_variants:
@@ -311,7 +311,7 @@ series:
       - "https://no.wikipedia.org/wiki/Kjennemerke_for_motorkj%C3%B8ret%C3%B8y_i_Norge  # secondary-wikipedia (rev. 2026-07-16): the source treats 1971-2001 as ONE plate design and records no 1982 event at all — the disagreement noted below. Accessed 2026-08-02"
     notes: >-
       THE SECOND TWO-LETTER ORDER, 1 April 1982 to 31 December 2001. A REAL
-      DISAGREEMENT, recorded rather than averaged (PRD-PLATES §5.3): the
+      DISAGREEMENT, recorded rather than averaged (the plates spec §5.3): the
       authority's regulation splits the two-letter era at 31 March 1982 and
       names a different technical specification on each side, while every
       secondary source consulted — including a plate image captioned
@@ -635,7 +635,7 @@ series:
       E-series combination is what lets toll plazas, bus lanes, ferries and
       parking enforce zero-emission privileges from the plate alone, which is
       why it is modelled as a series in its own right rather than a note on
-      no-standard-2002 (PRD-PLATES §2.3 period limb — it starts three years
+      no-standard-2002 (the plates spec §2.3 period limb — it starts three years
       earlier). NOT A LEGAL CLASS, and this is an evidenced negative worth
       having: neither FOR-1990-01-25-92 kapittel 2 nor kjøretøyforskriften
       kapittel 39 mentions elbil, elektrisk drift or EL-kjennemerke anywhere.
@@ -925,7 +925,7 @@ series:
       progression: >-
         THE FIRST DIGIT IS THE ISSUING POLICE DISTRICT — 1 Oslo, 2 Larvik,
         3 Kristiansand, 4 Stavanger, 5 Bergen, 6 Trondheim, 7 Troms. A small
-        decode, inline rather than in a decode file per PRD-PLATES §2.4. In 2004
+        decode, inline rather than in a decode file per the plates spec §2.4. In 2004
         Oslo exhausted its combinations and restarted its sequence from the
         beginning, so the digit does NOT support any age inference.
       district_codes:
@@ -984,7 +984,7 @@ series:
           _meta/separators.yml's emitted SPACE is serial-significant rather
           than a group gap, and a separator-stripping consumer will silently
           collapse "MIN BIL" to "MINBIL". Recorded rather than resolved: it is
-          a genuine tension with PRD-PLATES §2.6, not a data error, and it
+          a genuine tension with the plates spec §2.6, not a data error, and it
           affects only this series.
           The authority narrows the statute further by plate size — seven
           characters fit the 52 x 11 cm plate, six the small, US and motorcycle

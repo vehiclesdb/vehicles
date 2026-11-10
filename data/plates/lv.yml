@@ -1,4 +1,4 @@
-# plates/lv.yml — Latvia (PRD-PLATES gate L1, EU/EEA wave 2). DRAFT for
+# plates/lv.yml — Latvia (the plates spec gate L1, EU/EEA wave 2). DRAFT for
 # verification: researched by an Opus L1 researcher, never applied directly.
 #
 # THE LATVIAN SOURCE CHAIN — THE FULL INSTRUMENT LINE, DATED TO THE DAY
@@ -154,7 +154,7 @@ common:
       practice rule the regulation does not contain: "Ja transportlīdzeklim
       iepriekš bija izsniegta E tipa numura zīme, veicot numuru maiņu, CSDD
       izsniedz C tipa numura zīmi." A divergence between the instrument and the
-      issuing authority, recorded and not averaged (PRD-PLATES §5.3).
+      issuing authority, recorded and not averaged (the plates spec §5.3).
     sources:
       - "https://likumi.lv/ta/id/222145-transportlidzeklu-registracijas-noteikumi  # 7. pielikums 1.1-1.7"
       - "https://www.csdd.lv/numura-zimju-apraksts/nr-zimju-tipi-19  # CSDD's type table and the E-to-C replacement practice"
@@ -248,7 +248,7 @@ region_encoding_gap:
     vehicle type) and its last digit (the year of validity); the trial plate's
     "IZM"; the diplomatic plate's "C"/"CC"/"CD"; and the military plate's
     "L"/"LA". Every one of those is encoded inline in the relevant series'
-    `charset`, which PRD-PLATES §2.4 makes the right home for a small mapping.
+    `charset`, which the plates spec §2.4 makes the right home for a small mapping.
     No Latvian instrument or CSDD page reached in this pass encodes region,
     district or era anywhere in a general-use mark.
   source: "https://likumi.lv/ta/id/222145-transportlidzeklu-registracijas-noteikumi  # 7. pielikums, read in full for positional semantics"
@@ -295,7 +295,7 @@ gaps:
     in 7. pielikums punkts 6. It is sold by the national standards body, its
     catalogue is JS-rendered, and no edition was obtained: not LVS 20-92, not
     LVS 20:2003, not /A1:2006, not LVS 20:2009 (the edition CSDD's current page
-    names). PRD-PLATES §4's SAE J686 posture applies exactly — never quote the
+    names). The plates spec §4's SAE J686 posture applies exactly — never quote the
     standard's values until it is bought. Consequence: this file carries NO
     character height and NO font for any Latvian series, and its ordinary-plate
     colours rest on CSDD's wording rather than on a specification.
@@ -356,7 +356,7 @@ series:
         "A tipa numura zīmēs burti no cipariem atdalīti ar horizontālu svītru."
         The horizontal stroke is prescribed for the A type ONLY; the B and C
         blanks carry the same mark with no stroke prescribed. The pattern
-        spells the A-type printed form, per PRD-PLATES §2.6 rule 2, and a
+        spells the A-type printed form, per the plates spec §2.6 rule 2, and a
         separator-forgiving consumer recovers the B/C form.
     design:
       plate: { w: 520, h: 110, unit: mm }
@@ -517,7 +517,7 @@ series:
         motorcycle takes the C type (240 x 130 mm) or the F type. The pattern
         therefore spells the mark solid — the same Latvian mark prints WITH a
         hyphen on a car and WITHOUT one on a motorcycle, which is exactly the
-        situation PRD-PLATES §2.6 exists to make safe.
+        situation the plates spec §2.6 exists to make safe.
     design:
       plate: { w: 240, h: 130, unit: mm }
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: observed }
@@ -850,7 +850,7 @@ series:
           this file does not assert it.
         dsl_collision: >-
           A GENUINE SCHEMA STRESSOR, RECORDED RATHER THAN WORKED AROUND
-          SILENTLY. PRD-PLATES §2.2 defines the human pattern DSL as 9=digit,
+          SILENTLY. The plates spec §2.2 defines the human pattern DSL as 9=digit,
           L=letter, everything else literal — so the DSL CANNOT SPELL A LITERAL
           "L" (nor a literal "9"). Latvia's military mark begins with exactly
           that letter. Because `pattern` must round-trip against `regex`, and
@@ -861,7 +861,7 @@ series:
           `issuing_grammar` so no information is lost, and it cannot live in
           `regex_strict` because §2.7 forbids a strict twin on a recall-only
           series. THE FIX IS A SCHEMA AMENDMENT (an escape for literal L/9 in
-          the DSL), not a data edit; flagged for PRD-PLATES §2.6.
+          the DSL), not a data edit; flagged for the plates spec §2.6.
     design:
       plate: { w: 520, h: 110, unit: mm }
       plate_variants:
@@ -921,4 +921,4 @@ series:
       so. No amending regulation was traced to the insertion of 4.8. This is the
       weakest date in the file and is flagged accordingly. Modelled as its own
       series because the DESIGN differs (blue symbols) even though the FORMAT
-      does not — PRD-PLATES §2.3's design limb.
+      does not — the plates spec §2.3's design limb.

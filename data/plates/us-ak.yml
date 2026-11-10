@@ -1,4 +1,4 @@
-# plates/us-ak.yml — Alaska (PRD-PLATES gate L2, group: pacific).
+# plates/us-ak.yml — Alaska (the plates spec gate L2, group: pacific).
 #
 # THE SOURCING PROBLEM IN THIS FILE, STATED FIRST BECAUSE IT SHAPES EVERY
 # PERIOD CLAIM BELOW. Alaska's statutes are served by the Legislature's BASIS
@@ -42,7 +42,7 @@ statute_edition: >-
   of dmv.alaska.gov (2025-09-14 snapshot for the plate catalogue).
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4/§7.1.
+# artwork_risk — required per jurisdiction by the plates spec §4/§7.1.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: asserted
@@ -61,11 +61,11 @@ artwork_risk:
   countervailing: >-
     The FORMAT, CLASS, GEOMETRY and PERIOD facts in this file come from the
     ALASKA STATUTES, which are an EDICT OF GOVERNMENT and public domain at
-    every level regardless of the website footer (PRD-PLATES §4). The
+    every level regardless of the website footer (the plates spec §4). The
     assertion bites on the artwork — the Kodiak bear, the state flag, the
     fireweed-and-Denali art plate — not on the facts.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies without exception in Alaska,
+    the plates spec §3's placeholder default applies without exception in Alaska,
     and to more of the plate than usual: the STATE FLAG (the Big Dipper and
     Polaris) is screened into the centre of the standard base and is therefore
     not an emblem in a corner but the plate's central graphic. Render
@@ -114,7 +114,7 @@ us_standards:
 
 # ---------------------------------------------------------------------------
 # Display rules. THE STATUTE AND THE AGENCY DISAGREE, and the disagreement is
-# recorded rather than averaged (PRD-PLATES §5.3).
+# recorded rather than averaged (the plates spec §5.3).
 # ---------------------------------------------------------------------------
 display_rules:
   agency_current: "Alaska DMV, its own words, 2026: 'ONE PLATE: Alaska statute AS 28.10.171 requires you to display one license plate on the back of all passenger vehicles, motorcycles, motorhomes, trucks, vans, trailers, and APV's. For Commercial vehicles that weigh over 10,001 pounds the plate is required to be displayed on the front of the vehicle. A month and year tab must be displayed on the plate.'"
@@ -195,7 +195,7 @@ series:
     sources:
       - "https://web.archive.org/web/2025id_/https://dmv.alaska.gov/vehicle-services/license-plates/  # the DMV's own catalogue names this design 'Standard Gold', issued at no charge with registration, $5 replacement, $30 if personalized"
       - "https://web.archive.org/web/2023id_/http://www.touchngo.com/lglcntr/akstats/Statutes/Title28/Chapter10/Section161.htm  # AS 28.10.161 (reproduction, current through December 2007): (b)(2)-(4) the registration number, the state name 'which may be abbreviated', the year or expiration and the sticker rule; (c) the department may not adopt a new or altered passenger plate unless it substantially embodies the section"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Alaska  # LOCATOR ONLY (PRD-PLATES §4): the ABC 123 format adopted in 1976, the Last Frontier base's reported continuous issuance since 1 January 2010, the I/O/Q exclusion, the reported serial ranges and the Irwin-Hodson manufacture. None asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Alaska  # LOCATOR ONLY (the plates spec §4): the ABC 123 format adopted in 1976, the Last Frontier base's reported continuous issuance since 1 January 2010, the I/O/Q exclusion, the reported serial ranges and the Irwin-Hodson manufacture. None asserted as sourced."
     notes: >-
       ALASKA'S CURRENT STANDARD SERIES. PERIOD CAVEAT, AND IT IS A LARGE ONE:
       `start: 2026` is the year of the instruments read and is an UPPER BOUND,
@@ -259,7 +259,7 @@ series:
       about law rather than about a collector's observation. THE END IS NOT
       SOURCED, which is why this entry uses `ended: true` with
       `year_end_min: 2009` rather than a hard `end:` — the schema's
-      known-over-undated shape (PRD-PLATES §2.2), earning its keep exactly as
+      known-over-undated shape (the plates spec §2.2), earning its keep exactly as
       predicted. The series is known to be over, because Alaska visibly issues
       the gold Last Frontier base today; 2009 is the floor because the
       commemoration was of a 2009 anniversary and the reported end is
@@ -299,7 +299,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Alaska  # LOCATOR ONLY: introduced 7 May 2015; based on the 1976-81 bear base; awarded ALPCA Plate of the Year 2015; reported J and M serial blocks"
     notes: >-
       ALASKA RUNS TWO STANDARD BASES AT ONCE, AT THE SAME PRICE, AND THAT IS
-      THE MODELLING POINT. PRD-PLATES §2.2 says overlapping series are legal
+      THE MODELLING POINT. The plates spec §2.2 says overlapping series are legal
       where the notes distinguish them because parallel issuance is real; the
       Grizzly Bear plate is the cleanest US example found — not old stock
       running on, but a deliberate second no-cost standard design offered
@@ -341,7 +341,7 @@ series:
           PRINTED-FORM FACT AND IT IS WHY THIS SERIES' REGEX HAS NO OPTIONAL
           SEPARATOR while the standard series' does. An authority stating that
           the sequential plate's printed gap disappears on the vanity plate is
-          precisely the kind of detail PRD-PLATES §2.6 exists to capture, and
+          precisely the kind of detail the plates spec §2.6 exists to capture, and
           precisely the kind a separator-forgiving consumer would otherwise
           have to guess at.
       refusal_rule: "The DMV cites 2 AAC 92.120: 'DMV will not issue personalized plates that display symbols in a combination that is demeaning towards a group of people, or that is otherwise a vulgar, violent, or criminal reference or term'. It also operates a RECALL: 'DMV will immediately investigate the license plate and if necessary, recall the license plate.' THE REGULATION'S OWN TEXT WAS NOT FETCHED (recorded gap — the Alaska Administrative Code shares the akleg BASIS access problem); the DMV's paraphrase is what is cited."
@@ -677,7 +677,7 @@ series:
       recording even though the dataset carries formats and never plates.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. Alaska is small enough
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. Alaska is small enough
   # that the DMV's own catalogue IS the register, so this index is ENUMERATED
   # from the agency rather than counted from a secondary source.
   # =========================================================================
@@ -695,7 +695,7 @@ series:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
       emblem: { present: true, rendered: placeholder }
-      note: "One design per authorised programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here. NOTE THE ARTIST-COPYRIGHT LAYER on the Celebrating the Arts designs — see artwork_risk.emblem_rule."
+      note: "One design per authorised programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here. NOTE THE ARTIST-COPYRIGHT LAYER on the Celebrating the Arts designs — see artwork_risk.emblem_rule."
     program_index:
       count_official: null
       count_official_note: >-

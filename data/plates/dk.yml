@@ -1,4 +1,4 @@
-# plates/dk.yml — Denmark (PRD-PLATES gate L1, wave 2).
+# plates/dk.yml — Denmark (the plates spec gate L1, wave 2).
 #
 # WHAT IS PRIMARY HERE, AND WHAT IS NOT. Every claim in this file names its
 # layer, and the layers are:
@@ -32,7 +32,7 @@
 #      letter alphabet, the blocked two-letter combinations, and the
 #      ønskenummerplade's 1992 start.
 #
-# THE FOUR DATES THIS FILE EXISTS TO GET RIGHT (PRD-PLATES §9: era boundaries
+# THE FOUR DATES THIS FILE EXISTS TO GET RIGHT (the plates spec §9: era boundaries
 # are folklore-prone; each of these is dated to the DAY by an instrument's own
 # commencement clause, and each replaces a vaguer number in circulation):
 #
@@ -78,7 +78,7 @@
 #     names colours in WORDS ("hvid/sort/rød") and never gives a value.
 #     Consequently EVERY hex below is `hex_basis: observed` and indicative.
 #   * NO FONT. No typeface is named or drawn anywhere in the instrument, so
-#     per PRD-PLATES §6 there is no licensable font to clear and no statutory
+#     per the plates spec §6 there is no licensable font to clear and no statutory
 #     Schriftmuster to derive glyphs from; the schematic fallback applies.
 #   * NO PUBLISHED SERIES REGISTER. § 68, stk. 3 delegates: "Skatteforvaltningen
 #     kan inddele registreringsnumre i serier efter køretøjers art eller
@@ -110,7 +110,7 @@
 # regler om mærkning af køretøjer med særlige nummerplader eller mærkater."
 #
 # SEPARATOR POLICY: the printed gaps on a Danish plate are GAPS, not glyphs —
-# no Danish instrument prescribes any separator character. Per PRD-PLATES §2.6
+# no Danish instrument prescribes any separator character. Per the plates spec §2.6
 # they are written as the emitted SPACE in `pattern` and as an optional " ?" in
 # every regex. SKAT's catalogue renders the five-digit car number as two groups
 # ("AF 22 454"), which is why the canonical printed form here is "LL 99 999".
@@ -306,7 +306,7 @@ common:
       swatches. This is the posture se.yml records for Sweden and de.yml for
       the German "grünes Kennzeichen"; it is not a defect in the pass.
     font_note: >-
-      NO TYPEFACE IS MANDATED and no statutory drawing exists. Per PRD-PLATES
+      NO TYPEFACE IS MANDATED and no statutory drawing exists. Per the plates spec
       §6 the render layer therefore has neither a licence to clear nor a
       Schriftmuster to derive from; the schematic fallback applies and the gap
       is recorded here rather than papered over with a lookalike TTF.
@@ -389,7 +389,7 @@ series:
         a separator character. SKAT's catalogue renders the five-digit number
         as two groups ("AF 22 454"), which is the canonical printed form used
         here; the regex accepts the space or its absence at both positions per
-        PRD-PLATES §2.6.
+        the plates spec §2.6.
     design:
       plate: { w: 504, h: 120, unit: mm }
       plate_variants:
@@ -485,7 +485,7 @@ series:
         registreringsafgiftsloven and lov om vægtafgift af motorkøretøjer m.v.
         This file records the REGISTERED USE, which is what the plate colour
         tracks, and does not restate rates — rates change and are outside
-        PRD-PLATES §2.5's scope.
+        the plates spec §2.5's scope.
     region_encoding: "plates/_decode/dk-serial-blocks.yml"
     region_encoding_file: dk-serial-blocks.yml
     sources:
@@ -886,11 +886,11 @@ series:
         narrower than the regex above — and that grammar cannot be written.
         The human-pattern DSL spells a digit position as "9", so a LITERAL 9
         is unspellable, and any regex fixing the leading 9 fails the
-        round-trip against every pattern the DSL can express (PRD-PLATES
+        round-trip against every pattern the DSL can express (the plates spec
         §5.2). The diplomatic series escape the same trap only because their
         block starts 76/77, whose digits are not the token. `regex` is
         therefore deliberately wider than what this series issues — a match
-        is a shape hit, not a taxi claim — and per PRD-PLATES §2.7 that is
+        is a shape hit, not a taxi claim — and per the plates spec §2.7 that is
         `recall-only`, which in turn forbids a `regex_strict`. The block
         lives in `format.block` and in plates/_decode/dk-serial-blocks.yml,
         where a parse API should read it.
@@ -1434,7 +1434,7 @@ series:
       registered on ordinary yellow commercial plates; SKAT's 2012 catalogue
       still stocks the dedicated plate, so this file records the dedicated plate
       as open and flags the conflict rather than resolving it — the sources
-      disagree and PRD-PLATES §5.3 says record, do not average.
+      disagree and the plates spec §5.3 says record, do not average.
 
   # =========================================================================
   # LUFTHAVNSPLADER — airside-only plates. Included because SKAT stocks them,
@@ -1538,7 +1538,7 @@ series:
 
 # ---------------------------------------------------------------------------
 # GAPS — what this pass could NOT establish. Recorded here because a stated
-# gap is a finding and a silent one is a defect (PRD-PLATES §5.1
+# gap is a finding and a silent one is a defect (the plates spec §5.1
 # jurisdiction-completeness).
 # ---------------------------------------------------------------------------
 gaps:
@@ -1552,7 +1552,7 @@ gaps:
       U+002E is in _meta/separators.yml's `forgiving` set but NOT in its
       `emitted` set, so the dataset cannot spell this plate's printed form
       without either failing the lint or misrepresenting the plate by writing a
-      hyphen or a space in place of the stop. Per PRD-PLATES §2.6 that is a
+      hyphen or a space in place of the stop. Per the plates spec §2.6 that is a
       schema amendment (a `never_separator` entry, or an addition to `emitted`
       with its rationale), not a data entry, and it is out of scope for a
       jurisdiction pass. No Forsvarsministeriet instrument was located.

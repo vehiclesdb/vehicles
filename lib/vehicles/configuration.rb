@@ -129,7 +129,7 @@ module Vehicles
     #   config.on_hosted_error = ->(r) { Rails.error.report(r.to_error, handled: true) }
     attr_accessor :on_hosted_error
 
-    # Image payloads are cached so a page view does not pay per render: any
+    # Image payloads are cached so a page view does not pay per image: any
     # store with read(key) / write(key, value, expires_in:) (Rails.cache
     # shares it across processes). In-process by default; false disables.
     # A hit is kept `image_cache_ttl` seconds (capped by the payload's

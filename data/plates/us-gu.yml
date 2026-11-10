@@ -1,4 +1,4 @@
-# plates/us-gu.yml — Guam (PRD-PLATES gate L2, territories group).
+# plates/us-gu.yml — Guam (the plates spec gate L2, territories group).
 #
 # GUAM IS THE BEST-LEGISLATED PLATE REGIME IN THIS GROUP AND ONE OF THE BEST IN
 # THE WHOLE US PASS. Title 16 of the Guam Code Annotated, Chapter 7 ("Vehicle
@@ -19,7 +19,7 @@
 # serial-arrangement fact below is either statutory or is marked as
 # secondary-corroborated; there is no third layer of Guam law to go and get.
 #
-# WHAT IS DELIBERATELY NOT HERE (PRD-PLATES §2.5): individual specialty DESIGNS.
+# WHAT IS DELIBERATELY NOT HERE (the plates spec §2.5): individual specialty DESIGNS.
 # `us-gu-specialty-index` indexes the statutory programmes and nothing more.
 jurisdiction: us-gu
 authority:
@@ -40,7 +40,7 @@ authority_url_note: >-
   papered over.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4 / §7.1.
+# artwork_risk — required per jurisdiction by the plates spec §4 / §7.1.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched-presumed-protected
@@ -68,9 +68,9 @@ artwork_risk:
     GOVERNMENT are public domain at every level ({{PD-US-GovEdict}}). 16 GCA is
     an edict. Guam's plate is therefore legally safe to DESCRIBE in full detail
     from the statute even though its ARTWORK is not cleared — which is exactly
-    the split PRD-PLATES §4 anticipates.
+    the split the plates spec §4 anticipates.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies without exception to the LATTE
+    the plates spec §3's placeholder default applies without exception to the LATTE
     STONE and BOUGAINVILLEA graphic and to the Seal of Guam. Render
     `emblem: {present: true, rendered: placeholder}`. Do not upgrade until a Guam
     government-works copyright posture is affirmatively established AND the
@@ -198,7 +198,7 @@ series:
       rear_differs: false
     validation: "§ 7120(b) permits a validation DEVICE bearing the year in place of an embossed year number; § 7135(a) expires it annually with the registration"
     region_encoding: >-
-      CONTESTED, AND RECORDED RATHER THAN AVERAGED (PRD-PLATES §5.3). The
+      CONTESTED, AND RECORDED RATHER THAN AVERAGED (the plates spec §5.3). The
       Wikipedia locator says the current AB 1234 serial is "coded by
       municipality". worldlicenseplates, describing the PREVIOUS (1994) series,
       says something materially different and narrower: "The last three letters on
@@ -209,7 +209,7 @@ series:
     sources:
       - "https://col.guamcourts.gov/sites/default/files/16gc007_0.pdf  # § 7120(a)-(c): two plates, the mandatory 'Guam' legend and year/device, rectangular shape and delegated size — the entire statutory content of a Guam standard plate"
       - "https://col.guamcourts.gov/sites/default/files/30GAR002-5_8.pdf  # 30 GAR Div. 2 ch. 6 'VEHICLE REGISTRATION — (No rules filed.)', with the rule-making-authority note citing 16 GCA §§ 7105, 7108, 7143, 7174. THE MEASURED NEGATIVE: Guam has no administrative regulations on vehicle registration or plates, so the statute is the whole of Guam's written plate law"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Guam  # LOCATOR ONLY (PRD-PLATES §4): the Feb 27 2009 issue date, the AB 1234 arrangement, the latte-stone/bougainvillea graphic, the 'Tano Y Chamorro' slogan, the 12x6 in aluminium construction, the mounting-hole arrangement, and the 'coded by municipality' claim"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Guam  # LOCATOR ONLY (the plates spec §4): the Feb 27 2009 issue date, the AB 1234 arrangement, the latte-stone/bougainvillea graphic, the 'Tano Y Chamorro' slogan, the 12x6 in aluminium construction, the mounting-hole arrangement, and the 'coded by municipality' claim"
       - "http://www.worldlicenseplates.com/world/PA_GUAM.html  # CORROBORATION + GAP-FINDER: an independent listing of Guam's plate generations as '1986 Series / 1994 Series / 2009 Series', which is what makes the 2009 boundary secondary-CORROBORATED rather than single-sourced; and the finding that on the 1994 series it is the COMMERCIAL plates whose last three letters encode the municipality (FAP Fort Apugan, MLL Mount Lamlam). No licence statement on the site — treated as all rights reserved, facts only, no text or images copied"
       - "https://www.aamva.org/getmedia/646bcc8a-219b-47d8-b5cd-726240473163/License-Plate-Standard-Edition-3_September-2025-Update.pdf  # AAMVA Ed.3 §2.1: the top-centre jurisdiction-name placement Guam's statutory 'Guam' legend in fact occupies"
     notes: >-
@@ -255,7 +255,7 @@ series:
       - "http://www.worldlicenseplates.com/world/PA_GUAM.html  # CORROBORATION: an independent '1994 Series' listing, and the narrower and more specific municipality-coding claim quoted in region_encoding"
       - "https://col.guamcourts.gov/sites/default/files/16gc007_0.pdf  # § 7120 — the statutory frame this series sat inside, unchanged across the boundary: the same two-plate rule, the same mandatory 'Guam' legend, the same delegated size"
     notes: >-
-      GUAM'S PREVIOUS STANDARD BASE — the "one series back" PRD-PLATES §7 asks for
+      GUAM'S PREVIOUS STANDARD BASE — the "one series back" the plates spec §7 asks for
       at L2. IT IS MINTED WITH ITS EVIDENCE GRADE ON ITS FACE. Both boundaries are
       secondary; no Guam instrument marks either. The reason it earns a series
       rather than a note is that the SERIAL ARRANGEMENT CHANGED at the boundary
@@ -557,7 +557,7 @@ series:
       missing.
 
   # =========================================================================
-  # SPECIALTY — INDEX ONLY, per PRD-PLATES §2.5. Guam's specialty catalogue is
+  # SPECIALTY — INDEX ONLY, per the plates spec §2.5. Guam's specialty catalogue is
   # statutory, and one member of it has a serial rule strange enough to spec.
   # =========================================================================
   - id: us-gu-amateur-radio
@@ -614,7 +614,7 @@ series:
       charset: { notes: "specialty plates carry ordinary serials on an alternative design; § 7123(c)'s no-conflict proviso confirms 'special license plates series' is its own namespace" }
       pattern_note: "illustrative only — this is an INDEX entry, not a spec"
     design:
-      plate: { note: "one design per statutory programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here" }
+      plate: { note: "one design per statutory programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here" }
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_statutory: 7
@@ -645,7 +645,7 @@ series:
       - "http://www.plateshack.com/guam/guam.html  # CORROBORATION ONLY: an independent Guam plate page confirming passenger issues at 1969, 1973, 1974, 1976, 1977, 1982, 1983, 1986, 1988, 1993, 1998, 2000, 2004 and 2005, plus separate motorcycle and 'oddball' sections. Carries an explicit 'Copyright 1997-2006. Please ask permission before using any images' notice, which is respected: no image or text was copied and the page informs no asserted fact"
     notes: >-
       THE SPECIALTY PROGRAM INDEX — one entry standing for the whole programme, per
-      PRD-PLATES §2.5. THE HEADLINE IS THAT GUAM'S INDEX IS COMPLETE AND CITED,
+      the plates spec §2.5. THE HEADLINE IS THAT GUAM'S INDEX IS COMPLETE AND CITED,
       which almost no US state's is: because the programmes are created by public
       law and there is no administrative layer, the seven sections above are
       demonstrably the whole set as of the compiled edition. `period: {start: 1995}`

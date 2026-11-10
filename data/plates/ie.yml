@@ -1,4 +1,4 @@
-# plates/ie.yml — Ireland (PRD-PLATES gate L1, wave 2).
+# plates/ie.yml — Ireland (the plates spec gate L1, wave 2).
 #
 # EVERY format, colour, dimension and period claim in this file is read off an
 # instrument on irishstatutebook.ie, fetched 2026-08-02. Wikipedia was used as a
@@ -163,7 +163,7 @@ common:
     millimetres which shall extend horizontally for a distance of not less than
     13 millimetres and not more than 22 millimetres." So `ie-standard-1987`
     spells a space and `ie-standard-1991`/`ie-standard-2013` spell a hyphen, and
-    both are the printed form the instrument itself prescribes (PRD-PLATES §2.6
+    both are the printed form the instrument itself prescribes (the plates spec §2.6
     rule 2).
   no_nought_rule: >-
     First Schedule para. 3(b), verbatim: "The identification mark shall not
@@ -172,7 +172,7 @@ common:
     the Irish no-leading-zero rule: the sequence number is printed as assigned,
     never padded, so "121-D-7" is a whole registration and "121-D-0007" is not
     one. It is carried in `regex_strict`, never in `regex`, because the
-    round-trip (PRD-PLATES §2.7) forbids `regex` from carrying charset rules.
+    round-trip (the plates spec §2.7) forbids `regex` from carrying charset rules.
     NOTE THE PERIOD: this paragraph is in Third Schedule Part III (1991) and the
     First Schedule (1992 onward). Part II (1987-1990) has no equivalent, so
     ie-standard-1987 makes no leading-zero claim.
@@ -318,7 +318,7 @@ series:
           stripe: { side: right, color: "#009639", hex_basis: observed, color_spec: "Pantone 7481 C", w: 30, unit: mm, finish: retroreflective }
         note: >-
           THE GREEN FLASH, from 1 July 2025 (S.I. 268/2025 art. 2). A sub-entry
-          and not a series, on the PRD-PLATES §2.3 test: same format, same
+          and not a series, on the plates spec §2.3 test: same format, same
           period, same mark — only the design differs, and only optionally. New
           Reg. 9(10): "an eligible vehicle MAY display a plate which contains a
           stripe which is green in colour", where "eligible vehicle" is defined
@@ -478,7 +478,7 @@ series:
       characters at least 81 mm tall, groups separated by a wide SPACE, and no
       EU band, no black border and no Irish county name anywhere on it. It ran
       for exactly four years. Cutting it as its own series rather than as the
-      early stretch of ie-standard-1991 is the PRD-PLATES §2.3 test applied
+      early stretch of ie-standard-1991 is the plates spec §2.3 test applied
       literally: the design differs (no band, no placename, no border), the
       printed format differs (space versus hyphen) and the period is closed by
       an instrument — three of three. START DATE PRECISION: both halves of the
@@ -531,7 +531,7 @@ series:
         only "that the index mark appears as a separate unit from the
         registration number", and para. 8 sets the minimum gap at 38 mm on
         one-line layouts. The regex spells the position as the separator-only
-        class `[- ]` (PRD-PLATES §2.8) because the instrument prescribes a
+        class `[- ]` (the plates spec §2.8) because the instrument prescribes a
         separation and no character to make it with.
     design:
       background: { color: "#000000", finish: painted, hex_basis: observed }
@@ -618,7 +618,7 @@ series:
         digits in the pattern follow that example and the regex allows one to
         six, claiming nothing.
       separator_note: >-
-        Spelled as the separator-only class `[- ]` (PRD-PLATES §2.8) because the
+        Spelled as the separator-only class `[- ]` (the plates spec §2.8) because the
         instrument leaves the position genuinely open: First Schedule para. 16(d)
         would prescribe a hyphen, but para. 23 expressly lets a ZV mark comply
         instead with the OLD 1982 Part I spec, which prescribes a gap and no

@@ -1,4 +1,4 @@
-# plates/au-nsw.yml — New South Wales (PRD-PLATES gate L3, Australia).
+# plates/au-nsw.yml — New South Wales (the plates spec gate L3, Australia).
 #
 # AUSTRALIA IS FEDERATED THE US WAY, NOT THE GERMAN WAY: there is no national
 # plate format, no national design standard, and no Commonwealth registry for
@@ -31,7 +31,7 @@
 # the Transport for NSW fact sheet of June 2024.
 #
 # REGEX POLICY (identical to plates/gb.yml and plates/us-fl.yml): `format.regex`
-# is the LINT-ROUND-TRIPPABLE regex written in PRINTED form (PRD-PLATES §2.6
+# is the LINT-ROUND-TRIPPABLE regex written in PRINTED form (the plates spec §2.6
 # rule 2) — the gap between groups is spelled as an optional emitted SPACE
 # because that is how the plate prints it and how `pattern` spells it. No NSW
 # plate prints a hyphen; the hyphenated renderings common on enthusiast sites
@@ -61,11 +61,11 @@ instrument:
     failed on 2026-08-02, and the Internet Archive holds no snapshot of the
     instrument's view URL. Consequently NOT ONE WORD of the NSW regulation is
     quoted in this file; every claim below comes from Transport for NSW pages,
-    which are primary authority publications in their own right (PRD-PLATES
+    which are primary authority publications in their own right (the plates spec
     §4), or is marked secondary. The verifier with a browser should read the
     2017 Regulation and re-audit this file first — it is the largest single
     sourcing gap in the Australian wave.
-  licence: "NSW Government material on nsw.gov.au is published under Crown copyright with a stated copyright page; the fact claims extracted here are uncopyrightable facts (PRD-PLATES §4)"
+  licence: "NSW Government material on nsw.gov.au is published under Crown copyright with a stated copyright page; the fact claims extracted here are uncopyrightable facts (the plates spec §4)"
 
 # ---------------------------------------------------------------------------
 # The national layer. Recorded once per Australian file because it is real,
@@ -173,8 +173,8 @@ series:
     region_encoding: none
     sources:
       - "https://www.nsw.gov.au/driving-boating-and-transport/vehicle-registration/vehicle-number-plates/order-reserve-or-replace-number-plates  # Transport for NSW (Internet Archive snapshot 2025-12-05, accessed 2026-08-02): plates remain TfNSW property; new plates issued on first registration; the reserve/exchange machinery. NEGATIVE FINDING: the page never states the general-issue combination"
-      - "http://www.plateshack.com/y2k/New_South_Wales/nswy2k.html  # enthusiast reference (PRD-PLATES §4 corroboration class), read via the Internet Archive, accessed 2026-08-02: a photo-dated 2010 NSW plate captioned 'serial style in use since 2004 and still in current use', and a NSW plate described as a remake of the 'standard black on yellow serial'. Corroborates the 2004 start and the colour words INDEPENDENTLY of the locator"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_South_Wales  # LOCATOR ONLY (PRD-PLATES §4), accessed 2026-08-02: the two-letter/two-numeral/two-letter arrangement and the 2004 changeover. Used as a finding aid; its citations were chased and none reaches a NSW instrument"
+      - "http://www.plateshack.com/y2k/New_South_Wales/nswy2k.html  # enthusiast reference (the plates spec §4 corroboration class), read via the Internet Archive, accessed 2026-08-02: a photo-dated 2010 NSW plate captioned 'serial style in use since 2004 and still in current use', and a NSW plate described as a remake of the 'standard black on yellow serial'. Corroborates the 2004 start and the colour words INDEPENDENTLY of the locator"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_South_Wales  # LOCATOR ONLY (the plates spec §4), accessed 2026-08-02: the two-letter/two-numeral/two-letter arrangement and the 2004 changeover. Used as a finding aid; its citations were chased and none reaches a NSW instrument"
     notes: >-
       NEW SOUTH WALES GENERAL ISSUE. THE FORMAT AND THE PERIOD ARE BOTH
       SECONDARY, AND THIS SERIES SAYS SO RATHER THAN DRESSING THEM UP. What was
@@ -191,7 +191,7 @@ series:
       source verified. THE ID IS DELIBERATELY UNDATED (`au-nsw-standard`, not
       `au-nsw-standard-2004`) for exactly the reason us-fl-standard is: minting
       a dated id on a folklore boundary builds a dated id on sand, and the id
-      contract (PRD-QUALITY I-5/I-6) then forbids taking it back. When an
+      contract (the quality spec I-5/I-6) then forbids taking it back. When an
       agency or instrument date lands, the dated id is added and this one
       becomes its former-id alias.
 
@@ -210,7 +210,7 @@ series:
       evidence: secondary
       charset: { notes: "three letters then three numerals — the arrangement every Australian State ran for most of the second half of the twentieth century, under the 1948 letter allocation described in plates/au-act.yml. NSW's own block of that allocation, and any letter exclusions, are not published" }
     design:
-      colour_note: "black on yellow for the later part of the run; the earlier colour history of NSW plates was not researched (out of scope at this gate — PRD-PLATES §2.5)"
+      colour_note: "black on yellow for the later part of the run; the earlier colour history of NSW plates was not researched (out of scope at this gate — the plates spec §2.5)"
     region_encoding: none
     sources:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_South_Wales  # LOCATOR ONLY, accessed 2026-08-02: the three-letter/three-numeral general issue and its 1951-2004 window. BOTH boundaries are the locator's, uncited in its own text"
@@ -252,7 +252,7 @@ series:
           rule, not a grammar — it does not even settle whether the serial is
           all-numeric. So `matching: recall-only` and the regex is an explicit
           catch-all over the serial alphabet: a match is a shape hit and nothing
-          more (PRD-PLATES §2.7). Narrowing it when the arrangement lands is a
+          more (the plates spec §2.7). Narrowing it when the arrangement lands is a
           one-line change; guessing it now would be a fabricated fact.
     design:
       plate: { w: 317, h: 134, unit: mm }

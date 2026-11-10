@@ -1,4 +1,4 @@
-# plates/ca-ab.yml — Alberta (PRD-PLATES gate L3, Canada west).
+# plates/ca-ab.yml — Alberta (the plates spec gate L3, Canada west).
 #
 # ── FOUR STRUCTURAL FACTS THAT SHAPE THIS FILE ─────────────────────────────
 #
@@ -20,7 +20,7 @@
 #    THIS FILE SAYS SO ON ITS FACE. `ABC-1234` is universally reported and was
 #    NOT located on any alberta.ca page, in the Traffic Safety Act, or in
 #    AR 320/2002. It is carried with `period_evidence: secondary-wikipedia` and
-#    `format.evidence: secondary`, per the PRD-PLATES § 4 Wikipedia row's
+#    `format.evidence: secondary`, per the plates spec § 4 Wikipedia row's
 #    tagging condition. Contrast plates/ca-yt.yml, whose grammar for every class
 #    is in the regulation itself, and plates/ca-nt.yml, whose thirteen plate
 #    types are enumerated with their letter prefixes in the regulation. Alberta
@@ -92,7 +92,7 @@ artwork_risk:
     contracted third-party property — the same posture Montana reaches by a
     different route (MCA 61-3-475's hold-harmless clause).
   emblem_rule: >-
-    PRD-PLATES § 3 placeholder default applies to the wild-rose device, the
+    the plates spec § 3 placeholder default applies to the wild-rose device, the
     provincial wordmark, the Calgary Flames and Edmonton Oilers marks, and the
     Royal Canadian Legion's "integrated maple leaf and poppy logo", which
     AR 320/2002 s. 66.1(1) puts on the veterans' plate BY NAME. The Legion logo
@@ -134,7 +134,7 @@ common:
   separator_note: >-
     Alberta's serial is universally rendered with a hyphen (`ABC-1234`) and NO
     Alberta publication states a separator glyph or a group gap. Under
-    PRD-PLATES § 2.8 the honest encoding of an authority that names no glyph is
+    the plates spec § 2.8 the honest encoding of an authority that names no glyph is
     a separator-only class, so every regex here spells the position `[- ]?`
     while `pattern` shows the canonical printed hyphen. A § 2.6-forgiving
     consumer deletes it either way.
@@ -143,9 +143,9 @@ common:
     `design.plate` is absent from every series here, as in plates/ca-bc.yml and
     plates/gb.yml.
   charset_disagreement: >-
-    RECORDED, NOT AVERAGED (PRD-PLATES § 5.3). Two secondary readings of the
+    RECORDED, NOT AVERAGED (the plates spec § 5.3). Two secondary readings of the
     Alberta regular-series alphabet are in circulation: the world dossier
-    (aux/research/plates-2026-07/plates-research-us-world.md § 2.1) reports
+    (the US-and-world research dossier § 2.1) reports
     "excludes I, O, Q, U"; the per-province encyclopedia article reports that
     "A, E, I, O, Q, U are skipped" — i.e. all vowels plus Q. No Alberta source
     resolves it. NEITHER is asserted: no `regex_strict` narrows the
@@ -181,7 +181,7 @@ series:
       arrangement every source reports and no Alberta publication states. The
       reported first issue is June 2010; the encyclopedia row carries no
       footnote for it, so it is tagged `secondary-wikipedia` under the
-      PRD-PLATES § 4 Wikipedia condition (tagged + article URL, so that every
+      the plates spec § 4 Wikipedia condition (tagged + article URL, so that every
       such fact is enumerable in one pass if the decision is revisited). The
       base design itself is reported as introduced in late 1983 and refreshed
       with an updated provincial logo in July 2019 — BASE AND FORMAT HAVE
@@ -189,7 +189,7 @@ series:
       and neither reported base date is asserted as a series boundary here.
       No `regex_strict` is offered: see common.charset_disagreement.
     sources:
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Alberta  # FINDING AID (PRD-PLATES §4 Wikipedia row): the ABC-1234 arrangement, the reported June 2010 first issue, the reported 1983 base and 2019 logo refresh; accessed 2026-08-02"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Alberta  # FINDING AID (the plates spec §4 Wikipedia row): the ABC-1234 arrangement, the reported June 2010 first issue, the reported 1983 base and 2019 logo refresh; accessed 2026-08-02"
       - "https://kings-printer.alberta.ca/documents/Regs/2002_320.pdf  # s. 63(1)-(2): the Registrar issues; the Minister approves number, type and colour"
 
   - id: ca-ab-standard-3x3
@@ -216,7 +216,7 @@ series:
       years before the reported ABC-1234 start, and NO SOURCE EXPLAINS THE GAP.
       Because the end year is contested by that gap, the schema's known-over-
       undated shape is used: `ended: true` with `year_end_min: 2003` rather than
-      a hard `end`, which is exactly the case PRD-PLATES § 2.2 introduced it
+      a hard `end`, which is exactly the case the plates spec § 2.2 introduced it
       for. "Wild Rose Country" is reported as the slogan from 1973, i.e. it
       spans both series and is not an era signal.
     sources:
@@ -359,7 +359,7 @@ series:
     program_count: 3
     program_count_basis: "alberta.ca names exactly three specialty plates and links a page for each. Alberta publishes no total and no catalogue; three is what the authority lists, not an estimate."
     notes: >-
-      THE INDEX ENTRY, per PRD-PLATES § 2.5 (individual specialty DESIGNS are
+      THE INDEX ENTRY, per the plates spec § 2.5 (individual specialty DESIGNS are
       L4 work). `period.start: 2014` is the enabling instrument, not a program
       date: s. 63.1 was ADDED to AR 320/2002 by AR 160/2014 s. 2 and amended by
       AR 77/2022. s. 63.1(3): the Registrar, "on the application of, and having

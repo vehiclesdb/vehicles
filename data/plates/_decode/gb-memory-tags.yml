@@ -9,7 +9,7 @@
 # Secretary of State under § 23(1), and DVLA publishes it in the leaflet
 # INF104. So where plates/_decode/es-provinces.yml is enacted law and the
 # German district list is a Bundesanzeiger publication, this is a leaflet —
-# and a leaflet from the issuing authority is still a PRIMARY (PRD-PLATES § 4:
+# and a leaflet from the issuing authority is still a PRIMARY (the plates spec § 4:
 # "Government/authority pages ... PRIMARY").
 #
 # Every row below is INF104 (4/22) § 05 "DVLA memory tags and age identifiers",

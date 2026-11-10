@@ -1,4 +1,4 @@
-# plates/ad.yml — Andorra (PRD-PLATES gate L1, microstates group).
+# plates/ad.yml — Andorra (the plates spec gate L1, microstates group).
 # All primary text fetched from the BOPA document store
 # (bopadocuments.blob.core.windows.net), 2026-08-02.
 #
@@ -159,7 +159,7 @@ binding_correction: >-
   portar-la, que ha d'estar donat d'alta al Registre de Vehicles del Govern amb
   una matrícula ordinària atribuïda"). An Andorran personalised vehicle holds
   TWO marks, one bound to it and one bound to its owner. SCHEMA NOTE for the
-  maintainer: PRD-PLATES §2.1 gives `binding` at file scope, so this jurisdiction
+  maintainer: The plates spec §2.1 gives `binding` at file scope, so this jurisdiction
   cannot express the split; a per-series `binding` override is the clean fix and
   is left as a proposal, not taken unilaterally.
 instrument:
@@ -177,7 +177,7 @@ instrument:
       contingudes al seu article 209, que restaran vigents fins al moment en que
       entri en vigor el reglament previst a la Disposició final quarta". Art. 209
       is not plate-related (disposició final quarta is the pleasure-boat
-      register, PRD-PLATES §7 gate L6 territory), so nothing in this file rests
+      register, the plates spec §7 gate L6 territory), so nothing in this file rests
       on it — but "repealed the 1999 Codi" is not the whole sentence.
     retracted_discrepancy: >-
       RETRACTED BY THE §5.3 PASS — THE DISAGREEMENT DID NOT EXIST. The draft
@@ -190,7 +190,7 @@ instrument:
       draft said 1 June. `published` is corrected to 2021-06-02 and the
       "discrepancy" is withdrawn rather than averaged, because averaging a
       disagreement that is really a transcription slip would have manufactured a
-      permanent fake uncertainty in the record (PRD-PLATES §5.3).
+      permanent fake uncertainty in the record (the plates spec §5.3).
       Sumari: https://bopadocuments.blob.core.windows.net/bopa-documents/sumaris/033/033062.pdf
   plate_reglament:
     citation: "Decret 456/2022, del 9-11-2022, d'aprovació del Reglament de la fabricació i la instal·lació de les plaques de matrícula en vehicles i ginys mecànics no aptes per a la via pública"
@@ -373,7 +373,7 @@ common:
       matrícula concedit pel Registre, i el distintiu nacional AND."
     treaty_note: >-
       The 2006 CONSOLIDATED version of Vienna Annex 3 is what permits the sign
-      to be incorporated into the plate. PRD-PLATES §4 records that the 1968
+      to be incorporated into the plate. The plates spec §4 records that the 1968
       Convention AS ADOPTED forbade exactly that (Annex 3 §3) and flags the
       amendment as UNVERIFIED because UNECE was unreachable. This Andorran
       instrument is INDIRECT CORROBORATION that the amendment exists and is in
@@ -425,7 +425,7 @@ common:
           split 4.1/4.2), one pair per plate type, and it is PURE VECTOR
           GRAPHICS: a text extraction returns only running heads and the figure
           captions. So the draft's characterisation is CONFIRMED for content and
-          CORRECTED for availability. Per PRD-PLATES §6 the drawings are cited
+          CORRECTED for availability. Per the plates spec §6 the drawings are cited
           and never embedded.
           https://bopadocuments.blob.core.windows.net/bopa-documents/annexos/023014_plaques.pdf
       (b) THE 2022 ANNEX IS NOT PUBLISHED AT ITS OWN LINK. Decret 456/2022's page
@@ -453,12 +453,12 @@ common:
       Govern, que cedeix en cada cas el dret a usar-los, d'acord amb les
       condicions que es determinen en la normativa vigent."
     why_it_matters: >-
-      PRD-PLATES §6 records, from the EU dossier, that "No surveyed country claims
+      the plates spec §6 records, from the EU dossier, that "No surveyed country claims
       copyright in the plate design itself" — expressly flagged there as a SAMPLE
       finding rather than an exhaustive survey. Andorra is a counter-example to
       that sample and should be carried back into §6 as one. This is the same
       shape of fact that `artwork_risk:` exists to record for US states under
-      PRD-PLATES §7.1: a statutory signal adverse to free reuse, sitting beside
+      the plates spec §7.1: a statutory signal adverse to free reuse, sitting beside
       an art route that looks clean.
     scope_and_limits: >-
       READ NARROWLY, AND DO NOT OVER-READ IT. The provisions assert ownership of
@@ -477,11 +477,11 @@ common:
       differently either way.
   font:
     name: null
-    note: "No typeface is named in any Andorran instrument read, and the graphic annex that might carry a Schriftmuster is unextractable (see annex_gap). Per PRD-PLATES §6 the render layer uses the schematic fallback."
+    note: "No typeface is named in any Andorran instrument read, and the graphic annex that might carry a Schriftmuster is unextractable (see annex_gap). Per the plates spec §6 the render layer uses the schematic fallback."
   emblem:
     present: true
     rendered: placeholder
-    note: "l'escut nacional del Principat d'Andorra, upper left (art. 6.1). PRD-PLATES §3 placeholder rule. LICENCE ROUTE LOCATED 2026-08-03 (render-program hunt): Commons Coat of arms of Andorra.svg is PUBLIC DOMAIN, extmetadata-verified — asset + ledger row at plates/_art/ad/. Depiction consumers may render the real arms."
+    note: "l'escut nacional del Principat d'Andorra, upper left (art. 6.1). The plates spec §3 placeholder rule. LICENCE ROUTE LOCATED 2026-08-03 (render-program hunt): Commons Coat of arms of Andorra.svg is PUBLIC DOMAIN, extmetadata-verified — asset + ledger row at plates/_art/ad/. Depiction consumers may render the real arms."
   origin:
     instrument_named: "Ordinació del Consell General del 13 de maig de 1929"
     rule: >-
@@ -538,7 +538,7 @@ series:
       continuous scheme advancing on exhaustion, and its stated innovations were
       the reduced plate, enduro/trial plates, ground images and the AND mark.
       Citing that Decret for this date would attach an instrument's window to a
-      series it did not create — the exact defect PRD-PLATES §9 and the Spanish
+      series it did not create — the exact defect the plates spec §9 and the Spanish
       es-provincial case exist to prevent. The coincidence of years makes it a
       more dangerous trap than usual, not a safer one.
     matching: strict
@@ -576,7 +576,7 @@ series:
         - name: "reduced (M1)"
           format: { pattern: "L9999" }
           plate: { w: 275, h: 90, unit: mm }
-          note: "a smaller plate for M1 vehicles, same grammar and same furniture — a size option rather than a distinct series, so a variant per PRD-PLATES §2.3"
+          note: "a smaller plate for M1 vehicles, same grammar and same furniture — a size option rather than a distinct series, so a variant per the plates spec §2.3"
     region_encoding: none
     notes: >-
       THE CURRENT ORDINARY SERIES — one letter and four digits, black on white,
@@ -727,7 +727,7 @@ series:
         categories [car, van, truck, bus, trailer, semitrailer] with motorcycle
         absent. A five-digit Andorran MOTORCYCLE plate from the numeric stage is
         therefore matched by no series in this file, which is a
-        jurisdiction-completeness miss under PRD-PLATES §5.1. The fix is one word
+        jurisdiction-completeness miss under the plates spec §5.1. The fix is one word
         (add `motorcycle` to ad-standard-numeric's categories) or one new ended
         series; either is a claim change, so it is proposed in
         data/review/plates-verify/ad.md rather than taken by the researcher alone.
@@ -1158,7 +1158,7 @@ series:
         So the block was 58001-99999 from 2011 and was NARROWED to 58001-58999
         when the current Reglament commenced on 17 November 2022. The draft's
         59999 is between the two and matches neither instrument — the precise
-        failure mode PRD-PLATES §5.3 names ("never average them"). The regex now
+        failure mode the plates spec §5.3 names ("never average them"). The regex now
         carries the CURRENT statutory block and over-accepted 1,000 strings
         before this pass (59000-59999) plus 58000.
         THE PERIOD CONSEQUENCE IS LEFT TO THE MAINTAINER: on the §2.2 rule that a
@@ -1428,7 +1428,7 @@ series:
 # §5.3 VERIFICATION — researcher-only, per I-11.
 # ===========================================================================
 verification:
-  protocol: "PRD-PLATES §5.3"
+  protocol: "The plates spec §5.3"
   status: awaiting_verification
   verifier: null
   researcher_pass:
@@ -1460,5 +1460,5 @@ verification:
     - "ad-historic-passed-itv: the block narrowed 58001-99999 → 58001-58999 at the 2022 commencement. Proposed §2.2 series split; period left at 2011 and knowingly wider than the format."
     - "ad-consular-cc: CC carried TWO digits under the 2011 Reglament and three from 2022. Same proposed split."
     - "ad-standard-numeric / ad-motorcycle: art. 7.3 gives motorcycles the five-digit base stage, and no series in this file matches a five-digit motorcycle plate. One-word categories fix or one new ended series."
-    - "common.character_rights: Llei 12/2021 art. 108(3) and Decret 456/2022 art. 3.5 claim the plate characters and state symbols as Govern property. Counter-example to the PRD-PLATES §6 sample finding; needs carrying back into §6 and, separately, a counsel view. Art/emblem posture deliberately untouched."
+    - "common.character_rights: Llei 12/2021 art. 108(3) and Decret 456/2022 art. 3.5 claim the plate characters and state symbols as Govern property. Counter-example to the plates spec §6 sample finding; needs carrying back into §6 and, separately, a counsel view. Art/emblem posture deliberately untouched."
     - "annex_gap: the 2022 annex is 404 at its advertised path while the repealed 2011 annex is live. art. 21 makes the annex normative for the character shapes, so the glyph spec is reachable only in the repealed instrument."

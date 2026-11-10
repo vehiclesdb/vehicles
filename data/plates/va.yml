@@ -1,4 +1,4 @@
-# plates/va.yml — Vatican City State (PRD-PLATES gate L1, microstates group).
+# plates/va.yml — Vatican City State (the plates spec gate L1, microstates group).
 # DRAFT for verification. Fetched 2026-08-02.
 #
 # ---------------------------------------------------------------------------
@@ -162,7 +162,7 @@ common:
       DATASET LIMITATION, stated because it affects two series. The pre-1988
       plates printed the sigla WITH DOTS — "S.C.V." — and U+002E FULL STOP is
       in _meta/separators.yml's FORGIVING set but NOT its EMITTED set, so
-      PRD-PLATES §2.6 forbids writing it. The patterns below therefore spell
+      the plates spec §2.6 forbids writing it. The patterns below therefore spell
       "SCV" undotted, exactly as ch.yml spells the Swiss mid-height point as a
       space. A §2.6-conformant consumer strips the dots from a real "S.C.V. 84"
       and reaches "SCV84", which the separator-free twin of these regexes
@@ -172,7 +172,7 @@ common:
     status: UNRESOLVED
     rule: >-
       THREE SOURCES GIVE THREE DIFFERENT ANSWERS FOR THE MODERN REAR CAR PLATE
-      AND THEY ARE NOT RECONCILABLE. PRD-PLATES §5.3 says record the
+      AND THEY ARE NOT RECONCILABLE. The plates spec §5.3 says record the
       disagreement and never average it, so no `design.plate` block in this
       file carries a width and height. The claims, each attributed:
         (a) 520 x 110 mm — en.wikipedia's infobox. This is exactly the EU
@@ -218,7 +218,7 @@ common:
     rendered: placeholder
     rule: >-
       The papal arms (crossed keys and tiara) appear on the seal and on papal
-      plates. PRD-PLATES §3's placeholder rule applies and there is no
+      plates. The plates spec §3's placeholder rule applies and there is no
       affirmatively-clean licence route: the Holy See asserts control over its
       insignia, and no permissive licence was located. Placeholder everywhere.
   not_modelled:
@@ -374,7 +374,7 @@ series:
       STATE two-wheelers and tractors. Square 177 x 177 mm, four digits. The
       February 2009 redesign (border plus a horizontal dividing rule) is a
       DESIGN change within one series rather than a new series: the format and
-      the eligibility are unchanged, so under PRD-PLATES §2.3 it is a sub-entry
+      the eligibility are unchanged, so under the plates spec §2.3 it is a sub-entry
       and it is recorded in `design.layout` rather than split out. A verifier
       who pins an instrument for 2009 should reconsider that call.
     sources:
@@ -508,7 +508,7 @@ series:
       into va-scv-1988: the class boundary moved under it. Modelled as ONE
       series across 1930-1988 rather than split into the generations the
       sources describe, because those generation boundaries are exactly the
-      folklore-prone era boundaries PRD-PLATES §9 warns about and no two
+      folklore-prone era boundaries the plates spec §9 warns about and no two
       sources agree on them.
     sources:
       - "https://it.wikipedia.org/wiki/Targhe_d%27immatricolazione_della_Citt%C3%A0_del_Vaticano  # SECONDARY: first plates 1930, 'S.C.V.' with dots and a growing number, two-line rear plates, the early-1980s single-line change"
@@ -551,7 +551,7 @@ series:
       to Art. 10 of a "Regolamento per la circolazione degli autoveicoli" of
       1930 — A NAMED INSTRUMENT THAT WAS NOT REACHED, in this pass or by any
       route tried, and which is therefore never cited below as if it had been
-      read. RECORDED DISAGREEMENT, per PRD-PLATES §5.3: it.wikipedia has red
+      read. RECORDED DISAGREEMENT, per the plates spec §5.3: it.wikipedia has red
       lettering as a CARDINALS-AND-DIGNITARIES entitlement ended in 1998, while
       targheitaliane.it describes red plates numbered SCV 1-100 serving "the
       Pope and Cardinals" without an end date. The two accounts cannot both be

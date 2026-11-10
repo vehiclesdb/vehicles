@@ -1,4 +1,4 @@
-# plates/cn.yml — People's Republic of China (mainland), PRD-PLATES gate L3.
+# plates/cn.yml — People's Republic of China (mainland), the plates spec gate L3.
 #
 # ============================================================================
 # 1. THE SOURCE SITUATION, STATED FIRST BECAUSE IT SHAPES EVERY CLAIM HERE
@@ -43,7 +43,7 @@
 #     what was DELIBERATELY not asserted.
 #
 # ============================================================================
-# 2. THE HAN LINE — where the dataset's serial alphabet stops (PRD-PLATES §2.6)
+# 2. THE HAN LINE — where the dataset's serial alphabet stops (the plates spec §2.6)
 # ============================================================================
 # GA 36-2007 § 3.2 defines the thing a plate carries, verbatim:
 #   "机动车登记编号 registration number of motor vehicle
@@ -58,7 +58,7 @@
 #    Translation ours; the Chinese is the sourced text.)
 #
 # So a Chinese registration number has FOUR elements, two of them Han. The
-# dataset's serial alphabet is A-Z and 0-9 and PRD-PLATES § 2.6 says a
+# dataset's serial alphabet is A-Z and 0-9 and the plates spec § 2.6 says a
 # jurisdiction that prints a glyph inside the serial "is a schema amendment,
 # not a data entry". This file does NOT smuggle Han characters into any
 # `format.pattern`, `format.regex`, `format.regex_strict` or
@@ -83,7 +83,7 @@
 # character and looks it up in cn-provinces.yml; (2) splits a trailing Han
 # character if present and looks it up in `common.classification_han` below;
 # (3) matches what is left — "A12345" — against `format.regex`. The two decode
-# files make steps 1 and 2 mechanical. The schema amendment PRD-PLATES § 2.6
+# files make steps 1 and 2 mechanical. The schema amendment the plates spec § 2.6
 # anticipates (a `never_separator` / non-Latin-element ruling in
 # _meta/separators.yml) is REQUESTED in the dossier; until it lands, this is the
 # honest encoding and it is stated here once rather than guessed per series.
@@ -142,7 +142,7 @@
 # in the same regex, is not an inconsistency — it is the sourced rule.
 #
 # ============================================================================
-# 4. PERIOD POLICY (PRD-PLATES §2.4, the instrument-date rule)
+# 4. PERIOD POLICY (the plates spec §2.4, the instrument-date rule)
 # ============================================================================
 # The system in force is the "92-pattern" (92式) created by GA 36-1992, whose
 # existence and designation year are evidenced by GA 36-2007's own 前言 ("本标准
@@ -335,7 +335,7 @@ series:
         printed_example: "京A·12345"
         regex_informational: '\A[京津冀晋蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川贵云藏陕甘青宁新][A-Z][·\- ]?[A-Z0-9]{5}\z'
         regex_informational_note: >-
-          NOT part of the PRD-PLATES § 2.6 contract, NOT lint-validated, and NOT
+          NOT part of the plates spec § 2.6 contract, NOT lint-validated, and NOT
           a substitute for format.regex — provided because a consumer holding a
           whole Chinese plate string needs one expression to split it. The Han
           class is the 31 characters of cn-provinces.yml in Table 2's order.
@@ -437,7 +437,7 @@ series:
     period: { start: 1992 }
     period_evidence: enabling-instrument
     standard_edition: "GA 36-2007 表 1 row 2"
-    # RECALL-ONLY (PRD-PLATES §2.7): the readable text fixes the trailer plate's
+    # RECALL-ONLY (the plates spec §2.7): the readable text fixes the trailer plate's
     # DESIGN and its classification character but never states which of the two
     # serial widths 表 3 defines applies to it — that lives in Annex C's
     # figures, which the government republication reproduces as headings only.
@@ -1091,7 +1091,7 @@ series:
       2016 is the enabling instrument — the Ministry's announcement creating the
       pilot — with the whole rollout ladder recorded in period.rollout rather
       than averaged into one date, which is exactly the Mercosur pattern
-      PRD-PLATES § 2.2 anticipates.
+      the plates spec § 2.2 anticipates.
 
   - id: cn-nev-large-2016
     class: electric
@@ -1186,7 +1186,7 @@ series:
           (试), and an over-dimension/over-mass special vehicle (超). The blue
           tint above is for movement WITHIN one administrative jurisdiction.
           A tint-and-character variant of one format and period, so a sub-entry
-          per PRD-PLATES § 2.3.
+          per the plates spec § 2.3.
         sources:
           - "https://web.archive.org/web/20150701102419/http://www.hngy.gov.cn/sitepublish/site1/wsbs/lyfwzl/jtfw/jdc/jdcfw/content_25106.html  # GA 36-2007 表 1 row 16 (all four uses and their tints); § 6.4 c)-d) (the two GB/T 3181-1995 colour designations); accessed 2026-08-02"
     validity:

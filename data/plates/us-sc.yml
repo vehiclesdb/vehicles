@@ -1,4 +1,4 @@
-# plates/us-sc.yml — South Carolina (PRD-PLATES gate L2, group southeast-a).
+# plates/us-sc.yml — South Carolina (the plates spec gate L2, group southeast-a).
 #
 # THE SOUTH CAROLINA FINDING, AND IT IS THE BEST-SOURCED CURRENT SERIES IN THE
 # WHOLE US PASS SO FAR: SOUTH CAROLINA'S PRESENT STANDARD PASSENGER PLATE IS
@@ -47,7 +47,7 @@ binding: vehicle
 statute_edition: "South Carolina Code of Laws, Title 56 (Motor Vehicles), Chapter 3, as served by scstatehouse.gov and read 2026-08-01 — the chapter text incorporates amendments through 2025 Act No. 39 (eff. 12 May 2025) and 2024 Act No. 178 (eff. 20 November 2024)"
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: adverse
@@ -87,7 +87,7 @@ artwork_risk:
     elements NOT in the statute: the exact executed artwork, the colour values,
     and the specialty designs.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies. Note the specific hazard: the
+    the plates spec §3's placeholder default applies. Note the specific hazard: the
     statutorily-mandated element of the current plate is the MOULTRIE FLAG —
     a historic flag, and historic flags are not themselves copyrightable
     subject matter — but the EXECUTED artwork submitted by the South Carolina
@@ -235,7 +235,7 @@ series:
     region_encoding: none
     sources:
       - "https://www.scstatehouse.gov/code/t56c003.php  # § 56-3-1230(A): the 6x12 statutory minima, the required plate contents, the weight-class marking authority, the five-year durability floor, the ten-year reissue interval and its exclusions, the hypothecated production fund, the biennial no-sticker rule over 26,000 lb; (B): complete retroreflective treatment, departmental specification, the serialled revalidation sticker; (C): the 1 January 2026 - 31 December 2032 period, the Sestercentennial Commission's design role, 'Where the Revolutionary War Was Won', and the Moultrie Flag minimum; (D): the regular-fee cap. HISTORY line: 2025 Act No. 39 (H.3175), SECTION 1, eff May 12, 2025, which added (C) and (D)."
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_South_Carolina  # LOCATOR ONLY (PRD-PLATES §4): the numeral-first serial arrangement and the 101CUV/101DDM/433DEN block progression. Not asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_South_Carolina  # LOCATOR ONLY (the plates spec §4): the numeral-first serial arrangement and the 101CUV/101DDM/433DEN block progression. Not asserted as sourced."
     notes: >-
       SOUTH CAROLINA CURRENT STANDARD ISSUE — THE MODEL ENTRY FOR THE US PASS.
       Start date, sunset date, slogan, minimum artwork, dimensions, durability,
@@ -275,7 +275,7 @@ series:
           AND started using the letter O, which had been excluded since the
           2008 base. The regex is the union of the two arrangements and is
           still `strict` — the union is exactly what South Carolina issued on
-          this base, not wider (PRD-PLATES §2.7). No `regex_strict` is given
+          this base, not wider (the plates spec §2.7). No `regex_strict` is given
           precisely BECAUSE the O-exclusion holds for part of the period and
           not the rest: a strict twin would be right for 2016-2023 and wrong
           for 2023-2025, and a twin that is wrong half the time is worse than
@@ -415,7 +415,7 @@ series:
     notes: >-
       SOUTH CAROLINA MANUFACTURER PLATES. Given `class: dealer` for the same
       reason us-fl-manufacturer is — _meta/classes.yml has no `manufacturer`
-      value and the PRD's definition of dealer ("trade/garage plates bound to a
+      value and the spec's definition of dealer ("trade/garage plates bound to a
       business, not a vehicle") fits the binding if not the trade. CLASS
       VOCABULARY CANDIDATE, recorded a second time in the dataset now: two
       states have legislated a manufacturer plate distinctly from a dealer
@@ -508,7 +508,7 @@ series:
       axiom by essentially every validator, parse API and ALPR pipeline in
       existence; South Carolina legislates an exception to it. Recorded here
       because it is the kind of fact that only ever surfaces from the statute,
-      which is precisely the argument PRD-PLATES §4 makes for preferring
+      which is precisely the argument the plates spec §4 makes for preferring
       statutes over brochures.
 
   - id: us-sc-specialty-index

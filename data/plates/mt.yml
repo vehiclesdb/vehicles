@@ -1,4 +1,4 @@
-# plates/mt.yml — Malta (PRD-PLATES gate L1, wave 2).
+# plates/mt.yml — Malta (the plates spec gate L1, wave 2).
 #
 # THE INTERESTING THING ABOUT MALTA IS THE LETTER BLOCK, AND IT IS PUBLISHED.
 # Most small jurisdictions allocate class-marking letters by unpublished
@@ -164,7 +164,7 @@ letter_blocks:
       write. Secondary sources describe a "GM 99" form; no instrument supports
       the two digits.
   lapsed:
-    note: "blocks that were prescribed and then withdrawn — kept because plates issued under them remain on the road, exactly as the period discipline in PRD-PLATES §2.4 requires for decode rows"
+    note: "blocks that were prescribed and then withdrawn — kept because plates issued under them remain on the road, exactly as the period discipline in the plates spec §2.4 requires for decode rows"
     blocks:
     - { block: BY, meaning: "route buses", period: "2004-2018", note: "replaced by BUS by L.N. 139 of 2018 s.4(a). The familiar DBY / EBY / FBY marks of the old Malta buses are instances of this rule with a varying leading letter — not three separate blocks" }
     - { block: CY, meaning: "coaches", period: "2004-2011", note: "replaced by PY by L.N. 110 of 2011 s.6(b)" }
@@ -341,7 +341,7 @@ series:
           for annotations. Unlike Cyprus, which at least publishes drawn
           specimens, Malta publishes neither a name nor a dimensioned drawing.
           The letterforms are therefore, on the face of the law, unconstrained.
-          PRD-PLATES §6 posture: the render layer picks a free face and records
+          The plates spec §6 posture: the render layer picks a free face and records
           the substitution, because there is no statutory drawing to derive from.
         license: "n/a — nothing prescribed"
       rear_differs: false
@@ -367,7 +367,7 @@ series:
       STATING: the EU band did not arrive with that instrument but with L.N. 476
       of 2004 on 1 MAY 2004, Malta's EU accession day — so there was a
       seven-week window in which this exact format was issued WITHOUT the band.
-      That is a genuine design difference and under PRD-PLATES §2.3 it would
+      That is a genuine design difference and under the plates spec §2.3 it would
       merit its own series, but `period` is modelled in INTEGER YEARS and both
       dates fall in 2004, so the two are indistinguishable in this schema and
       are recorded as one series with the sequence written into the sources
@@ -851,4 +851,4 @@ series:
       deserves a shape to match, clearly labelled recall-only. PRE-1952 MALTA IS
       NOT MODELLED: the Motor Vehicles Regulations 1948 and the calesse-era
       registrations that secondary sources mention for the 19th century are L4
-      historical depth under PRD-PLATES §7 and no primary was consulted.
+      historical depth under the plates spec §7 and no primary was consulted.

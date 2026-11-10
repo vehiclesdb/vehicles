@@ -1,4 +1,4 @@
-# plates/ca-nu.yml — Nunavut (PRD-PLATES gate L3, Canada territories).
+# plates/ca-nu.yml — Nunavut (the plates spec gate L3, Canada territories).
 # THE OTHER NON-RECTANGULAR CASE, AND THE ONE THAT WENT AWAY AND CAME BACK.
 #
 # ── READ plates/ca-nt.yml FIRST. Nunavut's motor-vehicle law IS the Northwest
@@ -68,7 +68,7 @@
 # SOURCING GRADE, STATED ONCE: with no reachable Nunavut instrument and no
 # reachable Nunavut agency page, this file's format and period claims rest on
 # (a) the per-territory encyclopedia article, used as a finding aid and tagged
-# `secondary-wikipedia` per the PRD-PLATES § 4 Wikipedia condition, and (b) one
+# `secondary-wikipedia` per the plates spec § 4 Wikipedia condition, and (b) one
 # Nunavut news outlet reporting a minister's statement in the Legislative
 # Assembly, which is a secondary report of a primary event and is graded
 # `secondary-dated`. The CIPO trade-mark record is the file's only primary
@@ -101,7 +101,7 @@ instrument:
       served today are post-1999 consolidations carrying amendments (R-034-2013,
       R-012-2025, R-037-2026 and others) that Nunavut never enacted. Reading
       today's NWT reg. 8(2) as Nunavut's plate-type list would be exactly the
-      instrument-date error the PRD's § 4 rule exists to prevent.
+      instrument-date error the spec's § 4 rule exists to prevent.
     source: "https://www.justice.gov.nt.ca/en/files/legislation/motor-vehicles/motor-vehicles.r12.pdf"
   trademark:
     citation: "CIPO application 1050364 / registration TMA558214, Government of the Northwest Territories, filed 2000-03-10, registered 2002-02-20, goods 'Licence plates', LIVE"
@@ -124,7 +124,7 @@ artwork_risk:
     third-party registration, and no theory of Crown copyright or edict-of-
     government reaches it.
   emblem_rule: >-
-    PRD-PLATES § 3 placeholder default applies to every graphic element
+    the plates spec § 3 placeholder default applies to every graphic element
     reported on the 2025 plate — the bear outline (encumbered as above), the
     inuksuk in the serial gap, and the star. As in the Northwest Territories,
     there is no separable emblem slot to placeholder out: the trade-marked shape
@@ -133,7 +133,7 @@ artwork_risk:
   syllabics_note: >-
     The Inuktitut wordmark ᓄᓇᕗᑦ is a legend, not artwork, and is reproduced here
     as text with its codepoints because identity IS form for a script (the
-    PRD-PLATES § 4 Wikipedia-row condition 3 principle, applied outside its
+    the plates spec § 4 Wikipedia-row condition 3 principle, applied outside its
     original context). It is never transliterated in this dataset.
   sources:
     - "https://ised-isde.canada.ca/cipo/trademark-search/1050364"
@@ -159,7 +159,7 @@ series:
         the two three-digit groups. Under _meta/separators.yml that symbol is
         NOT a separator and must never be stripped as one or read as serial; the
         position is spelled with the sanctioned separator-only class `[- ]?`
-        (PRD-PLATES § 2.8), which is what an authority that prints a picture
+        (the plates spec § 2.8), which is what an authority that prints a picture
         rather than punctuation earns. `pattern` shows the canonical printed
         hyphen because the DSL has no way to show a picture, and that is a
         display convention, not a claim that a hyphen is printed.
@@ -209,7 +209,7 @@ series:
       unchanged design. Both are in this wave, both are 2025, and a schema that
       conflated base with format could model neither.
     sources:
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Nunavut  # FINDING AID (PRD-PLATES §4 Wikipedia row): 2025 start, bear shape returning, six-digit serial, yellow border, inuksuk, star, syllabic legend, left-facing bear; accessed 2026-08-02"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Nunavut  # FINDING AID (the plates spec §4 Wikipedia row): 2025 start, bear shape returning, six-digit serial, yellow border, inuksuk, star, syllabic legend, left-facing bear; accessed 2026-08-02"
       - "https://nunatsiaq.com/stories/article/polar-bear-licence-plates-coming-back-to-nunavut/  # 2024-11-08: the announcement, the 25th-anniversary rationale, the NWT agreement quote, the explicit absence of a roll-out date"
       - "https://ised-isde.canada.ca/cipo/trademark-search/1050364  # the shape is the GNWT's registered trade-mark"
 

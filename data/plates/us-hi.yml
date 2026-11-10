@@ -1,4 +1,4 @@
-# plates/us-hi.yml — Hawaii (PRD-PLATES gate L2, group: pacific).
+# plates/us-hi.yml — Hawaii (the plates spec gate L2, group: pacific).
 #
 # HAWAII IS THE ONE US JURISDICTION IN THIS WAVE WHERE THE STATE DOES NOT ISSUE
 # THE PLATES. Under HRS chapter 249 the issuing officers are the four COUNTY
@@ -24,7 +24,7 @@
 # NOTE ON THE ʻOKINA: the statute's glyph is the ʻokina (U+02BB). The
 # capitol.hawaii.gov HTML renders it as a backtick, and it is quoted below in
 # the form the instrument served. No serial in this dataset contains it — it
-# appears only in the LEGEND, never in the plate number, so PRD-PLATES §2.6's
+# appears only in the LEGEND, never in the plate number, so the plates spec §2.6's
 # serial alphabet is untouched.
 #
 # SOURCING NOTE: capitol.hawaii.gov is behind a Cloudflare challenge that
@@ -45,7 +45,7 @@ statute_edition: >-
   of the 7 January 2025 file set; § 249-9 as last amended by L 2024, c 64, § 1.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4/§7.1.
+# artwork_risk — required per jurisdiction by the plates spec §4/§7.1.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: adverse-on-commercial-reuse
@@ -64,11 +64,11 @@ artwork_risk:
   countervailing: >-
     The FACTS in this file are almost entirely drawn from HRS chapter 249,
     which is an EDICT OF GOVERNMENT and public domain at every level
-    (PRD-PLATES §4). Nothing in a terms-of-use page can reach the text of a
+    (the plates spec §4). Nothing in a terms-of-use page can reach the text of a
     statute. So the format, geometry, legend and class facts here are clean;
     it is the ARTWORK — the rainbow graphic — that the term bites on.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies with unusual force in Hawaii,
+    the plates spec §3's placeholder default applies with unusual force in Hawaii,
     for two independent reasons. (1) The RAINBOW graphic that fills the
     standard plate is the design's entire identity and is not described in any
     instrument — it is departmental artwork, and the portal terms forbid
@@ -250,14 +250,14 @@ series:
       - "https://web.archive.org/web/2024id_/https://www.capitol.hawaii.gov/hrscurrent/Vol04_Ch0201-0257/HRS0249/HRS_0249-0009.htm  # § 249-9(a)(1)-(4): the 1 January 2025 'Hawaii' -> 'Hawai`i' legend split (am L 2024, c 64), 'Aloha State' at the bottom, the case permissiveness, the distinct-contrast rule, the any-shape/size/color delegation to the county directors by majority consent, the 3 in / 3/8 in character geometry, the Honolulu procurement contract, and AG Op. 67-17 on uniformity"
       - "https://web.archive.org/web/2024id_/https://www.capitol.hawaii.gov/hrscurrent/Vol04_Ch0201-0257/HRS0249/HRS_0249-0007.htm  # § 249-7(b): a new series of number plates is issued 'as determined by the directors of finance of each county through majority consent' — the mechanism by which a Hawaii base changes"
       - "https://www8.honolulu.gov/csd/motor-vehicle-license-plates/  # City and County of Honolulu, the issuing authority for Oʻahu: the standard plate illustration showing Hawaii spelled with the ʻokina; the $5.00 plate replacement and $0.50 emblem replacement fees"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Hawaii  # LOCATOR ONLY (PRD-PLATES §4): the ABC 123 arrangement, the county-letter allocation table, the I/O/Q exclusion, and the 2023 addition of A-D to Honolulu. None asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Hawaii  # LOCATOR ONLY (the plates spec §4): the ABC 123 arrangement, the county-letter allocation table, the I/O/Q exclusion, and the 2023 addition of A-D to Honolulu. None asserted as sourced."
     notes: >-
       HAWAII'S CURRENT STANDARD SERIES, AND THE BEST-DATED SERIES BOUNDARY IN
       THE ENTIRE PACIFIC GROUP. `period_evidence: statutory-date` is earned:
       HRS § 249-9(a)(2) says in terms that plates issued ON OR AFTER 1 JANUARY
       2025 bear "Hawai`i" with the ʻokina, and § 249-9(a)(1) says plates issued
       before that date bear "Hawaii" without it. A legend difference is a design
-      difference and therefore its own series under PRD-PLATES §2.3, so the
+      difference and therefore its own series under the plates spec §2.3, so the
       boundary is not a curiosity — it is the cut. It also produces something a
       parse API can actually use: two visually near-identical rainbow plates
       whose ERA is readable from a single diacritic. THE LIMIT OF THIS ENTRY,
@@ -348,7 +348,7 @@ series:
           six-character cap on the alphanumerics themselves.
         refusal_rule: "§ 249-9.1: the director 'shall not issue special number plates which have the letter and numeral combination of regular plates, are misleading or publicly objectionable' — a collision rule plus a taste rule, in one sentence, with no published criteria list (contrast California's VIRPM 21.180, which publishes both the criteria and the excluded strings)."
       separator_note: >-
-        PRD-PLATES §2.6 SANCTIONS THIS AND HAWAII IS WHY THE RULE IS WRITTEN AS
+        the plates spec §2.6 SANCTIONS THIS AND HAWAII IS WHY THE RULE IS WRITTEN AS
         IT IS. The hyphen here is an EMITTED SEPARATOR (U+002D), spelled as a
         literal, never inside a character class, so a consumer deriving the
         separator-free twin deletes it and recovers the six-character serial
@@ -384,7 +384,7 @@ series:
       does so twice over: it permits exactly one hyphen and then forbids
       everything else ("No other punctuation marks shall be allowed"). That is
       a statutory confirmation of the separator contract from the outside — a
-      legislature independently arriving at the same closed set PRD-PLATES §2.6
+      legislature independently arriving at the same closed set the plates spec §2.6
       declares. The re-application-on-design-change rule is the other keeper:
       it is administrative proof that the counties themselves treat a legend
       change as a break in the series, which corroborates cutting
@@ -511,7 +511,7 @@ series:
       that is the honest limit of the entry.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. Hawaii's programme is
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. Hawaii's programme is
   # structurally unlike Florida's or California's: it is a DECAL regime, run
   # by the counties, with the size of the decal fixed by statute.
   # =========================================================================
@@ -539,7 +539,7 @@ series:
         delegated and were not located (recorded gap); only the 3 in x 3 in
         maximum is statutory.
       emblem: { present: true, rendered: placeholder }
-      note: "One decal per authorised organization; the decal designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here."
+      note: "One decal per authorised organization; the decal designs themselves are L4 scope (the plates spec §2.5) and none is described here."
     program_index:
       count_official: null
       count_official_note: >-

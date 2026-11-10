@@ -1,4 +1,4 @@
-# plates/us-me.yml — Maine (PRD-PLATES gate L2, northeast group).
+# plates/us-me.yml — Maine (the plates spec gate L2, northeast group).
 #
 # MAINE IS THE BEST-SOURCED CURRENT BASE IN THIS GROUP AND POSSIBLY IN THE US.
 # Where Florida's colours had to be recorded `observed` because Chapter 320 says
@@ -11,11 +11,11 @@
 # of the plate; or (2) Blue identification numbers and letters with no other
 # features." Two statutory design variants, named in law, plus statutory
 # character heights and statutory legends. That is an EDICT OF GOVERNMENT
-# describing a plate design — public domain at every level (PRD-PLATES §4) — and
+# describing a plate design — public domain at every level (the plates spec §4) — and
 # it is why the renderer can build Maine from law rather than from a photograph.
 #
 # IT ALSO PRODUCES THIS FILE'S ONE REAL SOURCE CONFLICT, recorded and not
-# averaged (PRD-PLATES §5.3): the STATUTE says "buff neutral shaded background";
+# averaged (the plates spec §5.3): the STATUTE says "buff neutral shaded background";
 # every secondary description of the plates actually issued from 1 May 2025 says
 # REFLECTIVE WHITE with a dark blue serial, "MAINE" in dark green at top and
 # "VACATIONLAND" in dark green at bottom. Both are recorded below. Nobody should
@@ -25,7 +25,7 @@
 # of State "shall begin issuing the new plates NO LATER THAN MAY 1, 2025" and
 # "shall complete the issuance of new plates BEFORE JULY 31, 2026". So Maine has
 # a legislated rollout window — announced/first-issue/full-coverage in one
-# subsection — which is exactly the `period.rollout:` shape PRD-PLATES §2.2
+# subsection — which is exactly the `period.rollout:` shape the plates spec §2.2
 # anticipated for Mercosur and had not yet needed in the US.
 jurisdiction: us-me
 authority:
@@ -39,7 +39,7 @@ statute_edition: >-
   page extracted on 10/20/2025" — the edition read for this pass.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: favourable-on-the-edict-ground-weak-on-the-general-ground
@@ -63,10 +63,10 @@ artwork_risk:
     Render Maine from §451(4-A)'s words. Do NOT rely on {{PD-MEGov}} for
     anything, and do not record Maine as a public-domain state on its strength:
     an untagged assertion on a wiki is not evidence, and treating it as evidence
-    is precisely the laundering PRD-PLATES §4 forbids. Recorded as UNRESEARCHED
+    is precisely the laundering the plates spec §4 forbids. Recorded as UNRESEARCHED
     at the general level with the specific edict ground stated.
   emblem_rule: >-
-    PRD-PLATES §3 placeholder default applies to the PINE TREE and NORTH STAR
+    the plates spec §3 placeholder default applies to the PINE TREE and NORTH STAR
     even here. The 2025 design is reported to pay homage to the Maine state flag
     of 1901-1909, and flag/seal protection independent of copyright is
     unresearched for Maine (recorded gap). Note that the statute describes the
@@ -144,7 +144,7 @@ series:
           I and O not used; initial letters A-E reserved for optional and certain
           non-passenger types; F-H reserved for the plain statutory variant (see
           us-me-standard-2025-plain); this variant runs from 101 KAA.
-      separator_note: "the group gap is printed as a small raised dot in secondary depictions; spelled U+0020 here because U+00B7 is in the FORGIVING but not the EMITTED set (PRD-PLATES §2.6)"
+      separator_note: "the group gap is printed as a small raised dot in secondary depictions; spelled U+0020 here because U+00B7 is in the FORGIVING but not the EMITTED set (the plates spec §2.6)"
       progression: "101 KAA upward, middle letter first"
     design:
       plate: { w: 12, h: 6, unit: in, dimension_note: "OBSERVED — Title 29-A states character heights but no plate size" }
@@ -156,7 +156,7 @@ series:
           THE STATUTE AND EVERY SECONDARY DESCRIPTION DISAGREE ABOUT THE
           BACKGROUND. Statute: "buff neutral shaded". Secondary: reflective white.
           NO HEX IS RECORDED, because recording one would be choosing a side.
-          PRD-PLATES §5.3: disagreements are recorded, never averaged. Resolving
+          The plates spec §5.3: disagreements are recorded, never averaged. Resolving
           this needs a BMV colour specification, which was not obtained.
       foreground_statutory: "'Blue identification numbers and letters' (§451(4-A)(D)(1)); secondary describes the issued plates as DARK BLUE serial — consistent"
       legend_top: "MAINE"
@@ -177,7 +177,7 @@ series:
     sources:
       - "https://legislature.maine.gov/statutes/29-A/title29-Asec451.html  # 29-A M.R.S. §451: (1) periodic general issue distinguishable by colour; (1-A) begin no later than 1 May 2025, complete before 31 July 2026; (4-A)(A) 'Maine' >= 3/4 in at top plus year; (4-A)(B) numbers not substantially less than 3 in; (4-A)(C) 'Vacationland' >= 3/4 in at bottom or class codes; (4-A)(D)(1) buff background, distinct border, blue characters, eastern white pine, blue North Star; (4-A)(E) the numbering system is delegated to the Secretary of State; (6) manufacture at the Bolduc Correctional Facility"
       - "https://legislature.maine.gov/statutes/29-A/title29-Asec452.html  # §452: display front and rear, the front-only truck tractor rule"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Maine  # LOCATOR ONLY (PRD-PLATES §4): the 123·ABC arrangement, the 101·KAA start, the middle-letter-first progression, the I/O exclusion, the A-E and F-H block reservations, the reported reflective-white/dark-blue/dark-green colours that CONFLICT with the statute's 'buff', and the homage to the 1901-1909 state flag"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Maine  # LOCATOR ONLY (the plates spec §4): the 123·ABC arrangement, the 101·KAA start, the middle-letter-first progression, the I/O exclusion, the A-E and F-H block reservations, the reported reflective-white/dark-blue/dark-green colours that CONFLICT with the statute's 'buff', and the homage to the 1901-1909 state flag"
     notes: >-
       MAINE 2025 GENERAL ISSUE, PINE TREE VARIANT. This is the only series in the
       northeast group whose START DATE, BACKGROUND, BORDER, CHARACTER COLOUR,
@@ -220,12 +220,12 @@ series:
     notes: >-
       THE PLAIN 2025 VARIANT — its own series and not a sub-entry, because
       §451(4-A)(D) offers (1) and (2) as ALTERNATIVES and the design difference
-      (graphic vs no graphic) is exactly the difference PRD-PLATES §2.3 says makes
+      (graphic vs no graphic) is exactly the difference the plates spec §2.3 says makes
       a series. It also has a distinct serial block (F-H vs K), so the format
       differs in practice as well. WHY THIS MATTERS BEYOND MAINE: a US state
       offering a deliberately graphic-free standard plate alongside a graphic one
       is the render layer's dream case — the emblem-placeholder problem of
-      PRD-PLATES §3 simply does not arise for this variant, and a consumer that
+      the plates spec §3 simply does not arise for this variant, and a consumer that
       needs a guaranteed-clean Maine render should ask for this one.
 
   # =========================================================================
@@ -272,7 +272,7 @@ series:
       lawfully on the road during the 2025-2026 rollout window that §451(1-A)
       leaves open until 31 July 2026. That overlap is legislated, not accidental:
       Maine law expressly contemplates old and new plates coexisting for fifteen
-      months, which is the `period` overlap PRD-PLATES §2.2 calls legal-iff-noted.
+      months, which is the `period` overlap the plates spec §2.2 calls legal-iff-noted.
       Recorded with `end: 2025` because issuance stopped on 30 April 2025; a
       chickadee plate seen in June 2026 is valid, not expired.
 
@@ -323,7 +323,7 @@ series:
       pattern: "9L-9999"
       regex: '\A\d[A-Z]-?\d{4}\z'
       charset: { notes: "reported 1A-0001 onward from December 2007; the preceding arrangement on the same base was 123-456 (600-001 to 799-999, July 1999 - December 2007), and before that a plain six-digit 123456 on the lobster base with a vertical 'COM' marker" }
-      separator_note: "Maine's commercial plates print a HYPHEN, which IS in the emitted set — so unlike the passenger series this pattern spells the separator exactly as printed (PRD-PLATES §2.6 rule 2)"
+      separator_note: "Maine's commercial plates print a HYPHEN, which IS in the emitted set — so unlike the passenger series this pattern spells the separator exactly as printed (the plates spec §2.6 rule 2)"
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
@@ -377,7 +377,7 @@ series:
       leading pair as sequence will sort Maine trailers into nonsense.
 
   # =========================================================================
-  # SPECIALTY — PROGRAM INDEX ONLY (PRD-PLATES §2.5).
+  # SPECIALTY — PROGRAM INDEX ONLY (the plates spec §2.5).
   # =========================================================================
   - id: us-me-specialty-index
     class: specialty
@@ -392,7 +392,7 @@ series:
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised program; individual designs are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised program; individual designs are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_reported: 9

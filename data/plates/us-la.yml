@@ -1,4 +1,4 @@
-# plates/us-la.yml — Louisiana (PRD-PLATES gate L2, group: southcentral).
+# plates/us-la.yml — Louisiana (the plates spec gate L2, group: southcentral).
 #
 # THE LOUISIANA FIND, and it is the best one in the southcentral group: the
 # Office of Motor Vehicles publishes its ENTIRE POLICY MANUAL, per-policy, as
@@ -49,7 +49,7 @@ policy_manual:
   why_it_matters: "each policy states its authorising R.S. sections, an Effective Date and a Revised Date. Effective dates in Section 5 run from 1973 to 2025, so the manual is also a rough chronology of Louisiana plate policy."
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: copyright-asserted-by-agency
@@ -77,7 +77,7 @@ artwork_risk:
     as claimed, render nothing derived from an LADPS image, and rely only on
     facts and on the policy manual's TEXTUAL descriptions, which is what this
     file does throughout.
-  practical_effect: "PRD-PLATES §3's neutral-placeholder default is mandatory. Note the useful asymmetry: Policy 45.00 describes the plate in WORDS ('blue letters and numbers on a white background with the word \"Louisiana\" appearing in script at the top center of the plate in the color of red'). A description of a design is a fact; a copy of a design is not. Every colour and legend claim below is taken from the words, never from an image."
+  practical_effect: "The plates spec §3's neutral-placeholder default is mandatory. Note the useful asymmetry: Policy 45.00 describes the plate in WORDS ('blue letters and numbers on a white background with the word \"Louisiana\" appearing in script at the top center of the plate in the color of red'). A description of a design is a fact; a copy of a design is not. Every colour and legend claim below is taken from the words, never from an image."
   emblem_rule: >-
     Placeholder. The pelican — Louisiana's state bird and the central element of
     the state's seal and flag — has appeared on Louisiana bases repeatedly, and
@@ -86,7 +86,7 @@ artwork_risk:
     and are UNRESEARCHED for Louisiana (recorded gap).
   sources:
     - "https://expresslane.la.gov/omv/terms-of-use/  # LADPS Terms of Use Policy: the copyright and proprietary-rights assertion, quoted verbatim above, and the LADPS name/initials passing-off clause"
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): §105 does not reach the states; Louisiana is not among the states with a favourable rule"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): §105 does not reach the states; Louisiana is not among the states with a favourable rule"
 
 # ---------------------------------------------------------------------------
 # The US standards chain — recorded once per US file (see us-fl.yml).
@@ -100,7 +100,7 @@ us_standards:
     replacement_cycle: "AAMVA §1.1 recommends a rolling or full replacement cycle 'not to exceed 7 to 10 years'. LOUISIANA HAS NO REPLACEMENT CYCLE BUT HAS A REGISTRATION PERIOD: Policy 38.00 states 'Private auto license plates are issued for a two (2) year registration period' and 'All automobile plates will be valid for two (2) years ONLY.' Plates are also NOT TRANSFERABLE between owners — 'New metal plates are issued when the vehicle is transferred' — so Louisiana replaces on transfer rather than on a clock."
     source: "https://www.aamva.org/getmedia/646bcc8a-219b-47d8-b5cd-726240473163/License-Plate-Standard-Edition-3_September-2025-Update.pdf"
   aamva_relationship_note: "Louisiana OMV is an active AAMVA member and won three 2026 AAMVA awards, which is worth noting only because it makes the voluntary-adoption chain concrete: the state whose plates AAMVA does not govern is the same state that competes in AAMVA's awards programme."
-  folklore_caution: "The '1956 AMA standardization agreement' remains COMMONLY REPEATED, UNSOURCED (PRD-PLATES §4). No Louisiana instrument obtained states plate dimensions at all."
+  folklore_caution: "The '1956 AMA standardization agreement' remains COMMONLY REPEATED, UNSOURCED (the plates spec §4). No Louisiana instrument obtained states plate dimensions at all."
 
 # ---------------------------------------------------------------------------
 # Display rules — from the OMV Policy Manual, which is the registrar's own
@@ -205,7 +205,7 @@ series:
         DELIBERATELY. Louisiana changed base graphics inside this one serial
         arrangement, and none of those changes could be tied to a Louisiana
         instrument in this pass. Minting dated series ids on unsourced design
-        boundaries would mean aliasing them later under the PRD-QUALITY I-5/I-6
+        boundaries would mean aliasing them later under the quality spec I-5/I-6
         id contract; recording them as dated design variants under one
         format-defined series costs nothing and claims nothing false. Compare
         us-fl-standard, whose id is undated for exactly the same reason.
@@ -230,7 +230,7 @@ series:
       - "https://public.powerdms.com/ladpsc/documents/366665  # Louisiana OMV Policy 21.00, 'Personalized Prestige License Plates' (revised 2025-02-14), authority R.S. 47:462 and 47:463.2 — the prohibition on vanity plates containing 'a regular plate sequence (i.e. three numbers followed by three alpha or three alpha followed by three numbers)', which is the department's own statement of the regular passenger arrangement"
       - "https://public.powerdms.com/ladpsc/documents/370991  # Louisiana OMV Policy 45.00, 'Uniform License Plates', authority R.S. 47:463(3) and Senate Concurrent Resolution 196 — the Category #1 colour scheme: blue letters and numbers on white, 'Louisiana' in red script at top centre, 'Sportsman's Paradise' in blue block letters at bottom"
       - "https://public.powerdms.com/ladpsc/documents/366583  # Louisiana OMV Policy 38.00, 'Automobile License Plates', authority R.S. 47:463(A) — eligibility for the passenger class, the two-year registration period, non-transferability between owners, and the ad valorem licence tax"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Louisiana  # LOCATOR ONLY (PRD-PLATES §4): the May 2016 change from ABC 123 to 123 ABC, the 100 AAA to 799 HUK and 100 HUL to 371 JCY ranges, the 2005-2011 and reported 2025 base designs, the Q/U exclusions, and the 1989-1993 State Police troop-area letter. None asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Louisiana  # LOCATOR ONLY (the plates spec §4): the May 2016 change from ABC 123 to 123 ABC, the 100 AAA to 799 HUK and 100 HUL to 371 JCY ranges, the 2005-2011 and reported 2025 base designs, the Q/U exclusions, and the 1989-1993 State Police troop-area letter. None asserted as sourced."
     notes: >-
       LOUISIANA CURRENT ISSUE, KEYED TO THE FORMAT. The choice worth defending
       explicitly: this series starts in 2016 at the arrangement change, not in
@@ -426,7 +426,7 @@ series:
       scheme is fully sourced and the serial arrangement is not, so the scheme is
       recorded as data and the arrangement as a flagged guess. The 2002 end of
       apportioned trailer plates is exactly the kind of dated discontinuation
-      PRD-PLATES's `ended: true` semantics exist for, and is recorded here rather
+      the plates spec's `ended: true` semantics exist for, and is recorded here rather
       than minted as a series because no format for the dead class was obtained.
 
   # =========================================================================
@@ -477,7 +477,7 @@ series:
         WORTH A MAINTAINER DECISION. Louisiana permits a hyphen or a period
         INSIDE a personalized configuration and counts it against the
         seven-character budget, which means the glyph is part of the customer's
-        chosen string rather than a group separator. Under PRD-PLATES §2.6 rule 3
+        chosen string rather than a group separator. Under the plates spec §2.6 rule 3
         a jurisdiction that prints a glyph inside a serial is "a schema
         amendment, not a data entry". This is arguably the first such case in the
         dataset — although it applies only to owner-chosen configurations, not to
@@ -506,7 +506,7 @@ series:
       fee is the state pricing what Delaware lets the market price.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX ONLY, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX ONLY, per the plates spec §2.5.
   # =========================================================================
   - id: us-la-specialty-index
     class: specialty
@@ -522,7 +522,7 @@ series:
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised program; individual designs are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised program; individual designs are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_policies: 187

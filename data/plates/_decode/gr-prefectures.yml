@@ -77,7 +77,7 @@
 # plate. This is the Greek analogue of the two-table trap recorded in
 # plates/_decode/it-provinces.yml.
 #
-# PERIOD DISCIPLINE (PRD-PLATES §2.4). 34 of the 195 rows are combinations that
+# PERIOD DISCIPLINE (the plates spec §2.4). 34 of the 195 rows are combinations that
 # are ALLOCATED BUT NOT YET IN ISSUE (`status: allocated-not-yet-issued`). They
 # are kept, not dropped, because they are the forward half of the allocation —
 # but a consumer must not report them as observed geography, and a validator

@@ -1,4 +1,4 @@
-# plates/au-tas.yml — Tasmania (PRD-PLATES gate L3, Australia).
+# plates/au-tas.yml — Tasmania (the plates spec gate L3, Australia).
 #
 # THIS FILE CARRIES THE SENTENCE THAT EXPLAINS THE WHOLE AUSTRALIAN WAVE.
 # Vehicle and Traffic (Driver Licensing and Vehicle Registration) Regulations
@@ -61,7 +61,7 @@ instrument:
     allowing everything else except /admin/. This pass made a small number of
     targeted, user-directed retrievals of the single instrument cited here
     rather than any crawl, and did not fetch any other Tasmanian statute.
-  licence: "Tasmanian legislation published by the Tasmanian Parliamentary Counsel's Office. Edicts of government — quoted, never embedded (PRD-PLATES §4)"
+  licence: "Tasmanian legislation published by the Tasmanian Parliamentary Counsel's Office. Edicts of government — quoted, never embedded (the plates spec §4)"
 
 national_schemes:
   heavy_vehicle: >-
@@ -142,8 +142,8 @@ series:
     region_encoding: none
     sources:
       - "https://www.legislation.tas.gov.au/view/whole/html/inforce/current/sr-2021-026  # the Regulations, cited here for the NEGATIVE finding that anchors this series' evidence grade: reg 88(1) empowers the Registrar to assign a 'distinguishing registration number' and prescribes nothing about its composition (accessed 2026-08-02)"
-      - "http://www.plateshack.com/y2k/Tasmania/tasmania.htm  # enthusiast reference (PRD-PLATES §4 corroboration class), accessed 2026-08-02: photo-dated Tasmanian plates from 2016 to 2024 whose serials are consistent with the shape encoded here. Corroborates the SHAPE weakly; dates nothing"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Tasmania  # secondary (CC BY-SA; facts extracted in our expression per the PRD-PLATES §4 Wikipedia rule), accessed 2026-08-02: the per-state article states in terms 'On 24 February 2008, the Government of Tasmania issued a new registration plate design in the format A 00 AA. After the first letter appears the Tasmanian state logo with the slogan Tasmania - Explore the possibilities', and adds the August 2017 F-to-H block skip with G reserved for Tasmanian government vehicles and Z/Y/X reserved for trailers. Uncited in the article; tagged, not asserted"
+      - "http://www.plateshack.com/y2k/Tasmania/tasmania.htm  # enthusiast reference (the plates spec §4 corroboration class), accessed 2026-08-02: photo-dated Tasmanian plates from 2016 to 2024 whose serials are consistent with the shape encoded here. Corroborates the SHAPE weakly; dates nothing"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Tasmania  # secondary (CC BY-SA; facts extracted in our expression per the plates spec §4 Wikipedia rule), accessed 2026-08-02: the per-state article states in terms 'On 24 February 2008, the Government of Tasmania issued a new registration plate design in the format A 00 AA. After the first letter appears the Tasmanian state logo with the slogan Tasmania - Explore the possibilities', and adds the August 2017 F-to-H block skip with G reserved for Tasmanian government vehicles and Z/Y/X reserved for trailers. Uncited in the article; tagged, not asserted"
     notes: >-
       TASMANIA'S CURRENT GENERAL ISSUE. RE-DATED 2013 -> 2008 IN THE COMPLETION
       PASS OF THIS WAVE, and the reason is worth stating because it is a
@@ -171,7 +171,7 @@ series:
       owner-chosen combinations.
 
   # =========================================================================
-  # ONE SERIES BACK — added in the completion pass, because PRD-PLATES asks for
+  # ONE SERIES BACK — added in the completion pass, because the plates spec asks for
   # current plus one back and the first pass authored none. Wholly secondary,
   # and tagged so.
   # =========================================================================
@@ -200,7 +200,7 @@ series:
           AA-nnnn through to FT-nnnn". So a Tasmanian plate of this shape
           decodes to a MONTH OF REGISTRATION only if it was issued in the
           1970-1971 window, and decodes to nothing afterwards. That is exactly
-          the France-SIV trap PRD-PLATES §2.4 warns about — a positional code
+          the France-SIV trap the plates spec §2.4 warns about — a positional code
           that stopped meaning what it meant — and it is why no
           `region_encoding` or month table is attached to this series: a decode
           table that is right for 23 months and wrong for 37 years would make
@@ -222,8 +222,8 @@ series:
       abandoned on 31 December 1971. Tasmania has never encoded geography in a
       registration number.
     sources:
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Tasmania  # secondary (CC BY-SA; facts in our expression per the PRD-PLATES §4 Wikipedia rule), accessed 2026-08-02: the 1970 AA-0000 to ZB-9999 series, the twelve month letters and their assignments, the second-letter reservations for trailers (T) and motorcycles (X), the 31 December 1971 abandonment, the slogan and border history, and the 2008 replacement. NONE of it carries a footnote in the article"
-      - "http://www.plateshack.com/y2k/Tasmania/tasmania.htm  # enthusiast reference (PRD-PLATES §4 corroboration class), cited in the article and recorded here as the only independent capture of Tasmanian plate shapes; corroborates the SHAPE, dates nothing"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Tasmania  # secondary (CC BY-SA; facts in our expression per the plates spec §4 Wikipedia rule), accessed 2026-08-02: the 1970 AA-0000 to ZB-9999 series, the twelve month letters and their assignments, the second-letter reservations for trailers (T) and motorcycles (X), the 31 December 1971 abandonment, the slogan and border history, and the 2008 replacement. NONE of it carries a footnote in the article"
+      - "http://www.plateshack.com/y2k/Tasmania/tasmania.htm  # enthusiast reference (the plates spec §4 corroboration class), cited in the article and recorded here as the only independent capture of Tasmanian plate shapes; corroborates the SHAPE, dates nothing"
     notes: >-
       TASMANIA'S PREVIOUS GENERAL ISSUE, 1970-2008, AND A CAUTION ABOUT WHAT IT
       IS NOT. It is authored to satisfy the current-plus-one-back requirement and
@@ -281,7 +281,7 @@ series:
       writing a private price list into subordinate legislation.
     programme:
       operator: "TasPlates, whose site footer reads 'TM of the Crown in Right of Tasmania' — a State-owned mark operated under contract with the Department, which is exactly the 'organisation that has a contract with the Department' the regulation refers to"
-      catalogue: "TasPlates describes 'over 100 unique personalised number plates' styles; individual designs are L4 scope (PRD-PLATES §2.5) and none is recorded here"
+      catalogue: "TasPlates describes 'over 100 unique personalised number plates' styles; individual designs are L4 scope (the plates spec §2.5) and none is recorded here"
     region_encoding: none
     sources:
       - "https://www.legislation.tas.gov.au/view/whole/html/inforce/current/sr-2021-026  # the regulations headed 'Specific registration numbers' and 'Using personalised number plates' (accessed 2026-08-02): the application on an approved form, the Registrar's duty to issue the personalised plate subject to conditions, the three-limbed fee provision quoted above, the auction limb and the refusal power"
@@ -296,7 +296,7 @@ series:
       Tasmania has sold personalised plates for decades under predecessor
       regulations that were not read in this pass (recorded gap).
 gaps:
-  - "THE ONE-SERIES-BACK REQUIREMENT IS NOT MET FOR TASMANIA, deliberately. No Tasmanian government source describes any previous general issue, and the only available description of one sits in a locator table whose systematic extraction PRD-PLATES §4 forbids. A fabricated predecessor would be worse than an absent one; this is a recorded gap with a clear acceptance test (a Registrar's page, a Gazette notice, or a dated departmental history)"
+  - "THE ONE-SERIES-BACK REQUIREMENT IS NOT MET FOR TASMANIA, deliberately. No Tasmanian government source describes any previous general issue, and the only available description of one sits in a locator table whose systematic extraction the plates spec §4 forbids. A fabricated predecessor would be worse than an absent one; this is a recorded gap with a clear acceptance test (a Registrar's page, a Gazette notice, or a dated departmental history)"
   - "No Tasmanian plate dimensions, colours or legends are published by the Registrar — every design claim in this file is either cross-State or secondary"
   - "The refusal grounds for a specific registration number are in the instrument and were not transcribed in full"
   - "transport.tas.gov.au (Department of State Growth) returns HTTP 403 to non-browser clients; a verifier with a browser should read its number-plate pages first"

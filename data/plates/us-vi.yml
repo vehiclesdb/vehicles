@@ -1,4 +1,4 @@
-# plates/us-vi.yml — United States Virgin Islands (PRD-PLATES gate L2, territories).
+# plates/us-vi.yml — United States Virgin Islands (the plates spec gate L2, territories).
 #
 # THE SOURCING SITUATION HERE IS THE INVERSE OF GUAM'S, AND IT IS STATED UP
 # FRONT BECAUSE IT SHAPES EVERY ENTRY BELOW. Guam's statute is fully reachable
@@ -15,12 +15,12 @@
 # WHAT WE HAVE INSTEAD IS BETTER THAN USUAL FOR A DESIGN QUESTION: the VI Bureau
 # of Motor Vehicles publishes its own plate announcements, and its March 2023
 # notice gives a HARD EFFECTIVE DATE for the current base from the issuing
-# agency itself. That is a primary source of exactly the kind PRD-PLATES §4
+# agency itself. That is a primary source of exactly the kind the plates spec §4
 # ranks second only to statute — and it is why the USVI is the only jurisdiction
 # in the territories group whose current AND previous standard bases are both
 # minted as dated series.
 #
-# WHAT IS DELIBERATELY NOT HERE (PRD-PLATES §2.5): individual specialty DESIGNS.
+# WHAT IS DELIBERATELY NOT HERE (the plates spec §2.5): individual specialty DESIGNS.
 jurisdiction: us-vi
 authority:
   name: United States Virgin Islands Bureau of Motor Vehicles (BMV)
@@ -36,7 +36,7 @@ statute_edition: >-
   marked as such.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4 / §7.1.
+# artwork_risk — required per jurisdiction by the plates spec §4 / §7.1.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched-presumed-protected
@@ -63,7 +63,7 @@ artwork_risk:
     its evidence grades are lower than Guam's or Puerto Rico's despite the USVI
     having the single best-dated series in the group.
   emblem_rule: >-
-    PRD-PLATES §3's placeholder default applies without exception to the 175TH
+    the plates spec §3's placeholder default applies without exception to the 175TH
     EMANCIPATION LOGO and to the Virgin Islands coat of arms. Render
     `emblem: {present: true, rendered: placeholder}` and do not revisit until a
     USVI government-works copyright posture is affirmatively established.
@@ -145,7 +145,7 @@ series:
           exclusions common in US states) was obtainable, so none is claimed.
       pattern_note: >-
         `regex` is the round-trippable printed form and carries no charset
-        restriction, per PRD-PLATES §2.7. `regex_strict` adds the one restriction
+        restriction, per the plates spec §2.7. `regex_strict` adds the one restriction
         that IS attested — the island prefix — and is contained in `regex` by
         construction. There is no `regex_statutory` because Title 20 VIC could not
         be obtained and therefore no outer legal bound is known.
@@ -158,7 +158,7 @@ series:
         teal top stripe, white middle stripe, gold bottom stripe, with black
         embossed serials and the 175th Emancipation logo centred. "Teal" and
         "gold" are colour NAMES from a locator, not values from a spec, and
-        inventing hexes for them would be exactly the laundering PRD-PLATES §9
+        inventing hexes for them would be exactly the laundering the plates spec §9
         warns about. Recorded as descriptions; hexes await a BMV or Title 20
         source.
       legend_top: "U.S. VIRGIN ISLANDS"
@@ -203,8 +203,8 @@ series:
       - "https://bmv.vi.gov/2023/03/03/2023-emancipation-license-plates/  # THE PRIMARY DATE SOURCE: BMV's own notice — effective March 1 2023, the plates are MANDATORY, temporary-plate holders exchange at no cost by appointment, all other vehicles receive them at annual renewal, old plates must be surrendered before renewal completes, free at 65 and over, $49 for personalised, collected in person"
       - "https://bmv.vi.gov/fees/  # BMV's published fee schedule — Personalized Plates $49.00, Registration Cancellation $12.00, Moving Permit $20.00, Certificates of Title $54.00 (free for seniors)"
       - "https://bmv.vi.gov/vehicles/  # the plate-and-sticker surrender rule on cancellation, and the Title 20 § 335 transfer/voiding rule quoted second-hand"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_United_States_Virgin_Islands  # LOCATOR ONLY (PRD-PLATES §4): the CAB 123 / TAB 123 / JAB 123 arrangement, the C/T/J island prefixes and the 1975 introduction of J, the teal/white/gold banded design with the 175th Emancipation logo, and 12x6 in aluminium construction"
-      - "http://www.plateshack.com/y2k/Virgin_Islands/viy2k.html  # CORROBORATION (PRD-PLATES §4): a photograph captioned 'New Virgin Islands standard license plate issued in 2023 - 175th Anniversary of Emancipation', which independently confirms BMV's date and design name. No licence statement on the site; no image or text copied"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_United_States_Virgin_Islands  # LOCATOR ONLY (the plates spec §4): the CAB 123 / TAB 123 / JAB 123 arrangement, the C/T/J island prefixes and the 1975 introduction of J, the teal/white/gold banded design with the 175th Emancipation logo, and 12x6 in aluminium construction"
+      - "http://www.plateshack.com/y2k/Virgin_Islands/viy2k.html  # CORROBORATION (the plates spec §4): a photograph captioned 'New Virgin Islands standard license plate issued in 2023 - 175th Anniversary of Emancipation', which independently confirms BMV's date and design name. No licence statement on the site; no image or text copied"
     notes: >-
       USVI STANDARD ISSUE, CURRENT BASE — AND THE BEST-DATED SERIES IN THE
       TERRITORIES GROUP. `period_evidence: agency-instrument-date` is a real
@@ -215,7 +215,7 @@ series:
       AS AN OVERLAP: because the new plates were issued at each vehicle's annual
       renewal rather than in a single swap, the 2016 base remained lawfully on the
       road throughout 2023 and beyond. That is precisely the parallel-issuance
-      case PRD-PLATES §2.2 sanctions, and the two series overlap deliberately.
+      case the plates spec §2.2 sanctions, and the two series overlap deliberately.
 
   - id: us-vi-standard-2016
     class: standard
@@ -242,7 +242,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_United_States_Virgin_Islands  # LOCATOR ONLY: the April 2016 start of this base and its February 2023 end. The START is locator-grade and is NOT corroborated by any agency source"
       - "http://www.plateshack.com/y2k/Virgin_Islands/viy2k.html  # CORROBORATION: dated photographs of VI plates in use in 2017, 2018 and September 2019, which place a distinct base in circulation across this window without fixing either boundary"
     notes: >-
-      THE PREVIOUS USVI STANDARD BASE — the "one series back" PRD-PLATES §7 asks
+      THE PREVIOUS USVI STANDARD BASE — the "one series back" the plates spec §7 asks
       for at L2. ITS TWO BOUNDARIES HAVE DIFFERENT EVIDENCE GRADES AND THE FIELD
       SAYS SO: `period_evidence: mixed-locator-start-agency-end`. The END is
       anchored by BMV's own mandatory-replacement notice and is a real claim; the
@@ -333,12 +333,12 @@ series:
     design: { plate: { note: "reduced size; no dimension sourced" }, emblem: { present: true, rendered: placeholder } }
     region_encoding: { scheme: island-prefix, note: "presumed to share the C/T/J prefix; NOT verified for this class", evidence: unverified }
     sources:
-      - "http://www.plateshack.com/y2k/Virgin_Islands/viy2k.html  # CORROBORATION ONLY (PRD-PLATES §4): photographs of US Virgin Islands MOTORCYCLE plates with 2014 and 2017 expirations, establishing that a separately-issued motorcycle plate exists. No format, colour or dimension is claimed from a photograph"
+      - "http://www.plateshack.com/y2k/Virgin_Islands/viy2k.html  # CORROBORATION ONLY (the plates spec §4): photographs of US Virgin Islands MOTORCYCLE plates with 2014 and 2017 expirations, establishing that a separately-issued motorcycle plate exists. No format, colour or dimension is claimed from a photograph"
     notes: >-
       USVI MOTORCYCLE PLATES. THE WEAKEST-EVIDENCED SERIES IN THIS FILE, and
       flagged accordingly: its entire basis is two dated photographs on an
       enthusiast site with no licence statement. It is minted rather than dropped
-      for one reason — PRD-PLATES §7's L2 scope names motorcycle as a core class
+      for one reason — the plates spec §7's L2 scope names motorcycle as a core class
       to spec where the jurisdiction separately serialises it, and a series with
       citations and an explicit `recall-only` matcher is more useful to a consumer
       than silence. `period: {start: 2026}` is a read-date upper bound and carries
@@ -429,7 +429,7 @@ series:
       structural fact that a fee schedule alone would never surface.
 
   # =========================================================================
-  # SPECIALTY — INDEX ONLY, per PRD-PLATES §2.5.
+  # SPECIALTY — INDEX ONLY, per the plates spec §2.5.
   # =========================================================================
   - id: us-vi-specialty-index
     class: specialty
@@ -443,7 +443,7 @@ series:
       charset: { notes: "specialty plates are presumed to carry ordinary island-prefixed serials on alternative designs; not verified" }
       pattern_note: "illustrative only — this is an INDEX entry, not a spec"
     design:
-      plate: { note: "one design per programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here" }
+      plate: { note: "one design per programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here" }
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official: null
@@ -479,7 +479,7 @@ series:
       - "http://www.plateshack.com/y2k/Virgin_Islands/viy2k.html  # CORROBORATION + GAP-FINDER: dated photographs of the five sponsored programmes listed above. No image or text copied; used only to establish that the channel is populated"
     notes: >-
       THE SPECIALTY PROGRAM INDEX — one entry standing for the whole programme,
-      per PRD-PLATES §2.5. THE HONEST HEADLINE IS THAT THIS INDEX HAS NO COUNT.
+      per the plates spec §2.5. THE HONEST HEADLINE IS THAT THIS INDEX HAS NO COUNT.
       Florida's index records a contested count from two sources; Guam's and Puerto
       Rico's record exact statutory counts; the USVI's records that the issuing
       agency publishes nothing at all and that the pricing sits with third-party

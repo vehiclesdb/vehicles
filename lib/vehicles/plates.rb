@@ -3,7 +3,7 @@
 require "yaml"
 
 module Vehicles
-  # License-plate & registration-mark knowledge (the VehiclesDB PRD-PLATES
+  # License-plate & registration-mark knowledge (the VehiclesDB the plates spec
   # dataset, bundled offline like everything else in this gem). Ask it two
   # kinds of question:
   #

@@ -1,4 +1,4 @@
-# plates/li.yml — Liechtenstein (PRD-PLATES gate L1, microstates group).
+# plates/li.yml — Liechtenstein (the plates spec gate L1, microstates group).
 # DRAFT for verification. All primary text fetched from gesetze.li 2026-08-02.
 #
 # ---------------------------------------------------------------------------
@@ -95,7 +95,7 @@
 #    agency-level or is omitted.
 #
 # ---------------------------------------------------------------------------
-# REGEX POLICY (PRD-PLATES §2.7 tiers)
+# REGEX POLICY (the plates spec §2.7 tiers)
 # ---------------------------------------------------------------------------
 #   regex            the printed form: literal FL, an optional separator, and
 #                    1-5 digits. THE DIGIT CEILING IS NOT IN THE ORDINANCE —
@@ -182,7 +182,7 @@ common:
     status: RECORDED SCHEMA FINDING — affects every series in this file
     finding: >-
       THE HUMAN-PATTERN DSL CANNOT SPELL A LITERAL "L", AND LIECHTENSTEIN IS THE
-      JURISDICTION WHERE THAT BITES HARDEST. PRD-PLATES §2.2 defines the pattern
+      JURISDICTION WHERE THAT BITES HARDEST. The plates spec §2.2 defines the pattern
       alphabet as "9=digit L=letter, literal separators as printed", and
       lint_plates.rb implements it by substituting EVERY "9" and EVERY "L" in a
       pattern with a random digit or letter. There is no escape mechanism. So
@@ -205,7 +205,7 @@ common:
       A schema amendment would fix this properly — either an escape in the
       pattern DSL (e.g. a quoted literal) or a `format.literal_prefix` field.
       Recorded here rather than acted on, because inventing notation in a data
-      PR is exactly what PRD-PLATES §2.6 forbids for separators and the same
+      PR is exactly what the plates spec §2.6 forbids for separators and the same
       discipline applies to the pattern alphabet. The same limitation forced
       sm.yml to model the San Marino POLIZIA legend as plate furniture rather
       than as part of the serial.
@@ -362,7 +362,7 @@ common:
       Wappengesetz's use article.
     rendered: placeholder
     licence_posture: >-
-      PRD-PLATES §3's placeholder rule applies. The Wappengesetz reserves the
+      the plates spec §3's placeholder rule applies. The Wappengesetz reserves the
       state arms to the State and no affirmatively-clean licence route to the
       artwork was located, so the emblem slot renders as a neutral placeholder
       exactly as in ch.yml. Recorded honestly and NOT as legal advice: the
@@ -391,7 +391,7 @@ common:
       delegation — Liechtenstein does not even delegate the question the way the
       Swiss ordinance does to the ASTRA.
     licence: >-
-      No licensable font is mandated, so per PRD-PLATES §6 the render layer uses
+      No licensable font is mandated, so per the plates spec §6 the render layer uses
       the schematic fallback and records the substitution. No third-party plate
       font is touched.
     source: "https://www.gesetze.li/konso/1978.020  # VZV Art. 72 Abs. 2, Art. 74 — the whole of what the ordinance says about characters"

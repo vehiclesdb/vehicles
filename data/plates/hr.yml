@@ -1,4 +1,4 @@
-# plates/hr.yml — Croatia (PRD-PLATES gate L1, wave 2).
+# plates/hr.yml — Croatia (the plates spec gate L1, wave 2).
 #
 # EVERY format, colour and class claim in this file is read from Narodne novine
 # — the Croatian official gazette — in the instruments' own published text, on
@@ -64,7 +64,7 @@
 #    ČK, KŽ, PŽ, ŠI, VŽ and ŽU carry a caron; the serial alphabet in
 #    plates/_meta/separators.yml is A-Z 0-9. Every `[A-Z]{2}` prefix below is
 #    therefore NARROWER than the issuing grammar for those six areas — still
-#    `matching: strict` per PRD-PLATES §2.7 (narrower is strict), but a
+#    `matching: strict` per the plates spec §2.7 (narrower is strict), but a
 #    consumer matching a photographed plate must ASCII-fold first. The
 #    regulation knows the problem: čl. 22 st. 7 refuses a by-choice mark that
 #    could "doći do dupliranja prilikom transliteracije registarskih brojeva".
@@ -88,7 +88,7 @@
 # 22/93, 19/96, 149/02), which NN 12/1993 čl. 34 expressly kept alive for a
 # transitional period and which was not fetched.
 # The registration-area position prints six codes with a caron (ČK KŽ PŽ ŠI
-# VŽ ŽU). Declared here in exact codepoints per PRD-PLATES §2.6 so the regexes
+# VŽ ŽU). Declared here in exact codepoints per the plates spec §2.6 so the regexes
 # below can express the plate's REAL alphabet instead of an ASCII shadow of it.
 # The SERIAL-suffix position does NOT carry diacritics — see regex_strict, which
 # enumerates the Croatian alphabet without them — so only the AREA position is
@@ -188,7 +188,7 @@ common:
       For the ORDINARY mark, čl. 18 prescribes no separator glyph at all — the
       hyphen is visible only in Obrazac 3, a drawing. Every ordinary regex here
       therefore spells that position as the separator-only class `[- ]`
-      (PRD-PLATES §2.8, the es-consular precedent): the printed hyphen is
+      (the plates spec §2.8, the es-consular precedent): the printed hyphen is
       certain from the drawing, its statutory basis is not, and `pattern` shows
       the canonical printed form.
     arms_position: >-
@@ -203,7 +203,7 @@ common:
     font: >-
       NO TYPEFACE IS NAMED. As in the UK, Germany, Spain and Austria, the legal
       object is a DRAWING — Obrazac 15 — and the render layer must derive glyphs
-      from it rather than from any third-party TTF (PRD-PLATES §6). Unlike the
+      from it rather than from any third-party TTF (the plates spec §6). Unlike the
       Austrian KDV, Obrazac 15 publishes no per-glyph millimetres in a form this
       pass could read (see structural fact 6). Recorded gap.
     source: "https://narodne-novine.nn.hr/clanci/sluzbeni/2017_12_130_2993.html  # čl. 19. Accessed 2026-08-02"
@@ -230,7 +230,7 @@ common:
     artwork_note: >-
       The Croatian coat of arms is a state symbol whose use is regulated
       independently of copyright, and no assessment was made in this pass.
-      PRD-PLATES §3 applies unchanged: `rendered: placeholder` on every series.
+      The plates spec §3 applies unchanged: `rendered: placeholder` on every series.
   dimensions:
     obrazac_3: { note: "single-line plate for motor vehicles, trailers, tractors and machines — čl. 18 st. 5. Dimensions NOT legible in the published raster; see structural fact 6" }
     obrazac_4: { w: 280, h: 200, unit: mm, basis: read-from-drawing, note: "two-line plate for vehicles whose construction cannot take Obrazac 3 — čl. 18 st. 6. 280 and 200 are the two figures legible in the published drawing" }
@@ -244,7 +244,7 @@ common:
       system in 1991, so authoring it in each national file would duplicate a
       single historical layer in two places, give it two ids, and invite the two
       copies to drift. It belongs in ONE historical jurisdiction file at gate L4
-      (PRD-PLATES §7), not twice at L1. What IS recorded here is the hinge, from
+      (the plates spec §7), not twice at L1. What IS recorded here is the hinge, from
       the Croatian primary itself.
     hinge: >-
       NN 12/1993 čl. 34, verbatim: "Danom stupanja na snagu ovoga Pravilnika
@@ -325,7 +325,7 @@ series:
         code holds the ŠAHOVNICA and is written as an optional emitted space.
         The gap between digits and letters is a printed hyphen, certain from
         Obrazac 3 but not spelled in čl. 18, so it is written as the
-        separator-only class `[- ]` per PRD-PLATES §2.8.
+        separator-only class `[- ]` per the plates spec §2.8.
     design:
       plate: { w: 520, h: 110, unit: mm, basis: secondary-wikipedia, basis_note: "the pravilnik delegates dimensions to Obrazac 3, whose figures are illegible in the published 229x70 raster — see the file header, structural fact 6" }
       plate_variants:
@@ -358,7 +358,7 @@ series:
           plates carrying "unaprijed zadanim registarskim brojem vozila iz
           članka 18. stavka 2. ovoga Pravilnika ako je zatraženi registarski
           broj slobodan" — a CHOSEN serial inside the ordinary grammar, so a
-          sub-entry rather than a series (PRD-PLATES §2.3). Format and design
+          sub-entry rather than a series (the plates spec §2.3). Format and design
           are identical to the standard series. It is new in NN 130/2017: no
           equivalent appears in NN 151/2008. Čl. 21 st. 2 supplies the file's
           only direct statement about the ordinary alphabet.
@@ -373,7 +373,7 @@ series:
           kojima je odobren privremeni ili stalni boravak i za privremeno
           registrirana vozila, otisnute brojke i slova zelene su boje." A
           COLOUR-ONLY variant of the same format and period, therefore a
-          sub-entry and not a series (PRD-PLATES §2.3). Note that the 2008 text
+          sub-entry and not a series (the plates spec §2.3). Note that the 2008 text
           of the same rule also covered foreign trade, transport and cultural
           representations and foreign correspondents; NN 130/2017 dropped that
           clause.
@@ -494,7 +494,7 @@ series:
       - "https://narodne-novine.nn.hr/files/_web/sluzbeni-dio/2017/130000/images/9521.jpg  # Obrazac 5, the dimensioned drawing: 180 x 180 mm, three-line layout"
       - "https://narodne-novine.nn.hr/clanci/sluzbeni/2016_05_45_1165.html  # čl. 9 replaces Obrasci 5-12 and čl. 10 dates the change to 2016-07-04"
     notes: >-
-      A SEPARATE SERIES ON DESIGN, NOT ON FORMAT (PRD-PLATES §2.3): the mark is
+      A SEPARATE SERIES ON DESIGN, NOT ON FORMAT (the plates spec §2.3): the mark is
       the čl. 18 st. 2 mark, but the plate is a 180 mm square whose layout puts
       the digits and letters on separate lines, which a renderer must model and
       a one-line pattern cannot express. NN 130/2017 čl. 59 defers the motorcycle
@@ -556,7 +556,7 @@ series:
         Obrazac 8, or on the 7+8 combination, are three to SIX characters.
       why_recall_only: >-
         The regex above is deliberately wider than the issuing grammar and a
-        match is a shape hit only (PRD-PLATES §2.7). It does not enforce the
+        match is a shape hit only (the plates spec §2.7). It does not enforce the
         "at least one letter if digits are chosen" rule, does not count the
         hyphen against the seven-character budget, does not enforce the
         three-character floor, and cannot express čl. 22 st. 7 at all — that
@@ -620,7 +620,7 @@ series:
     notes: >-
       PV IS A LITERAL, NOT A LETTER GROUP: the two characters are fixed, so this
       series' regex is genuinely strict without a strict twin — the sourced
-      grammar IS the pattern (the PRD-PLATES §2.7 case where 29 of 31 L0 series
+      grammar IS the pattern (the plates spec §2.7 case where 29 of 31 L0 series
       needed no twin). The oldtimer mark is protected from collision in two
       directions: čl. 22 st. 7 refuses a by-choice mark that would coincide with
       it, and čl. 22 st. 9 forbids choosing a mark for an oldtimer at all.
@@ -753,7 +753,7 @@ series:
       mission, not a geographic area code — hr-cities.yml must not be consulted
       for it. The country-code table itself is NOT published in the pravilnik
       and was not obtained from any primary in this pass: it is a RECORDED GAP,
-      and PRD-PLATES puts diplomatic decode tables at gate L4 in any case.
+      and the plates spec puts diplomatic decode tables at gate L4 in any case.
     sources:
       - "https://narodne-novine.nn.hr/clanci/sluzbeni/1993_02_12_185.html  # NN 12/1993 čl. 19 — the blue/yellow plate with country number, activity letter and vehicle number, from the founding instrument"
       - "https://narodne-novine.nn.hr/clanci/sluzbeni/2008_12_151_4118.html  # NN 151/2008 čl. 16 — the A/C/M letter set stated in the modern wording, plus the CMD/CD/CC ellipse"
@@ -790,7 +790,7 @@ series:
         Because there is nothing to be strict about. The regex is an admitted
         catch-all: a match says only "this string has a shape a Croatian test
         plate could have" and is emphatically not a validity claim
-        (PRD-PLATES §2.7). Shipping a confident pattern here would be inventing
+        (the plates spec §2.7). Shipping a confident pattern here would be inventing
         one; the gap is recorded instead.
     design:
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: observed, spec_note: "'bijele su boje' plus 'retro-reflektivnog bijelog laminata' (čl. 34 st. 3) — laminate, not the metal-and-foil construction of čl. 18" }

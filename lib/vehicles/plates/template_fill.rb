@@ -6,14 +6,14 @@ module Vehicles
   module Plates
     # The REFERENCE FILLER for VehiclesDB plate templates — the client half of
     # the privacy-safe template endpoint
-    # (GET /plates/:code/:series_id/template.svg, VehiclesDB PRD-PLATE-ART §9).
+    # (GET /plates/:code/:series_id/template.svg, VehiclesDB plate-art spec §9).
     # A client downloads a template once (it carries nothing personal, so it
     # caches publicly) and writes the user's registration into it HERE, on its
     # own machine — a registration is personal data and never travels:
     #
     #   svg = Vehicles::Plates::TemplateFill.fill(template_svg, "1234 BCD")
     #
-    # Moved here from vehiclesdb-web (app/models/plates/template_fill.rb; same logic,
+    # Moved here from the VehiclesDB web app (app/models/plates/template_fill.rb; same logic,
     # plus shape_of and label:), whose renderer will call `fit_size` /
     # `recentered_baseline` from this gem
     # so the fit formula lives once. Deliberately dependency-free (Ruby stdlib

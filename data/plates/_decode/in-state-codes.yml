@@ -98,7 +98,7 @@ cautions:
     are the registering authority (RTO district) code, which no central
     instrument enumerates and which each State creates, merges and renumbers on
     its own. There are well over a thousand of them. They are deliberately not
-    tabled (PRD-PLATES § 2.4 mechanism-note rule) and a decode must not guess.
+    tabled (the plates spec § 2.4 mechanism-note rule) and a decode must not guess.
 
 # ---------------------------------------------------------------------------
 # CODES. `evidence: instrument` = the row is quoted verbatim in a gazette
@@ -146,7 +146,7 @@ codes:
   - { code: "WB", name: "West Bengal", type: state, evidence: corroboration-only, verify: true }
 
 # ---------------------------------------------------------------------------
-# WITHDRAWN CODES. Rows are never deleted (PRD-PLATES § 2.4 period discipline):
+# WITHDRAWN CODES. Rows are never deleted (the plates spec § 2.4 period discipline):
 # every one of these is still on live, valid plates, because an Indian
 # registration mark is not reissued when a State is renamed or merged.
 # ---------------------------------------------------------------------------

@@ -1,9 +1,9 @@
-# plates/us-tx.yml — Texas (PRD-PLATES gate L2, group: southcentral).
+# plates/us-tx.yml — Texas (the plates spec gate L2, group: southcentral).
 #
 # WHY TEXAS IS THE HARD ONE IN THIS GROUP, and what this pass actually settled:
 #
 # 1. THE ARTWORK-RISK QUESTION IS NOW ANSWERED, ADVERSELY, FROM A PRIMARY. The US
-#    research dossier (aux/research/plates-2026-07, §4.2) recorded Texas as
+#    research dossier (§4.2) recorded Texas as
 #    "Not established — treat as default (copyrighted)". It is no longer a
 #    default: Tex. Transp. Code § 504.002(a)(3) says, in terms, that "the
 #    department is the exclusive owner of the design of each license plate", and
@@ -24,7 +24,7 @@
 #    `design` — so `pattern` spells `-` and `design.separator_glyph` records what
 #    is physically printed. It is flagged to `_meta/separators.yml`'s
 #    `never_separator` discussion, because no consumer may treat the silhouette
-#    as serial content (PRD-PLATES §2.6 rule 3).
+#    as serial content (the plates spec §2.6 rule 3).
 #
 # 3. HB 718 (2023, eff. 1 JULY 2025) KILLED THE PAPER TEMPORARY TAG. Texas is
 #    the loudest US registration-law change of the decade: dealers now hand the
@@ -34,7 +34,7 @@
 #    publishes the regime in detail but publishes no serial format for the four
 #    new plates (recorded gap).
 #
-# SOURCING RULE APPLIED HERE (PRD-PLATES §4): the statute over the brochure.
+# SOURCING RULE APPLIED HERE (the plates spec §4): the statute over the brochure.
 # Every design-authority, ownership, display and penalty claim below cites
 # Transportation Code Chapter 504. Where Chapter 504 is deliberately silent —
 # and it is silent about the alphanumeric pattern, because § 504.005(a) delegates
@@ -47,7 +47,7 @@
 # JS shell for /Docs/TN/htm/TN.504.htm, /SOTWDocs/... and the .pdf path alike —
 # no statute text is retrievable by fetch. The section texts quoted here were
 # read from texas.public.law's reproduction. The TEXT IS AN EDICT OF GOVERNMENT
-# and public domain at every level (PRD-PLATES §4); the canonical citation below
+# and public domain at every level (the plates spec §4); the canonical citation below
 # is the official URL, and the reproduction is named for reproducibility.
 jurisdiction: us-tx
 authority:
@@ -64,7 +64,7 @@ statute_access_note: >-
   URL is cited as the authority and the reproduction is named as the fetch path.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: copyright-asserted-by-statute
@@ -81,7 +81,7 @@ artwork_risk:
     affirmatively-claimed. Nothing was found asserting a PD rule for Texas state
     works; no {{PD-TXGov}} tag exists on Commons in the sampled set.
   practical_effect: >-
-    PRD-PLATES §3's neutral-placeholder default is MANDATORY here, not optional.
+    the plates spec §3's neutral-placeholder default is MANDATORY here, not optional.
     Render facts, layout geometry (AAMVA Ed.3) and colours; never trace or
     approximate the state-shaped silhouette separator, the security-thread
     artwork or any specialty graphic. Note the asymmetry that makes the program
@@ -105,7 +105,7 @@ artwork_risk:
     the department's design claim attaches to a photograph we never touch.
   sources:
     - "https://statutes.capitol.texas.gov/Docs/TN/htm/TN.504.htm  # § 504.002(a)(3): 'the department is the exclusive owner of the design of each license plate'; § 504.005(a): sole control over design, typeface, color and alphanumeric pattern (text read via texas.public.law reproduction — see statute_access_note)"
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): confirms §105 does not reach the states and that no Texas PD rule is listed; used only to establish the ABSENCE of a favourable rule"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): confirms §105 does not reach the states and that no Texas PD rule is listed; used only to establish the ABSENCE of a favourable rule"
 
 # ---------------------------------------------------------------------------
 # The US standards chain. Recorded once per US file, verbatim from the pinned
@@ -204,7 +204,7 @@ series:
           VOWELS AND Q ARE REPORTED EXCLUDED FROM TEXAS SERIALS SINCE 1990, and
           the report is LOCATOR-GRADE ONLY (Wikipedia, whose own citation is the
           collector site licenseplates.cc). It is NOT promoted to a
-          `regex_strict` here, because PRD-PLATES §2.7 defines the strict tier as
+          `regex_strict` here, because the plates spec §2.7 defines the strict tier as
           "the authority's own alphabet" and TxDMV publishes no alphabet at all.
           It is recorded because it is CORROBORATED BY THE ISSUED RANGE the same
           locator gives — BBB-0001 to YZS-4943 as of 2026-03-29 — which begins at
@@ -280,7 +280,7 @@ series:
       - "https://www.txdmv.gov/motorists/license-plates  # TxDMV: 'Current Design: The Texas Classic. Introduced in July 2012'; 'the first license plate in the country to feature two, high-visibility security threads'; 'As of November 1, 2016, the State of Texas no longer requires automatically replacing your plates after 7 years'; general-issue plate numbers 'assigned to you by TxDMV and cannot be personalized'"
       - "https://statutes.capitol.texas.gov/Docs/TN/htm/TN.504.htm  # § 504.005(a) sole control over design/typeface/color/alphanumeric pattern; § 504.005(c) the half-inch Texas silhouette between letters and numerals, omittable on specially designed plates; § 504.005(d) reflectorized material; § 504.007 $6 replacement fee; § 504.010(b) one plate or set per registration period"
       - "https://www.txdmv.gov/sites/default/files/body-files/ENF%20HB%20718%20FAQ%20Dealer%20Handout%20032125.pdf  # 'The general issue plates MUST be distributed in sequential order' — the progression claim"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Texas  # LOCATOR ONLY (PRD-PLATES §4): the ABC-1234 arrangement, the range BBB-0001 to YZS-4943 (as of 2026-03-29), the vowel/Q exclusion since 1990, and 12x6 in dimensions. None of these is asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Texas  # LOCATOR ONLY (the plates spec §4): the ABC-1234 arrangement, the range BBB-0001 to YZS-4943 (as of 2026-03-29), the vowel/Q exclusion since 1990, and 12x6 in dimensions. None of these is asserted as sourced."
     notes: >-
       TEXAS CLASSIC, THE CURRENT GENERAL ISSUE. Note what Texas does NOT have: no
       statutory dimension, no statutory colour, no statutory character cap, no
@@ -288,14 +288,14 @@ series:
       entire specification lives in § 504.005(a)'s delegation, which makes Texas
       the cleanest example in this group of a state whose plate facts are
       administrative rather than legislative — and therefore the state where the
-      PRD's "prefer the statute over the brochure" rule yields the LEAST, because
+      The spec's "prefer the statute over the brochure" rule yields the LEAST, because
       the statute deliberately says almost nothing. The one thing the statute
       does specify is the silhouette separator, and that turns out to be the
       normatively interesting fact in the whole file. PERIOD: `start: 2012` is
       TxDMV's own "Introduced in July 2012" and is a real claim, not an upper
       bound; TxDMV separately dates the predecessor's launch to June 2009 while
       the locator says July 2009, a disagreement that integer-year periods
-      dissolve and which is recorded here rather than averaged (PRD-PLATES §5.3).
+      dissolve and which is recorded here rather than averaged (the plates spec §5.3).
 
   # =========================================================================
   # ONE SERIES BACK — "Lone Star Texas", the seven-character transition.
@@ -450,7 +450,7 @@ series:
       at a vendor site rather than at a government catalogue.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX ONLY, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX ONLY, per the plates spec §2.5.
   # =========================================================================
   - id: us-tx-specialty-index
     class: specialty
@@ -466,7 +466,7 @@ series:
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised program; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here. § 504.008(a): 'The department shall prepare the designs and specifications of specialty license plates.'"
+      note: "one design per authorised program; the designs themselves are L4 scope (the plates spec §2.5) and none is described here. § 504.008(a): 'The department shall prepare the designs and specifications of specialty license plates.'"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_secondary: "506 available"
@@ -479,7 +479,7 @@ series:
         every fetch attempt in this pass, so the figure could not be confirmed at
         source. Compare Florida, where FLHSMV states "over 100" in its own words.
         Recorded as a locator claim with its provenance, NOT reconciled and NOT
-        averaged (PRD-PLATES §5.3).
+        averaged (the plates spec §5.3).
       statutory_frame:
         - "§ 504.008: the department prepares specialty designs and specifications; any motor vehicle other than one manufactured for off-highway use only is eligible"
         - "§ 504.601(a): the default specialty issuance fee is $30, of which the department keeps $8 for administrative costs"
@@ -498,7 +498,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Texas  # LOCATOR ONLY: the '506 available' figure and the claim that Texas leads the US in specialty count — recorded unreconciled because the cited TxDMV page 403s"
     notes: >-
       THE TEXAS SPECIALTY INDEX — ONE ENTRY STANDING FOR THE WHOLE PROGRAM, which
-      is exactly what PRD-PLATES §2.5 asks for at this gate. Two things are worth
+      is exactly what the plates spec §2.5 asks for at this gate. Two things are worth
       carrying forward. First, Texas is the US state where the specialty program
       is most thoroughly PRIVATISED: § 504.851 puts a vendor in the middle and
       §§ 504.6011-504.6012 route the money through it, so the operative catalogue
@@ -512,7 +512,7 @@ series:
 # ---------------------------------------------------------------------------
 # Classes Texas separately serializes that are DELIBERATELY NOT given series
 # here, because no serial format was obtainable from any authority source and
-# PRD-PLATES forbids inventing one. Each is a named target for the next pass.
+# the plates spec forbids inventing one. Each is a named target for the next pass.
 # ---------------------------------------------------------------------------
 notable_classes_not_specced:
   - class: dealer

@@ -1,4 +1,4 @@
-# plates/us-co.yml — Colorado (PRD-PLATES gate L2, mountain group).
+# plates/us-co.yml — Colorado (the plates spec gate L2, mountain group).
 #
 # WHY COLORADO IS UNUSUAL, stated up front: it is the only state in this group
 # whose legislature legislates the SERIAL LENGTH and the COLOURS OF ITS OWN
@@ -14,7 +14,7 @@
 # public records. See `artwork_risk` — this is a pinned primary, not an
 # inference from a secondary summary.
 #
-# SOURCING RULE APPLIED HERE (PRD-PLATES §4): edicts of government are public
+# SOURCING RULE APPLIED HERE (the plates spec §4): edicts of government are public
 # domain at every level, so every claim that CAN come from Title 42 does. The
 # Colorado Revised Statutes 2023 were read as the Colorado General Assembly's
 # own PDF (Office of Legislative Legal Services). The Division of Motor
@@ -22,7 +22,7 @@
 # designs are currently offered, the group-special catalogue, and the
 # manufacture/Print-On-Demand arrangements.
 #
-# WHAT IS NOT HERE (PRD-PLATES §2.5): individual group-special DESIGNS. The
+# WHAT IS NOT HERE (the plates spec §2.5): individual group-special DESIGNS. The
 # index entry `us-co-group-special-index` stands for the whole programme.
 jurisdiction: us-co
 authority:
@@ -36,7 +36,7 @@ statute_edition: >-
   it is nevertheless the legislature's own edition, which is what §4 asks for.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: adverse-copyright-authorised-by-statute
@@ -61,10 +61,10 @@ artwork_risk:
     table. Nothing in the section touches the uncopyrightability of facts, and
     nothing in it reaches the STATUTE itself: § 42-3-201, § 42-3-206.5 and
     § 42-3-211 are edicts of government and public domain at every level
-    (PRD-PLATES §4). So the facts in this file are clean; the RENDERED MOUNTAIN
+    (the plates spec §4). So the facts in this file are clean; the RENDERED MOUNTAIN
     GRAPHIC is the exposure, and it routes through the strict path.
   emblem_rule: >-
-    PRD-PLATES §3 placeholder default applies with extra force here. The
+    the plates spec §3 placeholder default applies with extra force here. The
     Colorado mountain-range graphic is the single most recognisable element of
     the plate and it has been continuously in use since 1960 — render
     `graphic: {present: true, rendered: placeholder}` and do not trace, do not
@@ -80,7 +80,7 @@ artwork_risk:
     adverse-posture state renderable at all.
   sources:
     - "https://leg.colorado.gov/sites/default/files/images/olls/crs2023-title-24.pdf  # § 24-72-203(4): the state is 'specifically authorized to obtain and enforce' copyright over public records; the fair-use and mere-lists carve-outs; Source note L. 92 p. 1104 § 3"
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4) — this is where the § 24-72-203 pointer was found; the statute above was then read directly and is what is cited"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4) — this is where the § 24-72-203 pointer was found; the statute above was then read directly and is what is cited"
 
 # ---------------------------------------------------------------------------
 # The US standards chain. Recorded per file because each state file must stand
@@ -192,7 +192,7 @@ series:
         letter, two numerals, six characters in all, which sits exactly at the
         statutory cap. `regex_statutory` encodes what § 42-3-201(5)(a) actually
         permits: up to six alphanumerics, written in PRINTED form per
-        PRD-PLATES §2.6 rule 2 so that it accepts the hyphen the plate shows.
+        the plates spec §2.6 rule 2 so that it accepts the hyphen the plate shows.
       progression: >-
         Not alphabetical in issuance. The DMV's own explanation, via the
         collector record: plates are MANUFACTURED alphabetically but ISSUED from
@@ -232,7 +232,7 @@ series:
     sources:
       - "https://leg.colorado.gov/sites/default/files/images/olls/crs2023-title-42.pdf  # § 42-3-201(5)(a): the SIX-CHARACTER cap, 'standardized coloring', and the personalized-plate exception; (2): displayed content and the 100-foot legibility rule"
       - "https://dmv.colorado.gov/license-plates  # Colorado DMV: all Colorado plates are printed by Colorado Correctional Industries; the Print-On-Demand programme for low-issuance plates; plate expiry on transfer under SB 21-069"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Colorado  # LOCATOR ONLY (PRD-PLATES §4): the mid-2018 arrangement change, the AAA-A00 start, the mountain-base continuity since 1960 and the January 2000 screened redesign. None is asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Colorado  # LOCATOR ONLY (the plates spec §4): the mid-2018 arrangement change, the AAA-A00 start, the mountain-base continuity since 1960 and the January 2000 screened redesign. None is asserted as sourced."
     notes: >-
       COLORADO STANDARD ISSUE, CURRENT ARRANGEMENT. The id carries 2018 because
       the format boundary is what makes this a distinct series, but
@@ -243,7 +243,7 @@ series:
       2000 and the mountain motif to 1960 — so a reader must not read this
       series' start as a redesign date. If the department publishes an issuance
       record, this id keeps its meaning and only the period sharpens; if the
-      boundary moves, the PRD-QUALITY I-5/I-6 alias contract applies.
+      boundary moves, the quality spec I-5/I-6 alias contract applies.
 
   # =========================================================================
   # ONE SERIES BACK. Same base design, previous arrangement.
@@ -365,7 +365,7 @@ series:
       - "https://dmv.colorado.gov/license-plates  # Colorado DMV: the application-then-approval-then-payment sequence, 6-8 week production, and the $60 one-time / $25 annual figures quoted on the FAQ (note the discrepancy against the statute's $35/$25 — recorded, not reconciled)"
     notes: >-
       PERSONALIZED PLATES. A DISCREPANCY IS RECORDED RATHER THAN AVERAGED
-      (PRD-PLATES §5.3): § 42-3-211(6)(a) states $35 on issuance and $25 on
+      (the plates spec §5.3): § 42-3-211(6)(a) states $35 on issuance and $25 on
       reissuance, while the DMV's own FAQ states "a one-time personalization fee
       of $60 upon their initial registration and are an additional $25 upon
       renewal each year after". Both are cited above with their sources; neither
@@ -375,7 +375,7 @@ series:
       bound; Colorado has issued personalized plates for decades.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5.
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5.
   # =========================================================================
   - id: us-co-group-special-index
     class: specialty
@@ -397,7 +397,7 @@ series:
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_measured: 50
@@ -441,7 +441,7 @@ series:
       - "https://dmv.colorado.gov/group-special-license-plates  # the Colorado DMV's own group-special catalogue — the page the count of 50 was measured from, archived 2024-01-21"
     notes: >-
       THE GROUP-SPECIAL PROGRAM INDEX — one entry for the whole programme, which
-      is what PRD-PLATES §2.5 asks for at this gate. Two things worth carrying
+      is what the plates spec §2.5 asks for at this gate. Two things worth carrying
       forward. First, Colorado's programme is STATUTE-SHAPED in a way Florida's
       is not: the rulemaking route closed on 1 January 2001, so the catalogue is
       literally a list of sections of Title 42, and a future pass can enumerate

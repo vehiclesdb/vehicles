@@ -1,4 +1,4 @@
-# plates/us-nm.yml — New Mexico (PRD-PLATES gate L2, mountain group).
+# plates/us-nm.yml — New Mexico (the plates spec gate L2, mountain group).
 #
 # THREE STANDARD PLATES, THREE DIFFERENT SERIAL LENGTHS, ALL CURRENT. New
 # Mexico's Motor Vehicle Division lists a "Standard Red and Yellow License
@@ -43,7 +43,7 @@ statute_edition: >-
   Section numbers are pointers, not sources.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: unresearched
@@ -73,7 +73,7 @@ artwork_risk:
     recorded here as a FLAGGED, UNRESEARCHED legal question — no source for it
     was fetched in this pass and none is cited.
   emblem_rule: >-
-    PRD-PLATES §3 placeholder default applies, with the Zia carve-out above
+    the plates spec §3 placeholder default applies, with the Zia carve-out above
     treated as non-negotiable. New Mexico state seal and state symbol statutes
     are UNRESEARCHED (standing gap, US dossier §4.5), and New Mexico is the one
     state in this group where that gap is known in advance to be load-bearing.
@@ -83,7 +83,7 @@ artwork_risk:
     generated from the spec. Note that it also would not reach the Zia question,
     which is not a copyright question at all.
   sources:
-    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (PRD-PLATES §4): consulted, and recorded because its New Mexico section is EMPTY — the negative result is the claim"
+    - "https://en.wikipedia.org/wiki/Copyright_status_of_works_by_subnational_governments_of_the_United_States  # LOCATOR ONLY (the plates spec §4): consulted, and recorded because its New Mexico section is EMPTY — the negative result is the claim"
     - "https://www.mvd.newmexico.gov/vehicles/license-plates/  # New Mexico MVD, on personalized plates: 'Special characters such as the Zia symbol, hash tag, asterisk, dash, underscore, space, or any other special characters are not allowed.' Cited here because it is the state's own statement that the Zia is not a serial character."
 
 # ---------------------------------------------------------------------------
@@ -130,7 +130,7 @@ display_rules:
     bare state name will miss it.
   sources:
     - "https://www.mvd.newmexico.gov/vehicles/license-plates/  # New Mexico MVD's own plate index and the standard/personalized/collegiate/handicapped/historical/military/organization/police/motorcycle category structure"
-    - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Mexico  # LOCATOR ONLY (PRD-PLATES §4): rear-only since 1961; the USA legend and its rationale; the Waldale manufacture; the design descriptions and serial ranges cited per series below"
+    - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Mexico  # LOCATOR ONLY (the plates spec §4): rear-only since 1961; the USA legend and its rationale; the Waldale manufacture; the design descriptions and serial ranges cited per series below"
 
 series:
 
@@ -153,14 +153,14 @@ series:
           SIX LETTERS ARE EXCLUDED FROM NEW MEXICO SERIALS — E, I, O, Q, U and
           V — which is the widest exclusion set found in the mountain group and
           twice the size of Nevada's. It is what `regex_strict` encodes; the
-          round-trip forbids `regex` from carrying it (PRD-PLATES §2.7). The
+          round-trip forbids `regex` from carrying it (the plates spec §2.7). The
           exclusion is CORROBORATION-GRADE, from a collector reference reached
           through a locator, and the locator additionally records that E was
           separately withheld from the 123-ABC arrangement when it began. No New
           Mexico instrument stating the alphabet was read.
       pattern_note: >-
         The separator is spelled as the sanctioned separator-only class `[- ]`
-        (PRD-PLATES §2.8) rather than as a bare hyphen, and DELIBERATELY: the
+        (the plates spec §2.8) rather than as a bare hyphen, and DELIBERATELY: the
         plate does not print a hyphen at all. It prints the Zia sun symbol. The
         class is the honest encoding of a gap whose printed glyph is not in the
         emitted set, exactly as `es-consular-cc-1999` uses it for a gap whose
@@ -183,7 +183,7 @@ series:
         THE ZIA SUN SYMBOL. Embossed between the numeric and alphabetic groups.
         It is NOT a serial character and the MVD says so by listing it with the
         dash and the space among the "special characters" that may not appear in
-        a personalized serial. Under PRD-PLATES §2.6 the dataset may emit only
+        a personalized serial. Under the plates spec §2.6 the dataset may emit only
         '-' and ' ', so the regexes spell the position with the separator-only
         class `[- ]` and this field records what is printed. New Mexico and
         Nevada together are the US cases that should be added to
@@ -205,7 +205,7 @@ series:
       information that is not in its serial and not in its printed legend.
     sources:
       - "https://www.mvd.newmexico.gov/vehicles/license-plates/  # New Mexico MVD lists 'Standard Red and Yellow License Plate' among its current standard plates, and states the Zia-symbol exclusion from personalized serials"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Mexico  # LOCATOR ONLY (PRD-PLATES §4): the late-1990 base introduction, the 123-ABC arrangement from early 1991, the 001-AAA to 275-XJX range as of January 2025, the E/I/O/Q/U/V exclusion, the design description and the county-sticker indentation. None is asserted as sourced."
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Mexico  # LOCATOR ONLY (the plates spec §4): the late-1990 base introduction, the 123-ABC arrangement from early 1991, the 001-AAA to 275-XJX range as of January 2025, the E/I/O/Q/U/V exclusion, the design description and the county-sticker indentation. None is asserted as sourced."
     notes: >-
       NEW MEXICO'S YELLOW BASE — THE LONGEST-RUNNING CURRENT DESIGN IN THE
       MOUNTAIN GROUP, and by a distance: continuously issued since late 1990 in
@@ -261,10 +261,10 @@ series:
       slogan changed, and now runs alongside the yellow base and the chile base
       as an equally standard option. The 2016 change — slogan moved, "USA"
       added — is a DESIGN change on an unchanged arrangement, which under
-      PRD-PLATES §2.3 argues for a separate series; it is recorded as a variant
+      the plates spec §2.3 argues for a separate series; it is recorded as a variant
       inside this entry instead, because no primary establishes the boundary and
       minting a dated id on a locator date would be exactly the folklore
-      boundary the PRD warns against. A verifier with a primary should split it.
+      boundary the spec warns against. A verifier with a primary should split it.
 
   # =========================================================================
   # CURRENT STANDARD (3) — the chile base. Six characters, no separator, and
@@ -497,7 +497,7 @@ series:
       papered over.
 
   # =========================================================================
-  # SPECIALTY — THE PROGRAM INDEX, per PRD-PLATES §2.5. New Mexico's is
+  # SPECIALTY — THE PROGRAM INDEX, per the plates spec §2.5. New Mexico's is
   # statute-per-plate, and the MVD cites the section for nearly every entry.
   # =========================================================================
   - id: us-nm-special-plate-index
@@ -513,7 +513,7 @@ series:
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised programme; the designs themselves are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised programme; the designs themselves are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       structure: >-
@@ -565,7 +565,7 @@ series:
       - "https://www.mvd.newmexico.gov/vehicles/license-plates/  # New Mexico MVD's plate catalogue: the category structure, the ten collegiate institutions, the per-plate NMSA 1978 citations counted above, the Amateur Radio call-letter rule and its civil-defence purpose, and the discontinued Santa Fe 400th Anniversary plate"
     notes: >-
       THE SPECIAL-PLATE PROGRAM INDEX — one entry for the whole programme, per
-      PRD-PLATES §2.5. What makes New Mexico's worth returning to is that the
+      the plates spec §2.5. What makes New Mexico's worth returning to is that the
       catalogue is a LIST OF STATUTE SECTIONS, published as such by the agency:
       a future pass with access to NMSA can enumerate the 66-3-424.x block
       directly and get a complete, dated, primary-sourced specialty index — the

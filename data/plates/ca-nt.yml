@@ -1,9 +1,9 @@
-# plates/ca-nt.yml — Northwest Territories (PRD-PLATES gate L3, Canada
+# plates/ca-nt.yml — Northwest Territories (the plates spec gate L3, Canada
 # territories). THE NON-RECTANGULAR CASE.
 #
 # ── WHY THIS FILE MATTERS BEYOND ITS POPULATION ────────────────────────────
 #
-# PRD-PLATES § 2.2 names the Northwest Territories by name as the reason the
+# the plates spec § 2.2 names the Northwest Territories by name as the reason the
 # schema carries an optional `design.shape:` — "non-rectangular plates exist
 # (Canada's NT polar-bear plate)". This is that file, and it is the first in
 # the dataset to populate the key. Everything a renderer needs to know about
@@ -135,7 +135,7 @@ artwork_risk:
     Canadian trade-mark registration (TMA558214, filed 2000, registered 2002)
     whose GOODS are, in terms, "Licence plates". A trade-mark regime is
     independent of copyright and survives any public-domain finding, which is
-    exactly the seal/emblem hazard PRD-PLATES § 4 flags as generally
+    exactly the seal/emblem hazard the plates spec § 4 flags as generally
     unresearched — here documented, with a register entry.
   exercised: >-
     NOT A PAPER RIGHT. Nunavut ran the bear shape from 1999 to 2012 under an
@@ -145,7 +145,7 @@ artwork_risk:
     neighbouring government treated this mark as a real obstacle and negotiated
     around it.
   emblem_rule: >-
-    PRD-PLATES § 3 placeholder default applies with unusual force here, because
+    the plates spec § 3 placeholder default applies with unusual force here, because
     in the Northwest Territories the EMBLEM AND THE PLATE OUTLINE ARE THE SAME
     OBJECT. There is no emblem slot to placeholder out: the trade-marked bear IS
     the plate silhouette. Consequence for the render layer: NT cannot be
@@ -250,7 +250,7 @@ series:
     design:
       shape: polar-bear-silhouette
       shape_note: >-
-        THE SCHEMA KEY PRD-PLATES § 2.2 CREATED FOR THIS CASE. The plate outline
+        THE SCHEMA KEY the plates spec § 2.2 CREATED FOR THIS CASE. The plate outline
         is a polar bear in profile, not a rectangle. It is the territory's
         registered trade-mark (TMA558214) and is therefore recorded as a FACT
         and never reproduced. A renderer must not assume a rectangular viewBox,
@@ -265,7 +265,7 @@ series:
     notes: >-
       PERIOD: 1986 comes only from the per-territory encyclopedia article's
       format table (six digits from 1986), which carries no footnote for that
-      row; it is tagged `secondary-wikipedia` per the PRD-PLATES § 4 Wikipedia
+      row; it is tagged `secondary-wikipedia` per the plates spec § 4 Wikipedia
       condition. Nothing in R-054-94 or the Act dates any serial length, and
       R-054-94 itself post-dates 1986 by eight years — an instrument that
       DOCUMENTS an older practice, which is precisely the case the
@@ -281,7 +281,7 @@ series:
       several serial series and is not used to date this one.
     sources:
       - "https://www.justice.gov.nt.ca/en/files/legislation/motor-vehicles/motor-vehicles.r12.pdf  # reg. 8(2)(i) 'regular, displaying numbers'"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Northwest_Territories  # FINDING AID (PRD-PLATES §4 Wikipedia row): six digits from 1986, the 1970 bear shape, the 2010 update, the reported serial range; accessed 2026-08-02"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Northwest_Territories  # FINDING AID (the plates spec §4 Wikipedia row): six digits from 1986, the 1970 bear shape, the 2010 update, the reported serial range; accessed 2026-08-02"
       - "https://ised-isde.canada.ca/cipo/trademark-search/1050364  # the shape is a registered trade-mark of the GNWT"
 
   - id: ca-nt-regular-1970

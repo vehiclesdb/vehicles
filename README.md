@@ -672,7 +672,7 @@ Vehicles.region               # => :global
 
 ## License plates
 
-The gem bundles the VehiclesDB **registration-mark dataset** (PRD-PLATES): every plate series per jurisdiction, researched to the issuing authority's own documents — formats, eras, alphabets, designs. Ask it whether a typed registration is real:
+The gem bundles the VehiclesDB **registration-mark dataset**: every plate series per jurisdiction, researched to the issuing authority's own documents — formats, eras, alphabets, designs. Ask it whether a typed registration is real:
 
 ```ruby
 Vehicles.plate("12-GB-BD", jurisdiction: :nl).valid?    # => true — exact, as issued
@@ -680,7 +680,7 @@ Vehicles.plate("12gbbd", jurisdiction: :nl).suggestion  # => "12-GB-BD"  (did yo
 Vehicles.plate("12-AB-CD", jurisdiction: :nl).strict?   # => false — vowels aren't issued
 ```
 
-Matching is **two-tier**: exact as-issued first, then a separator-forgiving tier — `"1234XYZ"`, `"1234 xyz"` and `"1234-XYZ"` all resolve to the same serial, with `suggestion` giving the formatting the plate actually wears. Leniency forgives punctuation, **never the alphabet**: the strict regexes encode what the authority really issues (the Dutch vowel purge, the Spanish consonant-triplet rule…). `Match#strict?` separates validity claims from shape hits: it is true when a hit comes from a series the dataset marks `matching: strict` (PRD-PLATES §2.7), and false for recall-only catch-alls (export plates accept any current shape, by law; Spain's 1900–1971 numeric era is one wide union). Validate user input with `strict?`.
+Matching is **two-tier**: exact as-issued first, then a separator-forgiving tier — `"1234XYZ"`, `"1234 xyz"` and `"1234-XYZ"` all resolve to the same serial, with `suggestion` giving the formatting the plate actually wears. Leniency forgives punctuation, **never the alphabet**: the strict regexes encode what the authority really issues (the Dutch vowel purge, the Spanish consonant-triplet rule…). `Match#strict?` separates validity claims from shape hits: it is true when a hit comes from a series the dataset marks `matching: strict` (the plates spec §2.7), and false for recall-only catch-alls (export plates accept any current shape, by law; Spain's 1900–1971 numeric era is one wide union). Validate user input with `strict?`.
 
 When a plate has a series' shape but breaks its alphabet, `near_misses` names that series, so a form can say why:
 
@@ -756,15 +756,15 @@ end
 
 car = Vehicles.find("vw golf")
 
-# Rendered vehicle imagery — LIVE today. Mint a key at
+# Studio vehicle imagery — LIVE today. Mint a key at
 # https://vehiclesdb.com/settings/api-keys
 car.image                        # => "https://vehiclesdb.com/…/md.webp"  (640×360)
 car.image(size: :lg)             # :sm 320×180 · :md 640×360 · :lg 1280×720
-car.image(color: "red")          # color-accurate; un-rendered colors fall back honestly
+car.image(color: "red")          # color-accurate; unavailable colors fall back honestly
 car.images(color: "red")         # the full payload: every variant + dimensions,
-                                 #    rendered palette, served-vs-requested color
+                                 #    available palette, served-vs-requested color
 # color slugs are the gem's own canon — Vehicles.colors — so a stored
-# dropdown value maps 1:1 to the rendered imagery.
+# dropdown value maps 1:1 to the studio imagery.
 
 # Enrichment — the wired-up seam. nil today: the API does not serve these yet.
 car.years                        # production years (nil until published)
@@ -783,7 +783,7 @@ Vehicles.configure do |config|
 end
 
 car = Vehicles.by_id(record.vehiclesdb_id)
-car.image(color: record.color, exact_color: true)  # nil instead of another color's render
+car.image(color: record.color, exact_color: true)  # nil instead of another color's image
 r = car.images_result(color: "red")
 r.ok?      # => false
 r.reason   # => :payment_required   (:no_api_key :not_found :unauthorized :rate_limited
@@ -792,14 +792,14 @@ r.error    # => "insufficient_credits"  (the API's own code, verbatim)
 ```
 
 - `on_hosted_error` (and a warn log line) fires for a bad key, an empty wallet,
-  rate limiting, server errors and timeouts — never for a plain "no render yet".
+  rate limiting, server errors and timeouts — never for a plain "no image yet".
 - A record a dataset release renamed answers with a 301 to its successor; the gem
   follows it (same host only, so your key never leaves it).
 - `year:` is sent to the API, which answers `422 unsupported_filter` until
-  year-accurate renders ship (`image` → nil, `reason: :invalid_request`); until
+  year-accurate images ship (`image` → nil, `reason: :invalid_request`); until
   0.9.1 the gem silently dropped it.
 - With `exact_color: true` a model's known palette is remembered, so a color it
-  is not rendered in costs no request at all.
+  is not available in costs no request at all.
 
 Under the hood this is a simple **provider** model: a `LocalProvider` (the bundled data) is always available, and a `HostedProvider` activates only when an API key is configured. Calls prefer the hosted data when it's there and **fall back to the local data otherwise — never raising, never blocking** your request:
 

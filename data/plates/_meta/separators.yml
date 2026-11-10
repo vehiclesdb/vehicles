@@ -1,6 +1,6 @@
 # plates/_meta/separators.yml — THE NORMATIVE SEPARATOR CHARACTER SET.
 #
-# PRD-PLATES §2.6 declares this contract in prose; this file is its
+# the plates spec §2.6 declares this contract in prose; this file is its
 # machine-readable form, and `scripts/lint_plates.rb` enforces the dataset
 # against THIS file (single source of truth — the lint hardcodes nothing).
 #

@@ -1,11 +1,11 @@
-# plates/us-ma.yml — Massachusetts (PRD-PLATES gate L2, northeast group).
+# plates/us-ma.yml — Massachusetts (the plates spec gate L2, northeast group).
 #
 # THE ONE FACT THAT MAKES MASSACHUSETTS DIFFERENT FROM EVERY OTHER STATE IN THIS
 # GROUP: the LAST DIGIT OF THE SERIAL ENCODES THE MONTH THE REGISTRATION EXPIRES
 # — 1 through 9 for January through September, 0 for October. That is a TIME
 # DECODE inside a US plate serial, the temporal cousin of Germany's district
 # prefix and the Netherlands' sidecode, and it is exactly the kind of thing
-# PRD-PLATES §2.4 exists to model. It is also why Massachusetts runs several
+# the plates spec §2.4 exists to model. It is also why Massachusetts runs several
 # serial arrangements CONCURRENTLY rather than sequentially: each month's
 # allocation exhausts at its own rate, so October (digit 0) has needed its own
 # formats since 2018 while January-September were still inside 1ABC 2n. A
@@ -40,7 +40,7 @@ statute_edition: >-
   Edition currency is a recorded gap.
 
 # ---------------------------------------------------------------------------
-# artwork_risk — required per jurisdiction by PRD-PLATES §4.
+# artwork_risk — required per jurisdiction by the plates spec §4.
 # ---------------------------------------------------------------------------
 artwork_risk:
   posture: favourable-with-a-stated-limit
@@ -66,7 +66,7 @@ artwork_risk:
     extrapolation, not a finding. The template also excludes municipal records
     (M.G.L. c.66 §7). Recorded as favourable-but-not-adjudicated.
   emblem_rule: >-
-    PRD-PLATES §3 placeholder default applies. The current standard base carries
+    the plates spec §3 placeholder default applies. The current standard base carries
     no state seal, but several specialty designs do, and Massachusetts
     state-seal misuse protection independent of copyright is unresearched
     (recorded gap — the same gap the FL pilot recorded, and the largest
@@ -175,7 +175,7 @@ series:
     sources:
       - "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXIV/Chapter90/Section2  # M.G.L. c.90 §2: the statutory reflectorization duty delegated to the registrar; the SIX-character cap and no-duplication rule on distinctive initial (vanity) plates; the Cape and Islands statutory design. Read via the 2014-08-01 Wayback capture (live site unreachable this pass)"
       - "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXIV/Chapter90/Section6  # §6: display, the sixty-foot rear illumination rule"
-      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Massachusetts  # LOCATOR ONLY (PRD-PLATES §4): the 1ABC 2n current arrangement, the month-of-expiration final digit, the Q/U exclusion and I/O skipped blocks, the 1987 first issue for vanity/non-passenger and 1993 adoption as the standard passenger base, the concurrent October formats"
+      - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Massachusetts  # LOCATOR ONLY (the plates spec §4): the 1ABC 2n current arrangement, the month-of-expiration final digit, the Q/U exclusion and I/O skipped blocks, the 1987 first issue for vanity/non-passenger and 1993 adoption as the standard passenger base, the concurrent October formats"
       - "https://web.archive.org/web/20140704083521/http://www.massrmv.com/Portals/30/docs/manuals/passenger_plates_manual_public.pdf  # RMV Passenger Plates Booklet, July 2014 — the RMV's OWN catalogue; used here for the plate-type inventory, not for serial grammar"
     notes: >-
       MASSACHUSETTS STANDARD ISSUE, "Spirit of America" base. PERIOD: 1993 is the
@@ -206,7 +206,7 @@ series:
       pattern: "999 LLL"
       regex: '\A\d{3} ?[A-Z]{3}\z'
       charset: { notes: "reported 100·AAA to 999·VZZ; the same final-digit month code applies, and November and December expirations were discontinued during this base's life except on non-passenger and older red-on-white plates. An all-numeric 123·456 arrangement ran concurrently on this base from 1983, generally reissuing the serials of holders of the same numbers on the red-on-white base" }
-      separator_note: "printed with a raised dot (123·ABC); spelled U+0020 here per PRD-PLATES §2.6, as for every dot-separated series in this dataset"
+      separator_note: "printed with a raised dot (123·ABC); spelled U+0020 here per the plates spec §2.6, as for every dot-separated series in this dataset"
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { color: "#FFFFFF", finish: retroreflective, hex_basis: observed }
@@ -252,7 +252,7 @@ series:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
       legend_bottom: "TRAILER"
-      legend_note: "embossed 'TRAILER' in place of the slogan on the Spirit base — a design difference, hence its own series under PRD-PLATES §2.3"
+      legend_note: "embossed 'TRAILER' in place of the slogan on the Spirit base — a design difference, hence its own series under the plates spec §2.3"
     registration_period: "all Massachusetts trailer plates expire on 30 NOVEMBER, a fixed statewide date rather than a per-registrant month — which is why the trailer series carries no month code in its serial and the passenger series does"
     region_encoding: none
     sources:
@@ -287,7 +287,7 @@ series:
       - "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Massachusetts  # LOCATOR ONLY: the A12·345 commercial arrangement, the four dated design variants, the reported serial ranges, and the 31 December fixed expiry"
     notes: >-
       COMMERCIAL. Recorded as class `standard` because _meta/classes.yml has no
-      `commercial` value and the PRD's `dealer` definition (bound to a business,
+      `commercial` value and the spec's `dealer` definition (bound to a business,
       not a vehicle) does not fit — a Massachusetts commercial plate is bound to
       the vehicle in the ordinary way. The legend carries the meaning, exactly as
       the FL pilot recorded for its Wrecker and Restricted series. CLASS-VOCABULARY
@@ -326,7 +326,7 @@ series:
       and no competing dataset records it.
 
   # =========================================================================
-  # SPECIALTY — PROGRAM INDEX ONLY (PRD-PLATES §2.5).
+  # SPECIALTY — PROGRAM INDEX ONLY (the plates spec §2.5).
   # =========================================================================
   - id: us-ma-specialty-index
     class: specialty
@@ -341,7 +341,7 @@ series:
     design:
       plate: { w: 12, h: 6, unit: in }
       background: { finish: retroreflective }
-      note: "one design per authorised program; individual designs are L4 scope (PRD-PLATES §2.5) and none is described here"
+      note: "one design per authorised program; individual designs are L4 scope (the plates spec §2.5) and none is described here"
       emblem: { present: true, rendered: placeholder }
     program_index:
       count_official_dated: 50
