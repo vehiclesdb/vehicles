@@ -37,12 +37,16 @@ module Vehicles
       end
     end
 
-    attr_reader :version, :schema_version, :region
+    attr_reader :version, :schema_version, :region, :license, :attribution
 
     def initialize(raw)
       @version        = raw["version"]
       @schema_version = raw["schema_version"]
       @region         = raw["region"]
+      # The licence id and the credit block the release publishes (CC-BY
+      # 4.0), carried into Vehicles.dataset_slice so a slice keeps them.
+      @license        = raw["license"]
+      @attribution    = raw["attribution"]
 
       # Name-alphabetical, diacritic-insensitive — the dataset file arrives
       # slug-sorted, which differs subtly ("Austin-Healey" vs "Austin Morris").

@@ -27,6 +27,7 @@ module Vehicles
   def self.make_options: (?kind: Symbol?, ?region: Symbol?, ?country: untyped) -> Array[[String, String]]
   def self.model_options: (untyped make, ?kind: Symbol?, ?body_type: Symbol?, ?country: untyped) -> Array[[String, String]]
   def self.catalog: (?kind: Symbol?, ?region: Symbol?, ?country: untyped, ?kinds: Array[Symbol]?) -> Hash[String, Array[String]]
+  def self.dataset_slice: (?kind: Symbol?, ?region: Symbol?, ?country: untyped, ?kinds: Array[Symbol]?) -> Hash[String, untyped]
 
   def self.colors: (?locale: untyped) -> Array[Color]
   def self.color: (untyped query, ?locale: untyped) -> Color?

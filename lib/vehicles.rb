@@ -13,6 +13,7 @@ require_relative "vehicles/model_matcher"
 require_relative "vehicles/text_matcher"
 require_relative "vehicles/dataset_resolution"
 require_relative "vehicles/dataset"
+require_relative "vehicles/dataset_slice"
 require_relative "vehicles/data_source"
 require_relative "vehicles/refresh_result"
 require_relative "vehicles/release_checks"
@@ -412,6 +413,8 @@ module Vehicles
   # `body_type_options`), extended the same way.
   extend IdLookup
   extend LabelOptions
+  # `Vehicles.dataset_slice` (lib/vehicles/dataset_slice.rb).
+  extend DatasetSliceExport
 end
 
 # Loaded after the module so its lookup tables can use Vehicles.normalize.
