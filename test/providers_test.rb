@@ -171,10 +171,10 @@ module Vehicles
       Providers::HostedProvider.expects(:fetch).once.returns(ok(grey))
       golf = Vehicles.find("vw golf")
 
-      assert_equal :color_not_rendered, golf.images_result(color: "red", exact_color: true).reason
+      assert_equal :color_not_available, golf.images_result(color: "red", exact_color: true).reason
       assert_nil golf.image(color: "red", exact_color: true) # from cache
       # The palette (blue, grey) is known now: no call for a color outside it.
-      assert_equal :color_not_rendered, golf.images_result(color: "green", exact_color: true).reason
+      assert_equal :color_not_available, golf.images_result(color: "green", exact_color: true).reason
       refute_nil golf.image(color: "red") # without exact_color the fallback is served
     end
 

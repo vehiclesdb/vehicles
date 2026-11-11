@@ -74,11 +74,11 @@ module Vehicles
         color = color.to_s.empty? ? nil : color.to_s
         path = "#{API_PREFIX}/vehicles/#{model.id}/images"
         if exact_color && color && (palette = cache_read(palette_key(model))) && !palette.include?(color)
-          return HostedResult.new(reason: :color_not_rendered, path: path, cached: true)
+          return HostedResult.new(reason: :color_not_available, path: path, cached: true)
         end
 
         result = cached_or_fetch(model, path, color, year)
-        exact_color && color && result.ok? && result.payload["color"] != color ? unrendered(result) : result
+        exact_color && color && result.ok? && result.payload["color"] != color ? color_unavailable(result) : result
       rescue StandardError => e
         HostedResult.new(reason: :invalid_response, error: e.class.name, path: path)
       end
@@ -114,8 +114,8 @@ module Vehicles
         HostedResult.new(reason: :ok, status: response.status, payload: body, path: path)
       end
 
-      def unrendered(result)
-        result.with(reason: :color_not_rendered)
+      def color_unavailable(result)
+        result.with(reason: :color_not_available)
       end
 
       def remember(model, key, result)

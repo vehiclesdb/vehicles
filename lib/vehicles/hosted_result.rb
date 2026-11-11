@@ -16,11 +16,11 @@ module Vehicles
   # be finer ("no_image", "unknown_color", "unsupported_filter",
   # "insufficient_credits", "invalid_token", …). Client-side reasons have no
   # status: :no_api_key, :timeout, :network, :invalid_response, and
-  # :color_not_rendered (`exact_color: true` and the model is not available in
+  # :color_not_available (`exact_color: true` and the model is not available in
   # that color — the API would have served another one).
   class HostedResult
     REASONS = %i[ok no_api_key not_found unauthorized payment_required rate_limited invalid_request
-                 server_error timeout network invalid_response color_not_rendered].freeze
+                 server_error timeout network invalid_response color_not_available].freeze
 
     # Reasons that mean "something is wrong with the integration or the
     # service", reported through `config.on_hosted_error` and the logger. A
