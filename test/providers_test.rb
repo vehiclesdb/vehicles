@@ -59,7 +59,7 @@ module Vehicles
     end
 
     # Until 0.9.1 `year:` was accepted and silently dropped. It is sent now:
-    # the API answers 422 unsupported_filter until year-accurate renders
+    # the API answers 422 unsupported_filter until year-accurate images
     # ship, and the result says so instead of serving a year it never checked.
     def test_image_sends_year_and_reports_the_api_refusal
       skip "mocha not available" unless defined?(Mocha)
