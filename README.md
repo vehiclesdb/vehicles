@@ -787,7 +787,7 @@ car.image(color: record.color, exact_color: true)  # nil instead of another colo
 r = car.images_result(color: "red")
 r.ok?      # => false
 r.reason   # => :payment_required   (:no_api_key :not_found :unauthorized :rate_limited
-           #     :invalid_request :server_error :timeout :network :color_not_rendered …)
+           #     :invalid_request :server_error :timeout :network :color_not_available …)
 r.error    # => "insufficient_credits"  (the API's own code, verbatim)
 ```
 

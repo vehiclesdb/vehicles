@@ -59,7 +59,7 @@ module Vehicles
     end
 
     # Until 0.9.1 `year:` was accepted and silently dropped. It is sent now:
-    # the API answers 422 unsupported_filter until year-accurate renders
+    # the API answers 422 unsupported_filter until year-accurate images
     # ship, and the result says so instead of serving a year it never checked.
     def test_image_sends_year_and_reports_the_api_refusal
       skip "mocha not available" unless defined?(Mocha)
@@ -171,10 +171,10 @@ module Vehicles
       Providers::HostedProvider.expects(:fetch).once.returns(ok(grey))
       golf = Vehicles.find("vw golf")
 
-      assert_equal :color_not_rendered, golf.images_result(color: "red", exact_color: true).reason
+      assert_equal :color_not_available, golf.images_result(color: "red", exact_color: true).reason
       assert_nil golf.image(color: "red", exact_color: true) # from cache
       # The palette (blue, grey) is known now: no call for a color outside it.
-      assert_equal :color_not_rendered, golf.images_result(color: "green", exact_color: true).reason
+      assert_equal :color_not_available, golf.images_result(color: "green", exact_color: true).reason
       refute_nil golf.image(color: "red") # without exact_color the fallback is served
     end
 
