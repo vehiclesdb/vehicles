@@ -976,7 +976,7 @@ Vehicles.reload!                        # drop the in-memory dataset now (proces
 
 ## Where the data comes from
 
-The bundled dataset is [**VehiclesDB**](https://github.com/vehiclesdb/vehiclesdb) — an open dataset **reconciled from the official vehicle registers of every covered country, on five continents** (the Dutch RDW, UK DfT, Spanish DGT, Finnish Traficom, German KBA, US EPA, New Zealand's Motor Vehicle Register, Thailand's DLT, Ukraine's MVS, and more — the exact list for the bundled 2026.11.6 snapshot is `countries` in the data repo's `manifest.json`). A model ships only when **two independent official sources corroborate it** — or one shows a registration count no typo could produce — so you get real nameplates without the registry noise.
+The bundled dataset is [**VehiclesDB**](https://github.com/vehiclesdb/vehiclesdb) — an open dataset **reconciled from the official vehicle registers of every covered country, on five continents** (the Dutch RDW, UK DfT, Spanish DGT, Finnish Traficom, German KBA, US EPA, New Zealand's Motor Vehicle Register, Thailand's DLT, Ukraine's MVS, and more — the exact list for the bundled 2026.11.9 snapshot is `countries` in the data repo's `manifest.json`). A model ships only when **two independent official sources corroborate it** — or one shows a registration count no typo could produce — so you get real nameplates without the registry noise.
 
 Every record is shaped like this:
 
