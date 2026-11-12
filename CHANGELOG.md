@@ -48,7 +48,7 @@ Everything below the plates fixes comes from dogfooding the gem in a production 
 - `Plates.template_series` (what `Plates.render` draws) prefers strict hits over recall-only ones: a Spanish "CD-123-456" is drawn as the diplomatic series, not as the 1900–1971 numeric catch-all it also fits.
 
 ### Changed
-- Bundled data refreshed to VehiclesDB v2026.11.6 (16,327 models) and its conformance file from vehiclesdb main (with the vehiclesdb#397 kind-collision cases and the corrected E-Klasse case). Since 2026.11.3 the dataset is the first release to publish make `former_slugs` (`Vehicles.make("renault-alpine")` is Alpine, `by_id("car/renault-alpine/a110")` follows it), model `registration_years` and per-file `sha256`/`bytes` in the manifest's `dist_files`, which `Vehicles.refresh` now verifies on real releases. The gem's readers already used the shipped names.
+- Bundled data refreshed to VehiclesDB v2026.11.9 (16,448 models) and its conformance file from vehiclesdb main (with the vehiclesdb#397 kind-collision cases and the corrected E-Klasse case). Since 2026.11.3 the dataset is the first release to publish make `former_slugs` (`Vehicles.make("renault-alpine")` is Alpine, `by_id("car/renault-alpine/a110")` follows it), model `registration_years` and per-file `sha256`/`bytes` in the manifest's `dist_files`, which `Vehicles.refresh` now verifies on real releases. The gem's readers already used the shipped names.
 - v2026.11.2, bundled earlier in this cycle, restyled names such as "León", "XCeed", "ProCeed".
 - Bundled plates corpus refreshed to vehiclesdb `db0ec0a`: adds Egypt, Nigeria and Türkiye (127 jurisdictions, 1,409 series) and the Andorra and Austria verification corrections.
 
