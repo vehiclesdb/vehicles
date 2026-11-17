@@ -90,6 +90,42 @@ module Vehicles
       assert_includes h[:models], "A3"
     end
 
+    # Country of origin (dataset 2026.11.10+): where the marque was founded.
+    def test_country_of_origin
+      assert_equal "de", Vehicles.make("BMW").country
+      assert_equal "manufacturer", Vehicles.make("BMW").country_tier
+      assert_empty Vehicles.make("BMW").country_disputed
+      assert_equal %w[de], Vehicles.make("BMW").origin_countries
+      # Founded in Oxford; the owner's country is never the origin.
+      assert_equal "gb", Vehicles.make("MG").country
+    end
+
+    def test_disputed_origin_has_candidates_and_no_country
+      leyland_daf = Vehicles.make("leyland-daf")
+
+      assert_nil leyland_daf.country
+      assert_nil leyland_daf.country_tier
+      assert_equal %w[gb nl], leyland_daf.country_disputed
+      assert_equal %w[gb nl], leyland_daf.origin_countries
+    end
+
+    def test_origin_is_well_formed_wherever_published
+      makes = Vehicles.makes.map { |name| Vehicles.make(name, fuzzy: false) }
+      with_origin = makes.reject { |m| m.origin_countries.empty? }
+
+      assert_operator with_origin.size, :>=, 100
+      with_origin.each { |m| assert_well_formed_origin(m) }
+    end
+
+    def assert_well_formed_origin(make)
+      assert_empty make.origin_countries.grep_v(/\A[a-z]{2}\z/), make.slug
+      assert_equal !make.country.nil?, !make.country_tier.nil?, make.slug
+
+      assert_empty make.country_disputed, make.slug if make.country
+
+      assert_includes [nil, "manufacturer", "regulator", "archive"], make.country_tier, make.slug
+    end
+
     def test_to_s_is_name
       assert_equal "Audi", @audi.to_s
     end

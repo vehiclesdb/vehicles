@@ -97,6 +97,7 @@ make = Vehicles.make("Audi")     # => #<Vehicles::Make "Audi">
 make.name                        # => "Audi"
 make.slug                        # => "audi"
 make.kinds                       # => [:car]
+make.country                     # => "de" (where the marque was founded; nil if not catalogued)
 make.models                      # => ["A3", "A4", "Q3", "Q5", ...]
 make.model("a3")                 # => #<Vehicles::Model "Audi A3">
 ```
@@ -941,6 +942,8 @@ Vehicles.top_models(kind: :car, country: :nl, limit: 10)  # => [Vehicles::Model]
 # Vehicles::Make
 make.name      make.slug      make.aliases     make.kinds
 make.models    make.model("a3")                make.to_h
+make.country   make.country_tier               # origin: where the marque was founded ("de", "manufacturer")
+make.country_disputed  make.origin_countries   # ["gb", "nl"] for a cross-border founding; [] otherwise
 
 # Vehicles::Model
 model.make     model.name     model.full_name  model.slug    model.to_h
@@ -976,7 +979,7 @@ Vehicles.reload!                        # drop the in-memory dataset now (proces
 
 ## Where the data comes from
 
-The bundled dataset is [**VehiclesDB**](https://github.com/vehiclesdb/vehiclesdb) — an open dataset **reconciled from the official vehicle registers of every covered country, on five continents** (the Dutch RDW, UK DfT, Spanish DGT, Finnish Traficom, German KBA, US EPA, New Zealand's Motor Vehicle Register, Thailand's DLT, Ukraine's MVS, and more — the exact list for the bundled 2026.11.9 snapshot is `countries` in the data repo's `manifest.json`). A model ships only when **two independent official sources corroborate it** — or one shows a registration count no typo could produce — so you get real nameplates without the registry noise.
+The bundled dataset is [**VehiclesDB**](https://github.com/vehiclesdb/vehiclesdb) — an open dataset **reconciled from the official vehicle registers of every covered country, on five continents** (the Dutch RDW, UK DfT, Spanish DGT, Finnish Traficom, German KBA, US EPA, New Zealand's Motor Vehicle Register, Thailand's DLT, Ukraine's MVS, and more — the exact list for the bundled 2026.11.11 snapshot is `countries` in the data repo's `manifest.json`). A model ships only when **two independent official sources corroborate it** — or one shows a registration count no typo could produce — so you get real nameplates without the registry noise.
 
 Every record is shaped like this:
 
