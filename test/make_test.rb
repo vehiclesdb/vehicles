@@ -114,12 +114,16 @@ module Vehicles
       with_origin = makes.reject { |m| m.origin_countries.empty? }
 
       assert_operator with_origin.size, :>=, 100
-      with_origin.each do |m|
-        assert(m.origin_countries.all? { |c| c.match?(/\A[a-z]{2}\z/) }, m.slug)
-        assert_equal !m.country.nil?, !m.country_tier.nil?, m.slug
-        assert(m.country.nil? || m.country_disputed.empty?, m.slug)
-        assert_includes [nil, "manufacturer", "regulator", "archive"], m.country_tier, m.slug
-      end
+      with_origin.each { |m| assert_well_formed_origin(m) }
+    end
+
+    def assert_well_formed_origin(make)
+      assert_empty make.origin_countries.grep_v(/\A[a-z]{2}\z/), make.slug
+      assert_equal !make.country.nil?, !make.country_tier.nil?, make.slug
+
+      assert_empty make.country_disputed, make.slug if make.country
+
+      assert_includes [nil, "manufacturer", "regulator", "archive"], make.country_tier, make.slug
     end
 
     def test_to_s_is_name
