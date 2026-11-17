@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Country of origin on makes** (dataset 2026.11.10+): `Make#country` (lower-case ISO 3166-1 alpha-2 of the country where the marque was founded: `"de"` on BMW, `"gb"` on MG; not where it is built, its headquarters or its owner), `Make#country_tier` (`"manufacturer"`, `"regulator"` or `"archive"`: what the value rests on), `Make#country_disputed` (the candidates for a marque whose founding spans two countries, `["gb", "nl"]` on Leyland DAF; never beside `country`) and `Make#origin_countries` (either one as a list). nil / [] means not catalogued yet. Definition: the dataset's SCHEMA.md "Country of origin".
 
 ### Changed
-- Bundled data refreshed to VehiclesDB v2026.11.11 (from 2026.11.9: 16,448 to 16,438 models, 977 makes; 125 makes carry a country of origin). The conformance file at the v2026.11.11 tag is byte-identical to the bundled one.
+- Bundled data refreshed to VehiclesDB v2026.11.12 (from 2026.11.9: 16,448 to 16,440 models, 978 makes; 289 makes carry a country of origin, 3 of them disputed: Leyland DAF, Smart and MCC). The conformance file at the v2026.11.12 tag is byte-identical to the bundled one.
+- `Model#availability` semantics, documented: from dataset 2026.11.12 a country can be listed because a rolling new-registrations register counted the model within the last 12 months, not in its current window (the catalog marks those entries `last_observed`; the gem projection lists the country with no marker and no rank). Such a country is in `availability` but not in `country_ranks`, so `rank_in` returns nil for it. The gem reads only the projection and adds no reader for it.
 
 ## [0.9.2] - 2026-11-10
 

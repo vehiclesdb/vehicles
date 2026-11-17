@@ -72,6 +72,17 @@ module Vehicles
       refute_predicate moto, :hatchback?
     end
 
+    def test_a_last_observed_country_is_listed_but_unranked
+      # Dataset 2026.11.12: the Felsberg 250 is held only by Spain's rolling
+      # register within the last 12 months (`last_observed` in the catalog).
+      # The projection lists the country, with no rank for it.
+      felsberg = Vehicles.by_id("motorcycle/brixton/felsberg-250")
+
+      assert felsberg.available_in?(:es)
+      assert_nil felsberg.rank_in(:es)
+      assert_nil felsberg.global_decile
+    end
+
     def test_global_region_covers_every_region_query
       assert Vehicles.dataset.region?(:eu), "a global snapshot must keep region: :eu callers working"
       assert_operator Vehicles.models("BMW", region: :eu).size, :>, 0
