@@ -107,6 +107,8 @@ module Vehicles
       assert_nil leyland_daf.country_tier
       assert_equal %w[gb nl], leyland_daf.country_disputed
       assert_equal %w[gb nl], leyland_daf.origin_countries
+      # Smart (and its first name, MCC) was founded as a Swiss-German venture.
+      assert_equal %w[ch de], Vehicles.make("smart").country_disputed
     end
 
     def test_origin_is_well_formed_wherever_published

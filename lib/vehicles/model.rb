@@ -47,7 +47,11 @@ module Vehicles
       @global_decile = attrs["global_decile"]
       # ISO-3166-1 alpha-2 codes where an official source evidences the model.
       # Evidence of PRESENCE, not proof of official marketing (grey imports
-      # count — they're real vehicles on real roads).
+      # count — they're real vehicles on real roads). From data 2026.11.12 a
+      # country can also be listed because a rolling new-registrations
+      # register counted the model within the last 12 months but not in its
+      # current window (catalog key `last_observed`; the projection carries
+      # no marker): such a country has no entry in `country_ranks`.
       @availability  = (attrs["availability"] || []).freeze
       # Continent rollup of availability (:eu/:na/:sa/:as/:oc/:af).
       @regions       = (attrs["regions"] || []).map(&:to_sym).freeze
