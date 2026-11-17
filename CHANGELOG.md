@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Country of origin on makes** (dataset 2026.11.10+): `Make#country` (lower-case ISO 3166-1 alpha-2 of the country where the marque was founded: `"de"` on BMW, `"gb"` on MG; not where it is built, its headquarters or its owner), `Make#country_tier` (`"manufacturer"`, `"regulator"` or `"archive"`: what the value rests on), `Make#country_disputed` (the candidates for a marque whose founding spans two countries, `["gb", "nl"]` on Leyland DAF; never beside `country`) and `Make#origin_countries` (either one as a list). nil / [] means not catalogued yet. Definition: the dataset's SCHEMA.md "Country of origin".
+
+### Changed
+- Bundled data refreshed to VehiclesDB v2026.11.10 (16,448 to 16,381 models; 125 makes carry a country of origin). The conformance file at the v2026.11.10 tag is byte-identical to the bundled one.
+
 ## [0.9.2] - 2026-11-10
 
 Everything below the plates fixes comes from dogfooding the gem in a production Rails app (CarHey) and making each workaround it had to write a general feature.
