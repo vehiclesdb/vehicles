@@ -189,5 +189,16 @@ module Vehicles
       assert_equal "Wien", table["codes"].find { |r| r["code"] == "W" }["land"]
       assert_nil Plates.decode_table("no-such-table")
     end
+    def test_gb_year_letters_table
+      table = Plates.decode_table("gb-year-letters")
+      rows = table["letters"]
+      assert_equal(21, rows.count { |r| r["system"] == "suffix" })
+      assert_equal(21, rows.count { |r| r["system"] == "prefix" })
+      k_prefix = rows.find { |r| r["system"] == "prefix" && r["letter"] == "K" }
+      assert_equal %w[1992-08 1993-07], k_prefix.values_at("from", "to")
+      assert_empty rows.map { |r| r["letter"] }.uniq & %w[I O Q U Z]
+      ids = table["sources"].map { |s| s["id"] }
+      assert_empty rows.flat_map { |r| r["sources"] } - ids
+    end
   end
 end
