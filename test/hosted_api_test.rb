@@ -36,6 +36,26 @@ module Vehicles
       assert_equal "application/json", request[:headers]["accept"]
     end
 
+    # Net::HTTP's default "Ruby" is refused at the CDN edge.
+    def test_images_name_the_client_in_the_user_agent
+      request = serve(200, IMAGES_JSON) { @leon.images }
+
+      assert_equal "vehicles-ruby/#{Vehicles::VERSION} (+https://vehiclesdb.com)", request[:headers]["user-agent"]
+    end
+
+    def test_a_callers_own_user_agent_is_kept
+      request = serve(200, "{}") { HTTP.request(HTTP.url("/ping"), "user-agent" => "my-app/1.0") }
+
+      assert_equal "my-app/1.0", request[:headers]["user-agent"]
+    end
+
+    def test_the_dataset_download_names_the_client_too
+      request = serve(200, "{}") { HTTP.download("#{Vehicles.configuration.api_base_url}/vehicles.json", 2) }
+
+      assert_equal "GET /vehicles.json HTTP/1.1", request[:line]
+      assert_equal HTTP::USER_AGENT, request[:headers]["user-agent"]
+    end
+
     def test_image_returns_the_variant_url_from_the_wire
       url = nil
       serve(200, IMAGES_JSON) { url = @leon.image(color: "white", size: :lg) }

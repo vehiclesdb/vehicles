@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.3] - 2026-11-23
+
+### Fixed
+- **Every request the gem makes names its client**: `User-Agent: vehicles-ruby/<version> (+https://vehiclesdb.com)` on the hosted API (images), the plate templates and the dataset refresh download. Until 0.9.2 they went out with Net::HTTP's default `User-Agent: Ruby`, which the CDN edge in front of the API can answer with a 403. A `User-Agent` a caller already passes to `Vehicles::HTTP.request`/`get` is kept.
+
 ### Added
 - **Country of origin on makes** (dataset 2026.11.10+): `Make#country` (lower-case ISO 3166-1 alpha-2 of the country where the marque was founded: `"de"` on BMW, `"gb"` on MG; not where it is built, its headquarters or its owner), `Make#country_tier` (`"manufacturer"`, `"regulator"` or `"archive"`: what the value rests on), `Make#country_disputed` (the candidates for a marque whose founding spans two countries, `["gb", "nl"]` on Leyland DAF; never beside `country`) and `Make#origin_countries` (either one as a list). nil / [] means not catalogued yet. Definition: the dataset's SCHEMA.md "Country of origin".
 
