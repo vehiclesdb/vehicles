@@ -18,6 +18,11 @@ module Vehicles
     MAX_REDIRECTS = 2
     REDIRECTS = [301, 302, 303, 307, 308].freeze
 
+    # Sent on every request the gem makes. Net::HTTP's default ("Ruby") is
+    # refused at the CDN edge, and a named client is one the API owner can
+    # tell apart. A caller's own User-Agent header wins (HTTP.once).
+    USER_AGENT = "vehicles-ruby/#{Vehicles::VERSION} (+https://vehiclesdb.com)".freeze
+
     module_function
 
     # `config.api_base_url` + path + query. Plain concatenation, not
@@ -65,6 +70,7 @@ module Vehicles
       http.max_retries = 0
 
       req = Net::HTTP::Get.new(uri)
+      req["User-Agent"] = USER_AGENT
       headers.each { |name, value| req[name] = value }
       res = http.request(req)
       Response.new(status: res.code.to_i, body: res.body, uri: uri, location: res["location"])
@@ -89,7 +95,7 @@ module Vehicles
       http.open_timeout = timeout
       http.read_timeout = timeout
 
-      response = http.get(uri.request_uri, "Accept" => "application/json")
+      response = http.get(uri.request_uri, "Accept" => "application/json", "User-Agent" => USER_AGENT)
       case response
       when Net::HTTPSuccess
         # Net::HTTP hands back an ASCII-8BIT body (e.g. after gzip decompression);

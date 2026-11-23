@@ -80,6 +80,14 @@ module Vehicles
       assert_equal "image/svg+xml", requests.first[:headers]["accept"]
     end
 
+    def test_a_template_request_names_the_client
+      @responses[ES_PATH] = [200, SPAIN, "image/svg+xml"]
+
+      Plates.render("1234bcd", jurisdiction: :es)
+
+      assert_equal HTTP::USER_AGENT, requests.first[:headers]["user-agent"]
+    end
+
     # Client-side fence: a "shape" that carries characters is refused here,
     # before any request — even if a caller mixes up its arguments.
     def test_a_shape_with_characters_never_leaves
