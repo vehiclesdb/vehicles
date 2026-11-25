@@ -208,7 +208,7 @@ module Vehicles
     # (CD 12 5, RI 1).
     def test_indonesia_loads_matches_and_decodes
       id = Vehicles.plates(:id)
-      assert_equal 16, id.series.size
+      assert_equal 18, id.series.size
       %w[id-private-white-2022 id-private-black-1993 id-diplomatic-cd-2006
          id-state-ri-2006 id-trial-tckb-2006 id-crossborder-lbn-2021].each do |sid|
         assert_includes id.series.map(&:id), sid
@@ -249,6 +249,67 @@ module Vehicles
       assert_equal 130, diplomatic["codes"].size
       assert_equal "US", diplomatic["codes"][12]["iso"]
       assert_equal "NO", diplomatic["codes"][19]["iso"] # quoted: a bare NO loads as false
+
+      # Secondary-tier (Wikipedia, PRD-PLATES §4) additions: suffix letters,
+      # a recall-only RI sub-number series, and the service-code table.
+      jaksel = regions["sub_area_suffixes"]["by_code"]["B"]["four_wheel_plus"].find { |r| r["area"] == "Jakarta Selatan" }
+      assert_equal %w[D** S**], jaksel["letters"]
+      ri = Vehicles.plate("RI 5-1", jurisdiction: :id).series.find { |s| s.id == "id-state-ri-subnumbered-2024" }
+      refute_nil ri
+      refute_predicate ri, :strict?
+      service = Plates.decode_table("id-service-codes")
+      assert_equal "RFS", service["rf_letters"]["rows"].first["letters"]
+    end
+
+    # Regression net for format_serial. The fixture holds, for every series
+    # in every bundled jurisdiction, four serials generated from the series'
+    # own display pattern (seeded by the series id) and what format_serial
+    # printed for them BEFORE the variable-length fix below. Every row must
+    # still print the same. Rows whose series no longer exists are skipped
+    # (ids are append-only, so that means a renamed fixture, not a removal).
+    # To regenerate after a deliberate change, rebuild the TSV from the same
+    # generator and review the diff row by row.
+    FORMAT_SNAPSHOT = File.expand_path("fixtures/plates_format_snapshot.tsv", __dir__)
+
+    def test_every_series_formats_its_own_samples_unchanged
+      by_id = Vehicles.plates.flat_map(&:series).to_h { |s| [ s.id, s ] }
+      rows = File.readlines(FORMAT_SNAPSHOT, chomp: true).reject { |l| l.start_with?("#") }
+      assert_operator rows.size, :>=, 5000
+      changed = rows.filter_map do |line|
+        id, serial, expected = line.split("\t", 3)
+        series = by_id[id] or next
+        got = series.format_serial(serial)
+        "#{id} #{serial}: #{expected.inspect} -> #{got.inspect}" unless got == expected
+      end
+      assert_empty changed
+    end
+
+    # The two shapes the fix is for. "BL1234AB" has as many characters as the
+    # display pattern "L 9999 LLL" has slots, and the old walk sliced it into
+    # "B L123 4AB"; an empty trailing letter group printed a trailing
+    # separator ("DK 1 ").
+    def test_format_serial_variable_length_groups_and_empty_groups
+      white = Vehicles.plates(:id).series.find { |s| s.id == "id-private-white-2022" }
+      assert_equal "BL 1234 AB", white.format_serial("BL1234AB")
+      assert_equal "DK 1", white.format_serial("DK1")
+      assert_equal "B 1234 ABC", white.format_serial("B1234ABC")
+      assert_equal "KB 2089 CZ", white.format_serial("KB2089CZ")
+      assert_equal "BL 1234 AB", Vehicles.plate("bl1234ab", jurisdiction: :id).formatted
+      assert_equal "DK 1", Vehicles.plate("DK1", jurisdiction: :id).formatted
+    end
+
+    # Ties after [exact, strict] are broken by the jurisdiction's own series
+    # order (standard first, then class, then period start), explicitly, so
+    # `best` is the same on every run and every Ruby.
+    def test_match_ties_follow_jurisdiction_series_order
+      juris = Vehicles.plates(:id)
+      order = juris.series.each_with_index.to_h { |s, i| [ s.id, i ] }
+      match = Vehicles.plate("B 1234 ABC", jurisdiction: :id)
+      tied = match.hits.select { |h| h.exact? && h.series.strict? }.map { |h| h.series.id }
+      assert_operator tied.size, :>=, 5
+      assert_equal tied.sort_by { |id| order.fetch(id) }, tied
+      assert_equal tied.first, match.best.id
+      assert_equal match.series.map(&:id), Vehicles.plate("B 1234 ABC", jurisdiction: :id).series.map(&:id)
     end
   end
 end

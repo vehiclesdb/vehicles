@@ -41,6 +41,9 @@ module Vehicles
         @notes        = entry["notes"]
         # Compiled eagerly — the object is frozen, so no lazy memoization.
         @validation_regexp = compile(@regex_strict || @regex)
+        # The printed-form check behind format_serial's pattern walk: `regex`
+        # is the tier the dataset round-trips against `pattern`.
+        @pattern_check_regexp = compile(@regex)
         @lenient_regexp    = compile(self.class.strip_separators(@regex_strict || @regex))
         # The series' SHAPE without its issuing alphabet, only where the two
         # differ (a `regex_strict` exists): what Match#near_misses tests.
@@ -150,7 +153,11 @@ module Vehicles
               idx += 1
             end
           end
-          return out.freeze
+          # Only when the walk produced a serial the series' own regex
+          # accepts: a variable-length family can fill the slot count with a
+          # different shape (ID "BL1234AB" against "L 9999 LLL" walked to
+          # "B L123 4AB"), and that must fall through to the regex split.
+          return out.freeze if @pattern_check_regexp.nil? || @pattern_check_regexp.match?(out)
         end
 
         # Length mismatch: the pattern is one shape of a variable family —
@@ -159,9 +166,16 @@ module Vehicles
         # sliced into "M1-234L-A").
         if issued_regexp && (m = issued_regexp.match(serial)) &&
             m.captures.size == issued_separators.size + 1
-          return m.captures.each_with_index
-                  .map { |part, i| i.zero? ? part : "#{issued_separators[i - 1]}#{part}" }
-                  .join.freeze
+          # An optional group that matched nothing prints nothing, and
+          # neither does the separator in front of it (ID "DK1" is "DK 1",
+          # not "DK 1 "). A leading empty group drops the separator after it.
+          out = +""
+          m.captures.each_with_index do |part, i|
+            next if part.empty?
+            out << issued_separators[i - 1] if i.positive? && !out.empty?
+            out << part
+          end
+          return out.freeze
         end
 
         # Neither path can know — unformatted is honest, misplaced
