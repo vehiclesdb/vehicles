@@ -200,5 +200,121 @@ module Vehicles
       ids = table["sources"].map { |s| s["id"] }
       assert_empty rows.flat_map { |r| r["sources"] } - ids
     end
+
+    # Indonesia: Perpol 7/2021 gives the grammar in words — region code of
+    # 1-2 letters, 1-4 digits, 0-3 series letters — and four registration
+    # codes (CD, CC, CH, RI) that replace the region code. Serials below are
+    # synthetic except the regulation's own examples (CD 12 5, RI 1).
+    def id_series_ids(serial)
+      Vehicles.plate(serial, jurisdiction: :id).series.map(&:id)
+    end
+
+    def test_indonesia_loads
+      ids = Vehicles.plates(:id).series.map(&:id)
+      assert_equal 18, ids.size
+      %w[id-private-white-2022 id-private-black-1993 id-diplomatic-cd-2006
+         id-state-ri-2006 id-trial-tckb-2006 id-crossborder-lbn-2021].each do |sid|
+        assert_includes ids, sid
+      end
+    end
+
+    def test_indonesia_ordinary_plate_and_region_list
+      ordinary = Vehicles.plate("B 1234 ABC", jurisdiction: :id)
+      assert_predicate ordinary, :exact?
+      assert_predicate ordinary, :strict?
+      assert_includes ordinary.series.map(&:id), "id-private-white-2022"
+      assert_equal "B 1234 ABC", Vehicles.plate("b1234abc", jurisdiction: :id).formatted
+      # The white plate's strict twin carries the closed region-code list
+      # (Lampiran A + the 2024 Papua codes).
+      refute_includes id_series_ids("XQ 1234 AB"), "id-private-white-2022"
+      assert_includes id_series_ids("PG 1234 AB"), "id-private-white-2022"
+    end
+
+    def test_indonesia_registration_codes_and_class_letters
+      assert_includes id_series_ids("CD 12 5"), "id-diplomatic-cd-2006"
+      # 46 is one of the four codes the annex's country table skips.
+      refute_includes id_series_ids("CD 46 5"), "id-diplomatic-cd-2006"
+      assert_includes id_series_ids("RI 1"), "id-state-ri-2006"
+      assert_includes id_series_ids("B 1234 XY"), "id-trial-tckb-2006"
+      refute_includes id_series_ids("B 1234 XZ"), "id-trial-tckb-2006"
+    end
+
+    def test_indonesia_press_and_wikipedia_series_are_recall_only
+      { "B 1234 ZZH" => "id-special-zz-2023", "RI 5-1" => "id-state-ri-subnumbered-2024" }.each do |serial, sid|
+        series = Vehicles.plate(serial, jurisdiction: :id).series.find { |s| s.id == sid }
+        refute_nil series, serial
+        refute_predicate series, :strict?
+      end
+    end
+
+    def test_indonesia_region_codes_table
+      regions = Plates.decode_table("id-region-codes")
+      assert_equal 57, regions["codes"].size
+      yogya = regions["codes"].find { |r| r["code"] == "AB" }
+      assert_equal "DI Yogyakarta", yogya["province"]
+      assert_includes yogya["areas_printed"], "Kab. Sleman"
+      assert_equal(%w[PY PS PT PG], regions["post_annex_codes"].map { |r| r["code"] })
+      # Secondary tier (Wikipedia, PRD-PLATES §4): per-regency suffix letters.
+      jakarta = regions["sub_area_suffixes"]["by_code"]["B"]["four_wheel_plus"]
+      assert_equal(%w[D** S**], jakarta.find { |r| r["area"] == "Jakarta Selatan" }["letters"])
+    end
+
+    def test_indonesia_diplomatic_and_service_tables
+      diplomatic = Plates.decode_table("id-diplomatic-codes")
+      assert_equal 130, diplomatic["codes"].size
+      assert_equal "US", diplomatic["codes"][12]["iso"]
+      assert_equal "NO", diplomatic["codes"][19]["iso"] # quoted: a bare NO loads as false
+      assert_equal "RFS", Plates.decode_table("id-service-codes")["rf_letters"]["rows"].first["letters"]
+    end
+
+    # Regression net for format_serial. The fixture holds, for every series
+    # in every bundled jurisdiction, four serials generated from the series'
+    # own display pattern (seeded by the series id) and what format_serial
+    # printed for them BEFORE the variable-length fix below. Every row must
+    # still print the same. Rows whose series no longer exists are skipped
+    # (ids are append-only, so that means a renamed fixture, not a removal).
+    # To regenerate after a deliberate change, rebuild the TSV from the same
+    # generator and review the diff row by row.
+    FORMAT_SNAPSHOT = File.expand_path("fixtures/plates_format_snapshot.tsv", __dir__)
+
+    def test_every_series_formats_its_own_samples_unchanged
+      by_id = Vehicles.plates.flat_map(&:series).to_h { |s| [ s.id, s ] }
+      rows = File.readlines(FORMAT_SNAPSHOT, chomp: true).reject { |l| l.start_with?("#") }
+      assert_operator rows.size, :>=, 5000
+      changed = rows.filter_map do |line|
+        id, serial, expected = line.split("\t", 3)
+        series = by_id[id] or next
+        got = series.format_serial(serial)
+        "#{id} #{serial}: #{expected.inspect} -> #{got.inspect}" unless got == expected
+      end
+      assert_empty changed
+    end
+
+    # The two shapes the fix is for. "BL1234AB" has as many characters as the
+    # display pattern "L 9999 LLL" has slots, and the old walk sliced it into
+    # "B L123 4AB"; an empty trailing letter group printed a trailing
+    # separator ("DK 1 ").
+    def test_format_serial_variable_length_groups_and_empty_groups
+      white = Vehicles.plates(:id).series.find { |s| s.id == "id-private-white-2022" }
+      assert_equal "BL 1234 AB", white.format_serial("BL1234AB")
+      assert_equal "DK 1", white.format_serial("DK1")
+      assert_equal "B 1234 ABC", white.format_serial("B1234ABC")
+      assert_equal "KB 2089 CZ", white.format_serial("KB2089CZ")
+      assert_equal "BL 1234 AB", Vehicles.plate("bl1234ab", jurisdiction: :id).formatted
+      assert_equal "DK 1", Vehicles.plate("DK1", jurisdiction: :id).formatted
+    end
+
+    # When the pattern walk is rejected, the repair reading splits per
+    # alternation branch and prints the display pattern's separator, so a
+    # serial main used to mis-split is formatted correctly rather than left
+    # bare: nl-export (a union of sidecodes), tr-standard-2014 (three letter
+    # counts), us-id "[- ]" under a space-separated pattern.
+    def test_format_serial_repairs_rejected_walks
+      series = Vehicles.plates.flat_map(&:series).to_h { |s| [ s.id, s ] }
+      assert_equal "BM-ZE-45", series.fetch("nl-export").format_serial("BMZE45")
+      assert_equal "50-BD-LE", series.fetch("nl-export").format_serial("50BDLE")
+      assert_equal "25 SGH 098", series.fetch("tr-standard-2014").format_serial("25SGH098")
+      assert_equal "U VCRNM", series.fetch("us-id-standard-centennial").format_serial("UVCRNM")
+    end
   end
 end
