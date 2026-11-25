@@ -100,10 +100,26 @@ module Vehicles
         # issues. Lets a form say WHY ("no vowels, Ñ or Q") instead of only
         # "not a plate". Empty whenever the plate hits a strict series.
         @near_misses = (hits.any? { |h| h.series.strict? } ? [] : near_misses).freeze
-        # Exact hits outrank lenient ones, strict-validated series outrank
-        # recall-only catch-alls; series order (standard first) breaks ties.
-        @hits = hits.sort_by { |h| [ h.exact? ? 0 : 1, h.series.strict? ? 0 : 1 ] }.freeze
+        # Ranking, most important first:
+        #   1. exact hits (typed as issued) before lenient ones;
+        #   2. strict-validated series before recall-only catch-alls;
+        #   3. a series still being issued before an ended one;
+        #   4. the standard class before every other class;
+        #   5. the most recent period start first;
+        #   6. the jurisdiction's own series order.
+        # The last key makes the order total: Ruby's sort_by is not stable,
+        # so ties on the earlier keys used to come back in an order nobody
+        # chose. Keys 3-5 make the everyday reading win: an ordinary
+        # Indonesian plate resolves to the current white plate, not to the
+        # black one it replaced.
+        @hits = hits.each_with_index.sort_by { |h, i| Match.rank(h, i) }.map(&:first).freeze
         freeze
+      end
+
+      def self.rank(hit, index)
+        series = hit.series
+        [ hit.exact? ? 0 : 1, series.strict? ? 0 : 1, series.current? ? 0 : 1,
+          series.klass == "standard" ? 0 : 1, -(series.period["start"] || 0), index ]
       end
 
       def valid? = hits.any?

@@ -316,5 +316,17 @@ module Vehicles
       assert_equal "25 SGH 098", series.fetch("tr-standard-2014").format_serial("25SGH098")
       assert_equal "U VCRNM", series.fetch("us-id-standard-centennial").format_serial("UVCRNM")
     end
+
+    # Ranking of tied hits (Match.rank): exact, strict, still issued,
+    # standard class, most recent start, then jurisdiction order. An
+    # ordinary Indonesian serial fits seven series' grammar; it resolves to
+    # the plate issued today.
+    def test_best_prefers_current_standard_most_recent_series
+      match = Vehicles.plate("B 1234 ABC", jurisdiction: :id)
+      assert_equal "id-private-white-2022", match.best.id
+      ranks = match.hits.each_with_index.map { |h, i| Plates::Match.rank(h, i) }
+      assert_equal ranks.sort, ranks
+      assert_equal match.series.map(&:id), id_series_ids("B 1234 ABC")
+    end
   end
 end

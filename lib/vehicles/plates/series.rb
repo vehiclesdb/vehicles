@@ -91,6 +91,11 @@ module Vehicles
         matching != "recall-only"
       end
 
+      # Still being issued: no end year and not marked ended.
+      def current?
+        period["end"].nil? && period["ended"] != true
+      end
+
       # Vehicle categories that carry people (dataset `categories`
       # vocabulary). A series issued only to trailers, semitrailers,
       # caravans, tractors, machines or trucks plates nothing a passenger
