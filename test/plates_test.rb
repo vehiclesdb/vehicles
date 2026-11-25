@@ -200,5 +200,55 @@ module Vehicles
       ids = table["sources"].map { |s| s["id"] }
       assert_empty rows.flat_map { |r| r["sources"] } - ids
     end
+
+    # Indonesia: Perpol 7/2021 gives the grammar in
+    # words — region code of 1-2 letters, 1-4 digits, 0-3 series letters — and
+    # four registration codes (CD, CC, CH, RI) that replace the region code.
+    # Serials below are synthetic except the regulation's own examples
+    # (CD 12 5, RI 1).
+    def test_indonesia_loads_matches_and_decodes
+      id = Vehicles.plates(:id)
+      assert_equal 16, id.series.size
+      %w[id-private-white-2022 id-private-black-1993 id-diplomatic-cd-2006
+         id-state-ri-2006 id-trial-tckb-2006 id-crossborder-lbn-2021].each do |sid|
+        assert_includes id.series.map(&:id), sid
+      end
+
+      ordinary = Vehicles.plate("B 1234 ABC", jurisdiction: :id)
+      assert_predicate ordinary, :exact?
+      assert_predicate ordinary, :strict?
+      assert_includes ordinary.series.map(&:id), "id-private-white-2022"
+      assert_equal "B 1234 ABC", Vehicles.plate("b1234abc", jurisdiction: :id).formatted
+
+      # The white plate's strict twin carries the closed region-code list
+      # (Lampiran A + the 2024 Papua codes): an unassigned code is not a
+      # current ordinary plate, while a 2024 code is.
+      refute_includes Vehicles.plate("XQ 1234 AB", jurisdiction: :id).series.map(&:id), "id-private-white-2022"
+      assert_includes Vehicles.plate("PG 1234 AB", jurisdiction: :id).series.map(&:id), "id-private-white-2022"
+
+      assert_includes Vehicles.plate("CD 12 5", jurisdiction: :id).series.map(&:id), "id-diplomatic-cd-2006"
+      # 46 is one of the four codes the annex's country table skips.
+      refute_includes Vehicles.plate("CD 46 5", jurisdiction: :id).series.map(&:id), "id-diplomatic-cd-2006"
+      assert_includes Vehicles.plate("RI 1", jurisdiction: :id).series.map(&:id), "id-state-ri-2006"
+
+      assert_includes Vehicles.plate("B 1234 XY", jurisdiction: :id).series.map(&:id), "id-trial-tckb-2006"
+      refute_includes Vehicles.plate("B 1234 XZ", jurisdiction: :id).series.map(&:id), "id-trial-tckb-2006"
+
+      zz = Vehicles.plate("B 1234 ZZH", jurisdiction: :id).series.find { |s| s.id == "id-special-zz-2023" }
+      refute_nil zz
+      refute_predicate zz, :strict? # the ZZ letters are press-sourced, not in the regulation
+
+      regions = Plates.decode_table("id-region-codes")
+      assert_equal 57, regions["codes"].size
+      yogya = regions["codes"].find { |r| r["code"] == "AB" }
+      assert_equal "DI Yogyakarta", yogya["province"]
+      assert_includes yogya["areas_printed"], "Kab. Sleman"
+      assert_equal %w[PY PS PT PG], regions["post_annex_codes"].map { |r| r["code"] }
+
+      diplomatic = Plates.decode_table("id-diplomatic-codes")
+      assert_equal 130, diplomatic["codes"].size
+      assert_equal "US", diplomatic["codes"][12]["iso"]
+      assert_equal "NO", diplomatic["codes"][19]["iso"] # quoted: a bare NO loads as false
+    end
   end
 end
