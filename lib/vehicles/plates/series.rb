@@ -58,8 +58,7 @@ module Vehicles
         # prints the separator the display pattern shows when the class
         # allows it (us-id "[- ]" under "9L 999L" prints a space).
         prefer = @display_pattern ? (@display_pattern.chars & [ " ", "-", "·", "." ]) : []
-        sources = self.class.alternation_branches(@regex_strict || @regex)
-        sources = [ @regex_strict || @regex ].compact if sources.empty?
+        sources = self.class.group_expansions(@regex_strict || @regex)
         @repair_readings = sources.filter_map do |src|
           segs, seps = self.class.segment_separators(src, prefer: prefer, balanced: true)
           next unless segs
@@ -150,6 +149,18 @@ module Vehicles
       def format_serial(serial)
         return nil if serial.nil?
 
+        out = format_serial_unchecked(serial)
+        # Formatting may only insert separators. Anything else (a dropped,
+        # duplicated or reordered character) is a damaged string: return the
+        # serial as stored instead.
+        return serial.dup.freeze unless out.gsub(STRIP_FOR_CHECK, "") == serial.gsub(STRIP_FOR_CHECK, "")
+
+        out
+      end
+
+      STRIP_FOR_CHECK = /[\s\-–—·.]+/
+
+      def format_serial_unchecked(serial)
         # A serial whose groups the series' own regex can split more than one
         # way is returned as stored, before anything else: the bare serial
         # cannot say which split was issued ("CD123456" is CD-123-456 or
@@ -176,8 +187,10 @@ module Vehicles
           # "B L123 4AB"), and that must fall through to the regex split.
           return out.freeze if @pattern_check_regexp.nil? || @pattern_check_regexp.match?(out)
 
-          repaired = repair_format(serial)
-          return repaired if repaired
+          # No unambiguous repair: return exactly what the walk printed, as
+          # before the repair existed, rather than falling through to the
+          # issued split (whose captures can overlap here).
+          return repair_format(serial) || out.freeze
         end
 
         # Length mismatch: the pattern is one shape of a variable family —
@@ -237,7 +250,7 @@ module Vehicles
       def self.join_groups(captures, separators)
         out = +""
         captures.each_with_index do |part, i|
-          next if part.empty?
+          next if part.nil? || part.empty?
 
           out << separators[i - 1] if i.positive? && !out.empty?
           out << part
@@ -249,6 +262,29 @@ module Vehicles
       # each spliced back into the full source: "\\A\\d{2} ?(?:X|Y)\\z" gives
       # ["\\A\\d{2} ?X\\z", "\\A\\d{2} ?Y\\z"]. Empty when there is no such
       # group, when it is quantified, or when a branch nests another group.
+      # Every non-nested (?:...) group expanded — an alternation into its
+      # branches, an optional group "(?:...)?" into present and absent — until
+      # none is left: "\\A(?:ET|FN)[- ]\\d+(?:-VE)?\\z" gives four plain
+      # sequences. A group with any other quantifier is left as it is (the
+      # source then fails segmentation, as before). Capped at 64 variants.
+      def self.group_expansions(src)
+        return [] if src.nil?
+
+        done = []
+        todo = [ src ]
+        until todo.empty?
+          cur = todo.shift
+          branches = alternation_branches(cur)
+          if branches.empty?
+            done << cur
+          else
+            todo.concat(branches)
+          end
+          return [ src ] if done.size + todo.size > 64
+        end
+        done.uniq
+      end
+
       def self.alternation_branches(src)
         return [] if src.nil?
 
@@ -296,11 +332,19 @@ module Vehicles
             j += 1
           end
         end
-        return [] if j >= chars.size || alts.size < 2
-        return [] if [ "?", "*", "+", "{" ].include?(chars[j + 1])
+        return [] if j >= chars.size
+
+        after = j + 1
+        if chars[after] == "?" && chars[after + 1] != "?"
+          alts << +""
+          after += 1
+        elsif [ "*", "+", "{", "?" ].include?(chars[after])
+          return []
+        end
+        return [] if alts.size < 2
 
         pre = chars[0...start].join
-        post = chars[(j + 1)..].join
+        post = chars[after..].join
         alts.map { |alt| "#{pre}#{alt}#{post}" }
       end
 
