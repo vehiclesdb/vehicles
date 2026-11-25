@@ -201,64 +201,70 @@ module Vehicles
       assert_empty rows.flat_map { |r| r["sources"] } - ids
     end
 
-    # Indonesia: Perpol 7/2021 gives the grammar in
-    # words — region code of 1-2 letters, 1-4 digits, 0-3 series letters — and
-    # four registration codes (CD, CC, CH, RI) that replace the region code.
-    # Serials below are synthetic except the regulation's own examples
-    # (CD 12 5, RI 1).
-    def test_indonesia_loads_matches_and_decodes
-      id = Vehicles.plates(:id)
-      assert_equal 18, id.series.size
+    # Indonesia: Perpol 7/2021 gives the grammar in words — region code of
+    # 1-2 letters, 1-4 digits, 0-3 series letters — and four registration
+    # codes (CD, CC, CH, RI) that replace the region code. Serials below are
+    # synthetic except the regulation's own examples (CD 12 5, RI 1).
+    def id_series_ids(serial)
+      Vehicles.plate(serial, jurisdiction: :id).series.map(&:id)
+    end
+
+    def test_indonesia_loads
+      ids = Vehicles.plates(:id).series.map(&:id)
+      assert_equal 18, ids.size
       %w[id-private-white-2022 id-private-black-1993 id-diplomatic-cd-2006
          id-state-ri-2006 id-trial-tckb-2006 id-crossborder-lbn-2021].each do |sid|
-        assert_includes id.series.map(&:id), sid
+        assert_includes ids, sid
       end
+    end
 
+    def test_indonesia_ordinary_plate_and_region_list
       ordinary = Vehicles.plate("B 1234 ABC", jurisdiction: :id)
       assert_predicate ordinary, :exact?
       assert_predicate ordinary, :strict?
       assert_includes ordinary.series.map(&:id), "id-private-white-2022"
       assert_equal "B 1234 ABC", Vehicles.plate("b1234abc", jurisdiction: :id).formatted
-
       # The white plate's strict twin carries the closed region-code list
-      # (Lampiran A + the 2024 Papua codes): an unassigned code is not a
-      # current ordinary plate, while a 2024 code is.
-      refute_includes Vehicles.plate("XQ 1234 AB", jurisdiction: :id).series.map(&:id), "id-private-white-2022"
-      assert_includes Vehicles.plate("PG 1234 AB", jurisdiction: :id).series.map(&:id), "id-private-white-2022"
+      # (Lampiran A + the 2024 Papua codes).
+      refute_includes id_series_ids("XQ 1234 AB"), "id-private-white-2022"
+      assert_includes id_series_ids("PG 1234 AB"), "id-private-white-2022"
+    end
 
-      assert_includes Vehicles.plate("CD 12 5", jurisdiction: :id).series.map(&:id), "id-diplomatic-cd-2006"
+    def test_indonesia_registration_codes_and_class_letters
+      assert_includes id_series_ids("CD 12 5"), "id-diplomatic-cd-2006"
       # 46 is one of the four codes the annex's country table skips.
-      refute_includes Vehicles.plate("CD 46 5", jurisdiction: :id).series.map(&:id), "id-diplomatic-cd-2006"
-      assert_includes Vehicles.plate("RI 1", jurisdiction: :id).series.map(&:id), "id-state-ri-2006"
+      refute_includes id_series_ids("CD 46 5"), "id-diplomatic-cd-2006"
+      assert_includes id_series_ids("RI 1"), "id-state-ri-2006"
+      assert_includes id_series_ids("B 1234 XY"), "id-trial-tckb-2006"
+      refute_includes id_series_ids("B 1234 XZ"), "id-trial-tckb-2006"
+    end
 
-      assert_includes Vehicles.plate("B 1234 XY", jurisdiction: :id).series.map(&:id), "id-trial-tckb-2006"
-      refute_includes Vehicles.plate("B 1234 XZ", jurisdiction: :id).series.map(&:id), "id-trial-tckb-2006"
+    def test_indonesia_press_and_wikipedia_series_are_recall_only
+      { "B 1234 ZZH" => "id-special-zz-2023", "RI 5-1" => "id-state-ri-subnumbered-2024" }.each do |serial, sid|
+        series = Vehicles.plate(serial, jurisdiction: :id).series.find { |s| s.id == sid }
+        refute_nil series, serial
+        refute_predicate series, :strict?
+      end
+    end
 
-      zz = Vehicles.plate("B 1234 ZZH", jurisdiction: :id).series.find { |s| s.id == "id-special-zz-2023" }
-      refute_nil zz
-      refute_predicate zz, :strict? # the ZZ letters are press-sourced, not in the regulation
-
+    def test_indonesia_region_codes_table
       regions = Plates.decode_table("id-region-codes")
       assert_equal 57, regions["codes"].size
       yogya = regions["codes"].find { |r| r["code"] == "AB" }
       assert_equal "DI Yogyakarta", yogya["province"]
       assert_includes yogya["areas_printed"], "Kab. Sleman"
-      assert_equal %w[PY PS PT PG], regions["post_annex_codes"].map { |r| r["code"] }
+      assert_equal(%w[PY PS PT PG], regions["post_annex_codes"].map { |r| r["code"] })
+      # Secondary tier (Wikipedia, PRD-PLATES §4): per-regency suffix letters.
+      jakarta = regions["sub_area_suffixes"]["by_code"]["B"]["four_wheel_plus"]
+      assert_equal(%w[D** S**], jakarta.find { |r| r["area"] == "Jakarta Selatan" }["letters"])
+    end
 
+    def test_indonesia_diplomatic_and_service_tables
       diplomatic = Plates.decode_table("id-diplomatic-codes")
       assert_equal 130, diplomatic["codes"].size
       assert_equal "US", diplomatic["codes"][12]["iso"]
       assert_equal "NO", diplomatic["codes"][19]["iso"] # quoted: a bare NO loads as false
-
-      # Secondary-tier (Wikipedia, PRD-PLATES §4) additions: suffix letters,
-      # a recall-only RI sub-number series, and the service-code table.
-      jaksel = regions["sub_area_suffixes"]["by_code"]["B"]["four_wheel_plus"].find { |r| r["area"] == "Jakarta Selatan" }
-      assert_equal %w[D** S**], jaksel["letters"]
-      ri = Vehicles.plate("RI 5-1", jurisdiction: :id).series.find { |s| s.id == "id-state-ri-subnumbered-2024" }
-      refute_nil ri
-      refute_predicate ri, :strict?
-      service = Plates.decode_table("id-service-codes")
-      assert_equal "RFS", service["rf_letters"]["rows"].first["letters"]
+      assert_equal "RFS", Plates.decode_table("id-service-codes")["rf_letters"]["rows"].first["letters"]
     end
 
     # Regression net for format_serial. The fixture holds, for every series
@@ -302,14 +308,13 @@ module Vehicles
     # order (standard first, then class, then period start), explicitly, so
     # `best` is the same on every run and every Ruby.
     def test_match_ties_follow_jurisdiction_series_order
-      juris = Vehicles.plates(:id)
-      order = juris.series.each_with_index.to_h { |s, i| [ s.id, i ] }
+      order = Vehicles.plates(:id).series.map(&:id)
       match = Vehicles.plate("B 1234 ABC", jurisdiction: :id)
       tied = match.hits.select { |h| h.exact? && h.series.strict? }.map { |h| h.series.id }
       assert_operator tied.size, :>=, 5
-      assert_equal tied.sort_by { |id| order.fetch(id) }, tied
+      assert_equal tied.sort_by { |id| order.index(id) }, tied
       assert_equal tied.first, match.best.id
-      assert_equal match.series.map(&:id), Vehicles.plate("B 1234 ABC", jurisdiction: :id).series.map(&:id)
+      assert_equal match.series.map(&:id), id_series_ids("B 1234 ABC")
     end
   end
 end

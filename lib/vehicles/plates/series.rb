@@ -172,6 +172,7 @@ module Vehicles
           out = +""
           m.captures.each_with_index do |part, i|
             next if part.empty?
+
             out << issued_separators[i - 1] if i.positive? && !out.empty?
             out << part
           end
