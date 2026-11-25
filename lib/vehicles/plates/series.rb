@@ -50,6 +50,23 @@ module Vehicles
         @recall_lenient_regexp = @regex_strict && compile(self.class.strip_separators(@regex))
         segments, separators = self.class.segment_separators(@regex_strict || @regex)
         @issued_separators = (separators || []).freeze
+        # Repair readings, used ONLY when the display-pattern walk produced a
+        # string the regex rejects (see format_serial). They differ from the
+        # issued reading in two ways: a regex whose separators sit inside an
+        # alternation group (nl-export's union of sidecodes, tr-standard-2014's
+        # three letter counts) is split per branch, and a separator class
+        # prints the separator the display pattern shows when the class
+        # allows it (us-id "[- ]" under "9L 999L" prints a space).
+        prefer = @display_pattern ? (@display_pattern.chars & [ " ", "-", "·", "." ]) : []
+        sources = self.class.alternation_branches(@regex_strict || @regex)
+        sources = [ @regex_strict || @regex ].compact if sources.empty?
+        @repair_readings = sources.filter_map do |src|
+          segs, seps = self.class.segment_separators(src, prefer: prefer, balanced: true)
+          next unless segs
+
+          [ compile("\\A(#{segs.join(')(')})\\z"),
+            compile("\\A(#{segs.map { |seg| self.class.lazy(seg) }.join(')(')})\\z"), seps.freeze ]
+        end.freeze
         @issued_regexp = segments && compile("\\A(#{segments.join(')(')})\\z")
         # The same segmentation with every quantifier lazy. When the greedy
         # and lazy readings of a serial split it differently, the groups are
@@ -158,6 +175,9 @@ module Vehicles
           # different shape (ID "BL1234AB" against "L 9999 LLL" walked to
           # "B L123 4AB"), and that must fall through to the regex split.
           return out.freeze if @pattern_check_regexp.nil? || @pattern_check_regexp.match?(out)
+
+          repaired = repair_format(serial)
+          return repaired if repaired
         end
 
         # Length mismatch: the pattern is one shape of a variable family —
@@ -166,22 +186,26 @@ module Vehicles
         # sliced into "M1-234L-A").
         if issued_regexp && (m = issued_regexp.match(serial)) &&
             m.captures.size == issued_separators.size + 1
-          # An optional group that matched nothing prints nothing, and
-          # neither does the separator in front of it (ID "DK1" is "DK 1",
-          # not "DK 1 "). A leading empty group drops the separator after it.
-          out = +""
-          m.captures.each_with_index do |part, i|
-            next if part.empty?
-
-            out << issued_separators[i - 1] if i.positive? && !out.empty?
-            out << part
-          end
-          return out.freeze
+          return self.class.join_groups(m.captures, issued_separators)
         end
 
         # Neither path can know — unformatted is honest, misplaced
         # separators are not.
         serial.dup.freeze
+      end
+
+      # The repair reading for a serial the pattern walk mis-split: format
+      # from the one reading that splits it unambiguously; nil when none or
+      # several do (the caller then returns the serial as stored).
+      def repair_format(serial)
+        printed = @repair_readings.filter_map do |greedy, lazy, seps|
+          (g = greedy&.match(serial)) or next
+          l = lazy&.match(serial)
+          next if l.nil? || l.captures != g.captures || g.captures.size != seps.size + 1
+
+          self.class.join_groups(g.captures, seps)
+        end.uniq
+        printed.first if printed.size == 1
       end
 
       # Tokens that read as "a separator" when they make up a whole
@@ -207,7 +231,85 @@ module Vehicles
       # source is nil, has no separators, or segments in a shape the
       # reconstruction cannot trust (empty segment, capturing groups that
       # would shift the positional captures).
-      def self.segment_separators(src)
+      # Rejoin captured groups with their separators. An optional group that
+      # matched nothing prints nothing, and neither does the separator in
+      # front of it (ID "DK1" is "DK 1", not "DK 1 ").
+      def self.join_groups(captures, separators)
+        out = +""
+        captures.each_with_index do |part, i|
+          next if part.empty?
+
+          out << separators[i - 1] if i.positive? && !out.empty?
+          out << part
+        end
+        out.freeze
+      end
+
+      # The branches of the FIRST non-nested alternation group in a regex,
+      # each spliced back into the full source: "\\A\\d{2} ?(?:X|Y)\\z" gives
+      # ["\\A\\d{2} ?X\\z", "\\A\\d{2} ?Y\\z"]. Empty when there is no such
+      # group, when it is quantified, or when a branch nests another group.
+      def self.alternation_branches(src)
+        return [] if src.nil?
+
+        chars = src.chars
+        i = 0
+        while i < chars.size
+          if chars[i] == "\\"
+            i += 2
+            next
+          end
+          if chars[i] == "["
+            i += 1 while i < chars.size && chars[i] != "]"
+            i += 1
+            next
+          end
+          break if chars[i, 3].join == "(?:"
+
+          i += 1
+        end
+        return [] if i >= chars.size
+
+        start = i
+        j = i + 3
+        alts = [ +"" ]
+        while j < chars.size
+          ch = chars[j]
+          case ch
+          when "\\"
+            alts.last << ch << chars[j + 1].to_s
+            j += 2
+          when "["
+            k = j
+            k += 1 while k < chars.size && chars[k] != "]"
+            alts.last << chars[j..k].join
+            j = k + 1
+          when "("
+            return []
+          when "|"
+            alts << +""
+            j += 1
+          when ")"
+            break
+          else
+            alts.last << ch
+            j += 1
+          end
+        end
+        return [] if j >= chars.size || alts.size < 2
+        return [] if [ "?", "*", "+", "{" ].include?(chars[j + 1])
+
+        pre = chars[0...start].join
+        post = chars[(j + 1)..].join
+        alts.map { |alt| "#{pre}#{alt}#{post}" }
+      end
+
+      def self.balanced_parens?(src)
+        parens = src.delete("^()")
+        parens.count("(") == parens.count(")")
+      end
+
+      def self.segment_separators(src, prefer: [], balanced: false)
         return [ nil, nil ] if src.nil?
 
         body = src.sub('\A', "").sub('\z', "")
@@ -250,8 +352,8 @@ module Vehicles
             content = chars[(i + 1)...closing].join
             tokens = content.scan(/\\.|./m)
             if tokens.any? && tokens.all? { |t| SEPARATOR_TOKENS.include?(t) }
-              first = tokens.first
-              printed = first.start_with?("\\") ? (first[1] == "s" ? " " : first[1]) : first
+              members = tokens.map { |tok| tok.start_with?("\\") ? (tok[1] == "s" ? " " : tok[1]) : tok }
+              printed = (prefer & members).first || members.first
               i = closing + 1
               i += 1 if [ "?", "*" ].include?(chars[i])
               emit.call(printed)
@@ -277,6 +379,9 @@ module Vehicles
         # A capturing group inside a segment would shift the positional
         # captures the reconstruction indexes by — bail to the fallback.
         return [ nil, nil ] if segments.any? { |s| s.match?(/\((?!\?)/) }
+        # A separator inside a group splits the group across segments
+        # ("(?:[A-Z]{2}" | "\\d{2}|..."): the result is not a sequence.
+        return [ nil, nil ] if balanced && !segments.all? { |s| balanced_parens?(s) }
 
         [ segments, separators ]
       end

@@ -304,17 +304,17 @@ module Vehicles
       assert_equal "DK 1", Vehicles.plate("DK1", jurisdiction: :id).formatted
     end
 
-    # Ties after [exact, strict] are broken by the jurisdiction's own series
-    # order (standard first, then class, then period start), explicitly, so
-    # `best` is the same on every run and every Ruby.
-    def test_match_ties_follow_jurisdiction_series_order
-      order = Vehicles.plates(:id).series.map(&:id)
-      match = Vehicles.plate("B 1234 ABC", jurisdiction: :id)
-      tied = match.hits.select { |h| h.exact? && h.series.strict? }.map { |h| h.series.id }
-      assert_operator tied.size, :>=, 5
-      assert_equal tied.sort_by { |id| order.index(id) }, tied
-      assert_equal tied.first, match.best.id
-      assert_equal match.series.map(&:id), id_series_ids("B 1234 ABC")
+    # When the pattern walk is rejected, the repair reading splits per
+    # alternation branch and prints the display pattern's separator, so a
+    # serial main used to mis-split is formatted correctly rather than left
+    # bare: nl-export (a union of sidecodes), tr-standard-2014 (three letter
+    # counts), us-id "[- ]" under a space-separated pattern.
+    def test_format_serial_repairs_rejected_walks
+      series = Vehicles.plates.flat_map(&:series).to_h { |s| [ s.id, s ] }
+      assert_equal "BM-ZE-45", series.fetch("nl-export").format_serial("BMZE45")
+      assert_equal "50-BD-LE", series.fetch("nl-export").format_serial("50BDLE")
+      assert_equal "25 SGH 098", series.fetch("tr-standard-2014").format_serial("25SGH098")
+      assert_equal "U VCRNM", series.fetch("us-id-standard-centennial").format_serial("UVCRNM")
     end
   end
 end

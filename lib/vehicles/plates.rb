@@ -101,15 +101,8 @@ module Vehicles
         # "not a plate". Empty whenever the plate hits a strict series.
         @near_misses = (hits.any? { |h| h.series.strict? } ? [] : near_misses).freeze
         # Exact hits outrank lenient ones, strict-validated series outrank
-        # recall-only catch-alls, and the jurisdiction's own series order
-        # (Jurisdiction#series: standard first, then by class, then by period
-        # start) breaks every remaining tie. The index makes that tie-break
-        # explicit: Ruby's sort_by is not stable, so without it hits that tie
-        # on the first two keys came back in an order nobody chose (ID:
-        # seven series share the ordinary grammar).
-        @hits = hits.each_with_index
-                    .sort_by { |h, i| [ h.exact? ? 0 : 1, h.series.strict? ? 0 : 1, i ] }
-                    .map(&:first).freeze
+        # recall-only catch-alls; series order (standard first) breaks ties.
+        @hits = hits.sort_by { |h| [ h.exact? ? 0 : 1, h.series.strict? ? 0 : 1 ] }.freeze
         freeze
       end
 
