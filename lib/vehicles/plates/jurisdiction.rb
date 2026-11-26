@@ -22,9 +22,35 @@ module Vehicles
         @charset        = (raw["charset_defaults"] || {}).freeze
         @homoglyph_fold = self.class.homoglyph_fold(raw.dig("script", "homoglyph_map"))
         @fold_regexp    = Regexp.union(@homoglyph_fold.keys) unless @homoglyph_fold.empty?
-        @series         = (raw["series"] || []).map { |entry| Series.new(entry) }
-          .sort_by { |s| [ s.klass == "standard" ? 0 : 1, s.klass, s.period["start"] || 0 ] }.freeze
+        @series         = (raw["series"] || []).each_with_index
+          .map { |entry, i| [ Series.new(entry), i ] }
+          .sort_by { |s, i| self.class.series_rank(s, i) }
+          .map(&:first).freeze
         freeze
+      end
+
+      # The year "ended" is judged against: read ONCE, in UTC, when the gem
+      # loads. A long-running process therefore ranks the same way all day
+      # and all year until it restarts, rather than flipping at midnight on
+      # 1 January, and two machines agree whatever their local time zone.
+      RANKING_YEAR = Time.now.utc.year
+
+      # Standard class first, then by class; within a class a series still
+      # issued before an ended one, then earliest start, then the data file's
+      # own order. The file index makes the order total: sort_by is not
+      # stable, so ties used to fall out in an order nobody chose.
+      def self.series_rank(series, index)
+        [ series.klass == "standard" ? 0 : 1, series.klass, ended?(series) ? 1 : 0, series.period["start"] || 0, index ]
+      end
+
+      # Ended means marked `ended: true`, or an end year before RANKING_YEAR.
+      # A future end year (jp-figure-expo2027: end 2027) is still being issued.
+      def self.ended?(series)
+        period = series.period
+        return true if period["ended"] == true
+
+        finish = period["end"]
+        finish.is_a?(Integer) && finish < RANKING_YEAR
       end
 
       # Input as the dataset spells it. Where a jurisdiction prints letters of

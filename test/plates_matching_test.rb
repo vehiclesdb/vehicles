@@ -205,5 +205,57 @@ module Vehicles
       assert_includes Vehicles.plate("224-7B", jurisdiction: :cn).series.map(&:id), "cn-consulate-car-2018"
       refute_predicate Vehicles.plate("2247O", jurisdiction: :cn), :strict?
     end
+
+    # Hit ranking (fix/plates-best-ordering-by-class): standard class first,
+    # within a class a still-issued series before an ended one, then start,
+    # then file order. sort_by is not stable, so ties used to be arbitrary.
+    def test_best_prefers_the_still_issued_series_within_a_class
+      assert_equal "id-private-white-2022", Vehicles.plate("B 1234 ABC", jurisdiction: :id).best.id
+      assert_equal "cn-small-car-1992", Vehicles.plate("AF0236", jurisdiction: :cn).best.id
+    end
+
+    def test_best_is_deterministic
+      %w[AF0236 A0006 B1234ABC].each do |typed|
+        juris = typed.start_with?("B") ? :id : :cn
+        ids = Array.new(5) { Vehicles.plate(typed, jurisdiction: juris).series.map(&:id) }
+
+        assert_equal 1, ids.uniq.size, typed
+      end
+    end
+
+    def test_formatted_follows_the_series_the_input_is_typed_as
+      # Typed as a matching series prints it: keep that printing.
+      assert_equal "BO 86-87", Vehicles.plate("BO 86-87", jurisdiction: :si).formatted
+      assert_equal "UVCRNM", Vehicles.plate("UVCRNM", jurisdiction: :"us-id").formatted
+      # Typed loosely: `best`'s printing, as before.
+      assert_equal "1234 BCD", Vehicles.plate("1234bcd", jurisdiction: :es).formatted
+      assert_nil Vehicles.plate("BO 86-87", jurisdiction: :si).suggestion
+    end
+
+    # A future end year is still being issued; ended means `ended: true` or an
+    # end year before the year read at load (Jurisdiction::RANKING_YEAR).
+    def test_ended_reads_the_end_year_against_the_load_year
+      jp = Vehicles.plates(:jp).series.to_h { |s| [s.id, s] }
+      cn = Vehicles.plates(:cn).series.to_h { |s| [s.id, s] }
+
+      refute Plates::Jurisdiction.ended?(jp.fetch("jp-figure-national-2022")), "end 2027, still issued"
+      refute Plates::Jurisdiction.ended?(jp.fetch("jp-figure-expo2027")), "end 2027, still issued"
+      assert Plates::Jurisdiction.ended?(cn.fetch("cn-embassy-car-1992")), "end 2018"
+    end
+
+    # Cyrillic input is folded (#30) before matching, with this ordering too.
+    def test_cyrillic_input_still_matches_with_the_ordering
+      ua = Vehicles.plate("АА 1234 ВВ", jurisdiction: :ua)
+
+      assert_predicate ua, :strict?
+      assert_equal "ua-standard-2015", ua.best.id
+      assert_equal "AA 1234 BB", ua.formatted
+
+      ru = Vehicles.plate("А 123 ВС 77", jurisdiction: :ru)
+
+      assert_predicate ru, :strict?
+      assert_equal "ru-standard-1994", ru.best.id
+      assert_equal "A 123 BC 77", ru.formatted
+    end
   end
 end
