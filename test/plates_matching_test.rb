@@ -149,5 +149,63 @@ module Vehicles
 
       refute_predicate trailer, :passenger?
     end
+
+    # China, verified against GA 36-2018 and its two amendments (dataset
+    # plates/cn-verification). Inputs are the Latin+digit remainder a consumer
+    # matches after splitting the Han characters off; serials are the
+    # standard's own specimens or made up.
+    def test_china_new_energy_letter_positions
+      # 表 6 (as amended 2026-02-28): small NEV, letter FIRST, from D A B C E
+      # P Q R S T / F G H J K L M N, second position letter or digit.
+      %w[AD12345 AF12345 ADF1234 AP12345 AN12345].each do |typed|
+        match = Vehicles.plate(typed, jurisdiction: :cn)
+        assert_predicate match, :strict?, typed
+        assert_equal "cn-nev-small-2016", match.best.id, typed
+      end
+      # 表 5: large NEV, letter SIXTH, from D A B C E F G H J K only.
+      assert_equal "cn-nev-large-2016", Vehicles.plate("A12345D", jurisdiction: :cn).best.id
+      assert_equal "cn-nev-large-2016", Vehicles.plate("A12345K", jurisdiction: :cn).best.id
+      # Not NEV grammar: an unassigned first letter, I or O anywhere, the
+      # small-plate letters (L, P) in the large plate's last position.
+      %w[AU12345 AI12345 AD1234O A12345L A12345P].each do |typed|
+        refute_predicate Vehicles.plate(typed, jurisdiction: :cn), :strict?, typed
+      end
+    end
+
+    def test_china_four_and_five_position_serials
+      # 表 4: at most two letters anywhere in five positions (sixteen
+      # combinations since GA 36-2014, eleven before) — 1+4 and 3+5 are new.
+      %w[AF0236 AF02G6 A12F4G A1F34G].each do |typed|
+        match = Vehicles.plate(typed, jurisdiction: :cn)
+        assert_predicate match, :strict?, typed
+        assert_equal "cn-small-car-1992", match.best.id, typed
+      end
+      refute_predicate Vehicles.plate("AFGH36", jurisdiction: :cn), :strict?
+      refute_predicate Vehicles.plate("AO0236", jurisdiction: :cn), :strict?
+      # Four-position classes (挂 学 警 港/澳 take the fifth cell), now strict.
+      four = Vehicles.plate("AF023", jurisdiction: :cn)
+      assert_predicate four, :strict?
+      assert_includes four.series.map(&:id), "cn-trailer-1992"
+      assert_includes four.series.map(&:id), "cn-police-car-2007"
+      assert_includes Vehicles.plate("ZF023", jurisdiction: :cn).series.map(&:id), "cn-hkmacau-crossborder-2007"
+    end
+
+    def test_china_diplomatic_forms_by_era
+      # 1992-2018 使014·578 and 2018 224·578使 share the digit shape; the
+      # current form outranks the ended one.
+      match = Vehicles.plate("224 578", jurisdiction: :cn)
+      assert_predicate match, :strict?
+      assert_equal "cn-embassy-car-2018", match.best.id
+      assert_includes match.series.map(&:id), "cn-embassy-car-1992"
+      # 2018 consulate: 3-digit mission number + digit + digit-or-letter.
+      assert_equal "cn-consulate-car-2018", Vehicles.plate("224-7B", jurisdiction: :cn).best.id
+      refute_predicate Vehicles.plate("2247O", jurisdiction: :cn), :strict?
+    end
+
+    def test_hits_prefer_current_series_then_file_order
+      # Ties (strict, exact) used to come back in arbitrary order.
+      assert_equal "cn-small-car-1992", Vehicles.plate("AF0236", jurisdiction: :cn).best.id
+      assert_equal "cn-driving-school-car-1992", Vehicles.plate("A0006", jurisdiction: :cn).best.id
+    end
   end
 end
