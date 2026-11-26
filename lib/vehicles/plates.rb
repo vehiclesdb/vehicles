@@ -102,11 +102,7 @@ module Vehicles
         @near_misses = (hits.any? { |h| h.series.strict? } ? [] : near_misses).freeze
         # Exact hits outrank lenient ones, strict-validated series outrank
         # recall-only catch-alls; series order (standard first) breaks ties.
-        # The index makes that tie-break real: sort_by is not stable, so
-        # without it two strict exact hits came back in arbitrary order.
-        @hits = hits.each_with_index
-                    .sort_by { |h, i| [ h.exact? ? 0 : 1, h.series.strict? ? 0 : 1, i ] }
-                    .map(&:first).freeze
+        @hits = hits.sort_by { |h| [ h.exact? ? 0 : 1, h.series.strict? ? 0 : 1 ] }.freeze
         freeze
       end
 
