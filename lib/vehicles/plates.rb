@@ -64,6 +64,7 @@ module Vehicles
     def match(input, jurisdiction:)
       juris = jurisdiction(jurisdiction)
       typed = input.to_s.upcase.strip
+      typed = juris.fold(typed) if juris
       canon = typed.gsub(SEPARATORS, "")
       return Match.new(input: input.to_s, jurisdiction: juris, canon: canon, hits: []) if juris.nil? || canon.empty?
 
