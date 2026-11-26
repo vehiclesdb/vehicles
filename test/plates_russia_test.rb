@@ -78,7 +78,10 @@ module Vehicles
       assert_equal "г. Москва", by_code["777"[1..]]["subject"]
       assert_equal %w[50 90], by_code["50"]["codes"]
       assert_equal %w[20 91], (1..99).map { |i| format("%02d", i) } - by_code.keys
-      perm = regions.find { |r| r["subject"] == "Пермский край" }
+    end
+
+    def test_region_code_history_survives_reassignment
+      perm = Plates.decode_table("ru-regions")["regions"].find { |r| r["subject"] == "Пермский край" }
 
       assert_equal({ "code" => "81", "from" => 2017, "to" => 2020 },
                    perm["code_history"].find { |h| h["code"] == "81" }.slice("code", "from", "to"))
