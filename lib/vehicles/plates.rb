@@ -131,6 +131,7 @@ module Vehicles
       # printed even if `best` is the standard series ("U VCRNM").
       def formatted
         typed = input.to_s.upcase.strip
+        typed = jurisdiction.fold(typed) if jurisdiction
         as_typed = hits.lazy.map { |h| h.series.format_serial(canon) }.find { |f| f == typed }
         as_typed || best&.format_serial(canon)
       end

@@ -232,5 +232,30 @@ module Vehicles
       assert_nil Vehicles.plate("BO 86-87", jurisdiction: :si).suggestion
     end
 
+    # A future end year is still being issued; ended means `ended: true` or an
+    # end year before the year read at load (Jurisdiction::RANKING_YEAR).
+    def test_ended_reads_the_end_year_against_the_load_year
+      jp = Vehicles.plates(:jp).series.to_h { |s| [s.id, s] }
+      cn = Vehicles.plates(:cn).series.to_h { |s| [s.id, s] }
+
+      refute Plates::Jurisdiction.ended?(jp.fetch("jp-figure-national-2022")), "end 2027, still issued"
+      refute Plates::Jurisdiction.ended?(jp.fetch("jp-figure-expo2027")), "end 2027, still issued"
+      assert Plates::Jurisdiction.ended?(cn.fetch("cn-embassy-car-1992")), "end 2018"
+    end
+
+    # Cyrillic input is folded (#30) before matching, with this ordering too.
+    def test_cyrillic_input_still_matches_with_the_ordering
+      ua = Vehicles.plate("АА 1234 ВВ", jurisdiction: :ua)
+
+      assert_predicate ua, :strict?
+      assert_equal "ua-standard-2015", ua.best.id
+      assert_equal "AA 1234 BB", ua.formatted
+
+      ru = Vehicles.plate("А 123 ВС 77", jurisdiction: :ru)
+
+      assert_predicate ru, :strict?
+      assert_equal "ru-standard-1994", ru.best.id
+      assert_equal "A 123 BC 77", ru.formatted
+    end
   end
 end
