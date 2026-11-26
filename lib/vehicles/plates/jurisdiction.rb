@@ -20,9 +20,20 @@ module Vehicles
         @authority_url  = raw.dig("authority", "url")
         @binding        = raw["binding"]
         @charset        = (raw["charset_defaults"] || {}).freeze
-        @series         = (raw["series"] || []).map { |entry| Series.new(entry) }
-          .sort_by { |s| [ s.klass == "standard" ? 0 : 1, s.klass, s.period["start"] || 0 ] }.freeze
+        @series         = (raw["series"] || []).each_with_index
+          .map { |entry, i| [ Series.new(entry), i ] }
+          .sort_by { |s, i| self.class.series_rank(s, i) }
+          .map(&:first).freeze
         freeze
+      end
+
+      # Standard class first, then by class; within a class a series still
+      # issued before an ended one, then earliest start, then the data file's
+      # own order. The file index makes the order total: sort_by is not
+      # stable, so ties used to fall out in an order nobody chose.
+      def self.series_rank(series, index)
+        ended = series.period["end"] || series.period["ended"]
+        [ series.klass == "standard" ? 0 : 1, series.klass, ended ? 1 : 0, series.period["start"] || 0, index ]
       end
 
       def to_s = code

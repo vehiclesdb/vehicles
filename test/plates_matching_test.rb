@@ -149,5 +149,31 @@ module Vehicles
 
       refute_predicate trailer, :passenger?
     end
+
+    # Hit ranking (fix/plates-best-ordering-by-class): standard class first,
+    # within a class a still-issued series before an ended one, then start,
+    # then file order. sort_by is not stable, so ties used to be arbitrary.
+    def test_best_prefers_the_still_issued_series_within_a_class
+      assert_equal "id-private-white-2022", Vehicles.plate("B 1234 ABC", jurisdiction: :id).best.id
+      assert_equal "cn-small-car-1992", Vehicles.plate("AF0236", jurisdiction: :cn).best.id
+    end
+
+    def test_best_is_deterministic
+      %w[AF0236 A0006 B1234ABC].each do |typed|
+        juris = typed.start_with?("B") ? :id : :cn
+        ids = Array.new(5) { Vehicles.plate(typed, jurisdiction: juris).series.map(&:id) }
+
+        assert_equal 1, ids.uniq.size, typed
+      end
+    end
+
+    def test_formatted_follows_the_series_the_input_is_typed_as
+      # Typed as a matching series prints it: keep that printing.
+      assert_equal "BO 86-87", Vehicles.plate("BO 86-87", jurisdiction: :si).formatted
+      assert_equal "UVCRNM", Vehicles.plate("UVCRNM", jurisdiction: :"us-id").formatted
+      # Typed loosely: `best`'s printing, as before.
+      assert_equal "1234 BCD", Vehicles.plate("1234bcd", jurisdiction: :es).formatted
+      assert_nil Vehicles.plate("BO 86-87", jurisdiction: :si).suggestion
+    end
   end
 end

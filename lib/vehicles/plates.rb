@@ -102,7 +102,10 @@ module Vehicles
         @near_misses = (hits.any? { |h| h.series.strict? } ? [] : near_misses).freeze
         # Exact hits outrank lenient ones, strict-validated series outrank
         # recall-only catch-alls; series order (standard first) breaks ties.
-        @hits = hits.sort_by { |h| [ h.exact? ? 0 : 1, h.series.strict? ? 0 : 1 ] }.freeze
+        # The index makes that tie-break real (sort_by is not stable).
+        @hits = hits.each_with_index
+                    .sort_by { |h, i| [ h.exact? ? 0 : 1, h.series.strict? ? 0 : 1, i ] }
+                    .map(&:first).freeze
         freeze
       end
 
@@ -119,8 +122,16 @@ module Vehicles
 
       # The serial formatted the way the best-matching series prints it on
       # the physical plate — "1234XYZ" typed, "1234 XYZ" issued.
+      #
+      # When the input as typed is exactly how one of the matching series
+      # prints it, that series' printing wins over `best`'s: "BO 86-87" is a
+      # Slovenian 2001 plate as printed even if `best` is a series that prints
+      # it without separators, and "UVCRNM" is an Idaho personalised plate as
+      # printed even if `best` is the standard series ("U VCRNM").
       def formatted
-        best&.format_serial(canon)
+        typed = input.to_s.upcase.strip
+        as_typed = hits.lazy.map { |h| h.series.format_serial(canon) }.find { |f| f == typed }
+        as_typed || best&.format_serial(canon)
       end
 
       # Only when the user's punctuation was off: the "did you mean" string.
